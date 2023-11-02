@@ -1,0 +1,8 @@
+[24-May-2023 23:41:59 UTC] PHP Fatal error:  Uncaught Exception: You cannot run this script directly, it's a fixture for TestHttpServer. in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Test/Fixtures/web/index.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Test/Fixtures/web/index.php on line 5
+[25-May-2023 18:18:59 UTC] PHP Fatal error:  Uncaught Exception: You cannot run this script directly, it's a fixture for TestHttpServer. in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Test/Fixtures/web/index.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Test/Fixtures/web/index.php on line 5

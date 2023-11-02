@@ -77,8 +77,8 @@ class ArchiveController extends Controller
 
         if (!Gate::denies('manage-users')) {
             //session administrateur donc on affiche tous les commandes
-            $total = DB::table('commandes')->where('deleted_at', NULL)->whereDate('updated_at', '<', now()->subMonth())->whereIn('commandes.statut', ['livré', 'Retour en stock'])->count();
-            $commandes = DB::table('commandes')->where('deleted_at', NULL)->whereDate('updated_at', '<', now()->subMonth())->whereIn('commandes.statut', ['livré', 'Retour en stock'])->orderBy('updated_at', 'DESC')->paginate(10);
+            $total = DB::table('commandes')->where('deleted_at', NULL)->whereDate('updated_at', '<', now()->subMonth())->whereIn('commandes.statut', ['livré', 'Retour en stock', 'Retour', 'Retour'])->count();
+            $commandes = DB::table('commandes')->where('deleted_at', NULL)->whereDate('updated_at', '<', now()->subMonth())->whereIn('commandes.statut', ['livré', 'Retour en stock', 'Retour', 'Retour'])->orderBy('updated_at', 'DESC')->paginate(10);
 
             //dd($clients[0]->id);
         } elseif (!Gate::denies('livreur')) {
@@ -109,8 +109,8 @@ class ArchiveController extends Controller
 
             //dd($clients[0]->id);
         } else {
-            $commandes = DB::table('commandes')->where('deleted_at', NULL)->where('user_id', Auth::user()->id)->whereDate('updated_at', '<', now()->subMonth())->whereIn('commandes.statut', ['livré', 'Retour en stock'])->orderBy('updated_at', 'DESC')->paginate(10);
-            $total = DB::table('commandes')->where('deleted_at', NULL)->where('user_id', Auth::user()->id)->whereDate('updated_at', '<', now()->subMonth())->whereIn('commandes.statut', ['livré', 'Retour en stock'])->count();
+            $commandes = DB::table('commandes')->where('deleted_at', NULL)->where('user_id', Auth::user()->id)->whereDate('updated_at', '<', now()->subMonth())->whereIn('commandes.statut', ['livré', 'Retour en stock', 'Retour'])->orderBy('updated_at', 'DESC')->paginate(10);
+            $total = DB::table('commandes')->where('deleted_at', NULL)->where('user_id', Auth::user()->id)->whereDate('updated_at', '<', now()->subMonth())->whereIn('commandes.statut', ['livré', 'Retour en stock', 'Retour'])->count();
             //dd("salut");
         }
 
@@ -172,7 +172,7 @@ class ArchiveController extends Controller
 
             //dd($commandes->count());
         } else {
-            $commandes->whereIn('commandes.statut', ['livré', 'Retour en stock']);
+            $commandes->whereIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
         }
 
         if ($request->filled('client')) {

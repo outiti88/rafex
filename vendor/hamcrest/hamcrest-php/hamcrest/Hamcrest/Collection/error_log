@@ -1,0 +1,8 @@
+[25-May-2023 16:53:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Collection/IsEmptyTraversable.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Collection/IsEmptyTraversable.php on line 13
+[25-May-2023 16:53:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\FeatureMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Collection/IsTraversableWithSize.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Collection/IsTraversableWithSize.php on line 14

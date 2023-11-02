@@ -95,7 +95,7 @@ class ReclamationController extends Controller
     public function traiter(Request $request, $id)
     {
         $reclamation = Reclamation::findOrFail($id);
-        if (!Gate::denies('edit-users')) {
+        if (!Gate::denies('manage-users')) {
             if ($reclamation->etat == 0) {
                 $reclamation->etat = 1;
             }

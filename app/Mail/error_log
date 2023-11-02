@@ -1,0 +1,40 @@
+[04-May-2023 11:15:14 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Mail\Mailable' not found in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php on line 10
+[23-May-2023 05:10:43 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Mail\Mailable' not found in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php on line 10
+[24-May-2023 11:50:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Mail\Mailable' not found in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php on line 10
+[24-May-2023 12:50:06 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Mail\Mailable' not found in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php on line 10
+[24-May-2023 16:14:46 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Mail\Mailable' not found in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php on line 10
+[12-Jun-2023 20:09:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Mail\Mailable' not found in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php on line 10
+[19-Jun-2023 16:46:02 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Mail\Mailable' not found in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php on line 10
+[27-Jun-2023 14:12:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Mail\Mailable' not found in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php on line 10
+[13-Jul-2023 12:05:45 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Mail\Mailable' not found in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php on line 10
+[10-Aug-2023 13:11:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Mail\Mailable' not found in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Mail/PdfGenerate.php on line 10

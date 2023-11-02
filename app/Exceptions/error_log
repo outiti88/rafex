@@ -1,0 +1,20 @@
+[24-May-2023 11:50:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/socabest/public_html/backOffice/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Exceptions/Handler.php on line 8
+[24-May-2023 12:49:14 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/socabest/public_html/backOffice/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Exceptions/Handler.php on line 8
+[24-May-2023 16:12:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/socabest/public_html/backOffice/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Exceptions/Handler.php on line 8
+[25-Jun-2023 01:13:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/socabest/public_html/backOffice/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Exceptions/Handler.php on line 8
+[24-Jul-2023 13:30:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Exceptions\Handler' not found in /home/socabest/public_html/backOffice/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Exceptions/Handler.php on line 8

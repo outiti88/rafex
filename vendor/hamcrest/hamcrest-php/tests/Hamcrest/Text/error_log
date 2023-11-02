@@ -1,0 +1,36 @@
+[25-May-2023 16:54:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/IsEmptyStringTest.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/IsEmptyStringTest.php on line 4
+[25-May-2023 16:54:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/IsEqualIgnoringCaseTest.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/IsEqualIgnoringCaseTest.php on line 4
+[25-May-2023 16:54:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/IsEqualIgnoringWhiteSpaceTest.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/IsEqualIgnoringWhiteSpaceTest.php on line 4
+[25-May-2023 16:54:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/MatchesPatternTest.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/MatchesPatternTest.php on line 4
+[25-May-2023 16:54:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/StringContainsIgnoringCaseTest.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/StringContainsIgnoringCaseTest.php on line 4
+[25-May-2023 16:54:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/StringContainsInOrderTest.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/StringContainsInOrderTest.php on line 4
+[25-May-2023 16:54:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/StringContainsTest.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/StringContainsTest.php on line 4
+[25-May-2023 16:54:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/StringEndsWithTest.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/StringEndsWithTest.php on line 4
+[25-May-2023 16:54:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/StringStartsWithTest.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Text/StringStartsWithTest.php on line 4

@@ -1,0 +1,4 @@
+[25-May-2023 16:53:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\DiagnosingMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php on line 17

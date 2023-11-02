@@ -1,0 +1,8 @@
+[24-May-2023 21:54:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\Facades\Facade' not found in /home/socabest/public_html/backOffice/vendor/barryvdh/laravel-dompdf/src/Facade.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/barryvdh/laravel-dompdf/src/Facade.php on line 6
+[24-May-2023 21:54:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/socabest/public_html/backOffice/vendor/barryvdh/laravel-dompdf/src/ServiceProvider.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/barryvdh/laravel-dompdf/src/ServiceProvider.php on line 9

@@ -1,0 +1,72 @@
+[25-May-2023 16:53:32 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\DiagnosingMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/AllOf.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/AllOf.php on line 16
+[25-May-2023 16:53:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\ShortcutCombination' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/AnyOf.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/AnyOf.php on line 15
+[25-May-2023 16:53:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/CombinableMatcher.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/CombinableMatcher.php on line 12
+[25-May-2023 16:53:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/DescribedAs.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/DescribedAs.php on line 14
+[25-May-2023 16:53:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\TypeSafeDiagnosingMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/Every.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/Every.php on line 12
+[25-May-2023 16:53:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\FeatureMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/HasToString.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/HasToString.php on line 15
+[25-May-2023 16:53:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/Is.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/Is.php on line 19
+[25-May-2023 16:53:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsAnything.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsAnything.php on line 13
+[25-May-2023 16:53:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\TypeSafeMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsCollectionContaining.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsCollectionContaining.php on line 15
+[25-May-2023 16:53:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsEqual.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsEqual.php on line 14
+[25-May-2023 16:53:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\IsSame' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsIdentical.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsIdentical.php on line 13
+[25-May-2023 16:53:37 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\DiagnosingMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsInstanceOf.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsInstanceOf.php on line 13
+[25-May-2023 16:53:37 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsNot.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsNot.php on line 15
+[25-May-2023 16:53:38 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsNull.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsNull.php on line 13
+[25-May-2023 16:53:38 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsSame.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsSame.php on line 14
+[25-May-2023 16:53:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsTypeOf.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/IsTypeOf.php on line 13
+[25-May-2023 16:53:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/Set.php:22
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/Set.php on line 22
+[25-May-2023 16:53:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\BaseMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/ShortcutCombination.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Core/ShortcutCombination.php on line 12

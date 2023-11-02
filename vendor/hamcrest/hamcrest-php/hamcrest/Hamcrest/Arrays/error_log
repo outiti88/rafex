@@ -1,0 +1,28 @@
+[25-May-2023 16:53:27 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\TypeSafeMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php on line 20
+[25-May-2023 16:53:27 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\TypeSafeMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php on line 15
+[25-May-2023 16:53:28 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\TypeSafeDiagnosingMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInAnyOrder.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInAnyOrder.php on line 14
+[25-May-2023 16:53:28 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\TypeSafeDiagnosingMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInOrder.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInOrder.php on line 14
+[25-May-2023 16:53:29 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\TypeSafeMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingKey.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingKey.php on line 15
+[25-May-2023 16:53:29 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\TypeSafeMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingKeyValuePair.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingKeyValuePair.php on line 16
+[25-May-2023 16:53:29 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\FeatureMatcher' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayWithSize.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayWithSize.php on line 16

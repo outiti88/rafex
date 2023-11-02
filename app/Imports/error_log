@@ -1,0 +1,16 @@
+[24-May-2023 11:50:39 UTC] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\ToModel' not found in /home/socabest/public_html/backOffice/app/Imports/CommandesImport.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Imports/CommandesImport.php on line 13
+[24-May-2023 12:50:06 UTC] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\ToModel' not found in /home/socabest/public_html/backOffice/app/Imports/CommandesImport.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Imports/CommandesImport.php on line 13
+[24-May-2023 16:14:35 UTC] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\ToModel' not found in /home/socabest/public_html/backOffice/app/Imports/CommandesImport.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Imports/CommandesImport.php on line 13
+[03-Sep-2023 05:30:04 UTC] PHP Fatal error:  Uncaught Error: Interface 'Maatwebsite\Excel\Concerns\ToModel' not found in /home/socabest/public_html/backOffice/app/Imports/CommandesImport.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Imports/CommandesImport.php on line 13

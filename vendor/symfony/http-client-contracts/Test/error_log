@@ -1,0 +1,4 @@
+[24-May-2023 18:57:12 UTC] PHP Fatal error:  Uncaught Error: Class 'PHPUnit\Framework\TestCase' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Test/HttpClientTestCase.php:24
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Test/HttpClientTestCase.php on line 24

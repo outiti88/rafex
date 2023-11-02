@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'DashboardController@dash')->name('dashboard');
 
-Route::get('/commandes/{id}/statut', 'CommandeController@changeStatut')->name('commandeStatut')->middleware('can:valide');
+Route::get('/commandes/{id}/statut', 'CommandeController@changeStatut')->name('commandeStatut')->middleware('can:ramassage-commande');
 
-Route::patch('/commandes/{id}/statut', 'CommandeController@statutAdmin')->name('statut.admin')->middleware('can:valide');
+Route::get('/commandes/{commandeId}/relanceByClient', 'CommandeController@relanceCommandeByClient')->name('commandes.relance')->middleware('can:fournisseur');
+
+
+Route::patch('/commandes/{id}/statut', 'CommandeController@statutAdmin')->name('statut.admin')->middleware('can:ramassage-commande');
 
 Route::get('/commandes/{id}/valide', 'CommandeController@retourStock')->name('commande.valideRetour')->middleware('can:manage-users');
 
@@ -37,6 +40,8 @@ Route::get('/order/status/recevoir', 'CommandeController@recevoir')->name('comma
 Route::get('/order/status/recevoir', 'CommandeController@recevoir')->name('commande.recevoir')->middleware('can:manage-users');
 
 Route::get('/order/{commande}/horszone', 'CommandeController@outRange')->name('commande.outRange')->middleware('can:manage-users');
+
+Route::get('/order/{commande}/change', 'CommandeController@change')->name('commande.change')->middleware('can:client-admin');
 
 
 Route::get('/receptions/filter', 'ReceptionController@filter')->name('reception.filter')->middleware('can:gestion-stock');
@@ -75,7 +80,7 @@ Route::post('/caisse', 'CaisseController@store')->name('caisse.store')->middlewa
 Route::post('/reclamation', 'ReclamationController@store')->name('reclamation.store')->middleware('can:fournisseur');
 Route::get('/reclamation', 'ReclamationController@index')->name('reclamation.index')->middleware('can:delete-commande');
 Route::delete('/reclamation', 'ReclamationController@destroy')->name('reclamation.destroy')->middleware('can:delete-commande');
-Route::get('/reclamation/{id}', 'ReclamationController@traiter')->name('reclamation.traiter')->middleware('can:delete-commande');
+Route::get('/reclamation/{id}', 'ReclamationController@traiter')->name('reclamation.traiter')->middleware('can:manage-users');
 Route::get('/filter/reclamation', 'ReclamationController@filter')->name('reclamation.filter')->middleware('can:delete-commande');;
 
 

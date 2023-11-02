@@ -1,20 +1,20 @@
 <header class="topbar" data-navbarbg="skin5">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark" style="border-bottom-style: solid;
-    border-bottom-color: #f7941e;">
+    border-bottom-color: #467a0f;">
         <div class="navbar-header" data-logobg="skin5">
             <!-- ============================================================== -->
             <!-- Logo -->
             <!-- ============================================================== -->
         <a class="navbar-brand" href="{{route('dashboard')}}">
-    
+
                 <span class="logo-text" style="position: relative; left:20px">
- 
+
                 <img src="{{asset('assets/images/logo-light-text.png')}}" style="
                      WIDTH: 110PX;
                  "class="light-logo" alt="homepage" />
                 </span>
             </a>
-      
+
             <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
         </div>
         <!-- ============================================================== -->
@@ -44,36 +44,36 @@
                 @guest
                             <li class="nav-item">
                                 <a style="
-                                color: #f7941e !important;
+                                color: #467a0f !important;
                             " class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a style="
-                                    color: #f7941e !important;
+                                    color: #467a0f !important;
                                 " class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
                         <span class="nbrNotify"><b>{{auth()->user()->unreadNotifications->count()}}</b></span>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic " 
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic "
                                 style="
-                                    color: #f7941e !important;
+                                    color: #467a0f !important;
                                     font-size: 1.5em;"
                                  href="
                                  @can('client')
                                  {{route('inbox.index')}}
-                                 @endcan"    
-                                 @can('delete-users')                           
+                                 @endcan"
+                                 @can('delete-users')
                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                  @endcan
                                  >
-                                <i class="fas fa-bell"></i> 
+                                <i class="fas fa-bell"></i>
                             </a>
                             @can('delete-users')
                                 @unless (auth()->user()->unreadNotifications->isEmpty())
-                                
+
                                     <ul class="dropdown-menu notify-drop" style="width: 300px;
                                         position: absolute;
                                         left: -250px;
@@ -90,16 +90,16 @@
                                             <div class="drop-content" style="
                                             margin: 20px;">
                                                 @foreach (auth()->user()->unreadNotifications as $notification)
-                                                
-                                                
-                                           
-                                            
+
+
+
+
                                                 @if ($notification->type == 'App\Notifications\newCommande')
                                                 <li class="row">
                                                 <a class="hoverNotif" href="{{route('commandes.showFromNotify',['commande' => $notification->data['commande']['id'] ,
                                                     'notification' => $notification->id])}}">
                                                     <div class="col-md-3 col-sm-3 col-xs-3"><div class="notify-img"><img width="35" class="rounded-circle" src="{{$notification->data['user']['image']}}" alt=""></div></div>
-                                                    <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="{{route('admin.users.edit',$notification->data['user']['id'])}}">{{$notification->data['user']['name']}}</a> a ajouté une nouvelle commande. 
+                                                    <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="{{route('admin.users.edit',$notification->data['user']['id'])}}">{{$notification->data['user']['name']}}</a> a ajouté une nouvelle commande.
                                                         <p>N°: <a href="{{route('commandes.showFromNotify',['commande' => $notification->data['commande']['id'] ,
                                                             'notification' => $notification->id])}}">{{$notification->data['commande']['numero']}}</a></p>
                                                         <p class="proile-rating">{{date_format($notification->created_at,"Y/m/d")}}<span> {{date_format($notification->created_at,"H:i:s")}}</span></p>
@@ -111,7 +111,7 @@
                                                 <a class="hoverNotif" href="{{route('reception.showFromNotify',['reception' => $notification->data['reception']['id'] ,
                                                     'notification' => $notification->id])}}">
                                                     <div class="col-md-3 col-sm-3 col-xs-3"><div class="notify-img"><img width="35" class="rounded-circle" src="{{$notification->data['user']['image']}}" alt=""></div></div>
-                                                    <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="{{route('admin.users.edit',$notification->data['user']['id'])}}">{{$notification->data['user']['name']}}</a> a envoyé une reception. 
+                                                    <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="{{route('admin.users.edit',$notification->data['user']['id'])}}">{{$notification->data['user']['name']}}</a> a envoyé une reception.
                                                         <p>Ref°: <a href="{{route('reception.showFromNotify',['reception' => $notification->data['reception']['id'] ,
                                                             'notification' => $notification->id])}}">{{$notification->data['reception']['reference']}}</a></p>
                                                         <p class="proile-rating">{{date_format($notification->created_at,"Y/m/d")}}<span> {{date_format($notification->created_at,"H:i:s")}}</span></p>
@@ -119,12 +119,12 @@
                                                 </a>
                                                 </li>
                                                 @endif
-                                                
-                                            
-                                                
+
+
+
                                                 @endforeach
-                                            
-                                                
+
+
                                             </div>
                                             <div class="notify-drop-footer text-center" style="
                                             padding-top: 15px;
@@ -133,17 +133,17 @@
                                             </div>
                                     </ul>
                                 @endunless
-                            @endcan       
-                    
+                            @endcan
+
                 </li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{{Auth::user()->image}}" alt="user" class="rounded-circle" width="31"></a>
                     <div class="dropdown-menu dropdown-menu-right user-dd animated">
                         <a class="dropdown-item" href="/profil""><i class="ti-user m-r-5 m-l-5"></i>  {{ Auth::user()->name }} </a>
-                        <a class="dropdown-item" href="{{route('inbox.index')}}"><i class="ti-email m-r-5 m-l-5"></i> 
-                            Inbox 
-                            @can('delete-users') 
+                        <a class="dropdown-item" href="{{route('inbox.index')}}"><i class="ti-email m-r-5 m-l-5"></i>
+                            Inbox
+                            @can('delete-users')
                             <span class="badge badge-pill badge-danger">
                                 {{auth()->user()->unreadNotifications->count()}}
                             </span>

@@ -1,0 +1,28 @@
+[25-May-2023 16:54:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayContainingInAnyOrderTest.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayContainingInAnyOrderTest.php on line 6
+[25-May-2023 16:54:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayContainingInOrderTest.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayContainingInOrderTest.php on line 6
+[25-May-2023 16:54:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayContainingKeyTest.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayContainingKeyTest.php on line 6
+[25-May-2023 16:54:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayContainingKeyValuePairTest.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayContainingKeyValuePairTest.php on line 6
+[25-May-2023 16:54:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayContainingTest.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayContainingTest.php on line 6
+[25-May-2023 16:54:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayTest.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayTest.php on line 6
+[25-May-2023 16:54:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayWithSizeTest.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Array/IsArrayWithSizeTest.php on line 6

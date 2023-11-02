@@ -1,170 +1,102 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<title>S'inscrire - Colisade</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-<link rel="icon" type="image/png" sizes="16x16" href="{{url('/assets/images/favicon.png')}}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{url('/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css')}}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{url('/assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css')}}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css"  href="{{url('/css/inscription/css/util.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{url('/css/inscription/css/main.css')}}">
-<!--===============================================================================================-->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png"  href="{{url('/css/inscription/assets/img/apple-icon.png')}}">
+  <link rel="icon" type="image/png"  href="{{url('/css/inscription/assets/img/favicon.png')}}">
+  <title>
+    Cavallo - S'inscrire pour un meilleur service de livraison
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="{{url('/css/inscription/assets/css/nucleo-icons.css')}}" rel="stylesheet" />
+  <link href="{{url('/css/inscription/assets/css/nucleo-svg.css')}}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link rel="stylesheet" type="text/css">
+
+  <link id="pagestyle"  href="{{url('/css/inscription/assets/css/material-dashboard.css?v=3.0.0s')}}" rel="stylesheet" />
 </head>
-<body>
 
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-                <form class="login100-form validate-form" style="position:relative;top:-250px;" method="POST" action="{{ route('register') }}">
-                    @csrf
-					<span class="login100-form-title p-b-34">
-				        Créez votre espace
-					</span>
+<body class="">
+    <main class="main-content  mt-0">
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
+              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('{{url('/css/inscription/assets/img/illustrations/illustration-signup-cavallo.jpg')}}'); background-size: cover;">
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+              <div class="card card-plain">
+                <div class="card-header">
+                  <h4 class="font-weight-bolder">Remplissez le formulaire</h4>
+                  <p class="mb-0">Nous allons vous contacter pour finaliser l'inscription.</p>
+                </div>
+                <div class="card-body">
+                  <form role="form">
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Nom Complet</label>
+                      <input type="text" class="form-control">
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Adresse E-mail</label>
+                      <input type="email" class="form-control">
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Téléphone</label>
+                      <input type="phone" class="form-control">
+                    </div>
+                    <div class="form-check form-check-info text-start ps-0">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                      <label class="form-check-label" for="flexCheckDefault">
+                        J'accepte les <a href="javascript:;" class="text-dark font-weight-bolder">Termes & Conditions</a>
+                      </label>
+                    </div>
+                    <div class="text-center">
+                      <button type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Inscrire</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                  <p class="mb-2 text-sm mx-auto">
+                    Déjà Inscrit?
+                    <a href="/login" class="text-primary text-gradient font-weight-bold">Se Connecter</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!--   Core JS Files   -->
+  <script src="{{url('/css/inscription/assets/js/core/popper.min.js')}}"></script>
+  <script src="{{url('/css/inscription/assets/js/core/bootstrap.min.js')}}"></script>
+  <script src="{{url('/css/inscription/assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
+  <script src="{{url('/css/inscription/assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
 
-					<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="">
-						<input id="name" class="input100  @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus type="text" placeholder="Nom Complet">
-                        <span class="focus-input100"></span>
-                        @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-					</div>
-					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Vérifiez votre email">
-                        <input id="storeName" class="input100" type="text" placeholder="Nom du store"  name="storeName" value="{{ old('storeName') }}" required>
-						<span class="focus-input100"></span>
-					</div>
-                    <div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="" style="width: 100%;">
-						<input class="input100 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" type="email" placeholder="Email">
-                        <span class="focus-input100"></span>
-                        @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-					</div>
-                    <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="">
-						<input id="cin" class="input100" type="text" placeholder="N° CIN"  name="cin" value="{{ old('cin') }}">
-						<span class="focus-input100"></span>
-					</div>
-                    <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="">
-						<input id="first-name" class="input100" value="{{ old('rib') }}" type="text" name="rib" placeholder="RIB">
-						<span class="focus-input100"></span>
-					</div>
-					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="">
-                                <input placeholder="Votre ville"  class="input100" list="brow" name="ville" value="{{ old('ville') }}" required>
-                                <datalist  id="brow">
-                                  <@foreach ($villes as $ville)
-                                  <option value="{{$ville->name}}" class="rounded-circle">
-                                      {{$ville->name}}
-                                  </option>
-                                  @endforeach
-                                </datalist>
-                        <span class="focus-input100"></span>
-                        @error('ville')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-					</div>
-                    <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="">
-						<input id="first-name" class="input100" type="tel"  name="telephone" value="{{ old('telephone') }}" placeholder="Téléphone">
-						<span class="focus-input100"></span>
-					</div>
-					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="" style="width: 100%;">
-						<input id="description" class="input100" type="text" placeholder="N° Registre de Commerce"  name="description" value="{{ old('description') }}">
-						<span class="focus-input100"></span>
-					</div>
-					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="" style="width: 100%;">
-						<input class="input100" type="text" name="adresse" value="{{ old('adresse') }}" placeholder="Adresse">
-						<span class="focus-input100"></span>
-					</div>
-                    <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="">
-						<input id="first-name" class="input100 @error('password') is-invalid @enderror" type="password"  name="password" required autocomplete="new-password" placeholder="Mot de passe">
-                        <span class="focus-input100"></span>
-                        @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-					</div>
-					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="">
-						<input id="password-confirm" class="input100" type="password"  name="password_confirmation" required autocomplete="new-password" placeholder="Confirmez votre Mot de passe">
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="container-login100-form-btn">
-						<button type="submit"  class="login100-form-btn inscrire">
-							S'inscrire
-						</button>
-					</div>
-
-
-					<div class="w-full text-center p-t-27 ">
-						<a href="/login" class="txt4" >
-							Se connecter
-						</a>
-					</div>
-				</form>
-
-				<div class="login100-more" style="background-image: url('/assets/images/bg-01.jpg'); background-size: 126%;
-    background-position: top;"></div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<div id="dropDownSelect1"></div>
-
-      <script src="{{ url('/assets/libs/jquery/dist/jquery.min.js') }}"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="{{ url('/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
-    <script src="{{ url('/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url('/js/app-style-switcher.js') }}" ></script>
-<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-	<script>
-		$(".selection-2").select2({
-			minimumResultsForSearch: 20,
-			dropdownParent: $('#dropDownSelect1')
-		});
-	</script>
-<!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
-
-
-
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{{url('/css/inscription/assets/js/material-dashboard.min.js?v=3.0.0')}}"></script>
 </body>
-</html>
 
+</html>

@@ -124,13 +124,13 @@ class CommandeController extends Controller
             $total = Commande::where('deleted_at', NULL)
                 ->where(function ($q) {
                     $q->whereDate('updated_at', '>=', now()->subMonth())
-                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock']);
+                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
                 })
                 ->count();
             $commandes = Commande::where('deleted_at', NULL)
                 ->where(function ($q) {
                     $q->whereDate('updated_at', '>=', now()->subMonth())
-                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock']);
+                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
                 })
                 ->orderBy('updated_at', 'DESC')->paginate(50);
                 $statuts = DB::table('commandes')
@@ -218,6 +218,13 @@ class CommandeController extends Controller
         $commande->ville .= ' (Hors Zone)';
         $commande->prix = $request->horsZone;
         $commande->livreurPart = $request->horsZoneLivreurPart;
+        $commande->save();
+        $request->session()->flash('statut', 'modifié');
+        return back();
+    }
+
+    public function change(Commande $commande, Request $request){
+        $commande->isChanged = 1;
         $commande->save();
         $request->session()->flash('statut', 'modifié');
         return back();
@@ -324,6 +331,9 @@ class CommandeController extends Controller
         if ($request->filled('nom')) {
             $commandes->where('nom', 'like', '%' . $request->nom . '%');
         }
+        if ($request->filled('numero')) {
+            $commandes->where('numero', 'like', '%' . $request->numero . '%');
+        }
         if ($request->filled('telephone')) {
             $commandes->where('telephone', 'like', '%' . $request->telephone . '%');
         }
@@ -341,12 +351,10 @@ class CommandeController extends Controller
             $commandes->where('montant', '<=', $request->prixMax);
         }
 
-        if ($request->filled('bl')) {
-            $commandes->where('traiter', '<>', 0)->where('facturer', 0);
-        }
 
         if ($request->filled('facturer')) {
-            $commandes->where('facturer', '<>', 0);
+            if($request->facturer == "no") $commandes->where('facturer', 0);
+            else if($request->facturer == "yes") $commandes->where('facturer', '<>', 0);
         }
 
         if (Gate::denies('livreur')) {
@@ -421,6 +429,7 @@ class CommandeController extends Controller
 
     public function search(Request $request)
     {
+        $data = $request->all();
         $nouveau =  User::whereHas('roles', function ($q) {
             $q->whereIn('name', ['nouveau']);
         })->where('deleted_at', NULL)->count();
@@ -431,12 +440,12 @@ class CommandeController extends Controller
                 $clients = [];
                 $users = [];
                 if (!Gate::denies('manage-users')) {
-                    $factures = DB::table('factures')->where('numero', 'like', '%' . $request->search . '%')->get();
+                    $factures = DB::table('factures')->where('numero', 'like', '%' . $request->search . '%')->paginate(10);
                     $clients = User::whereHas('roles', function ($q) {
                         $q->whereIn('name', ['client', 'ecom']);
                     })->get();
                 } else {
-                    $factures = DB::table('factures')->where('user_id', Auth::user()->id)->where('numero', 'like', '%' . $request->search . '%')->get();
+                    $factures = DB::table('factures')->where('user_id', Auth::user()->id)->where('numero', 'like', '%' . $request->search . '%')->paginate(10);
                 }
                 $total = $factures->count();
 
@@ -451,7 +460,7 @@ class CommandeController extends Controller
                         'total' => $total,
                         'users' => $users,
                         'clients' => $clients,
-                        'villes' => $villes
+                        'villes' => $villes, 'data' => $data
 
                     ]);
                 } else {
@@ -724,10 +733,21 @@ class CommandeController extends Controller
             if ($request->mode == "cp") {
                 $commande->montant = 0;
             }
-            if ($request->mode != "cp" && $request->montant !== null) {
+            else if ($request->mode != "cp" && $request->montant !== null) {
                 $commande->montant = $request->montant;
             }
+
         }
+
+        if($request->mode != "cp" && $request->montant == null && Gate::denies('ecom')){
+            $request->session()->flash('montant_required');
+
+            return back();
+        }
+
+
+
+
         $commande->user()->associate($fournisseur)->save();
         //dd($request->produit);
 
@@ -754,8 +774,8 @@ class CommandeController extends Controller
 
 
         //notification
-        $user_notify = \App\User::find(1);
-        $user_notify->notify(new newCommande($fournisseur, $commande));
+        // $user_notify = \App\User::find(1);
+        // $user_notify->notify(new newCommande($fournisseur, $commande));
 
 
         return redirect('/commandes');
@@ -892,7 +912,7 @@ class CommandeController extends Controller
             $content .= '
             <div class="container">
 
-                <h1 style="color:#f7941e">
+                <h1 style="color:#467a0f">
                     Ticket de Commande ' . $i . '/' . $commande->colis . '
 
                 </h1>
@@ -951,11 +971,11 @@ class CommandeController extends Controller
                     <table id="customers">
                     <tr>
                         <th>Livreur: </th>
-                        <td>Colisade Delivery</td>
+                        <td>Cavallo Delivery</td>
                     </tr>
                     <tr>
                         <th>Site web:  </th>
-                        <td>www.colisade.ma</td>
+                        <td>www.Cavallo.ma</td>
                     </tr>
                     </table>
                 </div>
@@ -963,7 +983,7 @@ class CommandeController extends Controller
                 <div style="display:flex ; justify-content: space-around; padding-bottom:20px">
                     <div class="logo-text" style="padding-top:20px" >
 
-                    <img src="https://i.ibb.co/NWQgqxd/logo-light-text.png" style="
+                    <img src="https://i.ibb.co/7v9Vx5N/C-avallo.png" style="
                         WIDTH: 130PX;
                     "class="light-logo" alt="homepage" />
 
@@ -1008,7 +1028,7 @@ class CommandeController extends Controller
                     h2{
                         text-align : center;
                         font-size: 1.5em;
-                        border: 1px solid #f7941e;
+                        border: 1px solid #467a0f;
                     }
                 .container{
                     box-sizing: border-box;
@@ -1032,7 +1052,7 @@ class CommandeController extends Controller
                         font-size: 2em;
                     }
                     #customers td, #customers th {
-                    border: 1px solid #f7941e;
+                    border: 1px solid #467a0f;
                     }
                     #customers tr:nth-child(even){
                         background-color: #f2f2f2;
@@ -1079,7 +1099,7 @@ class CommandeController extends Controller
                     h2{
                         text-align : center;
                         font-size: 1.5em;
-                        border: 1px solid #f7941e;
+                        border: 1px solid #467a0f;
                     }
                 .container{
                     box-sizing: border-box;
@@ -1103,7 +1123,7 @@ class CommandeController extends Controller
                         font-size: 2em;
                     }
                     #customers td, #customers th {
-                    border: 1px solid #f7941e;
+                    border: 1px solid #467a0f;
                     }
                     #customers tr:nth-child(even){
                         background-color: #f2f2f2;
@@ -1140,7 +1160,7 @@ class CommandeController extends Controller
             $content .= '
             <div class="container">
 
-                <h1 style="color:#f7941e">
+                <h1 style="color:#467a0f">
                 Ticket de Commande ' . $i . '/' . $commande->colis . '
                 </h1>
                 <div class="tableau">
@@ -1198,11 +1218,11 @@ class CommandeController extends Controller
                     <table id="customers">
                     <tr>
                         <th>Livreur: </th>
-                        <td>Colisade Delivery</td>
+                        <td>Cavallo Delivery</td>
                     </tr>
                     <tr>
                         <th>Site web:  </th>
-                        <td>www.colisade.ma</td>
+                        <td>www.Cavallo.ma</td>
                     </tr>
                     </table>
                 </div>
@@ -1210,7 +1230,7 @@ class CommandeController extends Controller
                 <div style="display:flex ; justify-content: space-around; padding-top:2px">
                     <div class="logo-text"  >
 
-                    <img src="https://i.ibb.co/NWQgqxd/logo-light-text.png" style="
+                    <img src="https://i.ibb.co/7v9Vx5N/C-avallo.png" style="
                         WIDTH: 50PX;
                     "class="light-logo" alt="homepage" />
                     </div>
@@ -1247,7 +1267,7 @@ class CommandeController extends Controller
                     h2{
                         text-align : center;
                         font-size: 1.5em;
-                        border: 1px solid #f7941e;
+                        border: 1px solid #467a0f;
                     }
                 .container{
                     box-sizing: border-box;
@@ -1271,7 +1291,7 @@ class CommandeController extends Controller
                         font-size: 2em;
                     }
                     #customers td, #customers th {
-                    border: 1px solid #f7941e;
+                    border: 1px solid #467a0f;
                     }
                     #customers tr:nth-child(even){
                         background-color: #f2f2f2;
@@ -1312,7 +1332,7 @@ class CommandeController extends Controller
         }
         $etat = array("Injoignable", "Refusée", "Annulée", "Retour", "Pas de Réponse");
         $ancienne = $commande->statut;
-        if ((Gate::denies('client-admin') || $commande->statut !== "envoyée") && (Gate::denies('manage-users') || !in_array($commande->statut, $etat))) {
+        if ( Gate::denies('delete-commande') || !in_array($commande->statut, $etat)) {
             //dd( $commande->staut );
             $request->session()->flash('noupdate', $commande->numero);
             return back();
@@ -1381,7 +1401,7 @@ class CommandeController extends Controller
             $commande->colis = $request->colis;
             $commande->nom = $request->nom;
 
-            if (!Gate::denies('manage-users') && in_array($ancienne, $etat)) {
+            if (!Gate::denies('delete-commande') && in_array($ancienne, $etat)) {
 
                 if ($ancienne === "Refusée") {
                     $statut = new Statut();
@@ -1389,16 +1409,16 @@ class CommandeController extends Controller
                     $statut->commande_id = $newCommande->id;
                     $statut->name = $newCommande->statut;
                     $statut->user()->associate(Auth::user())->save();
-                    if (!Gate::denies('ecom')) {
-                        foreach ($request->produit as $index => $produit) {
+                    // if (!Gate::denies('ecom')) {
+                    //     foreach ($request->produit as $index => $produit) {
 
-                            $produit_commande = new CommandeProduit();
-                            $produit_commande->commande_id = $newCommande->id;
-                            $produit_commande->produit_id = $produit;
-                            $produit_commande->qte =  $request->qte[$index];
-                            $produit_commande->save();
-                        }
-                    }
+                    //         $produit_commande = new CommandeProduit();
+                    //         $produit_commande->commande_id = $newCommande->id;
+                    //         $produit_commande->produit_id = $produit;
+                    //         $produit_commande->qte =  $request->qte[$index];
+                    //         $produit_commande->save();
+                    //     }
+                    // }
                 }
 
                 $commande->statut = "Modifiée";
@@ -1465,12 +1485,11 @@ class CommandeController extends Controller
             $statut->user()->associate(Auth::user())->save();
 
             //notification
-            $user_notify = \App\User::find($commande->user_id);
-            $user_notify->notify(new statutChange($commande));
+            // $user_notify = \App\User::find($commande->user_id);
+            // $user_notify->notify(new statutChange($commande));
             //dd($test);
             $request->session()->flash('edit', $commande->numero);
         } else {
-
             if ($commande->statut != "envoyée") {
                 $request->session()->flash('nonExpidie', $commande->numero);
             } else {
@@ -1480,6 +1499,22 @@ class CommandeController extends Controller
 
         return back();
     }
+
+
+    public function relanceCommandeByClient(Request $request, $commandeId){
+
+        $commande = Commande::findOrFail($commandeId);
+        $fournisseur = Auth::user();
+        if (!Gate::denies('fournisseur') && ($commande->statut === "Pas de Réponse" || $commande->statut === "Annulée" ||  $commande->statut === "Injoignable")) {
+            $commande->statut = "Relancée";
+            $commande->save();
+
+           $request->session()->flash('edit', $commande->numero);
+
+        }
+         return back();
+    }
+
 
     public function retourStock(Request $request, $id)
     {
@@ -1590,10 +1625,24 @@ class CommandeController extends Controller
         $commande = Commande::findOrFail($id);
         $user = User::find($commande->user_id);
 
+        if($request->statut === $commande->statut){
+            return back();
+        }
+
         if($commande->facturer > 0 && $commande->statut === "Livré"){
             return back();
+        }
+        else if($commande->facturer > 0 && $request->statut === "Retour"){
+            $commande->statut = $request->statut ;
+            $statut = new Statut();
+            $statut->commande_id = $commande->id;
+            $statut->name = $commande->statut;
+            $commande->save();
+            $statut->user()->associate(Auth::user())->save();
+            return  back();
+        }
 
-        } else if($commande->facturer > 0 && $commande->statut === "Refusée"){
+        else if($commande->facturer > 0 && $commande->statut === "Refusée" ){
 
             $newCommande = new Commande();
 
@@ -1653,7 +1702,7 @@ class CommandeController extends Controller
 
             // Nexmo::message()->send([
             //     'to'   => '212'.substr($commande->telephone,1),
-            //     'from' => 'Colisade Delivery',
+            //     'from' => 'Cavallo Delivery',
             //     'text' => 'Bonjour '.$commande->nom.' Votre Commande  '.$commande->numero.' de la part du '. $user->name .' a été bien livrée.'
             // ]);
 
@@ -1713,11 +1762,6 @@ class CommandeController extends Controller
             } else {
                 $request->session()->flash('noedit', $commande->numero);
             }
-
-
-
-            //dd('212'.substr($commande->telephone,1));
-
         }
 
 

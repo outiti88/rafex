@@ -14,7 +14,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Stock</li>
                     </ol>
                 </nav>
@@ -249,7 +249,7 @@
 
                            <td style="font-size: 1.5em">
 
-                            <a style="color: #f7941e" href="/produit/{{$produit->id}}">
+                            <a style="color: #467a0f" href="/produit/{{$produit->id}}">
                                 <i class="ti-pencil"></i></a>
                             </td>
                         </tr>

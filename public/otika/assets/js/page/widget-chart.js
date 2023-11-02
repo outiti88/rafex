@@ -461,7 +461,7 @@ var myChart = new Chart(ctx, {
       backgroundColor: [
         '#191d21',
         '#63ed7a',
-        '#ffa426',
+        '#bb710b',
       ],
       label: 'Dataset 1'
     }],
@@ -561,7 +561,7 @@ var myChart = new Chart(ctx, {
   }
 });
 
-// revenue chart 
+// revenue chart
 var options = {
   chart: {
     height: 230,

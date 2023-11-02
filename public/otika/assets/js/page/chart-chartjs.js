@@ -123,7 +123,7 @@ var myChart = new Chart(ctx, {
 			backgroundColor: [
 				'#191d21',
 				'#63ed7a',
-				'#ffa426',
+				'#bb710b',
 				'#fc544b',
 				'#6777ef',
 			],
@@ -160,7 +160,7 @@ var myChart = new Chart(ctx, {
 			backgroundColor: [
 				'#191d21',
 				'#63ed7a',
-				'#ffa426',
+				'#bb710b',
 				'#fc544b',
 				'#6777ef',
 			],

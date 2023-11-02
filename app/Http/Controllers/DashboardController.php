@@ -314,7 +314,8 @@ class DashboardController extends Controller
 
 
 
-            $caPercent = number_format((($caCurrentMounth - $caLastMounth) / $caLastMounth) * 100, 2, '.', '');
+                        $caPercent = $caLastMounth === 0 ? 0 : number_format((($caCurrentMounth - $caLastMounth) / $caLastMounth) * 100, 2, '.', '');
+
 
             $tabTotal =
             array(

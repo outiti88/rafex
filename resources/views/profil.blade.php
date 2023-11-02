@@ -1,7 +1,7 @@
 @extends('racine')
 
 @section('title')
-{{$user->name}} | Colisade
+{{$user->name}} | Cavallo
 @endsection
 
 @section('content')
@@ -12,13 +12,13 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="#">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Profile</li>
                     </ol>
                 </nav>
             </div>
         </div>
-  
+
     </div>
 </div>
 <!-- ============================================================== -->
@@ -56,9 +56,9 @@
                         <iframe src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Marjane,%20Tanger%20PAC,%20Avenue%20des%20Forces%20Arm%C3%A9es%20Royales,%20Tanger%2090060+(Decathlon%20Tanger)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div> <small class="text-muted p-t-30 db">Reseaux Sociaux</small>
                     <br/>
-                    <a href="https://www.facebook.com/DeliveryColisade" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/DeliveryColisade" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/company/Colisade/" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.facebook.com/DeliveryCavallo" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/DeliveryCavallo" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/Cavallo/" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
         <div class="col-lg-8 col-xlg-9 col-md-7">
             <div class="card">
                 <div class="card-body">
-                    <form class="form-horizontal form-material" method="POST" action="{{route('profil.update',$user)}}">
+                    <form class="form-horizontal form-material" method="POST" action="{{route('profil.update',$user)}}"  enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
                         <div class="form-group">
@@ -88,7 +88,7 @@
 
                             <div class="col-md-12">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required>
-    
+
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -97,10 +97,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-12">Url de l'image</label>
-                            <div class="col-md-12">
-                                <input name="image" type="text" value="{{$user->image}}"class="form-control form-control-line">
-                            </div>
+
+                            <label class="custom-file-labe col-md-12" for="inputGroupFile01">Choisir une photo</label>
+                            <div class="custom-file">
+                                <input type="file" name="image" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                <label class="custom-file-label" for="inputGroupFile01">Télécharger</label>
+                              </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Téléphone</label>
@@ -114,7 +116,7 @@
                             <textarea name="adresse" rows="5" class="form-control form-control-line">{{$user->adresse}}</textarea>
                             </div>
                         </div>
-              
+
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <button type="submit" class="btn btn-success">Modifier</button>
@@ -317,7 +319,7 @@
         "Souk ELaha" : "50 ,00 DH ",
         "Ain Dorij" : "50 ,00 DH ",
         "Sidi redouane" : "50 ,00 DH ",
-        "Massmouda" : " 50 ,00 DH", 
+        "Massmouda" : " 50 ,00 DH",
         "Sidi Rahal" : " 45 ,00 DH",
         "Had Soualem" : " 45 ,00 DH",
         "Oujda" : "40 ,00 DH ",
@@ -325,7 +327,7 @@
         "Oulad tayeb" : "40,00  DH ",
         "Ain chekaf" : "40,00  DH ",
         "Ain chegag" : " 50,00 DH",
-        "Bel ksir" : " 50,00 DH", 
+        "Bel ksir" : " 50,00 DH",
         "Meknès" : "40,00  DH ",
         "Sidi Hrazem" : "50,00 DH ",
         "Nador" : "40,00  DH ",
@@ -334,21 +336,21 @@
          "kelaat sraghna": "50,00 DH"
 
         };
- 
- 
- 
- 
- 
+
+
+
+
+
   var x3 = document.getElementById("ville");
-  
+
 
   for (const [key, value] of Object.entries(arr)) {
   var option = document.createElement("option");
          x3.appendChild(option);
         var text1 = document.createTextNode(key);
         option.appendChild(text1);
-          
-      
+
+
 	}
 </script>
 @endsection

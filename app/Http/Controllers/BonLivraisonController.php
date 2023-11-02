@@ -225,7 +225,7 @@ class BonLivraisonController extends Controller
 
                 body{
                     margin: 0px;
-                    background-image: url("https://colisade.ma/images/BonLivraisonColisade.png");
+                    background-image: url("https://Cavallo.ma/images/BonLivraisonCavallo.png");
                     width: 790px;
                     height: auto;
                     background-position: center;

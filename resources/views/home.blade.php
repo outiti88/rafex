@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Colisade Delivery Tanger propose
+    <meta name="description" content="Cavallo Delivery Tanger propose
     un service de collecte, de stockage, d’emballage et d’expédition de vos produits aux clients.">
     <meta name="author" content="Outiti Ayoub">
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('/assets/images/favicon.png')}}">
@@ -40,9 +40,9 @@
         <!-- ============================================================== -->
         <div class="error-box">
             <div class="error-body text-center">
-                <h1 class="error-title" style="color: #f7941e;font-size: 4em;">BIENVENUE</h1>
+                <h1 class="error-title" style="color: #467a0f;font-size: 4em;">BIENVENUE</h1>
                 <h3 class="text-uppercase error-subtitle">{{Auth::user()->name}}</h3>
-                <p class="text-muted m-t-30 m-b-30">Bienvenue sur notre plateforme Colisade Tracking</p>
+                <p class="text-muted m-t-30 m-b-30">Bienvenue sur notre plateforme Cavallo Tracking</p>
                 <p class="text-muted m-t-30 m-b-30">Votre Compte sera activé après 24H</p>
                 <p class="text-muted m-t-30 m-b-30">Pour plus d'informations <br> contactez-nous sur : <a href="tel:+212649517070">+212 649-517070</a> </p>
 

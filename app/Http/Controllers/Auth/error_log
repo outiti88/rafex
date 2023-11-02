@@ -1,0 +1,80 @@
+[24-May-2023 16:12:45 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ConfirmPasswordController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ConfirmPasswordController.php on line 9
+[24-May-2023 16:12:45 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ForgotPasswordController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ForgotPasswordController.php on line 8
+[24-May-2023 16:12:45 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/LoginController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/LoginController.php on line 9
+[24-May-2023 16:12:46 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/RegisterController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/RegisterController.php on line 14
+[24-May-2023 16:12:46 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ResetPasswordController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ResetPasswordController.php on line 9
+[24-May-2023 16:12:47 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/VerificationController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/VerificationController.php on line 9
+[24-May-2023 19:09:24 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/LoginController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/LoginController.php on line 9
+[24-May-2023 19:09:24 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/RegisterController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/RegisterController.php on line 14
+[24-May-2023 19:09:25 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ConfirmPasswordController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ConfirmPasswordController.php on line 9
+[24-May-2023 19:09:25 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ForgotPasswordController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ForgotPasswordController.php on line 8
+[24-May-2023 19:09:37 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ResetPasswordController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ResetPasswordController.php on line 9
+[24-May-2023 19:09:38 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/VerificationController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/VerificationController.php on line 9
+[25-May-2023 10:45:45 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ConfirmPasswordController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ConfirmPasswordController.php on line 9
+[25-May-2023 10:45:46 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ForgotPasswordController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ForgotPasswordController.php on line 8
+[25-May-2023 10:45:56 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/LoginController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/LoginController.php on line 9
+[25-May-2023 10:45:57 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/RegisterController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/RegisterController.php on line 14
+[25-May-2023 10:45:57 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ResetPasswordController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/ResetPasswordController.php on line 9
+[25-May-2023 10:45:58 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/VerificationController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/VerificationController.php on line 9
+[21-Jul-2023 23:06:19 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/RegisterController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/RegisterController.php on line 14
+[10-Aug-2023 02:49:43 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/LoginController.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Auth/LoginController.php on line 9

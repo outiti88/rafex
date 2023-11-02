@@ -1,0 +1,84 @@
+[24-May-2023 18:56:48 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ClientExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ClientExceptionInterface.php on line 19
+[24-May-2023 18:56:49 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\ExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/DecodingExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/DecodingExceptionInterface.php on line 19
+[24-May-2023 18:56:51 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\ExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/HttpExceptionInterface.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/HttpExceptionInterface.php on line 21
+[24-May-2023 18:56:52 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/RedirectionExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/RedirectionExceptionInterface.php on line 19
+[24-May-2023 18:56:53 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ServerExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ServerExceptionInterface.php on line 19
+[24-May-2023 18:56:54 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TimeoutExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TimeoutExceptionInterface.php on line 19
+[24-May-2023 18:56:54 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\ExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TransportExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TransportExceptionInterface.php on line 19
+[24-May-2023 23:41:24 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ClientExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ClientExceptionInterface.php on line 19
+[24-May-2023 23:41:24 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\ExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/DecodingExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/DecodingExceptionInterface.php on line 19
+[24-May-2023 23:41:25 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\ExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/HttpExceptionInterface.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/HttpExceptionInterface.php on line 21
+[24-May-2023 23:41:34 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/RedirectionExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/RedirectionExceptionInterface.php on line 19
+[24-May-2023 23:41:36 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ServerExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ServerExceptionInterface.php on line 19
+[24-May-2023 23:41:36 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TimeoutExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TimeoutExceptionInterface.php on line 19
+[24-May-2023 23:41:37 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\ExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TransportExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TransportExceptionInterface.php on line 19
+[25-May-2023 18:18:47 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ClientExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ClientExceptionInterface.php on line 19
+[25-May-2023 18:18:47 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\ExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/HttpExceptionInterface.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/HttpExceptionInterface.php on line 21
+[25-May-2023 18:18:47 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\ExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/DecodingExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/DecodingExceptionInterface.php on line 19
+[25-May-2023 18:18:47 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/RedirectionExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/RedirectionExceptionInterface.php on line 19
+[25-May-2023 18:18:59 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ServerExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/ServerExceptionInterface.php on line 19
+[25-May-2023 18:18:59 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TimeoutExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TimeoutExceptionInterface.php on line 19
+[25-May-2023 18:18:59 UTC] PHP Fatal error:  Uncaught Error: Interface 'Symfony\Contracts\HttpClient\Exception\ExceptionInterface' not found in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TransportExceptionInterface.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/symfony/http-client-contracts/Exception/TransportExceptionInterface.php on line 19

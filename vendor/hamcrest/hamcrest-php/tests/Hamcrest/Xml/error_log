@@ -1,0 +1,4 @@
+[25-May-2023 16:54:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\AbstractMatcherTest' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Xml/HasXPathTest.php:4
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/tests/Hamcrest/Xml/HasXPathTest.php on line 4

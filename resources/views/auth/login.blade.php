@@ -1,126 +1,60 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<title>Se Connecter - Colisade</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-<link rel="icon" type="image/png" sizes="16x16" href="{{url('/assets/images/favicon.png')}}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png"  href="{{url('/css/inscription/assets/img/apple-icon.png')}}">
+  <link rel="icon" type="image/png"  href="{{url('/css/inscription/assets/img/favicon.png')}}">
+  <title>
+    Cavallo - Se Connecter
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="{{url('/css/inscription/assets/css/nucleo-icons.css')}}" rel="stylesheet" />
+  <link href="{{url('/css/inscription/assets/css/nucleo-svg.css')}}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle"  href="{{url('/css/inscription/assets/css/material-dashboard.css?v=3.0.0s')}}" rel="stylesheet" />
 
-<link rel="stylesheet" type="text/css" href="{{url('/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css')}}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{url('/assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css')}}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"  href="{{url('/css/inscription/css/util.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{url('/css/inscription/css/main.css')}}">
-    <style>
-        .switch {
-          position: relative;
-          display: inline-block;
-          width: 42px;
-          height: 26px;
-        }
-
-        .switch input {
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
-
-        .slider {
-          position: absolute;
-          cursor: pointer;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: #ccc;
-          -webkit-transition: .4s;
-          transition: .4s;
-        }
-
-        .slider:before {
-          position: absolute;
-          content: "";
-          height: 22px;
-          width: 22px;
-          left: -4px;
-          bottom: 1px;
-          background-color: white;
-          -webkit-transition: .4s;
-          transition: .4s;
-        }
-
-        input:checked + .slider {
-          background-color: #2196F3;
-        }
-
-        input:focus + .slider {
-          box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked + .slider:before {
-          -webkit-transform: translateX(22px);
-          -ms-transform: translateX(22px);
-          transform: translateX(22px);
-        }
-
-        /* Rounded sliders */
-        .slider.round {
-          border-radius: 34px;
-        }
-
-        .slider.round:before {
-          border-radius: 50%;
-        }
-        </style>
-<!--===============================================================================================-->
 </head>
-<body>
 
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-                <form class="login100-form validate-form" style="position:relative;top:-100px;" method="POST" action="{{ route('login') }}">
+<body class="bg-gray-200">
+
+  <main class="main-content  mt-0">
+    <div class="page-header align-items-start min-vh-100" style="background-image: url('{{url('/css/inscription/assets/img/bg-signin-2.jpg')}}');">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-4 col-md-8 col-12 mx-auto">
+            <div class="card z-index-0 fadeIn3 fadeInBottom">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                  <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Connectez à votre espace</h4>
+
+                </div>
+              </div>
+              <div class="card-body">
+                <form role="form" class="text-start"  method="POST" action="{{ route('login') }}">
                     @csrf
-					<span class="login100-form-title p-b-34">
-				        Se Connecter à votre espace
-					</span>
-
-					<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Vérifiez votre Adresse Email">
-						<input style="height: 100%" class="input100 @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Votre Email">
-                        <span class="focus-input100"></span>
-
-					</div>
-					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Vérifiez votre mot de passe">
-						<input  id="showPasswordId" style="height: 100%" class="input100  @error('password') is-invalid @enderror" type="password" name="password" placeholder="Password" required autocomplete="current-password">
-                        <span class="focus-input100"></span>
-
-
-					</div>
-                    <div>
-                        <label class="switch">
-                            <input type="checkbox" onclick="showPassword()">
-                            <span class="slider round"></span>
-                        </label>
-                         <span>Voir le Mot de Passe </span>
-                    </div>
-
-                    @error('email')
+                  <div class="input-group input-group-outline my-3">
+                    <label class="form-label">Adresse E-mail</label>
+                    <input type="email"  name="email" class="form-control  @error('email') is-invalid @enderror" value="{{ old('email') }}" required  autofocus  autocomplete="off">
+                  </div>
+                  <div class="input-group input-group-outline mb-3">
+                    <label class="form-label">Mot de passe</label>
+                    <input id="showPasswordId"  type="password" class="form-control  @error('password') is-invalid @enderror" type="password" name="password"  required autocomplete="off">
+                  </div>
+                  <div class="form-check form-switch d-flex align-items-center mb-3">
+                    <input class="form-check-input" onclick="showPassword()" type="checkbox" id="rememberMe">
+                    <label class="form-check-label mb-0 ms-2" for="rememberMe">Afficher Mot de Passe</label>
+                  </div>
+                  @error('email')
                     <span class="invalid-feedback" role="alert" style="color:red">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -130,78 +64,75 @@
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
+                  <div class="text-center">
+                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Se Connecter</button>
+                  </div>
+                  <p class="mt-4 text-sm text-center">
+                    Non inscrit?
+                    <a href="{{ route('user.nouveau') }}" class="text-primary text-gradient font-weight-bold">Rejoignez nous</a>
+                  </p>
+                  <p class="mt-4 text-sm text-center">
+                    <a href="{{ route('password.request')}}" class="text-primary text-gradient font-weight-bold">
+                        Mot de passe
+                    </a>
+                        Oublié?
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer position-absolute bottom-2 py-2 w-100">
+        <div class="container">
 
-					<div class="container-login100-form-btn">
-						<button type="submit"  class="login100-form-btn">
-							Se Connecter
-						</button>
-					</div>
-                    @if (Route::has('password.request'))
-					<div class="w-full text-center p-t-27 ">
-                        <a href="#" class="txt2">
-							Utilisateur
-						</a>
-                        <span class="txt1">
-							ou
-						</span>
-                        <a href="{{ route('password.request')}}" class="txt2">
-							Mot de passe
-						</a>
-                        <span class="txt1">
-							Oublié?
-						</span>
-					</div>
+            <div class="col-12 col-md-6" style="float: left; text-align: left;">
+              <div class="text-center text-sm text-white text-lg-start">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+                Copyright <i class="fa fa-heart" aria-hidden="true"></i> by
+                <a href="https://www.rafex.ma" class="font-weight-bold text-white" target="_blank">Rafex Delivery S.A.R.L.</a>
+              </div>
+            </div>
 
-					<div class="w-full text-center">
-						<a href="{{ route('user.nouveau') }}" class="txt2">
-							Créer un nouveau Compte?
-						</a>
-                    </div>
-                    @endif
-				</form>
-
-				<div class="login100-more" style="background-image: url('/assets/images/bg-02.jpg'); "></div>
-			</div>
-		</div>
-	</div>
-
-
-
-	<div id="dropDownSelect1"></div>
-
-<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-	<script>
-		$(".selection-2").select2({
-			minimumResultsForSearch: 20,
-			dropdownParent: $('#dropDownSelect1')
-		});
-	</script>
-<!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
-
-    <script>
-        function showPassword() {
-        var x = document.getElementById("showPasswordId");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
-        }
-    </script>
-
+          <div class="col-12 col-md-6" style="float: right; text-align: right;">
+            <a href="https://www.cavallo.ma/" target="_blank">
+              <img src="{{url('/css/inscription/assets/img/logo-footer.png')}}" alt="logo-footer.png">
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+  <!--   Core JS Files   -->
+  <script src="{{url('/css/inscription/assets/js/core/popper.min.js')}}"></script>
+  <script src="{{url('/css/inscription/assets/js/core/bootstrap.min.js')}}"></script>
+  <script src="{{url('/css/inscription/assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
+  <script src="{{url('/css/inscription/assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{{url('/css/inscription/assets/js/material-dashboard.min.js?v=3.0.0')}}"></script>
+  <script>
+    function showPassword() {
+    var x = document.getElementById("showPasswordId");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+    }
+</script>
 </body>
+
 </html>

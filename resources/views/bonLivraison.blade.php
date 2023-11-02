@@ -10,11 +10,11 @@
 @section('style')
     <style>
         .page-link {
-            color: #f7941e !important;
+            color: #467a0f !important;
         }
         .page-item.active .page-link {
-            background-color: #f7941e !important;
-            border-color: #f7941e !important;
+            background-color: #467a0f !important;
+            border-color: #467a0f !important;
             color: #fff !important;
         }
     </style>
@@ -54,7 +54,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Bon de livraison</li>
                     </ol>
                 </nav>
@@ -107,7 +107,7 @@
                                 @foreach ($bonLivraisons as $index => $bonLivraison)
                               <tr
                               @if (\Carbon\Carbon::parse($bonLivraison->created_at)->format('d-m-Y') == date("d-m-Y") && session()->has('bonLivraison') )
-                              style="background-color: #f7941e2e;"
+                              style="background-color: #467a0f2e;"
                               @endif
                               >
                                 @can('ramassage-commande')

@@ -77,10 +77,6 @@ class ReceptionController extends Controller
             }
         }
 
-        // dd($receptions[2]->id);
-        // dd($test,$receptions,$details);
-
-
         return view('reception.index', [
             'nouveau' => $nouveau,
             'produits' => $produits,
@@ -280,7 +276,6 @@ class ReceptionController extends Controller
                     $stock->etat = "Apro";
                     $stock->save();
                 }
-                //dd($reception_produits[0]);
 
             }
         }

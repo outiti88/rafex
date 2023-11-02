@@ -1,0 +1,512 @@
+[24-May-2023 11:52:49 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2014_10_12_000000_create_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2014_10_12_000000_create_users_table.php on line 7
+[24-May-2023 11:52:49 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2014_10_12_100000_create_password_resets_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2014_10_12_100000_create_password_resets_table.php on line 7
+[24-May-2023 11:52:49 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2019_08_19_000000_create_failed_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2019_08_19_000000_create_failed_jobs_table.php on line 7
+[24-May-2023 11:52:50 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_10_093043_create_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_10_093043_create_commandes_table.php on line 7
+[24-May-2023 11:52:50 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_10_110604_add_nom_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_10_110604_add_nom_to_commandes_table.php on line 7
+[24-May-2023 11:52:50 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_11_005130_add_commentaire_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_11_005130_add_commentaire_to_commandes_table.php on line 7
+[24-May-2023 11:52:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_141007_create_roles_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_141007_create_roles_table.php on line 7
+[24-May-2023 11:52:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_141641_create_role_user_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_141641_create_role_user_table.php on line 7
+[24-May-2023 11:52:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_212344_add_more_info_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_212344_add_more_info_to_users_table.php on line 7
+[24-May-2023 11:52:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_175026_add_user_id_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_175026_add_user_id_to_commandes_table.php on line 7
+[24-May-2023 11:52:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_211218_add_soft_delete_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_211218_add_soft_delete_to_users_table.php on line 7
+[24-May-2023 11:52:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_212307_add_soft_delete_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_212307_add_soft_delete_to_commandes_table.php on line 7
+[24-May-2023 11:52:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_184639_create_bon_livraison_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_184639_create_bon_livraison_table.php on line 7
+[24-May-2023 11:52:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_195749_add_user_id_to_bonlivraisons_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_195749_add_user_id_to_bonlivraisons_table.php on line 7
+[24-May-2023 11:52:52 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_203742_rename_bonlivraisons_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_203742_rename_bonlivraisons_table.php on line 7
+[24-May-2023 11:52:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_19_185918_create_factures_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_19_185918_create_factures_table.php on line 7
+[24-May-2023 11:52:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_22_113743_create_notifications_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_22_113743_create_notifications_table.php on line 7
+[24-May-2023 11:52:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_113759_create_status_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_113759_create_status_table.php on line 7
+[24-May-2023 11:52:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_120559_add_user_id_to_commande_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_120559_add_user_id_to_commande_table.php on line 7
+[24-May-2023 11:52:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_123408_change_name_of_status_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_123408_change_name_of_status_table.php on line 7
+[24-May-2023 11:52:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_01_174225_add_code_and_vendu_to_produits_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_01_174225_add_code_and_vendu_to_produits_table.php on line 7
+[24-May-2023 11:52:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_02_135456_add_user_id_to_statuts_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_02_135456_add_user_id_to_statuts_table.php on line 7
+[24-May-2023 11:52:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_08_113422_add_traiter_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_08_113422_add_traiter_to_commandes_table.php on line 7
+[24-May-2023 11:52:54 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_08_132604_add_facturer_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_08_132604_add_facturer_to_commandes_table.php on line 7
+[24-May-2023 11:52:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_160844_create_produits_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_160844_create_produits_table.php on line 7
+[24-May-2023 11:52:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_161648_create_stocks_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_161648_create_stocks_table.php on line 7
+[24-May-2023 11:52:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_161720_create_mouvements_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_161720_create_mouvements_table.php on line 7
+[24-May-2023 11:52:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_20_195839_create_commande_produit_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_20_195839_create_commande_produit_table.php on line 7
+[24-May-2023 11:52:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_015731_rename_commande_produit_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_015731_rename_commande_produit_table.php on line 7
+[24-May-2023 11:52:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_144002_add_secteur_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_144002_add_secteur_to_commandes_table.php on line 7
+[24-May-2023 11:52:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_190740_create_receptions_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_190740_create_receptions_table.php on line 7
+[24-May-2023 11:52:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_191125_create_reception_produits_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_191125_create_reception_produits_table.php on line 7
+[24-May-2023 11:52:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_191413_add_reference_to_receptions_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_191413_add_reference_to_receptions_table.php on line 7
+[24-May-2023 11:52:57 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_29_185647_add_statut_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_29_185647_add_statut_to_users_table.php on line 7
+[24-May-2023 11:52:57 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_30_025329_add_rib_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_30_025329_add_rib_to_users_table.php on line 7
+[24-May-2023 11:52:57 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_151633_create_relances_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_151633_create_relances_table.php on line 7
+[24-May-2023 11:52:57 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_153824_add_user_id_to_relances_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_153824_add_user_id_to_relances_table.php on line 7
+[24-May-2023 11:52:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_11_29_222058_add_relance_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_11_29_222058_add_relance_to_commandes_table.php on line 7
+[24-May-2023 11:52:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_12_02_225555_add_postponed_at_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_12_02_225555_add_postponed_at_to_commandes_table.php on line 7
+[24-May-2023 11:52:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_12_28_214058_create_villes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_12_28_214058_create_villes_table.php on line 7
+[24-May-2023 11:52:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_02_22_213512_create_caisse_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_02_22_213512_create_caisse_table.php on line 7
+[24-May-2023 11:52:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_092517_add_livreur_to_villes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_092517_add_livreur_to_villes_table.php on line 7
+[24-May-2023 11:52:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_104356_add_livreur_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_104356_add_livreur_to_commandes_table.php on line 7
+[24-May-2023 11:52:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175531_create_caisses_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175531_create_caisses_table.php on line 7
+[24-May-2023 11:52:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175718_add_columns_to_caisses_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175718_add_columns_to_caisses_table.php on line 7
+[24-May-2023 11:52:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_05_13_022215_create_reclamations_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_05_13_022215_create_reclamations_table.php on line 7
+[24-May-2023 11:53:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_07_25_131537_add_columns_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_07_25_131537_add_columns_to_users_table.php on line 7
+[24-May-2023 12:52:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2019_08_19_000000_create_failed_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2019_08_19_000000_create_failed_jobs_table.php on line 7
+[24-May-2023 12:52:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2014_10_12_100000_create_password_resets_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2014_10_12_100000_create_password_resets_table.php on line 7
+[24-May-2023 12:52:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_10_093043_create_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_10_093043_create_commandes_table.php on line 7
+[24-May-2023 12:52:04 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_11_005130_add_commentaire_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_11_005130_add_commentaire_to_commandes_table.php on line 7
+[24-May-2023 12:52:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_212344_add_more_info_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_212344_add_more_info_to_users_table.php on line 7
+[24-May-2023 12:52:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_211218_add_soft_delete_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_211218_add_soft_delete_to_users_table.php on line 7
+[24-May-2023 12:52:05 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_212307_add_soft_delete_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_212307_add_soft_delete_to_commandes_table.php on line 7
+[24-May-2023 12:52:15 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_184639_create_bon_livraison_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_184639_create_bon_livraison_table.php on line 7
+[24-May-2023 12:52:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_195749_add_user_id_to_bonlivraisons_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_195749_add_user_id_to_bonlivraisons_table.php on line 7
+[24-May-2023 12:52:16 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_203742_rename_bonlivraisons_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_203742_rename_bonlivraisons_table.php on line 7
+[24-May-2023 12:52:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_19_185918_create_factures_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_19_185918_create_factures_table.php on line 7
+[24-May-2023 12:52:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_22_113743_create_notifications_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_22_113743_create_notifications_table.php on line 7
+[24-May-2023 12:52:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_113759_create_status_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_113759_create_status_table.php on line 7
+[24-May-2023 12:52:17 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_120559_add_user_id_to_commande_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_120559_add_user_id_to_commande_table.php on line 7
+[24-May-2023 12:52:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_123408_change_name_of_status_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_123408_change_name_of_status_table.php on line 7
+[24-May-2023 12:52:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_01_174225_add_code_and_vendu_to_produits_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_01_174225_add_code_and_vendu_to_produits_table.php on line 7
+[24-May-2023 12:52:18 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_02_135456_add_user_id_to_statuts_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_02_135456_add_user_id_to_statuts_table.php on line 7
+[24-May-2023 12:52:19 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_08_113422_add_traiter_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_08_113422_add_traiter_to_commandes_table.php on line 7
+[24-May-2023 12:52:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_160844_create_produits_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_160844_create_produits_table.php on line 7
+[24-May-2023 12:52:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_015731_rename_commande_produit_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_015731_rename_commande_produit_table.php on line 7
+[24-May-2023 12:52:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_144002_add_secteur_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_144002_add_secteur_to_commandes_table.php on line 7
+[24-May-2023 12:52:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_190740_create_receptions_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_190740_create_receptions_table.php on line 7
+[24-May-2023 12:52:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_30_025329_add_rib_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_30_025329_add_rib_to_users_table.php on line 7
+[24-May-2023 12:52:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_151633_create_relances_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_151633_create_relances_table.php on line 7
+[24-May-2023 12:52:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_153824_add_user_id_to_relances_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_153824_add_user_id_to_relances_table.php on line 7
+[24-May-2023 12:52:25 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_12_02_225555_add_postponed_at_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_12_02_225555_add_postponed_at_to_commandes_table.php on line 7
+[24-May-2023 12:52:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_12_28_214058_create_villes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_12_28_214058_create_villes_table.php on line 7
+[24-May-2023 12:52:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_02_22_213512_create_caisse_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_02_22_213512_create_caisse_table.php on line 7
+[24-May-2023 12:52:36 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_092517_add_livreur_to_villes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_092517_add_livreur_to_villes_table.php on line 7
+[24-May-2023 12:52:37 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_104356_add_livreur_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_104356_add_livreur_to_commandes_table.php on line 7
+[24-May-2023 12:52:37 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175531_create_caisses_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175531_create_caisses_table.php on line 7
+[24-May-2023 12:52:38 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175718_add_columns_to_caisses_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175718_add_columns_to_caisses_table.php on line 7
+[24-May-2023 12:52:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_05_13_022215_create_reclamations_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_05_13_022215_create_reclamations_table.php on line 7
+[24-May-2023 12:52:40 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_07_25_131537_add_columns_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_07_25_131537_add_columns_to_users_table.php on line 7
+[24-May-2023 16:15:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2014_10_12_100000_create_password_resets_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2014_10_12_100000_create_password_resets_table.php on line 7
+[24-May-2023 16:15:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2014_10_12_000000_create_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2014_10_12_000000_create_users_table.php on line 7
+[24-May-2023 16:15:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2019_08_19_000000_create_failed_jobs_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2019_08_19_000000_create_failed_jobs_table.php on line 7
+[24-May-2023 16:15:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_10_093043_create_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_10_093043_create_commandes_table.php on line 7
+[24-May-2023 16:15:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_10_110604_add_nom_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_10_110604_add_nom_to_commandes_table.php on line 7
+[24-May-2023 16:15:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_11_005130_add_commentaire_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_11_005130_add_commentaire_to_commandes_table.php on line 7
+[24-May-2023 16:15:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_141007_create_roles_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_141007_create_roles_table.php on line 7
+[24-May-2023 16:15:46 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_141641_create_role_user_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_141641_create_role_user_table.php on line 7
+[24-May-2023 16:15:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_212344_add_more_info_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_13_212344_add_more_info_to_users_table.php on line 7
+[24-May-2023 16:15:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_175026_add_user_id_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_175026_add_user_id_to_commandes_table.php on line 7
+[24-May-2023 16:15:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_211218_add_soft_delete_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_211218_add_soft_delete_to_users_table.php on line 7
+[24-May-2023 16:15:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_212307_add_soft_delete_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_14_212307_add_soft_delete_to_commandes_table.php on line 7
+[24-May-2023 16:15:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_184639_create_bon_livraison_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_184639_create_bon_livraison_table.php on line 7
+[24-May-2023 16:15:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_195749_add_user_id_to_bonlivraisons_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_195749_add_user_id_to_bonlivraisons_table.php on line 7
+[24-May-2023 16:15:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_203742_rename_bonlivraisons_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_16_203742_rename_bonlivraisons_table.php on line 7
+[24-May-2023 16:16:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_19_185918_create_factures_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_19_185918_create_factures_table.php on line 7
+[24-May-2023 16:16:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_22_113743_create_notifications_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_22_113743_create_notifications_table.php on line 7
+[24-May-2023 16:16:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_120559_add_user_id_to_commande_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_120559_add_user_id_to_commande_table.php on line 7
+[24-May-2023 16:16:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_113759_create_status_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_113759_create_status_table.php on line 7
+[24-May-2023 16:16:22 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_123408_change_name_of_status_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_09_23_123408_change_name_of_status_table.php on line 7
+[24-May-2023 16:16:22 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_01_174225_add_code_and_vendu_to_produits_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_01_174225_add_code_and_vendu_to_produits_table.php on line 7
+[24-May-2023 16:16:22 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_02_135456_add_user_id_to_statuts_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_02_135456_add_user_id_to_statuts_table.php on line 7
+[24-May-2023 16:16:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_08_113422_add_traiter_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_08_113422_add_traiter_to_commandes_table.php on line 7
+[24-May-2023 16:16:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_08_132604_add_facturer_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_08_132604_add_facturer_to_commandes_table.php on line 7
+[24-May-2023 16:16:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_160844_create_produits_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_160844_create_produits_table.php on line 7
+[24-May-2023 16:16:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_161648_create_stocks_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_161648_create_stocks_table.php on line 7
+[24-May-2023 16:16:35 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_161720_create_mouvements_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_13_161720_create_mouvements_table.php on line 7
+[24-May-2023 16:16:45 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_20_195839_create_commande_produit_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_20_195839_create_commande_produit_table.php on line 7
+[24-May-2023 16:16:45 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_015731_rename_commande_produit_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_015731_rename_commande_produit_table.php on line 7
+[24-May-2023 16:16:46 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_144002_add_secteur_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_144002_add_secteur_to_commandes_table.php on line 7
+[24-May-2023 16:16:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_190740_create_receptions_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_190740_create_receptions_table.php on line 7
+[24-May-2023 16:16:56 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_191125_create_reception_produits_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_191125_create_reception_produits_table.php on line 7
+[24-May-2023 16:16:57 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_191413_add_reference_to_receptions_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_22_191413_add_reference_to_receptions_table.php on line 7
+[24-May-2023 16:16:58 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_29_185647_add_statut_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_29_185647_add_statut_to_users_table.php on line 7
+[24-May-2023 16:16:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_10_30_025329_add_rib_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_10_30_025329_add_rib_to_users_table.php on line 7
+[24-May-2023 16:17:08 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_151633_create_relances_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_151633_create_relances_table.php on line 7
+[24-May-2023 16:17:09 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_153824_add_user_id_to_relances_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_11_13_153824_add_user_id_to_relances_table.php on line 7
+[24-May-2023 16:17:09 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_11_29_222058_add_relance_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_11_29_222058_add_relance_to_commandes_table.php on line 7
+[24-May-2023 16:17:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_12_02_225555_add_postponed_at_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_12_02_225555_add_postponed_at_to_commandes_table.php on line 7
+[24-May-2023 16:17:20 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2020_12_28_214058_create_villes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2020_12_28_214058_create_villes_table.php on line 7
+[24-May-2023 16:17:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_02_22_213512_create_caisse_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_02_22_213512_create_caisse_table.php on line 7
+[24-May-2023 16:17:21 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_092517_add_livreur_to_villes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_092517_add_livreur_to_villes_table.php on line 7
+[24-May-2023 16:17:22 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_104356_add_livreur_to_commandes_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_03_06_104356_add_livreur_to_commandes_table.php on line 7
+[24-May-2023 16:17:31 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175531_create_caisses_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175531_create_caisses_table.php on line 7
+[24-May-2023 16:17:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175718_add_columns_to_caisses_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_04_01_175718_add_columns_to_caisses_table.php on line 7
+[24-May-2023 16:17:33 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_05_13_022215_create_reclamations_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_05_13_022215_create_reclamations_table.php on line 7
+[24-May-2023 16:17:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Migrations\Migration' not found in /home/socabest/public_html/backOffice/database/migrations/2021_07_25_131537_add_columns_to_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/database/migrations/2021_07_25_131537_add_columns_to_users_table.php on line 7

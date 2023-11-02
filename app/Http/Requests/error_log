@@ -1,0 +1,20 @@
+[24-May-2023 12:24:49 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\FormRequest' not found in /home/socabest/public_html/backOffice/app/Http/Requests/StoreCommande.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Requests/StoreCommande.php on line 7
+[24-May-2023 16:14:23 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\FormRequest' not found in /home/socabest/public_html/backOffice/app/Http/Requests/StoreCommande.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Requests/StoreCommande.php on line 7
+[24-May-2023 19:11:07 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\FormRequest' not found in /home/socabest/public_html/backOffice/app/Http/Requests/StoreCommande.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Requests/StoreCommande.php on line 7
+[12-Jun-2023 18:00:03 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\FormRequest' not found in /home/socabest/public_html/backOffice/app/Http/Requests/StoreCommande.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Requests/StoreCommande.php on line 7
+[07-Aug-2023 21:31:20 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\FormRequest' not found in /home/socabest/public_html/backOffice/app/Http/Requests/StoreCommande.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Requests/StoreCommande.php on line 7

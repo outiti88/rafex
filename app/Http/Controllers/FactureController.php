@@ -187,7 +187,7 @@ class FactureController extends Controller
             <td>' . $commande->ville . '</td>
             <td>' . $commande->telephone . '</td>
             <td>' . $montant . '</td>
-            <td>' . (($commande->statut == 'Retour en stock') ? 'Refusée' : $commande->statut) . '</td>
+            <td>' . (($commande->statut == 'Livré') ?  $commande->statut : 'Refusée' ) . '</td>
             <td>' . $price . '</td>
             <td>' . $commande->updated_at . '</td>
             ' . '</tr>';
@@ -204,7 +204,7 @@ class FactureController extends Controller
         $user = DB::table('users')->find($user);
         $livraisonNonPaye = 0;
         $prixLivrer = DB::table('commandes')->where('user_id', $user->id)->where('facturer', $facture->id)->where('statut', 'livré')->sum('prix');
-        $prixRefuser =  DB::table('commandes')->where('user_id', $user->id)->where('facturer', $facture->id)->whereIn('statut', ['Retour en stock','Refusée'])->sum('refusePart');
+        $prixRefuser =  DB::table('commandes')->where('user_id', $user->id)->where('facturer', $facture->id)->whereIn('statut', ['Retour en stock','Retour','Refusée'])->sum('refusePart');
 
         $livraisonNonPaye += $prixRefuser + $prixLivrer;
 
@@ -285,12 +285,12 @@ class FactureController extends Controller
 
                 body{
                     margin: 0px;
-                    background-image: url("https://colisade.ma/images/FactureColisade.png");
+                    background-image: url("https://Cavallo.ma/images/FactureCavallo.png");
                     width: 790px;
                     height: auto;
                     background-position: center;
                     background-repeat: repeat;
-                    padding-bottom : 200px;
+                    padding-bottom : 300px;
                     background-size: 100% 1070px;
                     background-size: cover;
                     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -344,7 +344,7 @@ class FactureController extends Controller
             </head>
             <body>
         ';
-        $m = (($facture->livre) / 6);
+        $m = (($facture->livre + $facture->commande) / 6);
         $n = (int)$m; // nombre de page
         if ($n != $m) {
             $n++;

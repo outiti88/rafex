@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Colisade | Tracking</title>
+    <title>Cavallo | Tracking</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('/assets/images/favicon.png')}}">
 
@@ -166,7 +166,7 @@
             <div style="display: flex;
             justify-content: center;
             align-items: center;  margin: 30px;">
-                    <a alt="Colisade" href="https://colisade.ma">
+                    <a alt="Cavallo" href="https://Cavallo.ma">
                         <img src="{{asset('assets/images/logo-light-text.png')}}" style="
                     WIDTH: 20%;
                     "class="light-logo" alt="homepage" />

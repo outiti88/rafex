@@ -5,7 +5,7 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 <!-- User Profile-->
-                <li>
+                {{-- <li>
                     <!-- User Profile-->
                     <div class="user-profile d-flex no-block dropdown m-t-20">
                         <div class="user-pic"><img src="{{Auth::user()->image}}" alt="users" class="rounded-circle" width="40" /></div>
@@ -40,17 +40,31 @@
                         </div>
                     </div>
                     <!-- End User Profile-->
-                </li>
+                </li> --}}
 
 
-                @can('edit-users')
+                {{-- @can('edit-users')
                 <li class="p-15 m-t-10"><a href="{{route('register')}}" class="btn btn-block create-btn text-white no-block d-flex align-items-center">
                     <i class="fa fa-plus-square"></i>
                     <span class="hide-menu m-l-5">Nouveau Utilisateur</span> </a></li>
-                @endcan
+                @endcan --}}
+                <li>
+                    <div class="text-center py-5">
+                        <img
+                          src="https://i.ibb.co/BK8XSmG/menu-top-logo.png"
+                          class="mx-auto"
+                          alt=""
+                        />
+                      </div>
+                </li>
                 <!-- User Profile-->
                 @can('client-admin')
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/" aria-expanded="false">
+                        <i class="mdi mdi-view-dashboard"></i>
+                        <span class="hide-menu">Dashboard</span>
+                    </a>
+                </li>
 
                 @endcan
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/profil" aria-expanded="false"><i class="mdi mdi-account-network"></i><span class="hide-menu">Profile</span></a></li>
@@ -129,9 +143,8 @@
         </nav>
         <!-- End Sidebar navigation -->
     </div>
-    <!-- End Sidebar scroll-->
-</aside>
 
+</aside>
 
 
 

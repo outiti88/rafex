@@ -10,12 +10,12 @@
 @section('style')
     <style>
         .page-link {
-            color: #f7941e !important;
+            color: #467a0f !important;
         }
         .page-item.active .page-link {
 
-            background-color: #f7941e !important;
-            border-color: #f7941e !important;
+            background-color: #467a0f !important;
+            border-color: #467a0f !important;
             color: #fff !important;
         }
     </style>
@@ -30,7 +30,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item"><a href="/admin/users">Utilisateurs</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{$user->name}}</li>
                     </ol>
@@ -189,7 +189,7 @@
 
 
                     <div class="form-group row">
-                        <label for="roles" class="col-md-12 col-form-label text-center font-bold font-16">Rôles Colisade : </label>
+                        <label for="roles" class="col-md-12 col-form-label text-center font-bold font-16">Rôles Cavallo : </label>
                         <label for="roles" class="col-md-2 col-form-label text-md-right">Rôle : </label>
                         <div class="col-md-10 d-flex p-t-10 justify-content-around">
                             <div class="form-check">

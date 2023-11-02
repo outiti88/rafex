@@ -1,0 +1,246 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+body {
+  font-family: "Montserrat", sans-serif;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+table {
+  overflow: auto;
+}
+#example {
+  overflow: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-last-icon {
+  text-align: end;
+}
+
+#sidebar_menu {
+  background-image: url("/assest/image/menu-bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* height: 100vh; */
+}
+.display {
+  color: gray;
+}
+
+.acc_hover:hover {
+  background-color: #87d900;
+  color: white;
+  border: none;
+}
+.acc_hover:hover .icon {
+  background-color: #64b500;
+  color: white;
+  border: none;
+}
+.dataTables_scrollHead {
+  overflow: scroll !important;
+}
+
+.support_img {
+  background-image: url("/assest//image/Support-image.jpeg");
+  background-repeat: no-repeat;
+
+  height: 500px;
+}
+
+.dataTables_wrapper {
+  padding: 1rem;
+}
+.dataTables_length label {
+  color: rgb(143, 143, 143);
+  font-size: 17px;
+}
+.dataTables_filter label {
+  color: rgb(143, 143, 143);
+  font-size: 17px;
+}
+.dataTables_filter input {
+  padding: 0.1rem !important;
+}
+.dataTable thead {
+  background-color: rgb(221, 221, 221) !important;
+
+  width: 100% !important;
+}
+.dataTable {
+  color: rgb(85, 85, 85) !important;
+}
+.dataTables_paginate a {
+  background: rgb(221, 221, 221) !important;
+  color: black;
+  border-radius: 20px !important;
+}
+.colis_select select {
+  padding: 0.7rem 2rem !important;
+  color: rgb(85, 85, 85);
+  border: 1px solid #cdcdcd;
+  border-radius: 10px;
+}
+.colis_select {
+  overflow: scroll;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container input {
+  padding-left: 30px; /* Adjust this value as needed to create space for the icon */
+}
+
+.input-container i {
+  position: absolute;
+  left: 10px; /* Adjust this value to position the icon */
+  top: 50%; /* Center the icon vertically */
+  transform: translateY(-50%);
+}
+
+/* #chartThird{
+    height: 300px;
+    width: 460px !important ; 
+} */
+
+/* #chartFirst{
+    height: 350px;
+    width: 550px;
+} */
+
+#example {
+  overflow-y: scroll;
+  overflow-x: scroll;
+  overflow: hidden;
+}
+
+.colis_select {
+  display: flex;
+}
+
+.colis-filter {
+  display: flex;
+  text-align: end;
+}
+.stock_select {
+  display: flex;
+  justify-content: space-between;
+}
+.stock_select_two {
+  display: flex;
+  justify-content: space-between;
+}
+
+#para_button {
+  padding: 5px 10px;
+  background-color: white;
+  color: lawngreen;
+  border: 1px solid lawngreen;
+}
+
+#para_buttonTwo {
+  padding: 5px 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+.header-responsive {
+  display: none;
+}
+
+#SvgjsSvg1648 {
+  width: 100% !important;
+}
+
+.shadow-box {
+  box-shadow: 3px 3px 12px gray;
+}
+
+.sceond_chart_div {
+  display: flex;
+  justify-content: space-between;
+}
+.charttem {
+  width: 45%;
+}
+
+.chartline {
+  width: 52%;
+}
+
+.active {
+  background-color: #64b500;
+}
+.active-btn {
+  background-color: #87d900;
+}
+
+.info_cards_row {
+  padding: 0.5rem;
+}
+.header-last-icon {
+  padding: 1rem;
+}
+button:hover {
+  background-color: #64b500 !important;
+}
+button{
+  border-radius: 10px !important;
+}
+.dr-btn:focus{
+  border: none  
+}
+
+.dataTables_length select{
+  margin: 0rem 1rem !important;
+}
+.dr-btn:hover{
+  background-color: #87d900 !important;
+}
+.dr-btn:focus-visible{
+  border: none
+}
+.dr-btn{
+  text-align: left !important;
+}
+.dataTables_paginate a:hover {
+  background-color: #64b500 !important;
+  cursor: pointer !important;
+}
+i:hover {
+  color: #64b500;
+  cursor: pointer;
+}
+table {
+  color: #ad9e97 !important;
+}
+thead {
+  color: #ad9e97 !important;
+  background-color: #f5f5f5 !important;
+}
+.dropdown-menu {
+  backdrop-filter: blur(
+    5px
+  ) !important; /* Adjust the value for the desired blur effect */
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.table-div h3{
+  font-size: 22px !important;
+}
+.table-div h4{
+  font-size: 22px !important;
+}
+th{
+  font-size: 12px !important;
+}

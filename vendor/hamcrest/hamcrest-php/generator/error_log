@@ -1,0 +1,33 @@
+[24-May-2023 18:41:12 UTC] PHP Fatal error:  Uncaught Error: Class 'FactoryFile' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/GlobalFunctionFile.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/GlobalFunctionFile.php on line 7
+[24-May-2023 18:41:12 UTC] PHP Warning:  require(/home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/../vendor/autoload.php): failed to open stream: No such file or directory in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/run.php on line 6
+[24-May-2023 18:41:12 UTC] PHP Warning:  require(/home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/../vendor/autoload.php): failed to open stream: No such file or directory in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/run.php on line 6
+[24-May-2023 18:41:12 UTC] PHP Fatal error:  require(): Failed opening required '/home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/run.php on line 6
+[24-May-2023 18:41:13 UTC] PHP Fatal error:  Uncaught Error: Class 'FactoryFile' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/StaticMethodFile.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/StaticMethodFile.php on line 7
+[24-May-2023 23:04:13 UTC] PHP Fatal error:  Uncaught Error: Class 'FactoryFile' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/GlobalFunctionFile.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/GlobalFunctionFile.php on line 7
+[24-May-2023 23:04:13 UTC] PHP Warning:  require(/home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/../vendor/autoload.php): failed to open stream: No such file or directory in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/run.php on line 6
+[24-May-2023 23:04:13 UTC] PHP Warning:  require(/home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/../vendor/autoload.php): failed to open stream: No such file or directory in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/run.php on line 6
+[24-May-2023 23:04:13 UTC] PHP Fatal error:  require(): Failed opening required '/home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/run.php on line 6
+[24-May-2023 23:04:13 UTC] PHP Fatal error:  Uncaught Error: Class 'FactoryFile' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/StaticMethodFile.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/StaticMethodFile.php on line 7
+[25-May-2023 16:53:25 UTC] PHP Fatal error:  Uncaught Error: Class 'FactoryFile' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/GlobalFunctionFile.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/GlobalFunctionFile.php on line 7
+[25-May-2023 16:53:26 UTC] PHP Warning:  require(/home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/../vendor/autoload.php): failed to open stream: No such file or directory in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/run.php on line 6
+[25-May-2023 16:53:26 UTC] PHP Warning:  require(/home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/../vendor/autoload.php): failed to open stream: No such file or directory in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/run.php on line 6
+[25-May-2023 16:53:26 UTC] PHP Fatal error:  require(): Failed opening required '/home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/run.php on line 6
+[25-May-2023 16:53:26 UTC] PHP Fatal error:  Uncaught Error: Class 'FactoryFile' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/StaticMethodFile.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/generator/StaticMethodFile.php on line 7

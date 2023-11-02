@@ -1,0 +1,352 @@
+[24-May-2023 12:24:35 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ArchiveController.php:25
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ArchiveController.php on line 25
+[24-May-2023 12:24:35 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/BonCommandeController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/BonCommandeController.php on line 8
+[24-May-2023 12:24:36 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/BonLivraisonController.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/BonLivraisonController.php on line 15
+[24-May-2023 12:24:36 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/CaisseController.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/CaisseController.php on line 13
+[24-May-2023 12:24:37 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/CommandeController.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/CommandeController.php on line 30
+[24-May-2023 12:24:37 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Routing\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Controller.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Controller.php on line 10
+[24-May-2023 12:24:38 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/DashboardController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/DashboardController.php on line 14
+[24-May-2023 12:24:38 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/EmailController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/EmailController.php on line 10
+[24-May-2023 12:24:38 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/FactureController.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/FactureController.php on line 17
+[24-May-2023 12:24:39 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/HomeController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/HomeController.php on line 8
+[24-May-2023 12:24:39 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/MouvementController.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/MouvementController.php on line 7
+[24-May-2023 12:24:40 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/NotificationController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/NotificationController.php on line 14
+[24-May-2023 12:24:40 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ProduitController.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ProduitController.php on line 19
+[24-May-2023 12:24:41 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ProfilController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ProfilController.php on line 14
+[24-May-2023 12:24:41 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php on line 18
+[24-May-2023 12:24:42 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php on line 12
+[24-May-2023 12:24:42 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php on line 15
+[24-May-2023 12:24:43 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/StockController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/StockController.php on line 14
+[24-May-2023 12:24:43 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/TrackingController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/TrackingController.php on line 10
+[24-May-2023 12:24:44 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/VilleController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/VilleController.php on line 10
+[24-May-2023 16:13:01 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/BonCommandeController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/BonCommandeController.php on line 8
+[24-May-2023 16:13:01 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ArchiveController.php:25
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ArchiveController.php on line 25
+[24-May-2023 16:13:11 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/BonLivraisonController.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/BonLivraisonController.php on line 15
+[24-May-2023 16:13:11 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/CaisseController.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/CaisseController.php on line 13
+[24-May-2023 16:13:12 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/CommandeController.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/CommandeController.php on line 30
+[24-May-2023 16:13:12 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Routing\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Controller.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Controller.php on line 10
+[24-May-2023 16:13:22 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/DashboardController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/DashboardController.php on line 14
+[24-May-2023 16:13:23 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/EmailController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/EmailController.php on line 10
+[24-May-2023 16:13:24 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/HomeController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/HomeController.php on line 8
+[24-May-2023 16:13:24 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/FactureController.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/FactureController.php on line 17
+[24-May-2023 16:13:34 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/MouvementController.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/MouvementController.php on line 7
+[24-May-2023 16:13:35 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/NotificationController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/NotificationController.php on line 14
+[24-May-2023 16:13:35 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ProduitController.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ProduitController.php on line 19
+[24-May-2023 16:13:36 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ProfilController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ProfilController.php on line 14
+[24-May-2023 16:13:46 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php on line 18
+[24-May-2023 16:13:46 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php on line 12
+[24-May-2023 16:13:47 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php on line 15
+[24-May-2023 16:13:48 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/StockController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/StockController.php on line 14
+[24-May-2023 16:13:58 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/TrackingController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/TrackingController.php on line 10
+[24-May-2023 16:13:58 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/VilleController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/VilleController.php on line 10
+[24-May-2023 19:09:37 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ArchiveController.php:25
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ArchiveController.php on line 25
+[24-May-2023 19:09:38 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/BonCommandeController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/BonCommandeController.php on line 8
+[24-May-2023 19:09:50 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/BonLivraisonController.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/BonLivraisonController.php on line 15
+[24-May-2023 19:09:50 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/CaisseController.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/CaisseController.php on line 13
+[24-May-2023 19:09:50 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/CommandeController.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/CommandeController.php on line 30
+[24-May-2023 19:09:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Routing\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Controller.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Controller.php on line 10
+[24-May-2023 19:10:03 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/DashboardController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/DashboardController.php on line 14
+[24-May-2023 19:10:03 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/EmailController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/EmailController.php on line 10
+[24-May-2023 19:10:05 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/FactureController.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/FactureController.php on line 17
+[24-May-2023 19:10:06 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/HomeController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/HomeController.php on line 8
+[24-May-2023 19:10:15 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/MouvementController.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/MouvementController.php on line 7
+[24-May-2023 19:10:16 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/NotificationController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/NotificationController.php on line 14
+[24-May-2023 19:10:17 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ProduitController.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ProduitController.php on line 19
+[24-May-2023 19:10:19 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ProfilController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ProfilController.php on line 14
+[24-May-2023 19:10:28 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php on line 18
+[24-May-2023 19:10:28 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php on line 12
+[24-May-2023 19:10:29 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php on line 15
+[24-May-2023 19:10:32 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/StockController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/StockController.php on line 14
+[24-May-2023 19:10:41 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/TrackingController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/TrackingController.php on line 10
+[24-May-2023 19:10:41 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/VilleController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/VilleController.php on line 10
+[14-Jun-2023 08:54:05 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/BonCommandeController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/BonCommandeController.php on line 8
+[15-Jun-2023 02:45:02 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/NotificationController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/NotificationController.php on line 14
+[15-Jun-2023 16:30:42 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php on line 18
+[17-Jun-2023 12:19:45 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ArchiveController.php:25
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ArchiveController.php on line 25
+[18-Jun-2023 01:42:53 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/FactureController.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/FactureController.php on line 17
+[18-Jun-2023 09:28:16 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/TrackingController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/TrackingController.php on line 10
+[19-Jun-2023 10:45:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Routing\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/Controller.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/Controller.php on line 10
+[21-Jun-2023 01:29:16 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/CommandeController.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/CommandeController.php on line 30
+[21-Jun-2023 12:41:25 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php on line 15
+[25-Jun-2023 03:35:40 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/EmailController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/EmailController.php on line 10
+[27-Jun-2023 05:41:57 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/HomeController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/HomeController.php on line 8
+[27-Jun-2023 06:41:32 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/HomeController.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/HomeController.php on line 8
+[29-Jun-2023 14:19:01 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/CaisseController.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/CaisseController.php on line 13
+[29-Jun-2023 15:52:42 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php on line 18
+[01-Jul-2023 05:41:46 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/MouvementController.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/MouvementController.php on line 7
+[03-Jul-2023 17:38:01 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php on line 15
+[05-Jul-2023 23:01:23 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/BonLivraisonController.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/BonLivraisonController.php on line 15
+[06-Jul-2023 07:46:48 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php on line 12
+[08-Jul-2023 18:59:37 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/VilleController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/VilleController.php on line 10
+[09-Jul-2023 05:59:08 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ProduitController.php:19
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ProduitController.php on line 19
+[10-Jul-2023 00:37:24 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ProfilController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ProfilController.php on line 14
+[16-Jul-2023 20:26:46 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReceptionController.php on line 18
+[19-Jul-2023 14:24:46 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php on line 12
+[19-Jul-2023 14:45:17 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/ReclamationController.php on line 12
+[19-Jul-2023 21:52:16 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/TrackingController.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/TrackingController.php on line 10
+[23-Jul-2023 17:19:35 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php:15
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/RelanceController.php on line 15
+[30-Jul-2023 15:33:09 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/MouvementController.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/MouvementController.php on line 7
+[11-Aug-2023 07:16:04 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home/socabest/public_html/backOffice/app/Http/Controllers/DashboardController.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Controllers/DashboardController.php on line 14

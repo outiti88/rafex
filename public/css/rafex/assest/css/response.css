@@ -1,0 +1,158 @@
+/* Accueil Page mobile  */
+@media screen and (max-width: 767px) {
+    #header {
+            text-align: center;
+        }
+
+          .colis_select{
+            display: block;
+            justify-content: space-between;
+            
+          }
+                  .stock_select {
+                      display: block;
+                      justify-content: space-between;
+                  }
+          .colis-filter{
+            display: block !important;
+            text-align: center !important;
+          }
+        .stock_select_two {
+                      display: block;
+                      justify-content: space-between;
+        }
+
+        .support_img {
+             width: 300px;
+             height: 200px;
+             padding-top: 2px;
+        }
+                .containerdate {
+                    width: 100px !important;
+                }
+                /* .accTable{
+                    width: 400px !important;
+                } */
+           .colis_select {
+               display: block;
+               justify-content: space-between;
+           }
+        #sidebar_menu{
+            display: none;
+        }
+                #menuButton {
+                    display:flex !important;
+                }
+           /* #chartFirst{
+            width: 50px !important;
+            display: none;
+           } */
+}
+
+/* Accueil Page Tablet  */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .header {
+           
+        }
+    .header-last-icon {
+    text-align: center;
+    }
+    .stock_select {
+              display: block;
+              justify-content: space-between;
+          }
+        .stock_select_two {
+            display: block;
+            justify-content: space-between;
+        }
+
+        .support_img {
+
+            width: 300px;
+            height: 200px;
+        }
+        .containerdate{
+            width: 200px !important;
+        }
+        .info_cards_row{
+            padding: 0px !important;
+        }
+        .info_card_col{
+            padding: 0px !important;
+            margin-top: 1rem !important;
+        }
+                .sceond_chart_div {
+                    display: block !important;
+                    /* justify-content: space-around; */
+                }
+        
+                .charttem {
+                    width: 100%;
+                }
+        
+                .chartline {
+                    width: 100%;
+                }
+        /* .accTable{
+                width: 200px !important;
+            } */
+
+
+.colis_select {
+    display: block;
+    justify-content: space-between;
+}
+.header-responsive{
+    display: none;
+}
+#SvgjsSvg1648 {
+    width: 70% !important;
+}
+/* #menuButton{
+    display: none !important;
+} */
+
+.sceond_chart_div {
+    display: block;
+    /* justify-content: space-around; */
+}
+
+.charttem {
+    width: 100%;
+}
+
+.chartline {
+    width: 100%;
+}
+
+
+}
+
+/* login and Register Form Laptop  */
+@media screen and (min-width: 992px) and (max-width: 1024px) {
+    #header {
+            text-align: center;
+        }
+    .header-responsive{
+        display: none;
+    }
+                                       
+                 .containerdate {
+                     width: 50% !important;
+                 }
+                 .info_cards_row{
+                    padding: 0px !important;
+                }
+                .info_card_col{
+                    padding: 0px !important;
+                    margin-top: 1rem !important;
+                }
+                               
+}
+#menuButton {
+    display:none ;
+}
+
+
+
+

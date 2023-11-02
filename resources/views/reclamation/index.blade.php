@@ -14,7 +14,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Réclamations</li>
                     </ol>
                 </nav>
@@ -105,7 +105,7 @@
                             </td>
                             <td>
                                 @if ($reclamation->etat == 0)
-                                <a @can('edit-users')
+                                <a @can('manage-users')
                                 href="/reclamation/{{$reclamation->id}}"
                                     @endcan >
                                 <span class="badge badge-pill badge-info" style="color: white">

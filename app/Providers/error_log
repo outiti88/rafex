@@ -1,0 +1,96 @@
+[23-May-2023 14:47:00 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/AppServiceProvider.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/AppServiceProvider.php on line 7
+[23-May-2023 14:56:45 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\EventServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/EventServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/EventServiceProvider.php on line 10
+[23-May-2023 14:57:02 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\RouteServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/RouteServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/RouteServiceProvider.php on line 8
+[23-May-2023 17:22:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\AuthServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/AuthServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/AuthServiceProvider.php on line 8
+[24-May-2023 11:50:42 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/AppServiceProvider.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/AppServiceProvider.php on line 7
+[24-May-2023 11:50:43 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\AuthServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/AuthServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/AuthServiceProvider.php on line 8
+[24-May-2023 11:50:43 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/BroadcastServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/BroadcastServiceProvider.php on line 8
+[24-May-2023 11:50:44 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\EventServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/EventServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/EventServiceProvider.php on line 10
+[24-May-2023 11:50:44 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\RouteServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/RouteServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/RouteServiceProvider.php on line 8
+[24-May-2023 12:50:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/AppServiceProvider.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/AppServiceProvider.php on line 7
+[24-May-2023 12:50:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\AuthServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/AuthServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/AuthServiceProvider.php on line 8
+[24-May-2023 12:50:20 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/BroadcastServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/BroadcastServiceProvider.php on line 8
+[24-May-2023 12:50:20 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\EventServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/EventServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/EventServiceProvider.php on line 10
+[24-May-2023 12:50:22 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\RouteServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/RouteServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/RouteServiceProvider.php on line 8
+[24-May-2023 16:14:59 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/AppServiceProvider.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/AppServiceProvider.php on line 7
+[24-May-2023 16:15:10 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\AuthServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/AuthServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/AuthServiceProvider.php on line 8
+[24-May-2023 16:15:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\EventServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/EventServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/EventServiceProvider.php on line 10
+[24-May-2023 16:15:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/BroadcastServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/BroadcastServiceProvider.php on line 8
+[24-May-2023 16:15:11 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\RouteServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/RouteServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/RouteServiceProvider.php on line 8
+[11-Jun-2023 09:24:39 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/AppServiceProvider.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/AppServiceProvider.php on line 7
+[12-Jun-2023 02:56:12 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\AuthServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/AuthServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/AuthServiceProvider.php on line 8
+[19-Jun-2023 15:10:13 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\EventServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/EventServiceProvider.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/EventServiceProvider.php on line 10
+[20-Jun-2023 17:53:53 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Support\Providers\RouteServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/RouteServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/RouteServiceProvider.php on line 8
+[27-Jun-2023 04:18:41 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Support\ServiceProvider' not found in /home/socabest/public_html/backOffice/app/Providers/BroadcastServiceProvider.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Providers/BroadcastServiceProvider.php on line 8

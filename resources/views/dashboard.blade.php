@@ -33,7 +33,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="#">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                     </ol>
                 </nav>
@@ -366,7 +366,7 @@
                                 <th class="border-top-0">Colis Livrés</th>
                                 @endcan
                                 @cannot('ramassage-commande')
-                                <th class="border-top-0">Nombre de Colis</th>
+                                <th class="border-top-0">Nombre de Commandes</th>
                                 <th class="border-top-0">Nombre de colis</th>
                                 <th class="border-top-0">Montant</th>
                                 @endcannot

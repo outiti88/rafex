@@ -1,0 +1,40 @@
+[25-May-2023 16:53:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\IsTypeOf' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsArray.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsArray.php on line 12
+[25-May-2023 16:53:47 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\IsTypeOf' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsBoolean.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsBoolean.php on line 12
+[25-May-2023 16:53:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\IsTypeOf' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsCallable.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsCallable.php on line 12
+[25-May-2023 16:53:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\IsTypeOf' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsDouble.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsDouble.php on line 14
+[25-May-2023 16:53:48 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\IsTypeOf' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsInteger.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsInteger.php on line 12
+[25-May-2023 16:53:49 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\IsTypeOf' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsNumeric.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsNumeric.php on line 12
+[25-May-2023 16:53:49 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\IsTypeOf' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsObject.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsObject.php on line 12
+[25-May-2023 16:53:50 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\IsTypeOf' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsResource.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsResource.php on line 12
+[25-May-2023 16:53:50 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\IsTypeOf' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsScalar.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsScalar.php on line 12
+[25-May-2023 16:53:51 UTC] PHP Fatal error:  Uncaught Error: Class 'Hamcrest\Core\IsTypeOf' not found in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsString.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsString.php on line 12

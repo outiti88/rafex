@@ -41,7 +41,7 @@ Relances
             color: #333;
         }
         .profile-head h6{
-            color: #f7941e;
+            color: #467a0f;
         }
         .profile-edit-btn{
             border: none;
@@ -71,7 +71,7 @@ Relances
         }
         .profile-head .nav-tabs .nav-link.active{
             border: none;
-            border-bottom:2px solid #f7941e;
+            border-bottom:2px solid #467a0f;
         }
         .profile-work{
             padding: 14%;
@@ -97,13 +97,13 @@ Relances
         }
         .profile-tab p{
             font-weight: 600;
-            color: #f7941e;
+            color: #467a0f;
         }
         a {
-            color: #f7941e;
+            color: #467a0f;
         }
         a:hover {
-            color: #f7941e;
+            color: #467a0f;
         }
         .show .row{
             border-bottom-color: #cacaca;

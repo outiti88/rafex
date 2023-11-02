@@ -25,7 +25,7 @@ class StoreCommande extends FormRequest
     {
         return [
 
-            'telephone' => 'required|min:10|max:10',
+            'telephone' => 'required',
             'ville' => 'required',
             'adresse' => 'required',
             'nom' => 'required'

@@ -1,0 +1,12 @@
+[24-May-2023 11:50:38 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/socabest/public_html/backOffice/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Kernel.php on line 7
+[24-May-2023 12:49:55 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/socabest/public_html/backOffice/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Kernel.php on line 7
+[24-May-2023 16:14:34 UTC] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Http\Kernel' not found in /home/socabest/public_html/backOffice/app/Http/Kernel.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/app/Http/Kernel.php on line 7

@@ -1,0 +1,8 @@
+[24-May-2023 21:54:12 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function storage_path() in /home/socabest/public_html/backOffice/vendor/barryvdh/laravel-dompdf/config/dompdf.php:41
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/barryvdh/laravel-dompdf/config/dompdf.php on line 41
+[25-May-2023 16:40:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function storage_path() in /home/socabest/public_html/backOffice/vendor/barryvdh/laravel-dompdf/config/dompdf.php:41
+Stack trace:
+#0 {main}
+  thrown in /home/socabest/public_html/backOffice/vendor/barryvdh/laravel-dompdf/config/dompdf.php on line 41
