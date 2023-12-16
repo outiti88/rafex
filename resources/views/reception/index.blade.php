@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Reception</li>
                     </ol>
                 </nav>
@@ -177,7 +177,7 @@
 
 
                             <td>
-                                <a href="" style="color: white; background-color: #f7941e" class="badge badge-pill" data-toggle="modal" data-target="#detail_reception{{$reception->id}}" >
+                                <a href="" style="color: white; background-color: #467a0f" class="badge badge-pill" data-toggle="modal" data-target="#detail_reception{{$reception->id}}" >
                                     <span style="font-size: 1.25em">{{$reception->reference}}</span>
                                 </a>
                             </td>

@@ -13,7 +13,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item"><a href="/">Utilisateurs</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Ajouter</li>
                     </ol>
@@ -29,7 +29,7 @@
 <div class="container-fluid">
         <div class="alert alert-dismissible alert-warning col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Si l'utilisateur est un client c'est recommondé de laisser le mot de passe par defaut : Colisade2020 </a>.
+        <strong>Si l'utilisateur est un client c'est recommondé de laisser le mot de passe par defaut : Cavallo2020 </a>.
           </div>
     <div class="row justify-content-center">
 
@@ -149,7 +149,7 @@
                             <label for="password" class="col-md-2 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-4">
-                                <input id="password" value="Colisade2020" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" value="Cavallo2020" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -160,11 +160,11 @@
                             <label for="password-confirm" class="col-md-2 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-4">
-                                <input id="password-confirm"  value="Colisade2020"  type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm"  value="Cavallo2020"  type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="roles" class="col-md-12 col-form-label text-center font-bold font-16">Rôles Colisade : </label>
+                            <label for="roles" class="col-md-12 col-form-label text-center font-bold font-16">Rôles Cavallo : </label>
                             <label for="roles" class="col-md-2 col-form-label text-md-right">Rôle : </label>
                             <div class="col-md-10 d-flex p-t-10 justify-content-around">
                                 <div class="form-check">

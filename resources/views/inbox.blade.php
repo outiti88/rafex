@@ -10,12 +10,12 @@
     <div class="row align-items-center">
         <div class="col-5">
             <h4 class="page-title">Inbox  @can('ramassage-commande')
-                (<b>{{auth()->user()->unreadNotifications->count()}}</b>) 
+                (<b>{{auth()->user()->unreadNotifications->count()}}</b>)
                 @endcan</h4>
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Inbox</li>
                     </ol>
                 </nav>
@@ -31,11 +31,11 @@
 <!-- Container fluid  -->
 <!-- ============================================================== -->
 <div class="container-fluid">
-   
-  
-  
+
+
+
     <div class="row">
-        
+
         @if (session()->has('nonExpidie'))
         <div class="alert alert-dismissible alert-danger col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -61,21 +61,21 @@
             <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Erreur !</strong>vous ne pouvez pas changer le statut La commande numero {{session()->get('noedit')}}
           </div>
-        @endif 
+        @endif
 
         <div class="col-lg-12">
             <div class="card">
-             
+
                 <div class="comment-widgets scrollable">
                     @foreach ($notifications as $notification)
                     <!-- Comment Row -->
-                    <div class="d-flex flex-row comment-row"   
+                    <div class="d-flex flex-row comment-row"
                     @if ($notification->read_at == NULL)
                     style="
                     background-color: #e6edf1;
                     "
                     @endif
-                    
+
                     >
                 <div class="p-2"><img src="
                     @can('ramassage-commande')
@@ -88,7 +88,7 @@
                     alt="user" width="50" class="rounded-circle">
                 </div>
 
-                
+
                         <div class="comment-text w-100">
 
 
@@ -103,15 +103,15 @@
                                     </a>
                                 </h4>
                             @endcan
-                            
 
-                            <h5 class="font-medium" style="color: #f7941e">
+
+                            <h5 class="font-medium" style="color: #467a0f">
                                 <b>
                                     @can('ramassage-commande')
                                     {{$notification->data['user']['name']}}
                                     @endcan
                                     @can('fournisseur')
-                                    Colisade Delivery
+                                    Cavallo Delivery
                                     @endcan
                                 </b>
                             </h5>
@@ -124,10 +124,10 @@
                                     @can('fournisseur')
                                     A modifié le staut de la commande :
                                     @endcan
-                                
+
                                 <a style="color:black" href="{{route('commandes.showFromNotify',['commande' => $notification->data['commande']['id'] ,
                                 'notification' => $notification->id])}}">
-                                 <b>{{$notification->data['commande']['numero']}}</b> 
+                                 <b>{{$notification->data['commande']['numero']}}</b>
                                  </a>
                             </span>
                             <div class="comment-footer">
@@ -138,7 +138,7 @@
                                     @can('fournisseur')
                                     {{date_format($notification->updated_at,"Y/m/d")}}
                                     @endcan
-                                    <p class="proile-rating"><span> 
+                                    <p class="proile-rating"><span>
                                         @can('ramassage-commande')
                                         {{date_format($notification->created_at,"H:i:s")}}
                                         @endcan
@@ -147,7 +147,7 @@
                                         @endcan
                                     </span></p>
                                 </span>
-                                <span class="label label-rounded create-btn" style="background-color: #f7941e"><a style="color:white" href="{{route('commandes.showFromNotify',['commande' => $notification->data['commande']['id'] ,
+                                <span class="label label-rounded create-btn" style="background-color: #467a0f"><a style="color:white" href="{{route('commandes.showFromNotify',['commande' => $notification->data['commande']['id'] ,
                                     'notification' => $notification->id])}}">
                                     Voir le detail
                                 </a>
@@ -156,18 +156,18 @@
                                         <a href="{{route('commandes.showFromNotify',['commande' => $notification->data['commande']['id'] ,
                                             'notification' => $notification->id])}}" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="ti-pencil-alt"></i></a>
                                         <a href="{{route('inbox.show', $notification->id)}}" data-toggle="tooltip" data-placement="top" title="marquer lu"><i class="ti-check"></i></a>
-                                        <a href="{{route('inbox.destroy', $notification->id)}}" data-toggle="tooltip" data-placement="top" title="supprimer"><i class="ti-close"></i></a>    
+                                        <a href="{{route('inbox.destroy', $notification->id)}}" data-toggle="tooltip" data-placement="top" title="supprimer"><i class="ti-close"></i></a>
                                     </span>
                             </div>
 
 
                             @else
                             @can('ramassage-commande')
-                            <h5 class="font-medium" style="color: #f7941e">
+                            <h5 class="font-medium" style="color: #467a0f">
                                 <b>
-                                    
+
                                     {{$notification->data['user']['name']}}
-                          
+
                                 </b>
                             </h5>
 
@@ -175,20 +175,20 @@
                             <span class="m-b-15 d-block">
                                     A envoyé une reception de Ref°: <a style="color:black"  href="{{route('reception.showFromNotify',['reception' => $notification->data['reception']['id'] ,
                                         'notification' => $notification->id])}}">
-                                    <b>{{$notification->data['reception']['reference']}}</b>    
+                                    <b>{{$notification->data['reception']['reference']}}</b>
                                     </a>
-                            
+
                             </span>
                             <div class="comment-footer">
                                 <span class="text-muted float-right">
                                     {{date_format($notification->created_at,"Y/m/d")}}
 
-                                    <p class="proile-rating"><span> 
+                                    <p class="proile-rating"><span>
                                         {{date_format($notification->created_at,"H:i:s")}}
-                           
+
                                     </span></p>
                                 </span>
-                                <span class="label label-rounded create-btn" style="background-color: #f7941e"><a style="color:white" href="{{route('reception.index')}}">
+                                <span class="label label-rounded create-btn" style="background-color: #467a0f"><a style="color:white" href="{{route('reception.index')}}">
                                     Voir le detail
                                 </a>
                                 </span>
@@ -196,7 +196,7 @@
                                         <a href="{{route('reception.showFromNotify',['reception' => $notification->data['reception']['id'] ,
                                             'notification' => $notification->id])}}" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="ti-pencil-alt"></i></a>
                                         <a href="{{route('inbox.show', $notification->id)}}" data-toggle="tooltip" data-placement="top" title="marquer lu"><i class="ti-check"></i></a>
-                                        <a href="{{route('inbox.destroy', $notification->id)}}" data-toggle="tooltip" data-placement="top" title="supprimer"><i class="ti-close"></i></a>    
+                                        <a href="{{route('inbox.destroy', $notification->id)}}" data-toggle="tooltip" data-placement="top" title="supprimer"><i class="ti-close"></i></a>
                                     </span>
                             </div>
                             @endcan
@@ -209,13 +209,13 @@
                     </div>
                     @endforeach
 
-                      
+
 
                 </div>
             </div>
         </div>
         <!-- column -->
-      
+
     <!-- Recent comment and chats -->
     <!-- ============================================================== -->
 </div>

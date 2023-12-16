@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Colisade | Tracking</title>
+    <title>Cavallo | Tracking</title>
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('/assets/images/favicon.png')}}">
 
     <link rel="stylesheet" href="{{ url('/assets/vendor/fortawesome/fontawesome-free/css/all.min.css')}}"  type="text/css">
@@ -216,7 +216,7 @@
                         @if ($state == 2)
                             <p class="font-weight-bold">{{\App\Statut::where('commande_id',$commande->id)->where('name','Reçue')->first()->created_at}}</p>
                         @else
-                            <p class="font-weight-bold">{{\App\Statut::where('commande_id',$commande->id)->where('name','Expidiée')->first()->created_at}}</p>
+                            <p class="font-weight-bold">{{\App\Statut::where('commande_id',$commande->id)->where('name','Expédiée')->first()->created_at}}</p>
                         @endif
                     @endif
                 </div>

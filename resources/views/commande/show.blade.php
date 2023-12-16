@@ -42,7 +42,7 @@ N: {{$commande->numero}}
             color: #333;
         }
         .profile-head h6{
-            color: #f7941e;
+            color: #467a0f;
         }
         .profile-edit-btn{
             border: none;
@@ -72,7 +72,7 @@ N: {{$commande->numero}}
         }
         .profile-head .nav-tabs .nav-link.active{
             border: none;
-            border-bottom:2px solid #f7941e;
+            border-bottom:2px solid #467a0f;
         }
         .profile-work{
             padding: 14%;
@@ -98,13 +98,13 @@ N: {{$commande->numero}}
         }
         .profile-tab p{
             font-weight: 600;
-            color: #f7941e;
+            color: #467a0f;
         }
         a {
-            color: #f7941e;
+            color: #467a0f;
         }
         a:hover {
-            color: #f7941e;
+            color: #467a0f;
         }
 
         #home .row{
@@ -129,7 +129,7 @@ N: {{$commande->numero}}
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a href="/commandes">Colis</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{$commande->numero}}</li>
                     </ol>
@@ -139,7 +139,46 @@ N: {{$commande->numero}}
         <div class="col-6">
             <div class="row float-right">
                 @can('fournisseur')
-                <a  class="btn btn-warning text-white m-r-5" data-toggle="modal" data-target="#modalReclamation"><i class="fab fa-buffer"></i> <span class="quick-action">Réclamer</span></a>
+                <a  class="btn btn-warning text-white m-r-5" data-toggle="modal" data-target="#modalReclamation"><i class="fab fa-buffer"></i> <span class="quick-action">Réclamer </span></a>
+
+                @if($commande->statut === "Pas de Réponse" || $commande->statut === "Annulée" ||  $commande->statut === "Injoignable")
+                <a  class="btn btn-success text-white m-r-5" data-toggle="modal" data-target="#modalRelance"><i class="fas fa-random"></i> <span class="quick-action">Relancer </span></a>
+                @endif
+                <div class="modal fade" id="modalRelance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de vouloir relancer cette commande ?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h5>
+                                                    Commande numero: {{$commande->numero}}
+                                                </h5>
+                                                <p class="proile-rating">Statut : {{$commande->statut}}</p>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                    Cliquez sur <b>Ok</b> pour confirmer ou <b>fermer</b> pour annuler la relance
+
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                            <form method="GET" action="{{ route('commandes.relance',['commandeId'=> $commande->id]) }}">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary text-white m-r-5">Ok</button>
+                                            </form>
+                                            </div>
+                                        </div>
+                                        </div>
+                </div>
+
                 <div class="modal fade" id="modalReclamation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
@@ -190,19 +229,17 @@ N: {{$commande->numero}}
                   </div>
                 @endcan
 
-                    @can('client')
-                    <a  class="btn btn-danger text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionForm"><i class="fa fa-plus-square"></i></a>
-                    @endcan
+
                     @can('livreur')
                     @if (( $commande->statut === "Pas de Réponse" || $commande->statut === "Livré" || $commande->statut === "Injoignable" || $commande->statut === "En cours" || $commande->statut === "Refusée" || $commande->statut === "Modifiée" || $commande->statut === "Annulée" || $commande->statut === "Relancée" || $commande->statut === "Reporté" ))
-                    <a  class="btn btn-warning text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormStatut"><span class="quick-action">Statut</span><i class="fas fa-edit"></i></a>
+                    <a  class="btn btn-warning text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormStatut"><i class="fas fa-edit"></i><span class="quick-action">Statut </span></a>
                     @endif
                     @endcan
                     @can('manage-users')
                         @if ( $commande->statut !== "Retour en stock")
-                        <a  class="btn btn-warning text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormStatut"><span class="quick-action">Statut</span><i class="fas fa-edit"></i></a>
+                        <a  class="btn btn-warning text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormStatut"><i class="fas fa-edit"></i><span class="quick-action">Statut</span></a>
                         @endif
-                        <a  class="btn btn-dark text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormLivreur"><span class="quick-action">Affecter</span><i class="fas fa-user"></i></a>
+                        <a  class="btn btn-dark text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormLivreur"><i class="fas fa-user"></i> <span class="quick-action"> Affecter</span></a>
 
                         <div class="modal fade" id="modalSubscriptionFormLivreur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -259,47 +296,48 @@ N: {{$commande->numero}}
 
 
                     @can('delete-commande')
-                    @if ($commande->statut === "envoyée" || $modify === 1  )
-                    <a  class="btn btn-primary text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormEdit"><span class="quick-action">Modifier</span><i class="fas fa-edit"></i></a>
+                    @if ($commande->statut === "envoyée" || $modify === 1 || $commande->statut === "Refusée" || $commande->statut === "Injoignable" || $commande->statut === "Annulée" || $commande->statut === "Pas de Réponse"  )
+                    <a  class="btn btn-primary text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormEdit"><i class="fas fa-edit"></i><span class="quick-action"> Modifier</span></a>
+                        @if ($commande->statut === "envoyée" )
+                        <a class="btn btn-secondary text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormDelete"><i class="fas fa-trash-alt"></i><span class="quick-action"> Supprimer</span></a>
 
-                    <a class="btn btn-secondary text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormDelete"><span class="quick-action">Supprimer</span><i class="fas fa-trash-alt"></i></a>
+                                    <div class="modal fade" id="modalSubscriptionFormDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de vouloir supprimer cette commande ?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h5>
+                                                    Commande numero: {{$commande->numero}}
+                                                </h5>
+                                                <p class="proile-rating">Date : {{date_format($commande->created_at,"Y/m/d")}}<span> {{date_format($commande->created_at,"H:i:s")}}</span></p>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                    Cliquez sur <b>Ok</b> pour confirmer ou <b>fermer</b> pour annuler la suppression
 
-                                <div class="modal fade" id="modalSubscriptionFormDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de vouloir supprimer cette commande ?</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                            <form method="POST" action="{{ route('commandes.destroy',['commande'=> $commande->id]) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-primary text-white m-r-5">Ok</button>
+                                            </form>
+                                            </div>
                                         </div>
-                                        <div class="modal-body">
-                                            <h5>
-                                                Commande numero: {{$commande->numero}}
-                                            </h5>
-                                            <p class="proile-rating">Date : {{date_format($commande->created_at,"Y/m/d")}}<span> {{date_format($commande->created_at,"H:i:s")}}</span></p>
                                         </div>
-                                        <div class="modal-body">
-                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                                Cliquez sur <b>Ok</b> pour confirmer ou <b>fermer</b> pour annuler la suppression
-
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                                </button>
-                                              </div>
-                                          </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                          <form method="POST" action="{{ route('commandes.destroy',['commande'=> $commande->id]) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-primary text-white m-r-5">Ok</button>
-                                        </form>
-                                        </div>
-                                      </div>
                                     </div>
-                                  </div>
 
+                        @endif
                     @endif
 
                     @endcan
@@ -318,7 +356,7 @@ N: {{$commande->numero}}
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 Vous ne pouvez pas changer le statut en  <b>"Retour en stock"</b>
                 <br>
-            <strong> Car: Le statut de la commande numero {{session()->get('edit')}} est Refusée et elle n'est pas encore facturée !</strong>
+            <strong> Car: Le statut de la commande numero {{$commande->numero}} est Refusée et elle n'est pas encore facturée !</strong>
               </div>
               @endif
             @if (session()->has('statut'))
@@ -337,7 +375,7 @@ N: {{$commande->numero}}
         @if (session()->has('noedit'))
         <div class="alert alert-dismissible alert-danger col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Attention !</strong>vous ne pouvez pas changer le statut de La commande numero {{session()->get('noedit')}}
+        <strong>Attention !</strong> Vous ne pouvez pas changer le statut de La commande numero {{session()->get('noedit')}}
           </div>
         @endif
         @if (session()->has('nodelete'))
@@ -350,7 +388,7 @@ N: {{$commande->numero}}
         <div class="alert alert-dismissible alert-danger col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Attention !</strong>vous ne pouvez pas modifier La commande numero {{session()->get('noupdate')}} <br>
-                vous pouvez modifier que les commandes qui ont le statut <b>EXPIDIE</b>
+                vous pouvez modifier que les commandes qui ont le statut <b>Envoyée ou pas livrée</b>
         </div>
         @endif
         @if (session()->has('nonEncours'))
@@ -361,15 +399,55 @@ N: {{$commande->numero}}
         </div>
         @endif
 
-            <div class="col-md-8">
-                <div class="row">
-                    <h5>
-                     Nombre de relance : {{$Rtotal}}
-                    </h5>
-                </div>
+            <div class="col-md-6">
                 <div class="profile-head">
+                    @can('manage-users')
+                        <a style="border: black;
+                        border-style: solid;
+                        border-radius: 10px;
+                        margin-bottom: 10px;
+                        padding: 5px;" title="{{$commande->user()->first()->name}} Tel: {{$commande->user()->first()->telephone}}" class=" text-muted waves-effect @if($commande->user()->first()->statut) vip @endif "
+                            @can('edit-users')
+                                href="{{route('admin.users.edit',$commande->user()->first()->id)}}"
+                            @endcan >
+                            <img src="{{$commande->user()->first()->image}}" alt="user" class="rounded-circle" width="31" style="border-color: white; border-style: solid; box-shadow: none;">
+                            <h5 style="display: inline"> Fournisseur: {{$commande->user()->first()->name}}</h5>
+                        </a>
+                    @endcan
+                    <div style="display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 15px;">
+                        <div>
+                                @if ($commande->facturer == 0)
+                            <span class="badge badge-pill  badge-warning" style="color: white">
+                                    Commande Non facturée
+                            </span>
+                                @else
+                            <a href="{{route('facture.infos',$commande->facturer)}}" class="badge badge-pill  badge-warning" style="color: white">
+                                Commande Faturée
+                            </a>
+                                @endif
+                        </div>
+                        <div>
+                            @if ($commande->isChanged == 1)
+
+                            <span class="badge badge-pill  badge-info mt-2" style="color: white">
+                                    Commande de Change
+                            </span>
+                            @endif
+
+                        </div>
+                        <div>
+                            <h5 >
+                            <span class="badge badge-pill  badge-danger mt-2" style="color: white">
+                                Nombre de relance : {{$Rtotal}}
+                            </span>
+                            </h5>
+                        </div>
+                    </div>
                             <h5>
-                                Commande numero: <span style="color: #f7941e">{{$commande->numero}}</span>
+                                Commande numero: <span style="color: #467a0f">{{$commande->numero}}</span>
                                 <a  style="color: white"
                                     class="badge badge-pill
                                     @switch($commande->statut)
@@ -387,7 +465,7 @@ N: {{$commande->numero}}
                                      href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
                                     @endcan
                                         @break
-                                        @case("Expidiée")
+                                        @case("Expédiée")
                                     badge-primary"
                                     @can('ramassage-commande')
                                     title="Rammaser la commande"
@@ -440,28 +518,28 @@ N: {{$commande->numero}}
                                 </a>
                             </h5>
                             @can('manage-users')
-                            @if ($client == true)
-                            <div class="modal fade" id="validRetour" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLabel">Validation en stock</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      Cliquez sur valider pour ajouter les produits de cette commande en stock
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                @if ($client == true)
+                                <div class="modal fade" id="validRetour" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Validation en stock</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                        Cliquez sur <b>valider</b> pour rajouter les produits de cette commande en stock
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                                      <a  href="{{route('commande.valideRetour',$commande->id)}}" class="btn btn-primary">Valider le retour</a>
+                                        <a  href="{{route('commande.valideRetour',$commande->id)}}" class="btn btn-primary">Valider le retour</a>
+                                        </div>
                                     </div>
-                                  </div>
+                                    </div>
                                 </div>
-                              </div>
-                            @endif
+                                @endif
 
                             @endcan
 
@@ -489,14 +567,29 @@ N: {{$commande->numero}}
                     </ul>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-info text-white m-r-5" data-toggle="modal" data-target="#ticketPrint"><i class="fas fa-print"></i> Imprimer</button>
+            <div class="col-md-6 row">
+                <div>
+                    <button type="button" class="btn btn-info text-white m-r-5" data-toggle="modal" data-target="#ticketPrint"><i class="fas fa-print"></i> Imprimer</button>
+                </div>
+                @can('manage-users')
+                <div>
+                    <button type="button" style="background-color: #ffab01;" class="btn text-white m-r-5" data-toggle="modal" data-target="#horszone"><i class="fas fa-route"></i> Hors Zone</button>
+                </div>
+                @if ($client == true)
+                    @if ( $commande->statut === "Pas de Réponse" || $commande->statut === "Injoignable" || $commande->statut === "Refusée" || $commande->statut === "Retour" || $commande->statut === "Annulée" )
+                    <div>
+                        <button type="button"  class="btn btn-danger text-white m-r-5" title="Valider dans le stock"  data-toggle="modal" data-target="#validRetour"><i class="fas fa-clipboard-check"></i> Valider le retour</button>
+                    </div>
+                    @endif
+
+                @endif
+                @endcan
+                 @can('client-admin')
+                <div>
+                    <a href="{{ route('commande.change',['commande'=> $commande]) }}" class="btn text-white m-r-5" type="button" style="background-color: #dcdc3a;"><i class="fas fa-undo"></i> Colis de Change</a>
+                </div>
+                 @endcan
             </div>
-            @can('manage-users')
-            <div class="col-md-2">
-                <button type="button" style="background-color: #ffab01;" class="btn btn-secondary text-white m-r-5" data-toggle="modal" data-target="#horszone"><i class="fas fa-route"></i> Hors Zone</button>
-            </div>
-            @endcan
 
         </div>
 
@@ -693,7 +786,7 @@ N: {{$commande->numero}}
                                                     "badge badge-pill badge-secondary"
                                                 @break
 
-                                                @case("Expidiée")
+                                                @case("Expédiée")
                                                     "badge badge-pill badge-primary"
                                                 @break
 
@@ -808,7 +901,7 @@ N: {{$commande->numero}}
 </div>
 
 @can('delete-commande')
-@if ($commande->statut === "envoyée" || $modify === 1 || $commande->statut === "Refusée")
+@if ($commande->statut === "envoyée" || $modify === 1  || $commande->statut === "Refusée" || $commande->statut === "Injoignable" || $commande->statut === "Annulée" || $commande->statut === "Pas de Réponse" )
 <div class="container my-4">
     <div class="modal fade" id="modalSubscriptionFormEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                     aria-hidden="true">
@@ -898,6 +991,33 @@ N: {{$commande->numero}}
                                         <textarea  name="adresse" rows="5" class="form-control form-control-line">{{ old('adresse',$commande->adresse) }}</textarea>
                                     </div>
                                 </div>
+                                @if ($commande->statut !== "envoyée")
+                                @can('manage-users')
+                                <div class="form-group">
+                                        <label class="col-sm-12">Ville :</label>
+                                        <div class="col-sm-12">
+                                            <select name="ville" class="form-control form-control-line" value="{{ old('ville',$commande->ville) }}" onchange="myFunctionEdit1()" required>
+                                            <option value="{{$commande->ville}}" checked>{{$commande->ville}}</option>
+                                            @foreach ($villes as $ville)
+                                            <option value="{{$ville->name}}" class="rounded-circle">
+                                                {{$ville->name}}
+                                            </option>
+                                            @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endcan
+                                @can('fournisseur')
+                                <div class="form-group" style="display: none">
+                                        <label class="col-sm-12">Ville :</label>
+                                        <div class="col-sm-12">
+                                            <select name="ville" class="form-control form-control-line" value="{{ old('ville',$commande->ville) }}" onchange="myFunctionEdit1()" required>
+                                            <option value="{{$commande->ville}}" checked selected>{{$commande->ville}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endcan
+                                @else
                                 <div class="form-group">
                                     <label class="col-sm-12">Ville :</label>
                                     <div class="col-sm-12">
@@ -911,6 +1031,8 @@ N: {{$commande->numero}}
                                         </select>
                                     </div>
                                 </div>
+                                @endif
+
                                 <div   class="form-group" id="secteur2" style="display: none">
                                     <label class="col-sm-12">Secteur :</label>
                                     <div class="col-sm-12">
@@ -982,7 +1104,7 @@ N: {{$commande->numero}}
                                                 <option>envoyée</option>
                                                 <option>Ramassée</option>
                                                 <option>Reçue</option>
-                                                <option>Expidiée</option>
+                                                <option>Expédiée</option>
                                                 <option>En cours</option>
                                                 <option>Relancée</option>
                                             @endcan

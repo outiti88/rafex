@@ -1,5 +1,6 @@
 on:
   push:
+  pull_request:
   schedule:
   - cron: '0 0 * * *'
 
@@ -9,11 +10,19 @@ jobs:
 
     strategy:
       matrix:
-        php: [7.4, 7.3, 7.2, 7.1, 7.0]
+        php: [7.2, 7.3, 7.4, 8.0, 8.1]
+        symfony: [4.x, 5.x, 6.x]
         dependency-version: [prefer-lowest, prefer-stable]
         os: [ubuntu-latest]
+        exclude:
+          - symfony: 6.x
+            php: 7.2
+          - symfony: 6.x
+            php: 7.3
+          - symfony: 6.x
+            php: 7.4
 
-    name: PHP${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
+    name: PHP${{ matrix.php }} Symfony${{ matrix.symfony }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
 
     steps:
     - name: Checkout code
@@ -27,11 +36,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+        composer require "symfony/http-foundation:${{ matrix.symfony }}" "symfony/http-kernel:${{ matrix.symfony }}" --no-interaction --no-update
+        composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest --with-all-dependencies
 
     - name: Execute Unit Tests
       run: vendor/bin/phpunit
 
     - name: Check PSR-12 Codestyle
-      run: vendor/bin/phpcs --standard=psr12 src/
+      run: vendor/bin/phpcs --standard=psr12 --exclude=Generic.Files.LineLength src/
       if: matrix.os == 'ubuntu-latest'

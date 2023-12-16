@@ -2789,8 +2789,8 @@ fieldset:disabled a.btn
 .btn-danger
 {
     color: #fff;
-    border-color: #f7941e;
-    background-color: #f7941e;
+    border-color: #467a0f;
+    background-color: #467a0f;
     box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
 }
 .btn-danger:hover
@@ -2808,16 +2808,16 @@ fieldset:disabled a.btn
 .btn-danger:disabled
 {
     color: #fff;
-    border-color: #f7941e;
-    background-color: #f7941e;
+    border-color: #467a0f;
+    background-color: #467a0f;
 }
 .btn-danger:not(:disabled):not(.disabled):active,
 .btn-danger:not(:disabled):not(.disabled).active,
 .show > .btn-danger.dropdown-toggle
 {
     color: #fff;
-    border-color: #f7941e;
-    background-color: #f7941e;
+    border-color: #467a0f;
+    background-color: #467a0f;
 }
 .btn-danger:not(:disabled):not(.disabled):active:focus,
 .btn-danger:not(:disabled):not(.disabled).active:focus,
@@ -5982,7 +5982,7 @@ a.badge:focus
     text-decoration: none;
 
     color: #fff;
-    background-color: #2a44db;
+    background-color: #4c32e9;
 }
 
 .badge-secondary
@@ -6002,7 +6002,7 @@ a.badge:focus
 .badge-success
 {
     color: white;
-    background-color: #16dd87;
+    background-color: #649c12;
 }
 .badge-success[href]:hover,
 .badge-success[href]:focus
@@ -6040,7 +6040,7 @@ a.badge:focus
 .badge-danger
 {
     color: white;
-    background-color: #f30736;
+    background-color: #d02309;
 }
 .badge-danger[href]:hover,
 .badge-danger[href]:focus

@@ -53,7 +53,6 @@ class ProduitController extends Controller
                 if (!empty(User::withTrashed()->find($produit->user_id)))
                     $users[] =  User::withTrashed()->find($produit->user_id);
             }
-            //dd($clients[0]->id);
         } else {
             $produits = DB::table('produits')->where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(10);
             $total = DB::table('produits')->where('user_id', Auth::user()->id)->count();

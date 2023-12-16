@@ -31,7 +31,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn" style="background-color: #f7941e ; color:white">
+                                <button type="submit" class="btn" style="background-color: #467a0f ; color:white">
                                     {{ __('Confirmez Votre mot de passe!') }}
                                 </button>
 

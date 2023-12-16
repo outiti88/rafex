@@ -10,12 +10,12 @@
 @section('style')
     <style>
         .page-link {
-            color: #f7941e !important;
+            color: #467a0f !important;
         }
         .page-item.active .page-link {
 
-            background-color: #f7941e !important;
-            border-color: #f7941e !important;
+            background-color: #467a0f !important;
+            border-color: #467a0f !important;
             color: #fff !important;
         }
     </style>
@@ -28,7 +28,7 @@
         @if (session()->has('search'))
         <div class="alert alert-dismissible alert-warning col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Oupss !</strong> Il n'existe aucun numero de facture avec : {{session()->get('search')}}  </a>.
+        <strong>-</strong> Il n'existe aucun numero de facture avec : {{session()->get('search')}}  </a>.
           </div>
         @endif
         @if (session()->has('nbrCmdLivre'))
@@ -69,7 +69,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Facture</li>
                     </ol>
                 </nav>

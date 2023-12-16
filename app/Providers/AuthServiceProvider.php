@@ -33,7 +33,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAnyRoles(['admin','ecom','personel']);
         });
 
-
+        Gate::define('gestion-ramassage', function($user){
+            return $user->hasAnyRoles(['admin','client','personel','livreur']);
+        });
 
         Gate::define('ramassage-commande', function($user){
             return $user->hasAnyRoles(['admin','livreur','personel']);

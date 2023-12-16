@@ -54,8 +54,6 @@ class UsersController extends Controller
         $villes= DB::table('villes')->orderBy('name')->get();
         $userVilles = explode(",", $user->ville);
         unset($userVilles[count($userVilles)-1]);
-        //dd($userVilles);
-
 
 
         if(Gate::denies('edit-users')){
@@ -82,8 +80,6 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //dd($user);
-
 
         if(Gate::denies('edit-users')){
             return redirect(route('admin.users.index'));

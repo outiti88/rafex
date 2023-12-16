@@ -13,7 +13,7 @@ class PdfGenerate extends Mailable
 
     public $details;
     private $motif ;
-    
+
 
     /**
      * Create a new message instance.
@@ -24,7 +24,7 @@ class PdfGenerate extends Mailable
     {
             $this->motif = $motif;
             $this->details = $details;
-        
+
     }
 
     /**
@@ -38,7 +38,7 @@ class PdfGenerate extends Mailable
             return $this->subject('Facture générée')->view('emails.PdfGenerate');
         }
         if($this->motif === "register"){
-            return $this->subject('Bienvenue chez Colisade Delivery')->view('emails.register');
+            return $this->subject('Bienvenue chez Cavallo Delivery')->view('emails.register');
         }
     }
 }

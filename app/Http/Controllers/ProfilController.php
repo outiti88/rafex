@@ -45,13 +45,19 @@ class ProfilController extends Controller
       // dd($request);
        $user->name=$request->name;
        $user->email=$request->email;
-       $user->image=$request->image;
+       if ($request->hasfile('image')){
+         $file = $request->file('image');
+         $extension = $file->getClientOriginalExtension(); //getting image extension
+         $filename = time() . '.' . $extension ;
+         $file->move('uploads/userImages/',$filename);
+         $user->image = '/uploads/userImages/'.$filename ;
+     }
        $user->telephone=$request->telephone;
        $user->adresse=$request->adresse;
        $user->ville=$request->ville;
 
        $user->save();
-       
+
        return redirect()->route('profil.index');
     }
 

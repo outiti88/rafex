@@ -62,10 +62,21 @@
                             <span class="badge badge-danger">{{App\Commande::where('statut','Reporté')->count()}}</span>
                         @endcan
                         @cannot('manage-users')
-                        <span class="hide-menu">Gestion des commandes</span>
+                        <span class="hide-menu">Gestion des colis</span>
                     @endcan
                     </a>
                 </li>
+                @can('gestion-ramassage')
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('ramassage.index')}}" aria-expanded="false">
+                        <i class="mdi mdi-inbox"></i>
+                        <span class="hide-menu">
+                           Ramassage
+                            <span class="badge badge-danger">{{App\Ramassage::where('statut','En attente')->count()}}</span>
+                        </span>
+                    </a>
+                </li>
+                @endcan
                 @cannot('livreur')
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('bonlivraison.index')}}" aria-expanded="false"><i class="mdi mdi-note-text"></i><span class="hide-menu">Bon de livraison</span></a></li>
                 @can('client-admin')
@@ -89,11 +100,12 @@
                 @endcan
 
                 @can('gestion-stock')
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('produit.index')}}" aria-expanded="false"><i class="mdi mdi-package-variant-closed"></i><span class="hide-menu">Gestion du stock</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('produit.index')}}" aria-expanded="false"><i class="mdi mdi-package-variant-closed"></i><span class="hide-menu"> Gestion du stock</span></a></li>
+
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('reception.index')}}" aria-expanded="false"><i class="mdi mdi-truck"></i>
                         <span class="hide-menu">
-                            Envoie de Stock
+                            Envoie de stock
                             @can('manage-users')
                             <span class="badge badge-danger">{{App\Reception::where('etat','Envoyé')->count()}}</span>
                             @endcan
@@ -116,7 +128,7 @@
                 @can('delete-commande')
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('reclamation.index')}}" aria-expanded="false"><i class="fab fa-buffer"></i>
-                        <span class="hide-menu">Reclamations
+                        <span class="hide-menu">Réclamations
                             @can('manage-users')
                             <span class="badge badge-danger">{{App\Reclamation::where('etat',0)->count()}}</span>
                             @endcan

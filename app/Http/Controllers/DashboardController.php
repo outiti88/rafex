@@ -60,7 +60,7 @@ class DashboardController extends Controller
         $c_total = DB::table('commandes')->whereIn('statut', ['En cours', 'Modifiée','Relancée'])->where('deleted_at', NULL);
         $l_total = DB::table('commandes')->where('statut', 'livré')->where('deleted_at', NULL);
         $r_total = DB::table('commandes')->whereIn('statut', ['retour en stock', 'retour', 'Refusée', 'Annulée', 'Injoignable', 'Pas de Réponse'])->where('deleted_at', NULL);
-        $e_total = DB::table('commandes')->where('statut', 'Expidiée')->where('deleted_at', NULL);
+        $e_total = DB::table('commandes')->where('statut', 'Expédiée')->where('deleted_at', NULL);
         $commandeGesture = Commande::where('deleted_at', NULL);
         //fournisseur
         if (Gate::denies('ramassage-commande')) {
@@ -314,7 +314,8 @@ class DashboardController extends Controller
 
 
 
-            $caPercent = number_format((($caCurrentMounth - $caLastMounth) / $caLastMounth) * 100, 2, '.', '');
+                        $caPercent = $caLastMounth === 0 ? 0 : number_format((($caCurrentMounth - $caLastMounth) / $caLastMounth) * 100, 2, '.', '');
+
 
             $tabTotal =
             array(

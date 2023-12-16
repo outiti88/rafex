@@ -8,18 +8,42 @@
 
 @section('style')
 
-<link rel="stylesheet" href="{{ url('/otika/assets/bundles/select2/dist/css/select2.min.css')}}" type="text/css">
 
     <style>
+        thead th {
+        padding-top: 15px !important;
+        padding-bottom: 15px !important;
+    }
+
+    .btn {
+        margin-right: 1rem !important;
+    margin-bottom: 1rem !important;
+    }
+    .btn-cavallo {
+        color: white;
+       background-color: #467a0f;
+    }
+    .btn-cavallo:hover{
+       background-color: #3c690b !important;
+       color: white !important;
+    }
+    .btn-cavallo-secondary {
+        color: white;
+       background-color: #70726d;
+    }
+    .btn-cavallo-secondary:hover{
+       background-color: #575855 !important;
+       color: white !important;
+    }
     .orangeBadge{
-        background-color: #FF5722;
+        background-color: #AF642D;
     }
     .violetBadge{
         background-color: #ab03ca;
     }
-    .cielBadge{
-            background-color: #00BCD4;
-    }
+   .cielBadge {
+    background-color: #006A7B;
+}
     .relanceBadge{
       background-color: #867f43;
     }
@@ -65,12 +89,12 @@
             }
         }
         .page-link {
-            color: #f7941e !important;
+            color: #467a0f !important;
         }
         .page-item.active .page-link {
 
-            background-color: #f7941e !important;
-            border-color: #f7941e !important;
+            background-color: #467a0f !important;
+            border-color: #467a0f !important;
             color: #fff !important;
         }
         .bnt-product{
@@ -88,7 +112,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a href="/commandes">Colis</a></li>
                     </ol>
                 </nav>
@@ -98,20 +122,23 @@
         <div class="row float-right d-flex ">
             @can('client-admin')
             <div class="m-r-5">
-                <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#modalSubscriptionForm"><i class="fa fa-plus-square"></i><span class="quick-action">Ajouter</span></a>
+                <a  class="btn btn-cavallo text-white"  data-toggle="modal" data-target="#modalSubscriptionForm"><i class="fa fa-plus-square"></i><span class="quick-action">Ajouter</span></a>
             </div>
-            @cannot('ecom')
+
+            {{-- @cannot('ecom')
             <div class="m-r-5">
 
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EXCELMODAL">
+                <button type="button" class="btn btn-cavallo" data-toggle="modal" data-target="#EXCELMODAL">
                   <i class="fas fa-file-upload"></i>  <span class="quick-action">Excel</span>
                   </button>
             </div>
-            @endcannot
+            @endcannot --}}
+
 
             @endcan
+
             <div class="m-r-5" style="margin-right: 10px;">
-                <a  class="btn btn-warning text-white"  data-toggle="modal" data-target="#modalSearchForm"><i class="fa fa-search"></i><span class="quick-action">Filtrer</span></a>
+                <a  class="btn btn-cavallo text-white"  data-toggle="modal" data-target="#modalSearchForm"><i class="fa fa-search"></i><span class="quick-action">Filtrer</span></a>
             </div>
         </div>
         </div>
@@ -122,7 +149,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Importer/Exporter les commandes via EXCEL</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Importer les commandes via EXCEL</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -142,10 +169,8 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" name="upload" class="btn btn-primary">Importer</button>
-          <a class="btn btn-warning" href="{{ route('export') }}">Exporter en Excel</a>
-
+          <button type="button" class="btn btn-cavallo" data-dismiss="modal">Close</button>
+          <button type="submit" name="upload" class="btn btn-cavallo">Importer</button>
         </div>
     </form>
     @if ($errors->any())
@@ -205,7 +230,12 @@
         <strong>Attention !</strong> Il faut mentionner les produits de la commande
           </div>
         @endif
-
+        @if (session()->has('montant_required'))
+        <div class="alert alert-dismissible alert-danger col-12">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Attention !</strong> Il faut mentionner le montant de la commande
+          </div>
+        @endif
         @if (session()->has('edit'))
         <div class="alert alert-dismissible alert-info col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -282,14 +312,30 @@
                                     Commandes
                                 </span>
                             </a>
+
                         @endcannot
 
 
-                        <a onmouseover="showStatusQte('Expidiee')" onmouseleave="showStatus('Expidiee')" href="/commandes/filter?statut=Expidiée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-primary">
+
+                          <a onmouseover="showStatusQte('Modifiee')" onmouseleave="showStatus('Modifiee')" href="/commandes/filter?statut=Modifiée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-primary cielBadge">
+                            <span id="Modifiee">Modifiée</span>
+                            <span id="ModifieeQte" style="display:none;" >
+                                @if (array_key_exists("Modifiée",$statutStat))
+                                    {{$statutStat['Modifiée']}}
+                                @else
+                                    0
+                                @endif
+                                Commandes
+                            </span>
+                        </a>
+
+
+
+                        <a onmouseover="showStatusQte('Expidiee')" onmouseleave="showStatus('Expidiee')" href="/commandes/filter?statut=Expédiée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-primary">
                             <span id="Expidiee">Expediée</span>
                             <span id="ExpidieeQte" style="display:none;" >
-                                @if (array_key_exists("Expidiée",$statutStat))
-                                    {{$statutStat['Expidiée']}}
+                                @if (array_key_exists("Expédiée",$statutStat))
+                                    {{$statutStat['Expédiée']}}
                                 @else
                                     0
                                 @endif
@@ -307,7 +353,6 @@
                                 Commandes
                             </span>
                         </a>
-                        @can('livreur')
                         <a onmouseover="showStatusQte('Relancee')" onmouseleave="showStatus('Relancee')" href="/commandes/filter?statut=Relancée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge relanceBadge">
                             <span id="Relancee">Relancée</span>
                             <span id="RelanceeQte" style="display:none;" >
@@ -319,9 +364,20 @@
                                 Commandes
                             </span>
                         </a>
-                        @endcan
-                        <a onmouseover="showStatusQte('Livre')" onmouseleave="showStatus('Livre')" href="/commandes/filter?statut=Livré" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-success">
-                            <span id="Livre">Livrée</span>
+
+                        <a onmouseover="showStatusQte('Reporte')" onmouseleave="showStatus('Reporte')" href="/commandes/filter?statut=Reporté" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge orangeBadge">
+                            <span id="Reporte">Reportée</span>
+                            <span id="ReporteQte" style="display:none;" >
+                                @if (array_key_exists("Reporté",$statutStat))
+                                    {{$statutStat['Reporté']}}
+                                @else
+                                    0
+                                @endif
+                                Commandes
+                            </span>
+                        </a>
+                            <a onmouseover="showStatusQte('Livre')" onmouseleave="showStatus('Livre')" href="/commandes/filter?statut=Livré" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-success">
+                            <span id="Livre">Livré</span>
                             <span id="LivreQte" style="display:none;" >
                                 @if (array_key_exists("Livré",$statutStat))
                                     {{$statutStat['Livré']}}
@@ -331,33 +387,35 @@
                                 Commandes
                             </span>
                         </a>
-                        <a onmouseover="showStatusQte('Refusee')" onmouseleave="showStatus('Refusee')" href="/commandes/filter?statut=Refusée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-danger">
-                            <span id="Refusee">Refusée</span>
-                            <span id="RefuseeQte" style="display:none;" >
-                                @if (array_key_exists("Refusée",$statutStat))
-                                    {{$statutStat['Refusée']}}
+
+                        <a onmouseover="showStatusQte('Annulee')" onmouseleave="showStatus('Annulee')" href="/commandes/filter?statut=Annulée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-danger">
+                            <span id="Annulee">Annulée</span>
+                            <span id="AnnuleeQte" style="display:none;" >
+                                @if (array_key_exists("Annulée",$statutStat))
+                                    {{$statutStat['Annulée']}}
                                 @else
                                     0
                                 @endif
                                 Commandes
                             </span>
                         </a>
-                        <a onmouseover="showStatusQte('Pas')" onmouseleave="showStatus('Pas')" href="/commandes/filter?statut=Pas de Réponse" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge violetBadge">
+
+                        <a onmouseover="showStatusQte('Refusee')" onmouseleave="showStatus('Refusee')" href="/commandes/filter?statut=Injoignable" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-danger">
+                            <span id="Refusee">Injoignable</span>
+                            <span id="RefuseeQte" style="display:none;" >
+                                @if (array_key_exists("Injoignable",$statutStat))
+                                    {{$statutStat['Injoignable']}}
+                                @else
+                                    0
+                                @endif
+                                Commandes
+                            </span>
+                        </a>
+                        <a onmouseover="showStatusQte('Pas')" onmouseleave="showStatus('Pas')" href="/commandes/filter?statut=Pas de Réponse" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-danger">
                             <span id="Pas">Pas de réponse</span>
                             <span id="PasQte" style="display:none;" >
                                 @if (array_key_exists("Pas de Réponse",$statutStat))
                                     {{$statutStat['Pas de Réponse']}}
-                                @else
-                                    0
-                                @endif
-                                Commandes
-                            </span>
-                        </a>
-                        <a onmouseover="showStatusQte('Reporte')" onmouseleave="showStatus('Reporte')" href="/commandes/filter?statut=Reporté" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge orangeBadge">
-                            <span id="Reporte">Reportée</span>
-                            <span id="ReporteQte" style="display:none;" >
-                                @if (array_key_exists("Reporté",$statutStat))
-                                    {{$statutStat['Reporté']}}
                                 @else
                                     0
                                 @endif
@@ -383,21 +441,21 @@
                         @can('manage-users')
                             @if (request()->get('statut') != null)
                                 @if (request()->get('statut') == 'envoyée')
-                                    <button  onclick="recevoir()" class="btn btn-danger text-white"><i class="fas fa-check-circle"></i> Recevoir</button>
+                                    <button style="margin: 15px;"  onclick="recevoir()" class="btn btn-cavallo text-white"><i class="fas fa-check-circle"></i> Recevoir</button>
                                 @endif
                                 @if (request()->get('statut') == 'Reçue')
-                                    <button style="margin:15px" onclick="expedier()" class="btn btn-danger text-white"><i class="fas fa-truck"></i> Expédier</button>
+                                    <button style="margin: 15px;" style="margin:15px" onclick="expedier()" class="btn btn-cavallo text-white"><i class="fas fa-truck"></i> Expédier</button>
                                 @endif
-                                <a style="margin:15px" data-toggle="modal" data-target="#modalQuickStatusChange"  class="btn btn-danger text-white"><i class="fas fa-edit"></i> Changer le statut</a>
+                                <a style="margin:15px" data-toggle="modal" data-target="#modalQuickStatusChange"  class="btn btn-cavallo text-white"><i class="fas fa-edit"></i> Changer le statut</a>
                             @endif
                         @endcan
                             @if (request()->get('livreur') != null)
                         @can('manage-users')
-                            <button  style="margin:15px" onclick="submitForm1()" class="btn btn-danger"><i class="mdi mdi-note-text"></i> Bon de Commande</button>
+                            <button  style="margin:15px" onclick="submitForm1()" class="btn btn-cavallo"><i class="mdi mdi-note-text"></i> Bon de Commande</button>
                         @endcan
                             @endif
 
-                        <button style="margin:15px"  onclick="submitForm2()" class="btn btn-danger text-white"><i class="fas fa-print"></i> Ticket de Commande</button>
+                        <button style="margin:15px"  onclick="submitForm2()" class="btn btn-cavallo text-white"><i class="fas fa-print"></i> Ticket de Commande</button>
                   </div>
                 </div>
               </div>
@@ -425,12 +483,10 @@
                     data-click-to-select="true"
                     data-toolbar="#toolbar"
                     data-click-to-select="true" class="table table-hover table-responsive" style="font-size: 0.70em;
-                    text-align: center;
-                    zoom: 90%;">
-                        <thead style="position: sticky;
-                        top: 0;
+                    text-align: center;">
+                        <thead style="
                         background-color: white;
-                        z-index: 900;">
+                        ">
                             <tr>
 
                                     @if ($checkBox==1)
@@ -468,19 +524,31 @@
                                         @can('manage-users')
 
                                         <th scope="row">
-                                            <a title="{{$users[$index]->name}} Tel: {{$users[$index]->telephone}}" class=" text-muted waves-effect waves-dark pro-pic @if($users[$index]->statut) vip @endif "
+                                            <a title="{{$users[$index]->name}} Tel: {{$users[$index]->telephone}}" class=" text-muted waves-effect @if($users[$index]->statut) vip @endif "
                                                         @can('edit-users')
                                                             href="{{route('admin.users.edit',$users[$index]->id)}}"
                                                         @endcan >
-                                                <img src="{{$users[$index]->image}}" alt="user" class="rounded-circle" width="31">
+                                                <img src="{{$users[$index]->image}}" alt="user" class="rounded-circle" width="31"
+                                                @if ($users[$index]->roles[0]->name ==="ecom")
+                                                style="border-color: #009956;
+                                                border-style: solid;
+                                                box-shadow: none;"
+                                                @else
+                                                style="border-color: white;
+                                                border-style: solid;
+                                                box-shadow: none;"
+                                                @endif
+                                                >
+
                                             </a>
                                         </th>
                                         @endcan
                                         <th scope="row">
-
+                                        <a data-toggle="modal" data-target="#productDetailsModal{{$commande->id}}" class="badge badge-pill badge-warning" style="font-size: 1em; color: white; cursor:pointer"> {{$commande->numero}} </a>
+                                        <br>
                                             @if ($commande->facturer != 0)
 
-                                                <a href="{{route('facture.infos',$commande->facturer)}}" style="color: white; background-color: #f7941e" class="badge badge-pill" >
+                                                <a href="{{route('facture.infos',$commande->facturer)}}" style="color: white; background-color: #467a0f" class="badge badge-pill" >
                                                     <span style="font-size: 1.25em">Facturée</span>
                                                 </a>
                                                 <br>
@@ -489,12 +557,10 @@
                                                 <a href="{{route('bon.infos',$commande->traiter)}}" style="color: white" class="badge badge-pill badge-dark">
                                                     <span  style="font-size: 1.25em">Bon livraison</span>
                                                 </a>
-                                                <br>
                                                 @endif
                                             @endif
-                                            <a data-toggle="modal" data-target="#productDetailsModal{{$commande->id}}" class="badge badge-pill badge-warning" style="font-size: 1em; color: white; cursor:pointer"> {{$commande->numero}} </a>
                                                 @if ($commande->isChanged)
-                                                <br><span class="badge badge-pill badge-info" style="font-size: 1.1em; color:white"><i class="fas fa-exchange-alt"></i> Commande Changée</span>
+                                                <br><span class="badge badge-pill badge-info" style="font-size: 1.05em; color:white"><i class="fas fa-exchange-alt"></i> change</span>
                                                 @endif
                                         </th>
                                         <td>{{$commande->nom}}</td>
@@ -526,6 +592,7 @@
                                                         @endcan
                                                     @break
                                                     @case("Reporté") class="badge badge-pill orangeBadge" @break
+                                                    @case("En attente de ramassage") class="badge badge-pill badge-warning" @break
                                                     @case("Pas de Réponse") class="badge badge-pill violetBadge" @break
                                                     @case("Modifiée") class="badge badge-pill cielBadge" @break
                                                     @case("Relancée") class="badge badge-pill relanceBadge" @break
@@ -544,7 +611,7 @@
                                                             href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
                                                         @endcan
                                                     @break
-                                                    @case("Expidiée")
+                                                    @case("Expédiée")
                                                         class="badge badge-pill badge-primary"
                                                         @can('ramassage-commande')
                                                             title="Valider la commande"
@@ -574,7 +641,7 @@
 
                                             @endif
                                         </td>
-                                        <td style="font-size: 1.5em"><a title="Voir le detail" style="color: #f7941e" href="/commandes/{{$commande->id}}"><i class="mdi mdi-eye"></i></a></td>
+                                        <td style="font-size: 1.5em"><a title="Voir le detail" style="color: #467a0f" href="/commandes/{{$commande->id}}"><i class="mdi mdi-eye"></i></a></td>
                                     </tr>
 
                                         <div class="container my-4">
@@ -623,7 +690,7 @@
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <div class="modal-footer d-flex justify-content-center">
-                                                                                <a class="btn btn-warning" style="color:white" onclick="changeStatus({{$commande->id}})">Enregistrer</a>
+                                                                                <a class="btn btn-cavallo" style="color:white" onclick="changeStatus({{$commande->id}})">Enregistrer</a>
 
                                                                             </div>
                                                                         </div>
@@ -672,7 +739,7 @@
                                                     </ul>
                                                 </div>
                                                 <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-cavallo-secondary" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                             </div>
@@ -725,7 +792,7 @@
                                     <option>envoyée</option>
                                     <option>Ramassée</option>
                                     <option>Reçue</option>
-                                    <option>Expidiée</option>
+                                    <option>Expédiée</option>
                                     <option>En cours</option>
                                     <option>Relancée</option>
                                     @endcan
@@ -742,7 +809,7 @@
                         </div>
                         <div class="form-group">
                             <div class="modal-footer d-flex justify-content-center">
-                                <a class="btn btn-warning" style="color:white" onclick="submitForm3()">Enregistrer</a>
+                                <a class="btn btn-cavallo" style="color:white" onclick="submitForm3()">Enregistrer</a>
                             </div>
                         </div>
                 </div>
@@ -830,6 +897,12 @@
 
 
                                 <div class="form-group row">
+                                    <label class="col-md-4">Numéro de Colis:</label>
+                                    <div class="col-md-8">
+                                        <input  value="{{request()->get('numero')}}" name="numero" type="text" placeholder="Numéro de Colis" class="form-control form-control-line">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-md-4">Nom et Prénom:</label>
                                     <div class="col-md-8">
                                         <input  value="{{request()->get('nom')}}" name="nom" type="text" placeholder="Nom & Prénom" class="form-control form-control-line">
@@ -855,7 +928,7 @@
                                                 <option>Ramassée</option>
                                                 <option>Reçue</option>
                                             @endcannot
-                                            <option>Expidiée</option>
+                                            <option>Expédiée</option>
                                             <option>en cours</option>
                                             <option>Relancée</option>
                                             <option>Modifiée</option>
@@ -915,20 +988,27 @@
                                     </div>
                                   </div>
 
-                                  <div class="from-group row">
-                                      <label for="bl" class="col-sm-3">BL générée</label>
-                                      <div class="col-3">
-                                        <input class="form-control" name="bl" type="checkbox" value="1" id="bl">
-                                      </div>
-                                      <label for="facture" class="col-sm-3">Facturée</label>
-                                      <div class="col-3">
-                                        <input class="form-control" name="facturer" type="checkbox" value="1" id="facture">
-                                      </div>
-                                  </div>
+                                  <div class="form-group">
+                                  <label style="padding-left: 1rem;" class="custom-switch mt-2">
+                                        <input name="facturer" type="radio" value="yes" class="custom-switch-input" style="display: none;" @if(request()->get('facturer') == "yes" ) checked @endif>
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="custom-switch-description">Facturée</span>
+                                    </label>
+                                    <label style="padding-left: 1rem;" class="custom-switch mt-2">
+                                        <input name="facturer" type="radio" value="no" class="custom-switch-input" style="display: none;" @if(request()->get('facturer') == "no" ) checked @endif>
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="custom-switch-description">NON Facturée</span>
+                                    </label>
+                                    <label style="padding-left: 1rem;" class="custom-switch mt-2">
+                                        <input name="facturer" type="radio" value="both" class="custom-switch-input" style="display: none;" @if(request()->get('facturer') == "both" || request()->get('facturer') == null) checked @endif >
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="custom-switch-description">Les deux</span>
+                                    </label>
+                                    </div>
 
                                 <div class="form-group">
                                     <div class="modal-footer d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-warning"><i class="fa fa-search"></i> Rechercher</button>
+                                        <button type="submit" class="btn btn-cavallo"><i class="fa fa-search"></i> Rechercher</button>
 
                                     </div>
                                 </div>
@@ -974,27 +1054,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Select2 Multiple</label>
-                                    <select class="form-control select2" multiple="">
-                                      <option>Option 1</option>
-                                      <option>Option 2</option>
-                                      <option>Option 3</option>
-                                      <option>Option 4</option>
-                                      <option>Option 5</option>
-                                      <option>Option 6</option>
-                                    </select>
-                                  </div>
-                                <div class="form-group">
                                     <label class="col-md-12">Nom et Prénom du destinataire :</label>
                                     <div class="col-md-12">
                                         <input  value="{{ old('nom') }}" name="nom" type="text" placeholder="Nom & Prénom" class="form-control form-control-line">
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="form-group row">
 
-
-                                      <fieldset class="form-group col-md-6">
+                                      <fieldset class="col-md-5">
                                         <div class="row">
                                           <legend class="col-form-label  pt-0">Mode de paiement :</legend>
                                           <div class="col-sm-12">
@@ -1015,22 +1083,21 @@
                                         </div>
                                       </fieldset>
 
-                                      <div class="form-group col-md-6" id="isOpen">
-                                        <label for="isOpen" class="col-md-12">Client peut ouvrir le colis :</label>
-                                        <div class="col-md-12">
-                                            <input  value="1" type="checkbox" class="form-control form-control-line" name="isOpen" id="isOpen">
-                                        </div>
+                                      <div class="col-md-7">
+                                        <label>
+                                            <input type="checkbox" value="1" name="isOpen" class="custom-switch-input" style="display: none;">
+                                            <span class="custom-switch-indicator"></span>
+                                            <span class="custom-switch-description">Client peut ouvrir le colis</span>
+                                        </label>
                                     </div>
-
-                                      <div class="form-group col-md-12" id="montant" style="display: block">
-                                        <label for="montantin" class="col-md-12">Montant (DH) :</label>
-                                        <div class="col-md-12">
-                                            <input  value="{{ old('montant') }}" type="text" class="form-control form-control-line" name="montant" id="montantin">
-                                        </div>
-                                    </div>
-
 
                                 </div>
+                                <div class="form-group" id="montant" style="display: block">
+                                  <label for="montantin" class="col-md-12">Montant (DH) :</label>
+                                  <div class="col-md-12">
+                                      <input  value="{{ old('montant') }}" type="text" class="form-control form-control-line" name="montant" id="montantin">
+                                  </div>
+                              </div>
 
 
 
@@ -1058,7 +1125,7 @@
                                 <div class="form-group">
                                     <label class="col-md-12">Adresse :</label>
                                     <div class="col-md-12">
-                                        <textarea  name="adresse" rows="5" class="form-control form-control-line">{{ old('adresse') }}</textarea>
+                                        <textarea  name="adresse" rows="5" class="form-control form-control-line" required>{{ old('adresse') }}</textarea>
                                     </div>
                                 </div>
                                 <div style="display: none"  class="form-group" id="secteur">
@@ -1072,7 +1139,7 @@
 
                                 <div class="form-group">
                                     <div class="modal-footer d-flex justify-content-center">
-                                        <button class="btn btn-danger">Ajouter</button>
+                                        <button class="btn btn-cavallo">Ajouter</button>
 
                                     </div>
                                 </div>
@@ -1122,20 +1189,19 @@
 
                                       <fieldset class="form-group col-md-12">
                                           <legend class="col-form-label  pt-0">Mode de paiement :</legend>
-                                          <div class="col-sm-12" style="display: flex;justify-content: space-around;
-                                          align-items: center;">
-                                            <div class="form-check">
-                                              <input  onclick="myFunction2(this.value)" class="form-check-input" type="radio" name="mode" id="cd" value="cd" checked>
-                                              <label class="form-check-label" for="cd">
-                                              à la livraison
-                                              </label>
-                                            </div>
-                                            <div class="form-check">
-                                              <input  onclick="myFunction2(this.value)" class="form-check-input" type="radio" name="mode" id="cp" value="cp">
-                                              <label class="form-check-label" for="cp">
-                                                carte bancaire
-                                              </label>
-                                            </div>
+                                          <div class="col-sm-12" style="display: flex;justify-content: space-between;align-items: center;">
+
+                                          <label style="padding-left: 1rem;" class="custom-switch mt-2">
+                                            <input  onclick="myFunction2(this.value)" type="radio" name="mode" id="cd" value="cd" class="custom-switch-input" style="display: none;" checked>
+                                            <span class="custom-switch-indicator"></span>
+                                            <span class="custom-switch-description">A la livraison</span>
+                                        </label>
+
+                                        <label style="padding-left: 1rem;" class="custom-switch mt-2">
+                                            <input onclick="myFunction2(this.value)"  type="radio" name="mode" id="cp" value="cp" class="custom-switch-input" style="display: none;" >
+                                            <span class="custom-switch-indicator"></span>
+                                            <span class="custom-switch-description">Carte bancaire</span>
+                                        </label>
 
                                           </div>
                                       </fieldset>
@@ -1156,7 +1222,7 @@
                                 <div class="form-group">
                                     <label class="col-md-12">Adresse :</label>
                                     <div class="col-md-12">
-                                        <textarea  name="adresse" rows="5" class="form-control form-control-line">{{ old('adresse') }}</textarea>
+                                        <textarea  name="adresse" rows="5" class="form-control form-control-line" required>{{ old('adresse') }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -1188,15 +1254,10 @@
                                       <span >J'accepte l'ouverture du colis par le client.</span>
                                     </label>
                                   </div>
-                                <div class="custom-control custom-control-alternative custom-checkbox">
-                                    <input class="custom-control-input" id="isChanged" type="checkbox" name="isChanged" value="1">
-                                    <label class="custom-control-label" for="isChanged">
-                                      <span >C'est une commande de change.</span>
-                                    </label>
-                                  </div>
+
                                 <div class="form-group">
                                     <div class="modal-footer d-flex justify-content-center">
-                                        <button class="btn btn-danger">Ajouter</button>
+                                        <button class="btn btn-cavallo">Ajouter</button>
 
                                     </div>
                                 </div>
@@ -1238,14 +1299,20 @@
                       <div class="modal-body mx-3">
                           <form class="form-horizontal form-material" method="POST" action="{{route('commandes.store')}}">
                               @csrf
-
+                                <div class="row">
+                                    <div class="form-group col-md-5" style="padding: 0">
+                                        <label for="produit" class="col-sm-12">Produit :</label>
+                                    </div>
+                                    <div class="form-group col-md-5" style="padding: 0">
+                                        <label for="qte" class="col-md-4">Quantité:</label>
+                                    </div>
+                                </div>
                               <div id="education_fields">
 
                               </div>
-                                <div class="row" id="test">
+                                <div class="row fixedHeight" id="test">
 
                                     <div class="form-group col-md-5" style="padding: 0">
-                                      <label for="produit" class="col-sm-12">Produit :</label>
                                       <div class="col-md-12">
                                           <select name="produit[]" id="produit" class="form-control form-control-line" value="{{ old('produit') }}" required>
                                               <option value="" disabled selected>Produit</option>
@@ -1260,11 +1327,8 @@
                                       </div>
 
                                       <div class="form-group col-md-5 input-group" style="padding: 0">
-                                        <label for="qte" class="col-md-4">Quantité:</label>
                                         <div class="col-md-12" style="
                                         display: flex;
-                                        align-items: center;
-                                        align-content: center;
                                     ">
                                             <div class="col-md-8">
                                                 <input  value="{{ old('qte') }}" type="number" class="form-control form-control-line" name="qte[]" id="qte" required>
@@ -1285,27 +1349,24 @@
                               </div>
 
 
-                                    <fieldset class="form-group col-md-12">
-                                      <div class="row">
-                                        <legend class="col-form-label  pt-0">Mode de paiement :</legend>
-                                        <div class="col-sm-12" style="display: flex;justify-content: space-around;
-                                          align-items: center;">
-                                          <div class="form-check">
-                                            <input  onclick="myFunction2(this.value)" class="form-check-input" type="radio" name="mode" id="cd" value="cd" checked>
-                                            <label class="form-check-label" for="cd">
-                                              à la livraison
-                                            </label>
-                                          </div>
-                                          <div class="form-check">
-                                            <input  onclick="myFunction2(this.value)"  class="form-check-input" type="radio" name="mode" id="cp" value="cp">
-                                            <label class="form-check-label" for="cp">
-                                              carte bancaire
-                                            </label>
-                                          </div>
+                              <fieldset class="form-group col-md-12">
+                                <legend class="col-form-label  pt-0">Mode de paiement :</legend>
+                                <div class="col-sm-12" style="display: flex;justify-content: space-between;align-items: center;">
 
-                                        </div>
-                                      </div>
-                                    </fieldset>
+                                <label style="padding-left: 1rem;" class="custom-switch mt-2">
+                                  <input  onclick="myFunction2(this.value)" type="radio" name="mode" id="cd" value="cd" class="custom-switch-input" style="display: none;" checked>
+                                  <span class="custom-switch-indicator"></span>
+                                  <span class="custom-switch-description">A la livraison</span>
+                              </label>
+
+                              <label style="padding-left: 1rem;" class="custom-switch mt-2">
+                                  <input onclick="myFunction2(this.value)"  type="radio" name="mode" id="cp" value="cp" class="custom-switch-input" style="display: none;" >
+                                  <span class="custom-switch-indicator"></span>
+                                  <span class="custom-switch-description">Carte bancaire</span>
+                              </label>
+
+                                </div>
+                            </fieldset>
 
                                     <div class="form-group col-md-12" id="montant" style="display: block">
                                         <label for="montantin" class="col-md-12">Montant (DH) : <br>
@@ -1358,16 +1419,11 @@
                                 </label>
                               </div>
 
-                              <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input  class="custom-control-input" id="isChanged" type="checkbox" name="isChanged" value="1">
-                                <label class="custom-control-label" for="isChanged">
-                                  <span >C'est une commande de change.</span>
-                                </label>
-                              </div>
+
 
                               <div class="form-group">
                                   <div class="modal-footer d-flex justify-content-center">
-                                      <button class="btn btn-danger">Ajouter</button>
+                                      <button class="btn btn-cavallo">Ajouter</button>
 
                                   </div>
                               </div>
@@ -1406,11 +1462,7 @@
 @endsection
 
 @section('javascript')
-
-
-<script src="{{url('/otika/assets/bundles/select2/dist/js/select2.full.min.js')}}"></script>
-<script src="{{url('/otika/assets/js/page/forms-advanced-forms.js')}}"></script>
-
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
 
     @if ($errors->any())
@@ -1432,16 +1484,32 @@
         </script>
 
 <script>
+
+$(document).ready(function() {
+
+    $('#table').DataTable( {
+        "paging":   false,
+        "info":     false,
+        searching: false,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+
+
+
     var room = 1;
     function education_fields() {
 
         room++;
         var objTo = document.getElementById('education_fields')
         var divtest = document.createElement("div");
-        divtest.setAttribute("class", "row removeclass"+room);
+        divtest.setAttribute("class", "fixedHeight row removeclass"+room);
         var rdiv = 'removeclass'+room;
 
-        divtest.innerHTML  = $("#test").html() + '<div class="input-group-btn bnt-product"> <button class="btn btn-danger bnt-product m-t-25" type="button" onclick="remove_education_fields('+ room +');"> <span class="mdi mdi-close-box" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+        divtest.innerHTML  = $("#test").html() + '<div class="input-group-btn bnt-product" style="position: relative;top: -31px;"> <button class="btn btn-cavallo bnt-product m-t-25" type="button" onclick="remove_education_fields('+ room +');"> <span class="mdi mdi-close-box" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
 
         objTo.appendChild(divtest)
     }

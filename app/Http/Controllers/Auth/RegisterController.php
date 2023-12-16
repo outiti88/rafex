@@ -61,7 +61,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'ville'=> ['required'],
+            // 'ville'=> ['required'],
         ]);
     }
 
@@ -74,8 +74,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        if(empty($data['image'])) $data['image']="https://tracking.colisade.ma/assets/images/favicon.png";
+        if(empty($data['image'])) $data['image']="https://tracking.Cavallo.ma/assets/images/favicon.png";
             if(empty($data['description'])) $data['description']=" ";
+            if(empty($data['adresse'])) $data['adresse']=" ";
+            if(empty($data['ville'])) $data['ville']="Rabat";
+            if(empty($data['rib'])) $data['rib']=" ";
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -99,7 +102,6 @@ class RegisterController extends Controller
         else {
             $user->roles()->sync($data['roles']);
         }
-
         return $user;
     }
 

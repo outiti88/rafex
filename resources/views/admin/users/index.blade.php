@@ -10,12 +10,12 @@
 @section('style')
     <style>
         .page-link {
-            color: #f7941e !important;
+            color: #467a0f !important;
         }
         .page-item.active .page-link {
 
-            background-color: #f7941e !important;
-            border-color: #f7941e !important;
+            background-color: #467a0f !important;
+            border-color: #467a0f !important;
             color: #fff !important;
         }
     </style>
@@ -30,7 +30,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Utilisateurs</li>
                     </ol>
                 </nav>
@@ -48,18 +48,17 @@
     @if (session()->has('register'))
         <div class="alert alert-dismissible alert-success col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Oupss !</strong> l'utilisateur : {{session()->get('register')}} à été bien enregister et mail envoyé </a>.
+        <strong>-</strong> l'utilisateur : {{session()->get('register')}} à été bien enregister et mail envoyé </a>.
           </div>
         @endif
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Utilisateurs Colisade') }}</div>
-                <div class="card-header">Total des Utilisateurs: {{ $total }} Utilisateur</div>
-                <input class="form-control" id="myInput" type="text" placeholder="Rechercher...">
+                <div class="card-header">{{ __('Utilisateurs Cavallo') }}</div>
+                <div class="card-header">Total des Utilisateurs: {{ $total }} Utilisateurs</div>
                 <div class="card-body" >
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table table-striped" id="table-2">
                             <thead>
                               <tr>
                                 <th scope="col">#</th>

@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Colisade Delivery Tanger propose
+    <meta name="description" content="Cavallo Delivery Tanger propose
     un service de collecte, de stockage, d’emballage et d’expédition de vos produits aux clients.">
     <meta name="author" content="Outiti Ayoub">
-    <meta name="keywords" content="Colisade,Delivery,Tanger,Livraison,Expédition,Collecte">
+    <meta name="keywords" content="Cavallo,Delivery,Tanger,Livraison,Expédition,Collecte">
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('/assets/images/favicon.png')}}">
     <title>@yield('title')</title>
 
@@ -49,7 +49,10 @@
         {
             border-radius: 10px;
             -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-            background-color: #f7941e ;
+            background-color: #467a0f ;
+        }
+        .fixedHeight{
+            height: 50px;
         }
     </style>
     @yield('style')
@@ -128,7 +131,6 @@
     <!--Custom JavaScript -->
     <script src="{{ url('/js/custom.js') }}" ></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-
 
     @yield('javascript')
 </body>

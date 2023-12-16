@@ -15,6 +15,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 
 /**
@@ -39,23 +40,26 @@ class HtmlErrorRenderer implements ErrorRendererInterface
     private $outputBuffer;
     private $logger;
 
+    private static $template = 'views/error.html.php';
+
     /**
-     * @param bool|callable $debug        The debugging mode as a boolean or a callable that should return it
-     * @param bool|callable $outputBuffer The output buffer as a string or a callable that should return it
+     * @param bool|callable                 $debug          The debugging mode as a boolean or a callable that should return it
+     * @param string|FileLinkFormatter|null $fileLinkFormat
+     * @param bool|callable                 $outputBuffer   The output buffer as a string or a callable that should return it
      */
     public function __construct($debug = false, string $charset = null, $fileLinkFormat = null, string $projectDir = null, $outputBuffer = '', LoggerInterface $logger = null)
     {
         if (!\is_bool($debug) && !\is_callable($debug)) {
-            throw new \TypeError(sprintf('Argument 1 passed to "%s()" must be a boolean or a callable, "%s" given.', __METHOD__, get_debug_type($debug)));
+            throw new \TypeError(sprintf('Argument 1 passed to "%s()" must be a boolean or a callable, "%s" given.', __METHOD__, \gettype($debug)));
         }
 
         if (!\is_string($outputBuffer) && !\is_callable($outputBuffer)) {
-            throw new \TypeError(sprintf('Argument 5 passed to "%s()" must be a string or a callable, "%s" given.', __METHOD__, get_debug_type($outputBuffer)));
+            throw new \TypeError(sprintf('Argument 5 passed to "%s()" must be a string or a callable, "%s" given.', __METHOD__, \gettype($outputBuffer)));
         }
 
         $this->debug = $debug;
-        $this->charset = $charset ?: (ini_get('default_charset') ?: 'UTF-8');
-        $this->fileLinkFormat = $fileLinkFormat ?: (ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format'));
+        $this->charset = $charset ?: (\ini_get('default_charset') ?: 'UTF-8');
+        $this->fileLinkFormat = $fileLinkFormat ?: (\ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format'));
         $this->projectDir = $projectDir;
         $this->outputBuffer = $outputBuffer;
         $this->logger = $logger;
@@ -134,7 +138,7 @@ class HtmlErrorRenderer implements ErrorRendererInterface
         $statusCode = $this->escape($exception->getStatusCode());
 
         if (!$debug) {
-            return $this->include('views/error.html.php', [
+            return $this->include(self::$template, [
                 'statusText' => $statusText,
                 'statusCode' => $statusCode,
             ]);
@@ -186,7 +190,7 @@ class HtmlErrorRenderer implements ErrorRendererInterface
 
     private function escape(string $string): string
     {
-        return htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, $this->charset);
+        return htmlspecialchars($string, \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset);
     }
 
     private function abbrClass(string $class): string
@@ -211,7 +215,7 @@ class HtmlErrorRenderer implements ErrorRendererInterface
     /**
      * Returns the link for a given file/line pair.
      *
-     * @return string|false A link or false
+     * @return string|false
      */
     private function getFileLink(string $file, int $line)
     {
@@ -258,8 +262,6 @@ class HtmlErrorRenderer implements ErrorRendererInterface
      * @param string $file       A file path
      * @param int    $line       The selected line number
      * @param int    $srcContext The number of displayed lines around or -1 for the whole file
-     *
-     * @return string An HTML string
      */
     private function fileExcerpt(string $file, int $line, int $srcContext = 3): string
     {
@@ -267,13 +269,25 @@ class HtmlErrorRenderer implements ErrorRendererInterface
             // highlight_file could throw warnings
             // see https://bugs.php.net/25725
             $code = @highlight_file($file, true);
-            // remove main code/span tags
-            $code = preg_replace('#^<code.*?>\s*<span.*?>(.*)</span>\s*</code>#s', '\\1', $code);
-            // split multiline spans
-            $code = preg_replace_callback('#<span ([^>]++)>((?:[^<]*+<br \/>)++[^<]*+)</span>#', function ($m) {
-                return "<span $m[1]>".str_replace('<br />', "</span><br /><span $m[1]>", $m[2]).'</span>';
-            }, $code);
-            $content = explode('<br />', $code);
+            if (\PHP_VERSION_ID >= 80300) {
+                // remove main pre/code tags
+                $code = preg_replace('#^<pre.*?>\s*<code.*?>(.*)</code>\s*</pre>#s', '\\1', $code);
+                // split multiline code tags
+                $code = preg_replace_callback('#<code ([^>]++)>((?:[^<]*+\\n)++[^<]*+)</code>#', function ($m) {
+                    return "<code $m[1]>".str_replace("\n", "</code>\n<code $m[1]>", $m[2]).'</code>';
+                }, $code);
+                // Convert spaces to html entities to preserve indentation when rendered
+                $code = str_replace(' ', '&nbsp;', $code);
+                $content = explode("\n", $code);
+            } else {
+                // remove main code/span tags
+                $code = preg_replace('#^<code.*?>\s*<span.*?>(.*)</span>\s*</code>#s', '\\1', $code);
+                // split multiline spans
+                $code = preg_replace_callback('#<span ([^>]++)>((?:[^<]*+<br \/>)++[^<]*+)</span>#', function ($m) {
+                    return "<span $m[1]>".str_replace('<br />', "</span><br /><span $m[1]>", $m[2]).'</span>';
+                }, $code);
+                $content = explode('<br />', $code);
+            }
 
             $lines = [];
             if (0 > $srcContext) {
@@ -281,7 +295,7 @@ class HtmlErrorRenderer implements ErrorRendererInterface
             }
 
             for ($i = max($line - $srcContext, 1), $max = min($line + $srcContext, \count($content)); $i <= $max; ++$i) {
-                $lines[] = '<li'.($i == $line ? ' class="selected"' : '').'><a class="anchor" name="line'.$i.'"></a><code>'.$this->fixCodeMarkup($content[$i - 1]).'</code></li>';
+                $lines[] = '<li'.($i == $line ? ' class="selected"' : '').'><code>'.$this->fixCodeMarkup($content[$i - 1]).'</code></li>';
             }
 
             return '<ol start="'.max($line - $srcContext, 1).'">'.implode("\n", $lines).'</ol>';
@@ -300,9 +314,9 @@ class HtmlErrorRenderer implements ErrorRendererInterface
         }
 
         // missing </span> tag at the end of line
-        $opening = strpos($line, '<span');
-        $closing = strpos($line, '</span>');
-        if (false !== $opening && (false === $closing || $closing > $opening)) {
+        $opening = strrpos($line, '<span');
+        $closing = strrpos($line, '</span>');
+        if (false !== $opening && (false === $closing || $closing < $opening)) {
             $line .= '</span>';
         }
 
@@ -321,7 +335,7 @@ class HtmlErrorRenderer implements ErrorRendererInterface
         if ($context && false !== strpos($message, '{')) {
             $replacements = [];
             foreach ($context as $key => $val) {
-                if (is_scalar($val)) {
+                if (\is_scalar($val)) {
                     $replacements['{'.$key.'}'] = $val;
                 }
             }
@@ -345,10 +359,21 @@ class HtmlErrorRenderer implements ErrorRendererInterface
 
     private function include(string $name, array $context = []): string
     {
-        extract($context, EXTR_SKIP);
+        extract($context, \EXTR_SKIP);
         ob_start();
-        include __DIR__.'/../Resources/'.$name;
+
+        include is_file(\dirname(__DIR__).'/Resources/'.$name) ? \dirname(__DIR__).'/Resources/'.$name : $name;
 
         return trim(ob_get_clean());
+    }
+
+    /**
+     * Allows overriding the default non-debug template.
+     *
+     * @param string $template path to the custom template file to render
+     */
+    public static function setTemplate(string $template): void
+    {
+        self::$template = $template;
     }
 }

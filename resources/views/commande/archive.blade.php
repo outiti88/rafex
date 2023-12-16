@@ -9,7 +9,7 @@
 @section('style')
     <style>
     .orangeBadge{
-        background-color: #FF5722;
+        background-color: #AF642D;
     }
     .violetBadge{
         background-color: #ab03ca;
@@ -61,12 +61,12 @@
             }
         }
         .page-link {
-            color: #f7941e !important;
+            color: #467a0f !important;
         }
         .page-item.active .page-link {
 
-            background-color: #f7941e !important;
-            border-color: #f7941e !important;
+            background-color: #467a0f !important;
+            border-color: #467a0f !important;
             color: #fff !important;
         }
     </style>
@@ -81,7 +81,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Colisade</a></li>
+                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a href="/commandes">Colis</a></li>
                     </ol>
                 </nav>
@@ -221,7 +221,7 @@
 
                                 @if ($commande->facturer != 0)
 
-                                    <a href="{{route('facture.infos',$commande->facturer)}}" style="color: white; background-color: #f7941e"
+                                    <a href="{{route('facture.infos',$commande->facturer)}}" style="color: white; background-color: #467a0f"
                                     class="badge badge-pill" >
                                     <span style="font-size: 1.25em">Facturée</span>
                                     </a>
@@ -303,7 +303,7 @@
                                      href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
                                     @endcan
                                 @break
-                                    @case("Expidiée")
+                                    @case("Expédiée")
                                         badge-primary"
                                         @can('ramassage-commande')
                                         title="Valider la commande"
@@ -336,7 +336,7 @@
 
                                 @endif
                             </td>
-                           <td style="font-size: 1.5em"><a title="Voir le detail" style="color: #f7941e" href="/commandes/{{$commande->id}}"><i class="mdi mdi-eye"></i></a></td>
+                           <td style="font-size: 1.5em"><a title="Voir le detail" style="color: #467a0f" href="/commandes/{{$commande->id}}"><i class="mdi mdi-eye"></i></a></td>
                         </tr>
                         @empty
                         <tr>

@@ -30,7 +30,7 @@
     --pink: #e83e8c;
     --red: #f62d51;
     --orange: #fb8c00;
-    --yellow: #ffbc34;
+    --yellow: #B1AD2D;
     --green: #36bea6;
     --teal: #20c997;
     --cyan: #4fc3f7;
@@ -43,7 +43,7 @@
     --pink: #e83e8c;
     --red: #f62d51;
     --orange: #fb8c00;
-    --yellow: #ffbc34;
+    --yellow: #B1AD2D;
     --green: #36bea6;
     --teal: #20c997;
     --cyan: #4fc3f7;
@@ -53,7 +53,7 @@
     --secondary: #6c757d;
     --success: #36bea6;
     --info: #2962FF;
-    --warning: #ffbc34;
+    --warning: #B1AD2D;
     --danger: #f62d51;
     --light: #f8f9fa;
     --dark: #343a40;
@@ -2916,8 +2916,8 @@ fieldset:disabled a.btn {
 
 .btn-warning {
     color: #212529;
-    background-color: #ffbc34;
-    border-color: #ffbc34
+    background-color: #B1AD2D;
+    border-color: #B1AD2D
 }
 
 .btn-warning:hover {
@@ -2935,8 +2935,8 @@ fieldset:disabled a.btn {
 .btn-warning.disabled,
 .btn-warning:disabled {
     color: #212529;
-    background-color: #ffbc34;
-    border-color: #ffbc34
+    background-color: #B1AD2D;
+    border-color: #B1AD2D
 }
 
 .btn-warning:not(:disabled):not(.disabled).active,
@@ -2956,8 +2956,8 @@ fieldset:disabled a.btn {
 
 .btn-danger {
     color: #fff;
-    background-color: #f7941e;
-    border-color: #f7941e
+    background-color: #467a0f;
+    border-color: #467a0f
 }
 
 .btn-danger:hover {
@@ -3355,16 +3355,16 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-warning {
-    color: #ffbc34;
+    color: #B1AD2D;
     background-color: transparent;
     background-image: none;
-    border-color: #ffbc34
+    border-color: #B1AD2D
 }
 
 .btn-outline-warning:hover {
     color: #212529;
-    background-color: #ffbc34;
-    border-color: #ffbc34
+    background-color: #B1AD2D;
+    border-color: #B1AD2D
 }
 
 .btn-outline-warning.focus,
@@ -3375,7 +3375,7 @@ fieldset:disabled a.btn {
 
 .btn-outline-warning.disabled,
 .btn-outline-warning:disabled {
-    color: #ffbc34;
+    color: #B1AD2D;
     background-color: transparent
 }
 
@@ -3383,8 +3383,8 @@ fieldset:disabled a.btn {
 .btn-outline-warning:not(:disabled):not(.disabled):active,
 .show>.btn-outline-warning.dropdown-toggle {
     color: #212529;
-    background-color: #ffbc34;
-    border-color: #ffbc34
+    background-color: #B1AD2D;
+    border-color: #B1AD2D
 }
 
 .btn-outline-warning:not(:disabled):not(.disabled).active:focus,
@@ -3423,8 +3423,8 @@ fieldset:disabled a.btn {
 .btn-outline-danger:not(:disabled):not(.disabled):active,
 .show>.btn-outline-danger.dropdown-toggle {
     color: #fff;
-    background-color: #f7941e;
-    border-color: #f7941e
+    background-color: #467a0f;
+    border-color: #467a0f
 }
 
 .btn-outline-danger:not(:disabled):not(.disabled).active:focus,
@@ -5649,7 +5649,7 @@ input[type=submit].btn-block {
 
 .badge-warning {
     color: #212529;
-    background-color: #ffbc34
+    background-color: #B1AD2D
 }
 
 .badge-warning[href]:focus,
@@ -7145,7 +7145,7 @@ button.bg-info:hover {
 }
 
 .bg-warning {
-    background-color: #ffbc34!important
+    background-color: #B1AD2D!important
 }
 
 a.bg-warning:focus,
@@ -7286,7 +7286,7 @@ button.bg-purple:hover {
 }
 
 .border-warning {
-    border-color: #ffbc34!important
+    border-color: #B1AD2D!important
 }
 
 .border-danger {
@@ -10089,7 +10089,7 @@ a.text-info:hover {
 }
 
 .text-warning {
-    color: #ffbc34!important
+    color: #B1AD2D!important
 }
 
 a.text-warning:focus,
@@ -10627,7 +10627,7 @@ html[dir=ltr] body .p-l-0 {
 
 #main-wrapper[data-layout=horizontal] .left-sidebar[data-sidebarbg=skin6] .create-btn,
 #main-wrapper[data-layout=vertical] .left-sidebar[data-sidebarbg=skin6] .create-btn {
-    background: #f7941e
+    background: #467a0f
 }
 
 #main-wrapper {
@@ -10926,7 +10926,7 @@ html body .bg-white {
 }
 
 .round.round-warning {
-    background: #ffbc34
+    background: #B1AD2D
 }
 
 .round.round-danger {
@@ -11102,7 +11102,7 @@ ul.list-style-none li a:hover {
 }
 
 .label-warning {
-    background-color: #ffbc34
+    background-color: #B1AD2D
 }
 
 .label-danger {
@@ -11359,7 +11359,7 @@ ul.list-style-none li a:hover {
 
 .topbar .nav-toggler,
 .topbar .topbartoggler {
-    color: #f7941e;
+    color: #467a0f;
     padding: 0 15px
 }
 
@@ -12038,7 +12038,7 @@ html body .waves-notransition {
 .error-box .error-title {
     font-size: 150px;
     font-weight: 900;
-    text-shadow: 4px 4px 0 #fff, 6px 6px 0 #f7941e;
+    text-shadow: 4px 4px 0 #fff, 6px 6px 0 #467a0f;
     line-height: 210px
 }
 
