@@ -1,7 +1,7 @@
 @extends('racine')
 
 @section('title')
-{{$user->name}} | Cavallo
+{{$user->name}} | Rafex
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Cavallo</a></li>
+                        <li class="breadcrumb-item"><a href="#">Rafex</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Profile</li>
                     </ol>
                 </nav>
@@ -56,9 +56,9 @@
                         <iframe src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Marjane,%20Tanger%20PAC,%20Avenue%20des%20Forces%20Arm%C3%A9es%20Royales,%20Tanger%2090060+(Decathlon%20Tanger)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div> <small class="text-muted p-t-30 db">Reseaux Sociaux</small>
                     <br/>
-                    <a href="https://www.facebook.com/DeliveryCavallo" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/DeliveryCavallo" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/company/Cavallo/" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.facebook.com/DeliveryRafex" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/DeliveryRafex" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/Rafex/" target="_blank" class="btn btn-circle btn-secondary"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
         </div>

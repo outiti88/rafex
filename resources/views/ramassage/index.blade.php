@@ -142,7 +142,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
+                        <li class="breadcrumb-item"><a href="/">Rafex</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Ramassage</li>
                     </ol>
                 </nav>
@@ -277,9 +277,7 @@
                                 <th scope="col">Ville</th>
                                 <th scope="col">Date de la demande</th>
                                 <th scope="col">Etat</th>
-                                @can('ramassage-commande')
                                 <th scope="col">Détail</th>
-                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -315,12 +313,10 @@
                                             {{$ramassage->statut}}
                                         </span>
                                     </td>
-                                    @can('ramassage-commande')
                                     <td style="font-size: 1.5em">
                                         <a style="color: #467a0f" href="/ramassage/{{$ramassage->id}}">
                                             <i class="ti-pencil"></i></a>
                                     </td>
-                                    @endcan
                                 </tr>
                             @empty
                                 <tr>

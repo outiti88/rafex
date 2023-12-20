@@ -101,7 +101,7 @@
 												<td class="p30-15" style="padding: 25px 40px 50px 40px;">
 													<table width="100%" border="0" cellspacing="0" cellpadding="0">
 														<tr>
-															<td class="text-header center" style="padding-bottom: 50px; color:#999999; font-family:'Lora', Georgia, serif; font-size:12px; line-height:16px; text-align:center;"><a href="https://www.Cavallo.ma" target="_blank" class="link2-u" style="color:#999999; text-decoration:underline;"><span class="link2-u" style="color:#999999; text-decoration:underline;">VISITEZ NOTRE SITE VITRINE</span></a></td>
+															<td class="text-header center" style="padding-bottom: 50px; color:#999999; font-family:'Lora', Georgia, serif; font-size:12px; line-height:16px; text-align:center;"><a href="https://www.Rafex.ma" target="_blank" class="link2-u" style="color:#999999; text-decoration:underline;"><span class="link2-u" style="color:#999999; text-decoration:underline;">VISITEZ NOTRE SITE VITRINE</span></a></td>
 														</tr>
 														<tr>
 															<td class="fluid-img img-center" style="font-size:0pt; line-height:0pt; text-align:center;"><img src="{{url('/assets/images/logo.png')}} style="width: 50%" border="0" alt="" /></td>
@@ -175,7 +175,7 @@
 													<table width="100%" border="0" cellspacing="0" cellpadding="0">
 														<tr>
 															<td class="h1 pb20" style="color:#000000; font-size:35px; line-height:42px; text-align:center; text-transform:uppercase; padding-bottom:20px;">
-																Bienvenue sur notre plateforme <span class="m-hide" style="color: #467a0f"><br /></span>Cavallo Tracking
+																Bienvenue sur notre plateforme <span class="m-hide" style="color: #467a0f"><br /></span>Rafex Tracking
 																<span style="font-size: 0.75em"> <br>
 																	Vous y êtes presque !
 																</span> <br>
@@ -187,7 +187,7 @@
                                                             <td class="text center pb30" style="color:#666666; font-family:Arial, sans-serif; font-size:16px; line-height:30px; text-align:center; padding-bottom:30px;">
                                                                 Votre Email : <strong>{{$details['email']}}</strong><br>
 																<span style="display: block ; padding-top:7px">
-																	<br>Merci d’avoir rejoint Cavallo! <br>
+																	<br>Merci d’avoir rejoint Rafex! <br>
 																Cliquez sur le bouton ci-dessous pour modifier votre mot de passe, <br>
 																et nous vous aiderons à bien démarrer.
 																</span>
@@ -255,14 +255,14 @@
 														</td>
 														</tr>
 														<tr>
-															<td class="text-footer2 pb30" style="color:#467a0f; font-family:Arial,sans-serif; font-size:12px; line-height:18px; text-align:center; padding-bottom:30px;">L'équipe Cavallo.ma</td>
+															<td class="text-footer2 pb30" style="color:#467a0f; font-family:Arial,sans-serif; font-size:12px; line-height:18px; text-align:center; padding-bottom:30px;">L'équipe Rafex.ma</td>
 														</tr>
 														<tr>
 															<td class="text-footer3" style="color:#666666; font-family:Arial,sans-serif; font-size:12px; line-height:18px; text-align:center;">
 
 																	<span class="link4-u" style="color:#666666; text-decoration:underline;">Si vous avez besoin d'aide, veuillez nous envoyer un e-mail à
-																		<a href="mailto:contact@Cavallo.ma" target="_blank" class="link4-u" style="color:#666666; text-decoration:underline;">
-																			contact@Cavallo.ma
+																		<a href="mailto:contact@Rafex.ma" target="_blank" class="link4-u" style="color:#666666; text-decoration:underline;">
+																			contact@Rafex.ma
 																		</a>
 
 																	</span>

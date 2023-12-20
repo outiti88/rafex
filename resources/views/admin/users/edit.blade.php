@@ -30,7 +30,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
+                        <li class="breadcrumb-item"><a href="/">Rafex</a></li>
                         <li class="breadcrumb-item"><a href="/admin/users">Utilisateurs</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{$user->name}}</li>
                     </ol>
@@ -189,7 +189,7 @@
 
 
                     <div class="form-group row">
-                        <label for="roles" class="col-md-12 col-form-label text-center font-bold font-16">Rôles Cavallo : </label>
+                        <label for="roles" class="col-md-12 col-form-label text-center font-bold font-16">Rôles Rafex : </label>
                         <label for="roles" class="col-md-2 col-form-label text-md-right">Rôle : </label>
                         <div class="col-md-10 d-flex p-t-10 justify-content-around">
                             <div class="form-check">

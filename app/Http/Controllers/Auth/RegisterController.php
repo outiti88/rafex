@@ -74,7 +74,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        if(empty($data['image'])) $data['image']="https://tracking.Cavallo.ma/assets/images/favicon.png";
+        if(empty($data['image'])) $data['image']="https://tracking.Rafex.ma/assets/images/favicon.png";
             if(empty($data['description'])) $data['description']=" ";
             if(empty($data['adresse'])) $data['adresse']=" ";
             if(empty($data['ville'])) $data['ville']="Rabat";

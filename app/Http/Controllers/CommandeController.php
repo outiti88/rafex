@@ -26,6 +26,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\CommandesImport;
 use App\Reclamation;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Http;
 
 class CommandeController extends Controller
 {
@@ -78,140 +79,190 @@ class CommandeController extends Controller
      */
     public function index()
     {
-
-        //dd(auth()->user()->unreadNotifications );
-        //dd(Auth::user()->id );
+        // Set the Carbon locale to French
         \Carbon\Carbon::setLocale('fr');
-        $data = null;
-        $clients = User::whereHas('roles', function ($q) {
-            $q->whereIn('name', ['client', 'ecom']);
-        })->orderBy('name')->get();
-        $livreurs = User::whereHas('roles', function ($q) {
-            $q->whereIn('name', ['livreur']);
-        })->orderBy('name')->get();
-        $nouveau =  User::whereHas('roles', function ($q) {
-            $q->whereIn('name', ['nouveau']);
-        })->where('deleted_at', NULL)->count();
 
+        $data = null;
+        $clients = $this->getClients();
+        $livreurs = $this->getLivreurs();
+        $nouveau = $this->getNouveauCount();
         $users = [];
         $produits = [];
-
         $statuts = [];
         $statutStat = [];
-
-        $villes = DB::table('villes')->orderBy('name')->get();
+        $villes = $this->getVilles();
 
         if (!Gate::denies('ecom')) {
-            $produits_total = Produit::where('user_id', Auth::user()->id)->get();
-            foreach ($produits_total as $produit) {
-                $stock = DB::table('stocks')->where('produit_id', $produit->id)->get();
-                if ($stock[0]->qte > 0) {
-                    $produits[] = $produit;
-                }
-            }
-            //dd($produits);
-        }
-
-        if (!Gate::denies('manage-users')) {
-            $produits_total = Produit::get();
-            foreach ($produits_total as $produit) {
-                $stock = DB::table('stocks')->where('produit_id', $produit->id)->get();
-                if ($stock[0]->qte > 0) {
-                    $produits[] = $produit;
-                }
-            }
-            //session administrateur donc on affiche tous les commandes
-            $total = Commande::where('deleted_at', NULL)
-                ->where(function ($q) {
-                    $q->whereDate('updated_at', '>=', now()->subMonth())
-                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
-                })
-                ->count();
-            $commandes = Commande::where('deleted_at', NULL)
-                ->where(function ($q) {
-                    $q->whereDate('updated_at', '>=', now()->subMonth())
-                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
-                })
-                ->orderBy('updated_at', 'DESC')->paginate(50);
-                $statuts = DB::table('commandes')
-                ->select('statut', DB::raw('count(*) as total'))
-                ->where('deleted_at', NULL)
-                ->where(function ($q) {
-                   $q->whereDate('updated_at', '>=', now()->subMonth())
-                       ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
-               })
-                ->groupBy('statut')
-                ->get();
-
-            //dd($clients[0]->id);
+            $produits = $this->getEcomProduits();
+        } elseif (!Gate::denies('manage-users')) {
+            list($total, $commandes, $statuts) = $this->getAdminData();
         } elseif (!Gate::denies('livreur')) {
-            //session livreur
-            $statuts = DB::table('commandes')
-                ->select('statut', DB::raw('count(*) as total'))
-                ->where('deleted_at', NULL)
-                ->where('livreur', Auth::user()->id)
-                ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue','En attente de ramassage'])
-                ->groupBy('statut')
-                ->get();
-
-            $livreurSession = Commande::where('deleted_at', NULL)->where('livreur', Auth::user()->id)
-                ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue','En attente de ramassage'])
-                ->orderBy('updated_at', 'DESC');
-            $total = $livreurSession->get()->count();
-            $commandes = $livreurSession->paginate(50);
-
-
-
-            //dd($clients[0]->id);
+            list($total, $commandes, $statuts) = $this->getLivreurData();
         } else {
-            $clientSession = Commande::where('deleted_at', NULL)->where('user_id', Auth::user()->id)
-            ->where(function ($q) {
-                $q->whereDate('updated_at', '>=', now()->subMonth())
-                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
-            });
-            $total = $clientSession->count();
-
-            $statuts = DB::table('commandes')
-                ->select('statut', DB::raw('count(*) as total'))
-                ->where('user_id', Auth::user()->id)
-                ->where('deleted_at', NULL)
-                ->where(function ($q) {
-                   $q->whereDate('updated_at', '>=', now()->subMonth())
-                       ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
-               })
-                ->groupBy('statut')
-                ->get();
-
-            $commandes = $clientSession->orderBy('updated_at', 'DESC')->paginate(50);
+            list($total, $commandes, $statuts) = $this->getClientData();
         }
 
+        $this->populateStatutStat($statuts, $statutStat);
+        $this->populateUsers($commandes, $users);
 
-
-        foreach ($statuts as $statut){
-            $statutStat[$statut->statut] = $statut->total;
-        }
-
-
-        foreach ($commandes as $commande) {
-            if (!empty(User::withTrashed()->find($commande->user_id)))
-                $users[] =  User::withTrashed()->find($commande->user_id);
-        }
-        //$commandes = Commande::all()->paginate(3) ;
         $checkBox = 0;
+
         return view('commande.colis', [
-            'nouveau' => $nouveau, 'commandes' => $commandes,
+            'nouveau' => $nouveau,
+            'commandes' => $commandes,
             'total' => $total,
             'users' => $users,
             'clients' => $clients,
             'livreurs' => $livreurs,
             'produits' => $produits,
             'villes' => $villes,
-            'data' => $data, 'checkBox' => $checkBox,
+            'data' => $data,
+            'checkBox' => $checkBox,
             'statutStat' => $statutStat
         ]);
     }
 
+    private function getClients()
+    {
+        return User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['client', 'ecom']);
+        })->orderBy('name')->get();
+    }
 
+    private function getLivreurs()
+    {
+        return User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['livreur']);
+        })->orderBy('name')->get();
+    }
+
+    private function getNouveauCount()
+    {
+        return User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['nouveau']);
+        })->where('deleted_at', NULL)->count();
+    }
+
+    private function getVilles()
+    {
+        return DB::table('villes')->orderBy('name')->get();
+    }
+
+    private function getEcomProduits()
+    {
+        $produits_total = Produit::where('user_id', Auth::user()->id)->get();
+        $filteredProduits = [];
+
+        foreach ($produits_total as $produit) {
+            $stock = DB::table('stocks')->where('produit_id', $produit->id)->get();
+            if ($stock[0]->qte > 0) {
+                $filteredProduits[] = $produit;
+            }
+        }
+
+        return $filteredProduits;
+    }
+
+    private function getAdminData()
+    {
+        $produits_total = Produit::get();
+        $filteredProduits = [];
+
+        foreach ($produits_total as $produit) {
+            $stock = DB::table('stocks')->where('produit_id', $produit->id)->get();
+            if ($stock[0]->qte > 0) {
+                $filteredProduits[] = $produit;
+            }
+        }
+
+        $total = Commande::where('deleted_at', NULL)
+            ->where(function ($q) {
+                $q->whereDate('updated_at', '>=', now()->subMonth())
+                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
+            })
+            ->count();
+
+        $commandes = Commande::where('deleted_at', NULL)
+            ->where(function ($q) {
+                $q->whereDate('updated_at', '>=', now()->subMonth())
+                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
+            })
+            ->orderBy('updated_at', 'DESC')->paginate(50);
+
+        $statuts = DB::table('commandes')
+            ->select('statut', DB::raw('count(*) as total'))
+            ->where('deleted_at', NULL)
+            ->where(function ($q) {
+                $q->whereDate('updated_at', '>=', now()->subMonth())
+                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
+            })
+            ->groupBy('statut')
+            ->get();
+
+        return [$total, $commandes, $statuts];
+    }
+
+    private function getLivreurData()
+    {
+        $statuts = DB::table('commandes')
+            ->select('statut', DB::raw('count(*) as total'))
+            ->where('deleted_at', NULL)
+            ->where('livreur', Auth::user()->id)
+            ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue', 'En attente de ramassage'])
+            ->groupBy('statut')
+            ->get();
+
+        $livreurSession = Commande::where('deleted_at', NULL)->where('livreur', Auth::user()->id)
+            ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue', 'En attente de ramassage'])
+            ->orderBy('updated_at', 'DESC');
+
+        $total = $livreurSession->get()->count();
+        $commandes = $livreurSession->paginate(50);
+
+        return [$total, $commandes, $statuts];
+    }
+
+    private function getClientData()
+    {
+        $clientSession = Commande::where('deleted_at', NULL)->where('user_id', Auth::user()->id)
+            ->where(function ($q) {
+                $q->whereDate('updated_at', '>=', now()->subMonth())
+                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
+            });
+
+        $total = $clientSession->count();
+
+        $statuts = DB::table('commandes')
+            ->select('statut', DB::raw('count(*) as total'))
+            ->where('user_id', Auth::user()->id)
+            ->where('deleted_at', NULL)
+            ->where(function ($q) {
+                $q->whereDate('updated_at', '>=', now()->subMonth())
+                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
+            })
+            ->groupBy('statut')
+            ->get();
+
+        $commandes = $clientSession->orderBy('updated_at', 'DESC')->paginate(50);
+
+        return [$total, $commandes, $statuts];
+    }
+
+    private function populateStatutStat($statuts, &$statutStat)
+    {
+        foreach ($statuts as $statut) {
+            $statutStat[$statut->statut] = $statut->total;
+        }
+    }
+
+    private function populateUsers($commandes, &$users)
+    {
+        foreach ($commandes as $commande) {
+            if (!empty(User::withTrashed()->find($commande->user_id))) {
+                $users[] = User::withTrashed()->find($commande->user_id);
+            }
+        }
+    }
 
 
     public function outRange(Commande $commande, Request $request){
@@ -256,7 +307,6 @@ class CommandeController extends Controller
         $data = $request->all();
         if (!Gate::denies('ecom')) {
             $produits = Produit::where('user_id', Auth::user()->id)->get();
-            //dd($produits);
         }
 
         if (!Gate::denies('manage-users')) {
@@ -306,7 +356,6 @@ class CommandeController extends Controller
                 $commandes->where('statut', 'like', '%' . $request->statut . '%');
             }
 
-            //dd($commandes->count());
         }
 
         if (Gate::denies('livreur')) {
@@ -350,13 +399,10 @@ class CommandeController extends Controller
         if ($request->filled('prixMax') && $request->prixMax > 0) {
             $commandes->where('montant', '<=', $request->prixMax);
         }
-
-
         if ($request->filled('facturer')) {
             if($request->facturer == "no") $commandes->where('facturer', 0);
             else if($request->facturer == "yes") $commandes->where('facturer', '<>', 0);
         }
-
         if (Gate::denies('livreur')) {
             $commandes = $commandes->where(function ($q) {
                 $q->whereDate('updated_at', '>=', now()->subMonth())
@@ -641,8 +687,6 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
-        //dd(!(gmdate("H")+1 <= 18));
-
         if (!Gate::denies('manage-users')) {
             if (isset($request->client)) {
                 $fournisseur = User::find($request->client);
@@ -657,7 +701,7 @@ class CommandeController extends Controller
         $commande = new Commande();
         $statut = new Statut();
 
-        //prixe de livraison de la commande
+        //prix de livraison de la commande
         if ($fournisseur->prix === 0) {
             $commande->prix = DB::table('villes')
                 ->select('prix')
@@ -765,7 +809,6 @@ class CommandeController extends Controller
 
         }
 
-        //dd($commande->user());
         //$commande->save();
         $statut->commande_id = $commande->id;
         $statut->name = $commande->statut;
@@ -784,11 +827,10 @@ class CommandeController extends Controller
 
     public function showFromNotify(Commande $commande, DatabaseNotification $notification)
     {
-
         $notification->markAsRead();
-
         return redirect()->route('commandes.show', $commande->id);
     }
+
 
     public function affecterLivreur(Request $request, $id)
     {
@@ -897,421 +939,45 @@ class CommandeController extends Controller
     }
 
 
-
-    public function content(Commande $commande)
-    {
-        $content = '';
-        $user = DB::table('users')->find($commande->user_id);
-        $storeName = ($user->storeName == null) ? $user->name : $user->storeName;
-        $ouverture = ($commande->isOpen) ? 'Le client peut ouvrir le colis' : 'Merci de ne pas ouvrir le colis';
-
-        if ($commande->montant == 0) $montant = "Payé par Carte bancaire";
-        else $montant = $commande->montant . ' DH';
-
-        for ($i = 1; $i <= $commande->colis; $i++) {
-            $content .= '
-            <div class="container">
-
-                <h1 style="color:#467a0f">
-                    Ticket de Commande ' . $i . '/' . $commande->colis . '
-
-                </h1>
-                <div class="tableau">
-
-                    <table id="customers">
-                    <tr>
-                        <th>Commande Numero: </th>
-                        <td>' . $commande->numero . '</td>
-                    </tr>
-                    <tr>
-                        <th>Entreprise:  </th>
-                        <td>' . $storeName . '</td>
-                    </tr>
-                    </table>
-                </div>
-                <h2>Montant Total :' . $montant . ' </h2>
-                <div class="tableau">
-                    <table id="customers">
-                        <tr>
-                            <th>
-                                Nom & Prénom:
-                            </th>
-                            <td>
-                                ' . $commande->nom . '
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Ville:
-                            </th>
-                            <td>
-                                ' . $commande->ville . '
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Adresse:
-                            </th>
-                            <td>
-                                ' . $commande->adresse . '
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Téléphone:
-                            </th>
-                            <td>
-                                ' . $commande->telephone . '
-                            </td>
-                        </tr>
-                    </table>
-                    </div>
-                    <div class="tableau">
-
-                    <table id="customers">
-                    <tr>
-                        <th>Livreur: </th>
-                        <td>Cavallo Delivery</td>
-                    </tr>
-                    <tr>
-                        <th>Site web:  </th>
-                        <td>www.Cavallo.ma</td>
-                    </tr>
-                    </table>
-                </div>
-                <h2>' . $ouverture . '</h2>
-                <div style="display:flex ; justify-content: space-around; padding-bottom:20px">
-                    <div class="logo-text" style="padding-top:20px" >
-
-                    <img src="https://i.ibb.co/NWQgqxd/logo-light-text.png" style="
-                        WIDTH: 130PX;
-                    "class="light-logo" alt="homepage" />
-
-                    </div>
-                    <div class="logo-text" style="position:absolute; left:80% ; top:480px">
-
-                    <img src="https://i.ibb.co/q7z1TQD/download.png" style="
-                        WIDTH: 70%;
-                    "class="light-logo"/>
-                    </div>
-                </div>
-            </div>
-
-            ';
+    public function getQrCode($commandes){
+        $filesName = [];
+        foreach ($commandes as $key => $commande) {
+            $response = Http::get('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='.url('/').'/commandes/'.$commande->id);
+            // Get the content of the response
+            $imageContent = $response->body();
+            // Generate a unique filename for the decoded image
+            $fileName = 'testqr_code_' . $commande->numero . '.png';
+            // Save the decoded image to the public directory
+            file_put_contents(public_path('uploads/commandesQRCODE/' . $fileName), $imageContent);
+            $filesName[] = $fileName;
         }
-
-
-        return $content;
+        return $filesName;
     }
 
-    public function ticketsBuilder(Request $request){
+
+    public function ticketsBuilderHelper($commandes, $filesName, $format)
+    {
+        $pdf = app('dompdf.wrapper')->loadView('pdf.colis', ['commandes' => $commandes,'filesName' => $filesName, 'size' => $format])->setPaper($format);
+        return $pdf->stream('ticket-colis.pdf');
+    }
 
 
-        $ids = $request->item;
-
-        if ($ids == null) return back();
-
-        $pdf = App::make('dompdf.wrapper');
-        $style = '
-        <head> <meta charset="UTF-8">
-            <title>Ticket des commandes </title>
-
-        </head>
-            <style>
-                    *{
-
-                        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                        font-size : 10px;
-                        padding:2px;
-                        margin:0;
-                    }
-                    h2{
-                        text-align : center;
-                        font-size: 1.5em;
-                        border: 1px solid #467a0f;
-                    }
-                .container{
-                    box-sizing: border-box;
-                    width:100%
-                    height:auto;
-                    padding-top: 10px !important;
-                }
-                    .tableau{
-                    padding-top:20px;
-
-                    width:100%;
-                }
-
-                    #customers {
-                    text-align:center;
-                    border-collapse: collapse;
-                    width: 100%;
-                    }
-                    h1{
-                        text-align : center;
-                        font-size: 2em;
-                    }
-                    #customers td, #customers th {
-                    border: 1px solid #467a0f;
-                    }
-                    #customers tr:nth-child(even){
-                        background-color: #f2f2f2;
-                    }
-                    #customers th {
-                    padding-top: 12px;
-                    padding-bottom: 10px;
-
-                    color: black;
-                    }
-                </style>';
-
-
-        $content ='';
+    public function ticketsBuilder(Request $request)
+    {
         $commandes = Commande::where('deleted_at', NULL)->whereIn('id', $request->item)->get();
-        foreach ($commandes as $commande) {
-            $content .= $this->content($commande);
-          }
-
-
-        $pdf->loadHTML($style . $content)->setPaper('A6');
-        return $pdf->stream();
+        return $this->ticketsBuilderHelper($commandes,$this->getQrCode($commandes), 'A6');
     }
 
     public function gen($id)
     {
-
-        $commande = Commande::findOrFail($id);
-        $pdf = App::make('dompdf.wrapper');
-        $style = '
-        <head> <meta charset="UTF-8">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-            <title>Ticket de la commande: ' . $commande->numero . '</title>
-
-        </head>
-            <style>
-                    *{
-
-                        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                        font-size : 10px;
-                        padding:2px;
-                        margin:0;
-                    }
-                    h2{
-                        text-align : center;
-                        font-size: 1.5em;
-                        border: 1px solid #467a0f;
-                    }
-                .container{
-                    box-sizing: border-box;
-                    width:100%
-                    height:auto;
-                    padding-top: 10px !important;
-                }
-                    .tableau{
-                    padding-top:20px;
-
-                    width:100%;
-                }
-
-                    #customers {
-                    text-align:center;
-                    border-collapse: collapse;
-                    width: 100%;
-                    }
-                    h1{
-                        text-align : center;
-                        font-size: 2em;
-                    }
-                    #customers td, #customers th {
-                    border: 1px solid #467a0f;
-                    }
-                    #customers tr:nth-child(even){
-                        background-color: #f2f2f2;
-                    }
-                    #customers th {
-                    padding-top: 12px;
-                    padding-bottom: 10px;
-
-                    color: black;
-                    }
-                </style>';
-
-        $content = $this->content($commande);
-
-
-
-        $pdf->loadHTML($style . $content)->setPaper('A6');
-        return $pdf->stream();
-        //dd($commande) ;
-    }
-
-
-    public function contentA8(Commande $commande)
-    {
-        $content = '';
-        $user = DB::table('users')->find($commande->user_id);
-        $ouverture = ($commande->isOpen) ? 'Le client peut ouvrir le colis' : 'Merci de ne pas ouvrir le colis';
-        $storeName = ($user->storeName == null) ? $user->name : $user->storeName;
-
-        if ($commande->montant == 0) $montant = "Payé par Carte bancaire";
-        else $montant = $commande->montant . ' DH';
-
-        for ($i = 1; $i <= $commande->colis; $i++) {
-            $content .= '
-            <div class="container">
-
-                <h1 style="color:#467a0f">
-                Ticket de Commande ' . $i . '/' . $commande->colis . '
-                </h1>
-                <div class="tableau">
-
-                    <table id="customers">
-                    <tr>
-                        <th>Commande Numero: </th>
-                        <td>' . $commande->numero . '</td>
-                    </tr>
-                    <tr>
-                        <th>Entreprise:  </th>
-                        <td>' . $storeName . '</td>
-                    </tr>
-                    </table>
-                </div>
-                <h2>Montant Total :' . $montant . ' </h2>
-                <div class="tableau">
-                    <table id="customers">
-                        <tr>
-                            <th>
-                                Nom & Prénom:
-                            </th>
-                            <td>
-                                ' . $commande->nom . '
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Ville:
-                            </th>
-                            <td>
-                                ' . $commande->ville . '
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Adresse:
-                            </th>
-                            <td>
-                                ' . $commande->adresse . '
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Téléphone:
-                            </th>
-                            <td>
-                                ' . $commande->telephone . '
-                            </td>
-                        </tr>
-                    </table>
-                    </div>
-                    <div class="tableau">
-
-                    <table id="customers">
-                    <tr>
-                        <th>Livreur: </th>
-                        <td>Cavallo Delivery</td>
-                    </tr>
-                    <tr>
-                        <th>Site web:  </th>
-                        <td>www.Cavallo.ma</td>
-                    </tr>
-                    </table>
-                </div>
-                <h2>' . $ouverture . '</h2>
-                <div style="display:flex ; justify-content: space-around; padding-top:2px">
-                    <div class="logo-text"  >
-
-                    <img src="https://i.ibb.co/NWQgqxd/logo-light-text.png" style="
-                        WIDTH: 50PX;
-                    "class="light-logo" alt="homepage" />
-                    </div>
-
-                </div>
-            </div>
-
-            ';
-        }
-
-
-        return $content;
+        $commandes = Commande::where('deleted_at', NULL)->where('id', $id)->get();
+        return $this->ticketsBuilderHelper($commandes, $this->getQrCode($commandes), 'A6');
     }
 
     public function genA8($id)
     {
-
-        $commande = Commande::findOrFail($id);
-        $pdf = App::make('dompdf.wrapper');
-        $style = '
-        <head> <meta charset="UTF-8">
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-            <title>Ticket de la commande: ' . $commande->numero . '</title>
-
-        </head>
-            <style>
-                    *{
-
-                        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                        font-size : 5px;
-                        padding:2px;
-                        margin:0;
-                    }
-                    h2{
-                        text-align : center;
-                        font-size: 1.5em;
-                        border: 1px solid #467a0f;
-                    }
-                .container{
-                    box-sizing: border-box;
-                    width:100%
-                    height:auto;
-                    padding-top: 5px !important;
-                }
-                    .tableau{
-                    padding-top:6px;
-
-                    width:100%;
-                }
-
-                    #customers {
-                    text-align:center;
-                    border-collapse: collapse;
-                    width: 100%;
-                    }
-                    h1{
-                        text-align : center;
-                        font-size: 2em;
-                    }
-                    #customers td, #customers th {
-                    border: 1px solid #467a0f;
-                    }
-                    #customers tr:nth-child(even){
-                        background-color: #f2f2f2;
-                    }
-                    #customers th {
-                    padding-top: 6px;
-                    padding-bottom: 5px;
-
-                    color: black;
-                    }
-                </style>';
-
-        $content = $this->contentA8($commande);
-
-
-        $pdf->loadHTML($style . $content)->setPaper('A8');
-
-
-        return $pdf->stream();
-        //dd($commande) ;
+        $commandes = Commande::where('deleted_at', NULL)->where('id', $id)->get();
+        return $this->ticketsBuilderHelper($commandes, $this->getQrCode($commandes), 'A8');
     }
 
 
@@ -1446,7 +1112,6 @@ class CommandeController extends Controller
         }
         //pour traiter la commande à ramassée , faut verifier deux conditons:
         // commande est envoyée + traiter = 0
-        // dd($blExist);
 
         if (($commande->statut === "envoyée" || $commande->statut === "Reçue" || $commande->statut === "Ramassée" || $commande->statut === "Expédiée")) {
             $user_ville = User::findOrFail($commande->user_id);
@@ -1460,7 +1125,6 @@ class CommandeController extends Controller
                     $commande->statut = "En cours";
                 } else $commande->statut = "Reçue";
             } elseif ($commande->statut === "Reçue") {
-                // dd(!Gate::denies('livreur'));
 
                 if (!Gate::denies('livreur')) return back();
                 $commande->statut = "Expédiée";
@@ -1527,12 +1191,10 @@ class CommandeController extends Controller
                 $statut = new Statut();
                 $statut->commande_id = $commande->id;
                 $statut->name = $commande->statut;
-                //dd($user);
                 $commande_produits = DB::table('commande_produit')->where('commande_id', $commande->id)->get();
                 $statut->user()->associate(Auth::user())->save();
                 $commande->save();
                 foreach ($commande_produits as $commande_produit) {
-                    //dd($commande_produit);
                     $stock = Stock::where('produit_id', $commande_produit->produit_id)->first();
                     $stock->qte += $commande_produit->qte;
                     $stock->save();
@@ -1542,6 +1204,7 @@ class CommandeController extends Controller
 
         return back();
     }
+
 
     public function updateSatuts(Request $request){
 
@@ -1568,6 +1231,7 @@ class CommandeController extends Controller
         return redirect()->route('commandes.index');
     }
 
+
     public function expedier(Request $request){
 
         if ($request->item == null) return back();
@@ -1591,6 +1255,7 @@ class CommandeController extends Controller
         }
         return redirect()->route('commandes.index');
     }
+
 
     public function recevoir(Request $request){
 
@@ -1627,6 +1292,7 @@ class CommandeController extends Controller
         }
 
         if($commande->facturer > 0 && $commande->statut === "Livré"){
+            $request->session()->flash('no-edit-invoiced', $commande->numero);
             return back();
         }
         else if($commande->facturer > 0 && $request->statut === "Retour"){
@@ -1681,7 +1347,7 @@ class CommandeController extends Controller
             return back();
         }
 
-//Session Administrateur
+            //Session Administrateur
         if (!Gate::denies('manage-users')) {
             $commande->statut = $request->statut;
             $commande->commentaire = $request->commentaire;
@@ -1699,7 +1365,7 @@ class CommandeController extends Controller
 
             // Nexmo::message()->send([
             //     'to'   => '212'.substr($commande->telephone,1),
-            //     'from' => 'Cavallo Delivery',
+            //     'from' => 'Rafex Delivery',
             //     'text' => 'Bonjour '.$commande->nom.' Votre Commande  '.$commande->numero.' de la part du '. $user->name .' a été bien livrée.'
             // ]);
 
@@ -1707,7 +1373,7 @@ class CommandeController extends Controller
             return back();
         }
 
-//Session Livreur
+            //Session Livreur
         if (!Gate::denies('livreur') && in_array($commande->statut, $finalLivreurState) && in_array($request->statut, $finalLivreurState) && $commande->facturer == 0) {
             $commande->statut = $request->statut;
             $statut = new Statut();
@@ -1843,8 +1509,6 @@ class CommandeController extends Controller
             return redirect()->route('commandes.show', ['commande' => $commande->id]);
         }
     }
-
-
 
     function unique_code($limit)
     {

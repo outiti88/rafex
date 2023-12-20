@@ -38,7 +38,7 @@ class PdfGenerate extends Mailable
             return $this->subject('Facture générée')->view('emails.PdfGenerate');
         }
         if($this->motif === "register"){
-            return $this->subject('Bienvenue chez Cavallo Delivery')->view('emails.register');
+            return $this->subject('Bienvenue chez Rafex Delivery')->view('emails.register');
         }
     }
 }

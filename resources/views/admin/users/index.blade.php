@@ -30,7 +30,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
+                        <li class="breadcrumb-item"><a href="/">Rafex</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Utilisateurs</li>
                     </ol>
                 </nav>
@@ -54,7 +54,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Utilisateurs Cavallo') }}</div>
+                <div class="card-header">{{ __('Utilisateurs Rafex') }}</div>
                 <div class="card-header">Total des Utilisateurs: {{ $total }} Utilisateurs</div>
                 <div class="card-body" >
                     <div class="table-responsive">

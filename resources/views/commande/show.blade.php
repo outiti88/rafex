@@ -129,7 +129,7 @@ N: {{$commande->numero}}
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
+                        <li class="breadcrumb-item"><a href="/">Rafex</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a href="/commandes">Colis</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{$commande->numero}}</li>
                     </ol>
@@ -155,7 +155,7 @@ N: {{$commande->numero}}
                                             </div>
                                             <div class="modal-body">
                                                 <h5>
-                                                    Commande numero: {{$commande->numero}}
+                                                    Commande numéro: {{$commande->numero}}
                                                 </h5>
                                                 <p class="proile-rating">Statut : {{$commande->statut}}</p>
                                             </div>
@@ -195,7 +195,7 @@ N: {{$commande->numero}}
 
                         <div class="modal-body" style="padding-bottom: 0;padding-top:0; text-align:center">
                             <h5>
-                                <b>Commande numero : </b> {{$commande->numero}}
+                                <b>Commande numéro : </b> {{$commande->numero}}
                             </h5>
                             <h5>
                                 <b>Statut Actuel de la commande : </b> {{$commande->statut}}
@@ -255,7 +255,7 @@ N: {{$commande->numero}}
                                 </div>
                                 <div class="modal-body">
                                     <h5>
-                                        Commande numero: {{$commande->numero}}
+                                        Commande numéro: {{$commande->numero}}
                                     </h5>
                                     <h5>
                                         Nom de livreur: {{$livreur->name}}
@@ -312,7 +312,7 @@ N: {{$commande->numero}}
                                             </div>
                                             <div class="modal-body">
                                                 <h5>
-                                                    Commande numero: {{$commande->numero}}
+                                                    Commande numéro: {{$commande->numero}}
                                                 </h5>
                                                 <p class="proile-rating">Date : {{date_format($commande->created_at,"Y/m/d")}}<span> {{date_format($commande->created_at,"H:i:s")}}</span></p>
                                             </div>
@@ -356,45 +356,52 @@ N: {{$commande->numero}}
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 Vous ne pouvez pas changer le statut en  <b>"Retour en stock"</b>
                 <br>
-            <strong> Car: Le statut de la commande numero {{$commande->numero}} est Refusée et elle n'est pas encore facturée !</strong>
+            <strong> Car: Le statut de la commande numéro {{$commande->numero}} est Refusée et elle n'est pas encore facturée !</strong>
               </div>
               @endif
             @if (session()->has('statut'))
             <div class="alert alert-dismissible alert-success col-12">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Succés !</strong> La commande à été bien Modifiée </a>.
+            <strong>Succés !</strong> La commande a été bien Modifiée </a>.
               </div>
             @endif
 
             @if (session()->has('edit'))
         <div class="alert alert-dismissible alert-info col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Succés !</strong> Le statut de la commande numero {{session()->get('edit')}} à été bien edité !
+        <strong>Succés !</strong> Le statut de la commande numéro {{session()->get('edit')}} a été bien edité !
           </div>
         @endif
         @if (session()->has('noedit'))
         <div class="alert alert-dismissible alert-danger col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Attention !</strong> Vous ne pouvez pas changer le statut de La commande numero {{session()->get('noedit')}}
+        <strong>Attention !</strong> Vous ne pouvez pas changer le statut de La commande numéro {{session()->get('noedit')}}
           </div>
         @endif
         @if (session()->has('nodelete'))
         <div class="alert alert-dismissible alert-danger col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Attention !</strong>vous ne pouvez pas supprimer La commande numero {{session()->get('nodelete')}}
+        <strong>Attention !</strong>vous ne pouvez pas supprimer La commande numéro {{session()->get('nodelete')}}
           </div>
         @endif
         @if (session()->has('noupdate'))
         <div class="alert alert-dismissible alert-danger col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Attention !</strong>vous ne pouvez pas modifier La commande numero {{session()->get('noupdate')}} <br>
-                vous pouvez modifier que les commandes qui ont le statut <b>Envoyée ou pas livrée</b>
+            <strong>Attention !</strong>vous ne pouvez pas modifier La commande numéro {{session()->get('noupdate')}} <br>
+                vous pouvez modifier que les commandes qui ont le statut <b>Envoyées ou pas livrées</b>
+        </div>
+        @endif
+        @if (session()->has('no-edit-invoiced'))
+        <div class="alert alert-dismissible alert-danger col-12">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Attention !</strong>vous ne pouvez pas modifier le statut de la commande numéro {{session()->get('no-edit-invoiced')}} <br>
+                vous ne pouvez pas modifier les commandes qui ont été <b>facturées</b>
         </div>
         @endif
         @if (session()->has('nonEncours'))
         <div class="alert alert-dismissible alert-danger col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Attention !</strong>vous ne pouvez pas changer le statut de La commande numero {{session()->get('nonEncours')}} <br>
+            <strong>Attention !</strong>vous ne pouvez pas changer le statut de La commande numéro {{session()->get('nonEncours')}} <br>
                 vous pouvez modifier que les statuts des commandes qui ont le statut <b>En Cours</b>
         </div>
         @endif
@@ -447,7 +454,7 @@ N: {{$commande->numero}}
                         </div>
                     </div>
                             <h5>
-                                Commande numero: <span style="color: #467a0f">{{$commande->numero}}</span>
+                                Commande numéro: <span style="color: #467a0f">{{$commande->numero}}</span>
                                 <a  style="color: white"
                                     class="badge badge-pill
                                     @switch($commande->statut)

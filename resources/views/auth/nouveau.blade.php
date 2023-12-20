@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png"  href="{{url('/css/inscription/assets/img/apple-icon.png')}}">
   <link rel="icon" type="image/png"  href="{{url('/css/inscription/assets/img/favicon.png')}}">
   <title>
-    Cavallo - S'inscrire pour un meilleur service de livraison
+    Rafex - S'inscrire pour un meilleur service de livraison
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -47,7 +47,7 @@
                       <label class="form-label">Nom Complet</label>
                       <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required  autofocus>
                         @error('name')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback" style="display: inline"  role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
@@ -69,7 +69,7 @@
                         <input id="email" type="email" class="form-control " name="email" value="{{ old('email') }}" required >
 
                         @error('email')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback"  style="display: inline"  role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
@@ -78,7 +78,7 @@
                       <label class="form-label">Mot de passe</label>
                       <input id="password" class="form-control " type="password"  name="password" required >
                          @error('password')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback" style="display: inline"  role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror

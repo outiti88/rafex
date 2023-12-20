@@ -14,7 +14,7 @@ Ramassage | {{$ramassage->reference}}
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
+                        <li class="breadcrumb-item"><a href="/">Rafex</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a href="/ramassage">Ramassage</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{$ramassage->reference}}</li>
 
@@ -32,6 +32,7 @@ Ramassage | {{$ramassage->reference}}
                     <a  class="btn btn-success text-white m-r-5" data-toggle="modal" data-target="#modalRelance"><i class="fas fa-random"></i> <span class="quick-action">Valider </span></a>
                     @endcan
                 @endif
+                <a  class="btn btn-warning text-white m-r-5" href="{{ route('ramassage.ticket',['id'=> $ramassage->id]) }}"><i class="fas fa-print"></i> <span class="quick-action">Ticket </span></a>
             </div>
         </div>
 
@@ -55,9 +56,14 @@ Ramassage | {{$ramassage->reference}}
         <strong>Succés !</strong> Ramassage Validé </a>.
           </div>
         @endif
+        @if (session()->has('ramassage-already-validated'))
+        <div class="alert alert-dismissible alert-danger col-12">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Oups !</strong> Ramassage déjà Validé </a>.
+          </div>
+        @endif
     </div>    <!-- ============================================================== -->
 
-    @can("manage-users")
     <div class="row">
       <div class="col-lg-12 col-xlg-3 col-md-5">
           <div class="card">
@@ -91,7 +97,11 @@ Ramassage | {{$ramassage->reference}}
                                     <td>
                                       {{$index}}
                                     </td>
-                                    <td>{{$commande->numero}}</td>
+                                    <td>
+                                        <a href="/commandes/{{$commande->id}}">
+                                            {{$commande->numero}}
+                                        </a>
+                                    </td>
 
                                     <td>{{$commande->created_at}}</td>
                                     <td>{{$commande->statut}}</td>
@@ -116,7 +126,6 @@ Ramassage | {{$ramassage->reference}}
       </div>
 
   </div>
-    @endcan
 
     <div class="modal fade" id="modalRelance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

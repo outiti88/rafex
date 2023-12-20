@@ -19,19 +19,19 @@
         margin-right: 1rem !important;
     margin-bottom: 1rem !important;
     }
-    .btn-cavallo {
+    .btn-rafex {
         color: white;
        background-color: #467a0f;
     }
-    .btn-cavallo:hover{
+    .btn-rafex:hover{
        background-color: #3c690b !important;
        color: white !important;
     }
-    .btn-cavallo-secondary {
+    .btn-rafex-secondary {
         color: white;
        background-color: #70726d;
     }
-    .btn-cavallo-secondary:hover{
+    .btn-rafex-secondary:hover{
        background-color: #575855 !important;
        color: white !important;
     }
@@ -112,7 +112,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Cavallo</a></li>
+                        <li class="breadcrumb-item"><a href="/">Rafex</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><a href="/commandes">Colis</a></li>
                     </ol>
                 </nav>
@@ -122,13 +122,13 @@
         <div class="row float-right d-flex ">
             @can('client-admin')
             <div class="m-r-5">
-                <a  class="btn btn-cavallo text-white"  data-toggle="modal" data-target="#modalSubscriptionForm"><i class="fa fa-plus-square"></i><span class="quick-action">Ajouter</span></a>
+                <a  class="btn btn-rafex text-white"  data-toggle="modal" data-target="#modalSubscriptionForm"><i class="fa fa-plus-square"></i><span class="quick-action">Ajouter</span></a>
             </div>
 
             {{-- @cannot('ecom')
             <div class="m-r-5">
 
-                <button type="button" class="btn btn-cavallo" data-toggle="modal" data-target="#EXCELMODAL">
+                <button type="button" class="btn btn-rafex" data-toggle="modal" data-target="#EXCELMODAL">
                   <i class="fas fa-file-upload"></i>  <span class="quick-action">Excel</span>
                   </button>
             </div>
@@ -138,7 +138,7 @@
             @endcan
 
             <div class="m-r-5" style="margin-right: 10px;">
-                <a  class="btn btn-cavallo text-white"  data-toggle="modal" data-target="#modalSearchForm"><i class="fa fa-search"></i><span class="quick-action">Filtrer</span></a>
+                <a  class="btn btn-rafex text-white"  data-toggle="modal" data-target="#modalSearchForm"><i class="fa fa-search"></i><span class="quick-action">Filtrer</span></a>
             </div>
         </div>
         </div>
@@ -169,8 +169,8 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-cavallo" data-dismiss="modal">Close</button>
-          <button type="submit" name="upload" class="btn btn-cavallo">Importer</button>
+          <button type="button" class="btn btn-rafex" data-dismiss="modal">Close</button>
+          <button type="submit" name="upload" class="btn btn-rafex">Importer</button>
         </div>
     </form>
     @if ($errors->any())
@@ -441,21 +441,21 @@
                         @can('manage-users')
                             @if (request()->get('statut') != null)
                                 @if (request()->get('statut') == 'envoyée')
-                                    <button style="margin: 15px;"  onclick="recevoir()" class="btn btn-cavallo text-white"><i class="fas fa-check-circle"></i> Recevoir</button>
+                                    <button style="margin: 15px;"  onclick="recevoir()" class="btn btn-rafex text-white"><i class="fas fa-check-circle"></i> Recevoir</button>
                                 @endif
                                 @if (request()->get('statut') == 'Reçue')
-                                    <button style="margin: 15px;" style="margin:15px" onclick="expedier()" class="btn btn-cavallo text-white"><i class="fas fa-truck"></i> Expédier</button>
+                                    <button style="margin: 15px;" style="margin:15px" onclick="expedier()" class="btn btn-rafex text-white"><i class="fas fa-truck"></i> Expédier</button>
                                 @endif
-                                <a style="margin:15px" data-toggle="modal" data-target="#modalQuickStatusChange"  class="btn btn-cavallo text-white"><i class="fas fa-edit"></i> Changer le statut</a>
+                                <a style="margin:15px" data-toggle="modal" data-target="#modalQuickStatusChange"  class="btn btn-rafex text-white"><i class="fas fa-edit"></i> Changer le statut</a>
                             @endif
                         @endcan
                             @if (request()->get('livreur') != null)
                         @can('manage-users')
-                            <button  style="margin:15px" onclick="submitForm1()" class="btn btn-cavallo"><i class="mdi mdi-note-text"></i> Bon de Commande</button>
+                            <button  style="margin:15px" onclick="submitForm1()" class="btn btn-rafex"><i class="mdi mdi-note-text"></i> Bon de Commande</button>
                         @endcan
                             @endif
 
-                        <button style="margin:15px"  onclick="submitForm2()" class="btn btn-cavallo text-white"><i class="fas fa-print"></i> Ticket de Commande</button>
+                        <button style="margin:15px"  onclick="submitForm2()" class="btn btn-rafex text-white"><i class="fas fa-print"></i> Ticket de Commande</button>
                   </div>
                 </div>
               </div>
@@ -690,7 +690,7 @@
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <div class="modal-footer d-flex justify-content-center">
-                                                                                <a class="btn btn-cavallo" style="color:white" onclick="changeStatus({{$commande->id}})">Enregistrer</a>
+                                                                                <a class="btn btn-rafex" style="color:white" onclick="changeStatus({{$commande->id}})">Enregistrer</a>
 
                                                                             </div>
                                                                         </div>
@@ -739,7 +739,7 @@
                                                     </ul>
                                                 </div>
                                                 <div class="modal-footer">
-                                                <button type="button" class="btn btn-cavallo-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-rafex-secondary" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                             </div>
@@ -809,7 +809,7 @@
                         </div>
                         <div class="form-group">
                             <div class="modal-footer d-flex justify-content-center">
-                                <a class="btn btn-cavallo" style="color:white" onclick="submitForm3()">Enregistrer</a>
+                                <a class="btn btn-rafex" style="color:white" onclick="submitForm3()">Enregistrer</a>
                             </div>
                         </div>
                 </div>
@@ -1008,7 +1008,7 @@
 
                                 <div class="form-group">
                                     <div class="modal-footer d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-cavallo"><i class="fa fa-search"></i> Rechercher</button>
+                                        <button type="submit" class="btn btn-rafex"><i class="fa fa-search"></i> Rechercher</button>
 
                                     </div>
                                 </div>
@@ -1139,7 +1139,7 @@
 
                                 <div class="form-group">
                                     <div class="modal-footer d-flex justify-content-center">
-                                        <button class="btn btn-cavallo">Ajouter</button>
+                                        <button class="btn btn-rafex">Ajouter</button>
 
                                     </div>
                                 </div>
@@ -1257,7 +1257,7 @@
 
                                 <div class="form-group">
                                     <div class="modal-footer d-flex justify-content-center">
-                                        <button class="btn btn-cavallo">Ajouter</button>
+                                        <button class="btn btn-rafex">Ajouter</button>
 
                                     </div>
                                 </div>
@@ -1423,7 +1423,7 @@
 
                               <div class="form-group">
                                   <div class="modal-footer d-flex justify-content-center">
-                                      <button class="btn btn-cavallo">Ajouter</button>
+                                      <button class="btn btn-rafex">Ajouter</button>
 
                                   </div>
                               </div>
@@ -1509,7 +1509,7 @@ $(document).ready(function() {
         divtest.setAttribute("class", "fixedHeight row removeclass"+room);
         var rdiv = 'removeclass'+room;
 
-        divtest.innerHTML  = $("#test").html() + '<div class="input-group-btn bnt-product" style="position: relative;top: -31px;"> <button class="btn btn-cavallo bnt-product m-t-25" type="button" onclick="remove_education_fields('+ room +');"> <span class="mdi mdi-close-box" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+        divtest.innerHTML  = $("#test").html() + '<div class="input-group-btn bnt-product" style="position: relative;top: -31px;"> <button class="btn btn-rafex bnt-product m-t-25" type="button" onclick="remove_education_fields('+ room +');"> <span class="mdi mdi-close-box" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
 
         objTo.appendChild(divtest)
     }

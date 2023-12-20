@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png"  href="{{url('/css/inscription/assets/img/apple-icon.png')}}">
   <link rel="icon" type="image/png"  href="{{url('/css/inscription/assets/img/favicon.png')}}">
   <title>
-    Cavallo - Se Connecter
+    Rafex - Se Connecter
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -97,7 +97,7 @@
             </div>
 
           <div class="col-12 col-md-6" style="float: right; text-align: right;">
-            <a href="https://www.cavallo.ma/" target="_blank">
+            <a href="https://www.Rafex.ma/" target="_blank">
               <img src="{{url('/css/inscription/assets/img/logo-footer.png')}}" alt="logo-footer.png">
             </a>
           </div>

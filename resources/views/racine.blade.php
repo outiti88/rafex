@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Cavallo Delivery Tanger propose
+    <meta name="description" content="Rafex Delivery Tanger propose
     un service de collecte, de stockage, d’emballage et d’expédition de vos produits aux clients.">
     <meta name="author" content="Outiti Ayoub">
-    <meta name="keywords" content="Cavallo,Delivery,Tanger,Livraison,Expédition,Collecte">
+    <meta name="keywords" content="Rafex,Delivery,Tanger,Livraison,Expédition,Collecte">
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('/assets/images/favicon.png')}}">
     <title>@yield('title')</title>
 

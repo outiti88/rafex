@@ -181,7 +181,7 @@
                           </tr>
                           <tr>
                             <td align="center" style="font-size:0px;padding:0 25px;padding-top:40px;word-break:break-word;">
-                              <div style="font-family:Arial, sans-serif;font-size:14px;line-height:1;text-align:center;color:#000000;">Très cordialement, <br> L’équipe Cavallo.ma ©
+                              <div style="font-family:Arial, sans-serif;font-size:14px;line-height:1;text-align:center;color:#000000;">Très cordialement, <br> L’équipe Rafex.ma ©
                                 <p></p>
                               </div>
                             </td>

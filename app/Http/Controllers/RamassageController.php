@@ -9,8 +9,10 @@ use App\Statut;
 use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class RamassageController extends Controller
 {
@@ -126,14 +128,10 @@ class RamassageController extends Controller
      */
     public function show(Ramassage $ramassage)
     {
-        if (Gate::denies('ramassage-commande')) {
-                return redirect()->route('ramassage.index');
-        }
 
         $nouveau =  User::whereHas('roles', function ($q) {
             $q->whereIn('name', ['nouveau']);
         })->where('deleted_at', NULL)->count();
-
 
         return view('ramassage.show', [
             'nouveau' => $nouveau, 'ramassage' => $ramassage,
@@ -145,32 +143,52 @@ class RamassageController extends Controller
     public function valide(Request $request, $id)
     {
         $ramassage = Ramassage::findOrFail($id);
+        $this->editStatus($request, $ramassage);
+        $this->show($ramassage);
+    }
+
+
+    public function scannedTicket(Request $request, $id){
+        $ramassage = Ramassage::findOrFail($id);
+        $this->editStatus($request, $ramassage);
+        return redirect()->route('ramassage.show',[
+            'ramassage' => $ramassage]);
+    }
+
+    public function editStatus(Request $request, Ramassage $ramassage){
+        $isUpdate = false;
         if (!Gate::denies('ramassage-commande')) {
             if ($ramassage->statut == 'En attente') {
                 $ramassage->statut = "Ramassé par le livreur";
+                $isUpdate = true;
+                $request->session()->flash('ramassage-validated', $ramassage->reference);
             }
             else if($ramassage->statut == 'Ramassé par le livreur' && !Gate::denies('manage-users')){
                 $ramassage->statut = "Reçue";
+                $isUpdate = true;
+                $request->session()->flash('ramassage-validated', $ramassage->reference);
+            }
+            else if($ramassage->statut == 'Reçue' || Gate::denies('manage-users')){
+                $request->session()->flash('ramassage-already-validated', $ramassage->reference);
             }
 
-            $ramassage->save();
-            $commandes = Commande::where('ramassage_id', $id)->get();
-            foreach ($commandes as $commande) {
-                $commande->statut = $ramassage->statut;
-                $commande->ramassage_id	= $ramassage->id;
-                $commande->save();
+            if($isUpdate == true){
+                $ramassage->save();
+                $commandes = Commande::where('ramassage_id', $ramassage->id)->get();
+                foreach ($commandes as $commande) {
+                    $commande->statut = $ramassage->statut;
+                    $commande->ramassage_id	= $ramassage->id;
+                    $commande->save();
 
-                $statut = new Statut();
-                $statut->commande_id = $commande->id;
-                $statut->name = $commande->statut;
-                $statut->user()->associate(Auth::user())->save();
-                $commande->save();
+                    $statut = new Statut();
+                    $statut->commande_id = $commande->id;
+                    $statut->name = $commande->statut;
+                    $statut->user()->associate(Auth::user())->save();
+                    $commande->save();
+                }
             }
         }
-        $request->session()->flash('ramassage-validated', $ramassage->reference);
-        return back();
     }
-
 
     public function filter(Request $request)
     {
@@ -226,7 +244,31 @@ class RamassageController extends Controller
     }
 
 
-        /**
+    public function ticketsBuilder(Request $request, $id){
+
+        $ramassage = Ramassage::findOrFail($id);
+        $response = Http::get('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='.url('/').'/ramassage/scanned/'.$ramassage->id);
+        // Get the content of the response
+        // $imageContent = $response->getBody();
+        $imageContent = $response->body();
+        // dd($imageContent);
+        // Decode the base64-encoded image content
+        // $decodedImage = base64_decode($imageContent);
+
+        // Generate a unique filename for the decoded image
+        $filename = 'testqr_code_' . $ramassage->reference . '.png';
+
+        // Save the decoded image to the public directory
+        file_put_contents(public_path('uploads/ramassageQRCODE/' . $filename), $imageContent);
+
+        $pdf = app('dompdf.wrapper')->loadView('pdf.ramassage', ['ramassage' => $ramassage, 'qrImage' =>  $filename])->setPaper('A6');
+
+        return $pdf->stream('ticket-ramassage.pdf');
+
+    }
+
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -285,7 +285,7 @@ class FactureController extends Controller
 
                 body{
                     margin: 0px;
-                    background-image: url("https://Cavallo.ma/images/FactureCavallo.png");
+                    background-image: url("https://Rafex.ma/images/FactureCavallo.png");
                     width: 790px;
                     height: auto;
                     background-position: center;
