@@ -10,6 +10,25 @@ class Commande extends Model
 
     use SoftDeletes;
 
+    protected $fillable = [
+        'prix',
+        'livreur',
+        'montant',
+        'telephone',
+        'ville',
+        'secteur',
+        'adresse',
+        'statut',
+        'colis',
+        'poids',
+        'nom',
+        'traiter',
+        'facturer',
+        'numero',
+        'isOpen',
+        'isChanged',
+    ];
+
     public function user(){
         return $this->belongsTo('App\User');
     }

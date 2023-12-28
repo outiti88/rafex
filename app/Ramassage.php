@@ -13,4 +13,10 @@ class Ramassage extends Model
     public function commandes(){
         return $this->hasMany('App\Commande');
     }
+
+    public function bonlivraison(){
+        return $this->hasOne('App\BonLivraison');
+    }
+
+
 }

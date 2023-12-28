@@ -56,14 +56,13 @@
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/profil" aria-expanded="false"><i class="mdi mdi-account-network"></i><span class="hide-menu">Profile</span></a></li>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/commandes" aria-expanded="false"><i class="mdi mdi-package-variant"></i>
-
                         @can('manage-users')
                             <span class="hide-menu">Commandes</span>
                             <span class="badge badge-danger">{{App\Commande::where('statut','Reporté')->count()}}</span>
                         @endcan
                         @cannot('manage-users')
                         <span class="hide-menu">Gestion des colis</span>
-                    @endcan
+                        @endcannot
                     </a>
                 </li>
                 @can('gestion-ramassage')
@@ -71,8 +70,13 @@
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('ramassage.index')}}" aria-expanded="false">
                         <i class="mdi mdi-inbox"></i>
                         <span class="hide-menu">
-                           Ramassage
+                            Ramassage
+                            @can('edit-users')
                             <span class="badge badge-danger">{{App\Ramassage::where('statut','En attente')->count()}}</span>
+                            @endcan
+                            @cannot('edit-users')
+                            <span class="badge badge-danger">{{App\Ramassage::where('statut','En attente')->where('user_id',Auth::user()->id)->count()}}</span>
+                            @endcannot
                         </span>
                     </a>
                 </li>
@@ -105,7 +109,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('reception.index')}}" aria-expanded="false"><i class="mdi mdi-truck"></i>
                         <span class="hide-menu">
-                            Envoie de stock
+                            Ramassage stock
                             @can('manage-users')
                             <span class="badge badge-danger">{{App\Reception::where('etat','Envoyé')->count()}}</span>
                             @endcan

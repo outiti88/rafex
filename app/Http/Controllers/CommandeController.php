@@ -697,7 +697,6 @@ class CommandeController extends Controller
             $fournisseur = Auth::user();
         }
 
-
         $commande = new Commande();
         $statut = new Statut();
 
@@ -712,12 +711,10 @@ class CommandeController extends Controller
         }
 
         //la part du livreur
-
         $commande->livreur = DB::table('villes')
             ->select('livreur')
             ->where('name', $request->ville)
             ->get()->first()->livreur;
-
 
         if ($request->mode == "cd" && Gate::denies('ecom')) {
             $commande->montant = $request->montant;
@@ -765,14 +762,11 @@ class CommandeController extends Controller
                         return redirect('/commandes');
                     }
                 }
-
-
             }
             else{
                 $request->session()->flash('produit_required');
                 return redirect('/commandes');
             }
-
 
             if ($request->mode == "cp") {
                 $commande->montant = 0;
@@ -780,24 +774,17 @@ class CommandeController extends Controller
             else if ($request->mode != "cp" && $request->montant !== null) {
                 $commande->montant = $request->montant;
             }
-
         }
 
         if($request->mode != "cp" && $request->montant == null && Gate::denies('ecom')){
             $request->session()->flash('montant_required');
-
             return back();
         }
 
-
-
-
         $commande->user()->associate($fournisseur)->save();
-        //dd($request->produit);
+        $this->getQrCode($commande);
 
         if (!Gate::denies('ecom') && isset($request->produit)) {
-
-
             $produit_commandes = [];
             foreach ($request->produit as $index => $produit) {
                 $produit_commande = new CommandeProduit();
@@ -939,16 +926,21 @@ class CommandeController extends Controller
     }
 
 
-    public function getQrCode($commandes){
+    public function getQrCode($commande){
+        $response = Http::get('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='.url('/').'/commandes/'.$commande->id);
+        // Get the content of the response
+        $imageContent = $response->body();
+        // Generate a unique filename for the decoded image
+        $fileName = 'qr_code_' . $commande->numero . '.png';
+        // Save the decoded image to the public directory
+        file_put_contents(public_path('uploads/commandesQRCODE/' . $fileName), $imageContent);
+    }
+
+
+    public function getFileNameForQrCode($commandes){
         $filesName = [];
         foreach ($commandes as $key => $commande) {
-            $response = Http::get('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='.url('/').'/commandes/'.$commande->id);
-            // Get the content of the response
-            $imageContent = $response->body();
-            // Generate a unique filename for the decoded image
-            $fileName = 'testqr_code_' . $commande->numero . '.png';
-            // Save the decoded image to the public directory
-            file_put_contents(public_path('uploads/commandesQRCODE/' . $fileName), $imageContent);
+            $fileName = 'qr_code_' . $commande->numero . '.png';
             $filesName[] = $fileName;
         }
         return $filesName;
@@ -965,19 +957,19 @@ class CommandeController extends Controller
     public function ticketsBuilder(Request $request)
     {
         $commandes = Commande::where('deleted_at', NULL)->whereIn('id', $request->item)->get();
-        return $this->ticketsBuilderHelper($commandes,$this->getQrCode($commandes), 'A6');
+        return $this->ticketsBuilderHelper($commandes,$this->getFileNameForQrCode($commandes), 'A6');
     }
 
     public function gen($id)
     {
         $commandes = Commande::where('deleted_at', NULL)->where('id', $id)->get();
-        return $this->ticketsBuilderHelper($commandes, $this->getQrCode($commandes), 'A6');
+        return $this->ticketsBuilderHelper($commandes, $this->getFileNameForQrCode($commandes), 'A6');
     }
 
     public function genA8($id)
     {
         $commandes = Commande::where('deleted_at', NULL)->where('id', $id)->get();
-        return $this->ticketsBuilderHelper($commandes, $this->getQrCode($commandes), 'A8');
+        return $this->ticketsBuilderHelper($commandes, $this->getFileNameForQrCode($commandes), 'A8');
     }
 
 

@@ -92,7 +92,7 @@
                   document.write(new Date().getFullYear())
                 </script>,
                 made with <i class="fa fa-heart" aria-hidden="true"></i> by
-                <a href="https://www.idesignbusiness.ma" class="font-weight-bold text-white" target="_blank">iDesign Business</a>
+                <a href="https://idesignsolution.com/" class="font-weight-bold text-white" target="_blank">iDesign Business</a>
               </div>
             </div>
 

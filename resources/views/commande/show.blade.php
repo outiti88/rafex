@@ -763,6 +763,31 @@ N: {{$commande->numero}}
                                         <p class="proile-rating">il y'a: {{$commande->created_at->diffForHumans()}}</p>
                                     </div>
                                 </div>
+                                @if ($commande->ramassage_id)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Demande de ramassage :</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <a class="btn btn-light" href="{{route('ramassage.show',$commande->ramassage_id)}}">
+                                            {{$commande->ramassage()->first()->reference}}
+                                          </a></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Bon de livraison:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>
+                                            <a class="btn btn-light" href="{{ route('bon.infos',['id'=> $commande->traiter ]) }}">
+                                                <i class="fas fa-print"></i>
+                                          </a>
+                                        </p>
+                                    </div>
+                                </div>
+                                @endif
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="row">

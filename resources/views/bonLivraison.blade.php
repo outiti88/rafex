@@ -60,7 +60,7 @@
                 </nav>
             </div>
         </div>
-        <div class="col-7">
+        {{-- <div class="col-7">
             <div class="text-right upgrade-btn">
                 @can('ramassage-commande')
                 <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#modalBonLivraison"><i class="fa fa-plus-square">
@@ -74,7 +74,7 @@
                     <button data-toggle="modal" data-target="#genererBon"type="submit" class="btn btn-danger text-white m-r-5"><i class="fa fa-plus-square"></i> Générer le bon de livraison</button>
                 @endcan
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 
@@ -93,7 +93,8 @@
                                 @can('ramassage-commande')
                                 <th scope="col">#</th>
                                 @endcan
-                                <th scope="col">Code</th>
+                                <th scope="col">Bon de livraison</th>
+                                <th scope="col">Demande de ramassage</th>
                                 <th scope="col">Commandes ramassées</th>
                                 <th scope="col">Nombre de Colis</th>
                                 <th scope="col">Date d'ajout</th>
@@ -131,7 +132,11 @@
                                   <a class="btn btn-light" href="{{route('bon.search',$bonLivraison->id)}}">
                                     BL_{{bin2hex(substr($users[$index]->name, - strlen($users[$index]->name) , 3)).$bonLivraison->id}}
                                   </a>
-
+                                </th>
+                                <th>
+                                    <a class="btn btn-light" href="{{route('ramassage.show',$bonLivraison->ramassage_id)}}">
+                                        {{App\Ramassage::where('id',$bonLivraison->ramassage_id)->first()->reference}}
+                                      </a>
                                 </th>
                                 <td>{{$bonLivraison->commande}}</td>
                                 <td>{{$bonLivraison->colis}}</td>

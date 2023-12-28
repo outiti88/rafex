@@ -144,7 +144,7 @@ Route::get('/BonCommande/pdf', 'BonCommandeController@gen')->name('bonCommande.i
 
 Route::get('/tickets/pdf', 'CommandeController@ticketsBuilder')->name('ticket.index')->middleware('can:valide');
 
-Route::get('/ramassage/{id}/tickets/pdf', 'RamassageController@ticketsBuilder')->name('ramassage.ticket')->middleware('can:valide');
+// Route::get('/ramassage/{id}/tickets/pdf', 'RamassageController@ticketsBuilder')->name('ramassage.ticket')->middleware('can:valide');
 Route::get('/ramassage/scanned/{id}', 'RamassageController@scannedTicket')->name('ramassage.scannedTicket')->middleware('can:valide');
 
 Route::get('/facture/{id}/details', 'FactureController@search')->name('facture.search')->middleware('can:client-admin');

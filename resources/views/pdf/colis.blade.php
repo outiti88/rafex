@@ -1,168 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <head> <meta charset="UTF-8">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Ticket des commandes </title>
-        <style>
-                *{
-
-                    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                    @if ($size == 'A6') font-size : 10px; @else font-size : 5px;  @endif
-                    padding:2px;
-                    margin:0;
-                }
-                .page-break {
-                    page-break-after: always;
-                }
-                h2{
-                    text-align : center;
-                    font-size: 1.5em;
-                    border: 1px solid #467a0f;
-                }
-
-            .container{
-                box-sizing: border-box;
-                width:100%
-                height:auto;
-                @if ($size == 'A6')  padding-top: 10px !important; @else  padding-top: 5px !important;  @endif
+        <style type="text/css">
+            html { margin: 0px}
+            body {
+                margin-right: 8px;
+                margin-top: 16px;
+                margin-left: 4px;
             }
-            .tableau{
-                @if ($size == 'A6')  padding-top:20px; @else  padding-top: 6px !important;  @endif
-                width:100%;
+            .page-break {
+                        page-break-after: always;
             }
-
-            #customers {
-                text-align:center;
+            .tg {
                 border-collapse: collapse;
+                border-spacing: 0;
                 width: 100%;
+                border-style: solid;
+                border-color: black;
             }
-            h1{
-                text-align : center;
-                font-size: 2em;
+            .tg tr{
+                height: 40px;
             }
-            #customers td, #customers th {
-                border: 1px solid #467a0f;
+            .tg td {
+                border-color: black;
+                border-style: solid;
+                border-width: 1px;
+                font-family: monospace;
+                font-size: 12px;
+                overflow: hidden;
+                padding: 10px 5px;
+                word-break: normal;
             }
-            #customers tr:nth-child(even){
-                background-color: #f2f2f2;
-            }
-            #customers th {
-                @if ($size == 'A6')  padding-top:12px; padding-bottom: 10px; @else  padding-top: 6px !important; padding-bottom: 5px; @endif
-                color: black;
-            }
-            </style>
-</head>
-<body>
-     @foreach ($commandes as $index => $commande)
-        @for ($i = 1; $i <= $commande->colis; $i++)
-            <div class="container page-break" >
 
-                <h1 style="color:#467a0f">
-                Ticket de Commande  {{$i}}/ {{$commande->colis}}
-                </h1>
-                <div class="tableau">
+            .tg th {
+                border-color: black;
+                border-style: solid;
+                border-width: 1px;
+                font-family: Arial, sans-serif;
+                @if ($size == 'A6') font-size : 14px; @else font-size : 7px;  @endif
+                font-weight: normal;
+                overflow: hidden;
+                padding: 10px 5px;
+                word-break: normal;
+            }
 
-                    <table id="customers">
-                    <tr>
-                        <th>Commande Numero: </th>
-                        <td> {{$commande->numero}}</td>
-                    </tr>
-                    <tr>
-                        <th>Entreprise:  </th>
-                        <td>
-                            @if ($commande->user()->first()->storeName == null)
-                            {{$commande->user()->first()->name}}
-                            @else
-                            {{$commande->user()->first()->storeName}}
-                            @endif
-                        </td>
-                    </tr>
+            .tg .tg-0lax {
+                text-align: left;
+                vertical-align: top
+            }
+            .solid-top {
+                border-top: solid;
+                border-top-color: black;
+            }
+
+            .dotted-right {
+                border-right: dashed !important;
+                border-color: #474747;
+                border-width: 4px;
+            }
+            .dotted-top{
+                border-top-style: dashed !important;
+                border-color: #474747;
+                border-width: 2px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        @foreach ($commandes as $index => $commande)
+            @for ($i = 1; $i <= $commande->colis; $i++)
+                <div class="container page-break">
+                    <table class="tg">
+                        <thead>
+                            <tr>
+                                <th class="tg-0lax" colspan="3" rowspan="2">
+                                    <img src="C:\Users\outit\OneDrive\Bureau\iDesign\CAVALLO\backOffice\public\assets\images\logo-light-text.png" style="width: 200px; position:relative; top:10px;" class="light-logo-small">
+                                </th>
+                                <th class="tg-0lax" style="text-align: center;" rowspan="2">
+                                    <img src="C:\Users\outit\OneDrive\Bureau\iDesign\CAVALLO\backOffice\public\uploads\ramassageQRCODE\testqr_code_54687512282900.png" style="width: 60px;position:relative; top:10px;" class="light-logo-small">
+                                </th>
+                            </tr>
+                            <tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="solid-top">
+                                <td class="tg-0lax dotted-right" colspan="3"> Référence: <strong>{{$commande->numero}}</strong></td>
+                                <td class="tg-0lax" rowspan="2" style="text-align: center;">
+                                    Expéditeur: <br><br>
+                                    <strong>
+                                        @if ($commande->user()->first()->storeName == null)
+                                        {{$commande->user()->first()->name}}
+                                        @else
+                                        {{$commande->user()->first()->storeName}}
+                                        @endif
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr class="dotted-top">
+                                <td class="tg-0lax dotted-right" colspan="3">Date: <strong>{{$commande->created_at}}</strong></td>
+                            </tr>
+                            <tr class="dotted-top">
+                                <td class="tg-0lax dotted-right" colspan="3">Client: <strong>{{$commande->nom}}</strong></td>
+                                <td class="tg-0lax" rowspan="2" style="text-align: center;">Téléphone: <br><br> <strong>{{$commande->telephone}}</strong></td>
+                            </tr>
+                            <tr class="dotted-top">
+                                <td class="tg-0lax dotted-right" colspan="3">Adresse: <strong>{{$commande->adresse}}</strong></td>
+                            </tr>
+                            <tr class="dotted-top">
+                                <td class="tg-0lax dotted-right" colspan="3">
+                                    Produit:
+                                    @forelse ($commande->produits()->get() as $produit)
+                                    <strong>{{$produit->libelle}}</strong> <br>
+                                    quantité : <strong>{{$produit->pivot->qte}}</strong>
+                                    @empty
+                                    <strong>Produit non-spécifiée</strong>
+                                    @endforelse
+                                </td>
+                                <td class="tg-0lax" rowspan="2" style="text-align: center;">Note:</td>
+                            </tr>
+                            <tr class="dotted-top">
+                                <td class="tg-0lax dotted-right" colspan="3">
+                                    Montant:
+                                    <strong>
+                                        @if ($commande->montant == 0)
+                                        Payé par Carte bancaire"
+                                        @else
+                                        {{$commande->montant}} DH
+                                        @endif
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr class="dotted-top">
+                                <td class="tg-0lax dotted-right" colspan="3" rowspan="2">Ouverture: <br>
+                                    <strong>
+                                        @if ($commande->isOpen)
+                                        Le client peut ouvrir le colis
+                                        @else
+                                        Merci de ne pas ouvrir le colis
+                                        @endif
+                                    </strong>
+                                </td>
+                                <td class="tg-0lax" rowspan="2" style="text-align: center;">
+                                    <img src="C:\Users\outit\OneDrive\Bureau\iDesign\CAVALLO\backOffice\public\uploads\ramassageQRCODE\testqr_code_54687512282900.png" style="width: 60px" class="light-logo-small">
+                                </td>
+                            </tr>
+                            <tr>
+
+                            </tr>
+                            <tr class="dotted-top">
+                                <td class="tg-0lax dotted-right" style="font-size: 8px" colspan="3">
+                                    <strong>RAFEX Delivery - Livraison E-commerce</strong><br>
+                                    RAFEX Delivery SARL, n'est pas responsable de vos achats.
+                                </td>
+                                <td class="tg-0lax" style="text-align: center;">www.Rafex.ma</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
-                <h2>Montant Total :
-                    @if ($commande->montant == 0)
-                    Payé par Carte bancaire"
-                    @else
-                    {{$commande->montant}} DH
-                    @endif
-                </h2>
-                <div class="tableau">
-                    <table id="customers">
-                        <tr>
-                            <th>
-                                Nom & Prénom:
-                            </th>
-                            <td>
-                                {{$commande->nom}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Ville:
-                            </th>
-                            <td>
-                                {{$commande->ville}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Adresse:
-                            </th>
-                            <td>
-                                {{$commande->adresse}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Téléphone:
-                            </th>
-                            <td>
-                                {{$commande->telephone}}
-                            </td>
-                        </tr>
-                    </table>
-                    </div>
-                    <div class="tableau">
-
-                    <table id="customers">
-                    <tr>
-                        <th>Livreur: </th>
-                        <td>Rafex Delivery</td>
-                    </tr>
-                    <tr>
-                        <th>Site web:  </th>
-                        <td>www.Rafex.ma</td>
-                    </tr>
-                    </table>
-                </div>
-                <h2>
-                    @if ($commande->isOpen)
-                    Le client peut ouvrir le colis
-                    @else
-                    Merci de ne pas ouvrir le colis
-                    @endif
-                </h2>
-                <div style="padding-top:2px;">
-                    <div class="logo-text" style="float: left" >
-                        @if ($size == 'A6')
-                        <img src="https://rafex.ma/imgs/C-avallo.png" style=" WIDTH: 100PX;"class="light-logo" alt="homepage" />
-                        @else
-                        <img src="https://rafex.ma/imgs/C-avallo.png" style=" WIDTH: 50PX;"class="light-logo" alt="homepage" />
-                        @endif
-                    </div>
-                </div>
-                @if ($size == 'A6')
-                <div style="display: block; float : right; ">
-                    <div class="logo-text" style="display: inline-block;">
-                        <img src="uploads/commandesQRCODE/{{$filesName[$index]}}" style="width: 70px; float : right;" class="light-logo-small">
-                    </div>
-                </div>
-                @endif
-            </div>
-        @endfor
-     @endforeach
-</body>
+            @endfor
+        @endforeach
+    </body>
 </html>

@@ -32,7 +32,8 @@ Ramassage | {{$ramassage->reference}}
                     <a  class="btn btn-success text-white m-r-5" data-toggle="modal" data-target="#modalRelance"><i class="fas fa-random"></i> <span class="quick-action">Valider </span></a>
                     @endcan
                 @endif
-                <a  class="btn btn-warning text-white m-r-5" href="{{ route('ramassage.ticket',['id'=> $ramassage->id]) }}"><i class="fas fa-print"></i> <span class="quick-action">Ticket </span></a>
+                {{-- <a  class="btn btn-warning text-white m-r-5" href="{{ route('ramassage.ticket',['id'=> $ramassage->id]) }}"><i class="fas fa-print"></i> <span class="quick-action">Ticket </span></a> --}}
+                <a  class="btn btn-success text-white m-r-5" href="{{ route('bon.infos',['id'=> $ramassage->bonlivraison()->first()->id ]) }}"><i class="fas fa-print"></i> <span class="quick-action">Bon de livraison </span></a>
             </div>
         </div>
 

@@ -15,6 +15,9 @@
         padding-bottom: 15px !important;
     }
 
+    .dt-buttons.btn-group {
+        display: none;
+    }
     .btn {
         margin-right: 1rem !important;
     margin-bottom: 1rem !important;

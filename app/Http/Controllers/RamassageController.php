@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BonLivraison;
 use App\Commande;
 use App\Http\Controllers\Controller;
 use App\Ramassage;
@@ -114,8 +115,12 @@ class RamassageController extends Controller
             $commande->save();
         }
 
+        $this->generateBonLivraison($commandesArray,$ramassage);
 
         $request->session()->flash('added', $ramassage->reference);
+
+        $this->generateQrCode($ramassage->id);
+
         return redirect('/ramassage');
 
     }
@@ -243,28 +248,57 @@ class RamassageController extends Controller
         ]);
     }
 
+    public function generateQrCode($id){
+        $ramassage = Ramassage::findOrFail($id);
+        $response = Http::get('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='.url('/').'/ramassage/scanned/'.$ramassage->id);
+
+        $imageContent = $response->body();
+
+        $filename = 'qr_code_' . $ramassage->reference . '.png';
+
+        // Save the decoded image to the public directory
+        file_put_contents(public_path('uploads/ramassageQRCODE/' . $filename), $imageContent);
+    }
+
 
     public function ticketsBuilder(Request $request, $id){
 
         $ramassage = Ramassage::findOrFail($id);
-        $response = Http::get('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='.url('/').'/ramassage/scanned/'.$ramassage->id);
-        // Get the content of the response
-        // $imageContent = $response->getBody();
-        $imageContent = $response->body();
+        // $response = Http::get('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='.url('/').'/ramassage/scanned/'.$ramassage->id);
+        // // Get the content of the response
+        // // $imageContent = $response->getBody();
+        // $imageContent = $response->body();
         // dd($imageContent);
         // Decode the base64-encoded image content
         // $decodedImage = base64_decode($imageContent);
 
         // Generate a unique filename for the decoded image
-        $filename = 'testqr_code_' . $ramassage->reference . '.png';
+        $filename = 'qr_code_' . $ramassage->reference . '.png';
 
         // Save the decoded image to the public directory
-        file_put_contents(public_path('uploads/ramassageQRCODE/' . $filename), $imageContent);
+        // file_put_contents(public_path('uploads/ramassageQRCODE/' . $filename), $imageContent);
 
         $pdf = app('dompdf.wrapper')->loadView('pdf.ramassage', ['ramassage' => $ramassage, 'qrImage' =>  $filename])->setPaper('A6');
 
         return $pdf->stream('ticket-ramassage.pdf');
 
+    }
+
+
+    public function generateBonLivraison($commandesIds, $ramassage){
+        $user = Auth::user()->id;
+        $commandes = DB::table('commandes')->whereIn('numero',$commandesIds);
+        $bonLivraison = new BonLivraison();
+            $bonLivraison->colis = $commandes->sum('colis');
+            $bonLivraison->commande = $commandes->count();
+            $bonLivraison->prix = $commandes->sum('prix');
+            $bonLivraison->montant = $commandes->sum('montant');
+            $bonLivraison->nonRammase = 0;
+            $bonLivraison->ramassage()->associate($ramassage->id);
+            $bonLivraison->user()->associate($user)->save();
+
+            $affected = $commandes->update(array('traiter' => $bonLivraison->id));
+            //dd($affected);
     }
 
 

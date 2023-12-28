@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BonLivraison;
 use App\Commande;
 use App\Produit;
+use App\Ramassage;
 use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -113,194 +114,51 @@ class BonLivraisonController extends Controller
         return redirect(route('bonlivraison.index'));
     }
 
-    public function commandes(BonLivraison $bonLivraison, $n, $i)
-    {
-        $user = $bonLivraison->user_id;
-        $date = $bonLivraison->created_at;
-        $commandes = DB::table('commandes')->where('traiter', $bonLivraison->id)->where('user_id', $user)->get();
-        $content =
-            '
-        <div class="invoice">
-             <table id="customers">
-                 <tr>
-                 <th>Numéro</th>
-                 <th>Destinataire</th>
-                 <th>Ville</th>
-                 <th>Téléphone</th>
-                 <th>Montant</th>
-                 <th>Prix de livraison</th>
-                 </tr>
-        ';
-        foreach ($commandes as $index => $commande) {
-            if (($index >= $i * 12) && ($index < 12 * ($i + 1))) { //les infromations de la table depe,d de la page actuelle
 
-                if ($commande->statut === 'envoyée') {
-                    $commande->prix = 0;
-                }
-                if ($commande->montant == 0) {
-                    $montant = "Payée Par CB";
-                } else {
-                    $montant = $commande->montant;
-                }
-                $content .= '<tr>' . '
-            <td>' . $commande->numero . '</td>
-            <td>' . $commande->nom . '</td>
-            <td>' . $commande->ville . '</td>
-            <td>' . $commande->telephone . '</td>
-            <td>' . $montant . '</td>
-            <td>' . $commande->prix . '</td>
-            ' . '</tr>';
+    public function getCommandesPerPages(BonLivraison $bonLivraison)
+    {
+        $commandesPerPages = [];
+
+        $commandes = DB::table('commandes')->where('traiter', $bonLivraison->id)->where('user_id', $bonLivraison->user_id)->get();
+
+        $m = (($bonLivraison->nonRammase  + $bonLivraison->commande) / 12);
+        $n = (int)$m; // nombre de page
+        $n = ($n != $m) ? $n++ : $n;
+
+        $pageNumber = 0;
+        $numberOfCommandePerPage = 1;
+        foreach ($commandes as  $commande) {
+            if($numberOfCommandePerPage <= 8){
+                $commandesPerPages[$pageNumber][] = $commande;
+                $numberOfCommandePerPage++;
+            }
+            else{
+                $pageNumber++;
+                $commandesPerPages[$pageNumber][] = $commande;
+                $numberOfCommandePerPage = 2;
             }
         }
-        return $content . '</table>  </div>';
-    }
-
-    //fonction qui renvoie le contenue du bon de livraison
-
-    public function content(BonLivraison $bonLivraison, $n, $i)
-    {
-        $user = $bonLivraison->user_id;
-        $user = DB::table('users')->find($user);
-
-        //les information du fournisseur (en-tete)
-        $info_client = '
-            <div class="info_client">
-                <h1>' . $user->name . '</h1>
-                <h3>ADRESSE : ' . $user->adresse . '</h3>
-                <h3>TELEPHONE : ' . $user->telephone . '</h3>
-                <h3>VILLE : ' . $user->ville . '</h3>
-                <h3>ICE: ' . $user->description . '</h3>
-            </div>
-            <div class="date_num">
-                <h3>BL_' . bin2hex(substr($user->name, -strlen($user->name), 3)) . $bonLivraison->id . '</h3>
-                <h3>' . $bonLivraison->created_at . '</h3>
-
-            </div>
-        ';
-        // pied du bon d'achat (calcul du total)
-        $total = '
-            <div class="total">
-                <table id="customers">
-
-                <tr>
-                <th>TOTAL NET : </th>
-                <td>' . $bonLivraison->montant . '  DH</td>
-                </tr>
-                </table>
-            </div>
-            ';
-
-
-        $content = $this->commandes($bonLivraison, $n, $i);
-        $content = $info_client . $content;
-        if ($n == ($i + 1)) { //le total seulement dans la derniere page (n est le nbr de page / i et la page actuelle)
-            $content .= $total;
-        }
-        return $content;
+        return $commandesPerPages;
     }
 
 
     public function gen($id)
     {
-
         $bonLivraison = BonLivraison::findOrFail($id);
-        $user = $bonLivraison->user_id;
-        $user = DB::table('users')->find($user);
+        $user = DB::table('users')->find($bonLivraison->user_id);
+
         if ($bonLivraison->user_id !== Auth::user()->id && Gate::denies('ramassage-commande')) {
             return redirect()->route('bonlivraison.index');
         }
-        //dd($bonLivraison->id);
+
         $pdf = App::make('dompdf.wrapper');
-        $style = '
-        <!doctype html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Bon_de_livraison_BL_' . bin2hex(substr($user->name, -strlen($user->name), 3)) . $bonLivraison->id . '</title>
+        $ramassage = Ramassage::findOrFail($bonLivraison->ramassage_id);
+        $filename = 'qr_code_' . $ramassage->reference . '.png';
+        $commandesPerPages = $this->getCommandesPerPages($bonLivraison);
+        $bonName = 'BL_'.bin2hex(substr($user->name, -strlen($user->name), 3)) . $bonLivraison->id ;
+        $pdf = app('dompdf.wrapper')->loadView('pdf.bon', ['bonLivraison' => $bonLivraison, 'commandesPerPages' => $commandesPerPages, 'bonName' => $bonName, 'filename' => $filename])->setPaper('A4');
 
-            <style type="text/css">
-            @page {
-                margin: 0px;
-            }
-
-                body{
-                    margin: 0px;
-                    background-image: url("https://Rafex.ma/images/BonLivraisonCavallo.png");
-                    width: 790px;
-                    height: auto;
-                    background-position: center;
-                    background-repeat: repeat;
-                    padding-bottom : 200px;
-                    background-size: 100% 1070px;
-                    background-size: cover;
-                    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                    font-size: 0.75em;
-                }
-                .info_client{
-                    position:relative;
-                    left:45px;
-                    top:190px;
-                }
-                .date_num{
-                    position:relative;
-                    left:640px;
-                    top:155px;
-                }
-                .total{
-                    position:relative;
-                    left:200px;
-                    top:15px;
-                }
-                .invoice {
-                   margin : 8px;
-                    position: relative;
-                    min-height: auto;
-
-                }
-                #customers {
-                    border-collapse: collapse;
-                    width: 100%;
-                    position: relative;
-                    top: 170px;
-                    }
-
-                    #customers td, #customers th {
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                    }
-
-                    #customers tr:nth-child(even){background-color: #f2f2f2;}
-
-                    #customers th {
-                    padding-top: 12px;
-                    padding-bottom: 12px;
-                    text-align: left;
-                    background-color: #e85f03;
-                    color: white;
-                    }
-                </style>
-
-            </head>
-            <body>
-        ';
-        $m = (($bonLivraison->nonRammase  + $bonLivraison->commande) / 12);
-        $n = (int)$m; // nombre de page
-        if ($n != $m) {
-            $n++;
-        }
-        //dd($n);
-        $content = '';
-        for ($i = 0; $i < $n; $i++) {
-            $content .= $this->content($bonLivraison, $n, $i);
-        }
-
-        $content = $style . $content . ' </body></html>';
-
-        //dd($this->content($bonLivraison));
-        $pdf->loadHTML($content)->setPaper('A4');
-
-
-        return $pdf->stream('Bon_de_livraison_BL_' . bin2hex(substr($user->name, -strlen($user->name), 3)) . $bonLivraison->id . '.pdf');
+        return $pdf->stream('Bon_de_livraison_' . $bonName . '.pdf');
     }
 
     public function search($id)
