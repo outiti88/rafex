@@ -30,9 +30,9 @@
                 border-style: solid;
                 border-width: 1px;
                 font-family: monospace;
-                font-size: 12px;
+                @if ($size == 'A6') font-size : 12px; @else font-size : 6px !important;  @endif
                 overflow: hidden;
-                padding: 10px 5px;
+                @if ($size == 'A6') padding: 10px 5px; @endif
                 word-break: normal;
             }
 
@@ -41,7 +41,7 @@
                 border-style: solid;
                 border-width: 1px;
                 font-family: Arial, sans-serif;
-                @if ($size == 'A6') font-size : 14px; @else font-size : 7px;  @endif
+                @if ($size == 'A6') font-size : 14px; @else font-size : 3px !important;  @endif
                 font-weight: normal;
                 overflow: hidden;
                 padding: 10px 5px;
@@ -60,7 +60,7 @@
             .dotted-right {
                 border-right: dashed !important;
                 border-color: #474747;
-                border-width: 4px;
+                @if ($size == 'A6') border-width: 4px; @else border-width: 2px; !important;  @endif
             }
             .dotted-top{
                 border-top-style: dashed !important;
@@ -79,10 +79,18 @@
                         <thead>
                             <tr>
                                 <th class="tg-0lax" colspan="3" rowspan="2">
-                                    <img src="C:\Users\outit\OneDrive\Bureau\iDesign\CAVALLO\backOffice\public\assets\images\logo-light-text.png" style="width: 200px; position:relative; top:10px;" class="light-logo-small">
+                                    @if ($size == 'A6')
+                                    <img src="assets/images/logo-light-text.png" style="width: 200px; position:relative; top:10px;" class="light-logo-small">
+                                    @else
+                                    <img src="assets/images/logo-light-text.png" style="width: 100px; position:relative; top:10px;" class="light-logo-small">
+                                    @endif
                                 </th>
                                 <th class="tg-0lax" style="text-align: center;" rowspan="2">
-                                    <img src="C:\Users\outit\OneDrive\Bureau\iDesign\CAVALLO\backOffice\public\uploads\ramassageQRCODE\testqr_code_54687512282900.png" style="width: 60px;position:relative; top:10px;" class="light-logo-small">
+                                    @if ($size == 'A6')
+                                    <img src="uploads/commandesQRCODE/{{$filesName[$index]}}" style="width: 60px;position:relative; top:10px;" class="light-logo-small">
+                                    @else
+                                    <img src="uploads/commandesQRCODE/{{$filesName[$index]}}" style="width: 30px;position:relative; top:10px;" class="light-logo-small">
+                                    @endif
                                 </th>
                             </tr>
                             <tr>
@@ -129,7 +137,7 @@
                                     Montant:
                                     <strong>
                                         @if ($commande->montant == 0)
-                                        Payé par Carte bancaire"
+                                        Payé par Carte bancaire
                                         @else
                                         {{$commande->montant}} DH
                                         @endif
@@ -144,10 +152,21 @@
                                         @else
                                         Merci de ne pas ouvrir le colis
                                         @endif
-                                    </strong>
+                                    </strong> <br>
+                                        @if ($commande->is_fragile)
+                                            @if ($size == 'A6')
+                                            <img src="assets/images/fragile.png" style="width: 150px" class="light-logo-small">
+                                            @else
+                                            <img src="assets/images/fragile.png" style="width: 70px" class="light-logo-small">
+                                            @endif
+                                        @endif
                                 </td>
                                 <td class="tg-0lax" rowspan="2" style="text-align: center;">
-                                    <img src="C:\Users\outit\OneDrive\Bureau\iDesign\CAVALLO\backOffice\public\uploads\ramassageQRCODE\testqr_code_54687512282900.png" style="width: 60px" class="light-logo-small">
+                                    @if ($size == 'A6')
+                                    <img src="uploads/commandesQRCODE/{{$filesName[$index]}}" style="width: 60px;position:relative; top:10px;" class="light-logo-small">
+                                    @else
+                                    <img src="uploads/commandesQRCODE/{{$filesName[$index]}}" style="width: 30px;position:relative; top:10px;" class="light-logo-small">
+                                    @endif
                                 </td>
                             </tr>
                             <tr>

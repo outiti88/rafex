@@ -1172,7 +1172,7 @@
     <div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                      <div class="modal-content">
+                      <div class="modal-content"  style="width: 600px;">
                         <div class="modal-header text-center">
                           <h4 class="modal-title w-100 font-weight-bold">Nouvelle Commande</h4>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1183,53 +1183,27 @@
                             <form class="form-horizontal form-material" method="POST" action="{{route('commandes.store')}}">
                                 @csrf
                                 <div class="form-group">
-                                    <label class="col-md-12">Nom et Prénom du destinataire :</label>
+                                    {{-- <label class="col-md-12">Nom et Prénom du destinataire :</label> --}}
                                     <div class="col-md-12">
-                                        <input  value="{{ old('nom') }}" name="nom" type="text" placeholder="Nom & Prénom" class="form-control form-control-line">
+                                        <input  value="{{ old('nom') }}" name="nom" type="text" placeholder="Nom et Prénom du destinataire :" class="form-control form-control-line">
                                     </div>
                                 </div>
 
-
-                                      <fieldset class="form-group col-md-12">
-                                          <legend class="col-form-label  pt-0">Mode de paiement :</legend>
-                                          <div class="col-sm-12" style="display: flex;justify-content: space-between;align-items: center;">
-
-                                          <label style="padding-left: 1rem;" class="custom-switch mt-2">
-                                            <input  onclick="myFunction2(this.value)" type="radio" name="mode" id="cd" value="cd" class="custom-switch-input" style="display: none;" checked>
-                                            <span class="custom-switch-indicator"></span>
-                                            <span class="custom-switch-description">A la livraison</span>
-                                        </label>
-
-                                        <label style="padding-left: 1rem;" class="custom-switch mt-2">
-                                            <input onclick="myFunction2(this.value)"  type="radio" name="mode" id="cp" value="cp" class="custom-switch-input" style="display: none;" >
-                                            <span class="custom-switch-indicator"></span>
-                                            <span class="custom-switch-description">Carte bancaire</span>
-                                        </label>
-
-                                          </div>
-                                      </fieldset>
-
-                                <div class="form-group col-md-12" id="montant"  style="display: block">
-                                    <label for="example-email" class="col-md-12">Montant (MAD) :</label>
-                                    <div class="col-md-12">
-                                        <input  value="{{ old('montant') }}" type="text" class="form-control form-control-line" name="montant" id="example-email">
-                                    </div>
-                                </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-12">Téléphone :</label>
+                                    {{-- <label class="col-md-12">Téléphone :</label> --}}
                                     <div class="col-md-12">
-                                        <input value="{{ old('telephone') }}"  name="telephone" type="text" placeholder="0xxx xxxxxx" class="form-control form-control-line">
+                                        <input value="{{ old('telephone') }}"  name="telephone" type="text" placeholder="Téléphone : 0xxx xxxxxx" class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Adresse :</label>
+                                    {{-- <label class="col-md-12">Adresse :</label> --}}
                                     <div class="col-md-12">
-                                        <textarea  name="adresse" rows="5" class="form-control form-control-line" required>{{ old('adresse') }}</textarea>
+                                        <textarea placeholder="Adresse: " name="adresse" rows="5" class="form-control form-control-line" required>{{ old('adresse') }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-12">Ville :</label>
+                                    {{-- <label class="col-sm-12">Ville :</label> --}}
                                     <div class="col-sm-12">
                                        <select name="ville" class="form-control form-control-line"  onchange="myFunction()" required>
                                             <option checked>Choisissez la ville</option>
@@ -1242,6 +1216,32 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <fieldset class="form-group col-md-12">
+                                    <legend class="col-form-label  pt-0">Mode de paiement :</legend>
+                                    <div class="col-sm-12" style="display: flex;justify-content: space-between;align-items: center;">
+
+                                    <label style="padding-left: 1rem;" class="custom-switch mt-2">
+                                    <input  onclick="myFunction2(this.value)" type="radio" name="mode" id="cd" value="cd" class="custom-switch-input" style="display: none;" checked>
+                                    <span class="custom-switch-indicator"></span>
+                                    <span class="custom-switch-description">A la livraison</span>
+                                </label>
+
+                                <label style="padding-left: 1rem;" class="custom-switch mt-2">
+                                    <input onclick="myFunction2(this.value)"  type="radio" name="mode" id="cp" value="cp" class="custom-switch-input" style="display: none;" >
+                                    <span class="custom-switch-indicator"></span>
+                                    <span class="custom-switch-description">Carte bancaire</span>
+                                </label>
+
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-group" id="montant"  style="display: block">
+                                    {{-- <label for="example-email" class="col-md-12">Montant (MAD) :</label> --}}
+                                    <div class="col-md-12">
+                                        <input placeholder="Montant : "  value="{{ old('montant') }}" type="text" class="form-control form-control-line" name="montant" id="example-email">
+                                    </div>
+                                </div>
                                 <div style="display: none"  class="form-group" id="secteur">
                                     <label class="col-sm-12">Secteur :</label>
                                     <div class="col-sm-12">
@@ -1251,12 +1251,18 @@
                                      </select>
                                     </div>
                                 </div>
-                                <div class="custom-control custom-control-alternative custom-checkbox">
-                                    <input class="custom-control-input" id="customCheckRegister" type="checkbox" name="isOpen" value="1">
-                                    <label class="custom-control-label" for="customCheckRegister">
-                                      <span >J'accepte l'ouverture du colis par le client.</span>
+                                <div class="custom-control custom-control-alternative custom-checkbox" style="margin-bottom: 10px;">
+                                    <input class="custom-control-input" id="customCheckisFragile" type="checkbox" name="isFragile" value="1">
+                                    <label class="custom-control-label" for="customCheckisFragile">
+                                      <span >Le produit de votre commande est-il fragile ?</span>
                                     </label>
-                                  </div>
+                                </div>
+                                <div class="custom-control custom-control-alternative custom-checkbox">
+                                    <input class="custom-control-input" id="customCheckisOpen" type="checkbox" name="isOpen" value="1">
+                                    <label class="custom-control-label" for="customCheckisOpen">
+                                      <span >Acceptez-vous que le colis puisse être ouvert par le client final ?</span>
+                                    </label>
+                                </div>
 
                                 <div class="form-group">
                                     <div class="modal-footer d-flex justify-content-center">

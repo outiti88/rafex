@@ -26,6 +26,7 @@ class Commande extends Model
         'facturer',
         'numero',
         'isOpen',
+        'is_fragile',
         'isChanged',
     ];
 

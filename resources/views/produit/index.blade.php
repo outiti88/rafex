@@ -302,7 +302,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-12">
+                                <div class="form-group">
                                     <label for="example-email" class="col-md-12">Prix (DH) :</label>
                                     <div class="col-md-12">
                                         <input  value="{{ old('prix') }}" type="number" class="form-control form-control-line" name="prix" >
@@ -315,6 +315,7 @@
                                         <textarea  name="description" rows="5" class="form-control form-control-line">{{ old('description') }}</textarea>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="col-sm-12">Categorie :</label>
                                     <div class="col-sm-12">
@@ -331,7 +332,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="custom-control custom-control-alternative custom-checkbox" style="margin-bottom: 10px;">
+                                    <input class="custom-control-input" id="customCheckisFragile" type="checkbox" name="isFragile" value="1">
+                                    <label class="custom-control-label" for="customCheckisFragile">
+                                      <span >Le produit est fragile ?</span>
+                                    </label>
+                                </div>                                <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                                     </div>

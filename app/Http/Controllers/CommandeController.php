@@ -79,189 +79,137 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        // Set the Carbon locale to French
-        \Carbon\Carbon::setLocale('fr');
 
+        //dd(auth()->user()->unreadNotifications );
+        //dd(Auth::user()->id );
+        \Carbon\Carbon::setLocale('fr');
         $data = null;
-        $clients = $this->getClients();
-        $livreurs = $this->getLivreurs();
-        $nouveau = $this->getNouveauCount();
+        $clients = User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['client', 'ecom']);
+        })->orderBy('name')->get();
+        $livreurs = User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['livreur']);
+        })->orderBy('name')->get();
+        $nouveau =  User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['nouveau']);
+        })->where('deleted_at', NULL)->count();
+
         $users = [];
         $produits = [];
+
         $statuts = [];
         $statutStat = [];
-        $villes = $this->getVilles();
+
+        $villes = DB::table('villes')->orderBy('name')->get();
 
         if (!Gate::denies('ecom')) {
-            $produits = $this->getEcomProduits();
-        } elseif (!Gate::denies('manage-users')) {
-            list($total, $commandes, $statuts) = $this->getAdminData();
-        } elseif (!Gate::denies('livreur')) {
-            list($total, $commandes, $statuts) = $this->getLivreurData();
-        } else {
-            list($total, $commandes, $statuts) = $this->getClientData();
+            $produits_total = Produit::where('user_id', Auth::user()->id)->get();
+            foreach ($produits_total as $produit) {
+                $stock = DB::table('stocks')->where('produit_id', $produit->id)->get();
+                if ($stock[0]->qte > 0) {
+                    $produits[] = $produit;
+                }
+            }
+            //dd($produits);
         }
 
-        $this->populateStatutStat($statuts, $statutStat);
-        $this->populateUsers($commandes, $users);
+        if (!Gate::denies('manage-users')) {
+            $produits_total = Produit::get();
+            foreach ($produits_total as $produit) {
+                $stock = DB::table('stocks')->where('produit_id', $produit->id)->get();
+                if ($stock[0]->qte > 0) {
+                    $produits[] = $produit;
+                }
+            }
+            //session administrateur donc on affiche tous les commandes
+            $total = Commande::where('deleted_at', NULL)
+                ->where(function ($q) {
+                    $q->whereDate('updated_at', '>=', now()->subMonth())
+                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
+                })
+                ->count();
+            $commandes = Commande::where('deleted_at', NULL)
+                ->where(function ($q) {
+                    $q->whereDate('updated_at', '>=', now()->subMonth())
+                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
+                })
+                ->orderBy('updated_at', 'DESC')->paginate(50);
+                $statuts = DB::table('commandes')
+                ->select('statut', DB::raw('count(*) as total'))
+                ->where('deleted_at', NULL)
+                ->where(function ($q) {
+                   $q->whereDate('updated_at', '>=', now()->subMonth())
+                       ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
+               })
+                ->groupBy('statut')
+                ->get();
 
+            //dd($clients[0]->id);
+        } elseif (!Gate::denies('livreur')) {
+            //session livreur
+            $statuts = DB::table('commandes')
+                ->select('statut', DB::raw('count(*) as total'))
+                ->where('deleted_at', NULL)
+                ->where('livreur', Auth::user()->id)
+                ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue','En attente de ramassage'])
+                ->groupBy('statut')
+                ->get();
+
+            $livreurSession = Commande::where('deleted_at', NULL)->where('livreur', Auth::user()->id)
+                ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue','En attente de ramassage'])
+                ->orderBy('updated_at', 'DESC');
+            $total = $livreurSession->get()->count();
+            $commandes = $livreurSession->paginate(50);
+
+
+
+            //dd($clients[0]->id);
+        } else {
+            $clientSession = Commande::where('deleted_at', NULL)->where('user_id', Auth::user()->id)
+            ->where(function ($q) {
+                $q->whereDate('updated_at', '>=', now()->subMonth())
+                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
+            });
+            $total = $clientSession->count();
+
+            $statuts = DB::table('commandes')
+                ->select('statut', DB::raw('count(*) as total'))
+                ->where('user_id', Auth::user()->id)
+                ->where('deleted_at', NULL)
+                ->where(function ($q) {
+                   $q->whereDate('updated_at', '>=', now()->subMonth())
+                       ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
+               })
+                ->groupBy('statut')
+                ->get();
+
+            $commandes = $clientSession->orderBy('updated_at', 'DESC')->paginate(50);
+        }
+
+
+
+        foreach ($statuts as $statut){
+            $statutStat[$statut->statut] = $statut->total;
+        }
+
+
+        foreach ($commandes as $commande) {
+            if (!empty(User::withTrashed()->find($commande->user_id)))
+                $users[] =  User::withTrashed()->find($commande->user_id);
+        }
+        //$commandes = Commande::all()->paginate(3) ;
         $checkBox = 0;
-
         return view('commande.colis', [
-            'nouveau' => $nouveau,
-            'commandes' => $commandes,
+            'nouveau' => $nouveau, 'commandes' => $commandes,
             'total' => $total,
             'users' => $users,
             'clients' => $clients,
             'livreurs' => $livreurs,
             'produits' => $produits,
             'villes' => $villes,
-            'data' => $data,
-            'checkBox' => $checkBox,
+            'data' => $data, 'checkBox' => $checkBox,
             'statutStat' => $statutStat
         ]);
-    }
-
-    private function getClients()
-    {
-        return User::whereHas('roles', function ($q) {
-            $q->whereIn('name', ['client', 'ecom']);
-        })->orderBy('name')->get();
-    }
-
-    private function getLivreurs()
-    {
-        return User::whereHas('roles', function ($q) {
-            $q->whereIn('name', ['livreur']);
-        })->orderBy('name')->get();
-    }
-
-    private function getNouveauCount()
-    {
-        return User::whereHas('roles', function ($q) {
-            $q->whereIn('name', ['nouveau']);
-        })->where('deleted_at', NULL)->count();
-    }
-
-    private function getVilles()
-    {
-        return DB::table('villes')->orderBy('name')->get();
-    }
-
-    private function getEcomProduits()
-    {
-        $produits_total = Produit::where('user_id', Auth::user()->id)->get();
-        $filteredProduits = [];
-
-        foreach ($produits_total as $produit) {
-            $stock = DB::table('stocks')->where('produit_id', $produit->id)->get();
-            if ($stock[0]->qte > 0) {
-                $filteredProduits[] = $produit;
-            }
-        }
-
-        return $filteredProduits;
-    }
-
-    private function getAdminData()
-    {
-        $produits_total = Produit::get();
-        $filteredProduits = [];
-
-        foreach ($produits_total as $produit) {
-            $stock = DB::table('stocks')->where('produit_id', $produit->id)->get();
-            if ($stock[0]->qte > 0) {
-                $filteredProduits[] = $produit;
-            }
-        }
-
-        $total = Commande::where('deleted_at', NULL)
-            ->where(function ($q) {
-                $q->whereDate('updated_at', '>=', now()->subMonth())
-                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
-            })
-            ->count();
-
-        $commandes = Commande::where('deleted_at', NULL)
-            ->where(function ($q) {
-                $q->whereDate('updated_at', '>=', now()->subMonth())
-                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
-            })
-            ->orderBy('updated_at', 'DESC')->paginate(50);
-
-        $statuts = DB::table('commandes')
-            ->select('statut', DB::raw('count(*) as total'))
-            ->where('deleted_at', NULL)
-            ->where(function ($q) {
-                $q->whereDate('updated_at', '>=', now()->subMonth())
-                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
-            })
-            ->groupBy('statut')
-            ->get();
-
-        return [$total, $commandes, $statuts];
-    }
-
-    private function getLivreurData()
-    {
-        $statuts = DB::table('commandes')
-            ->select('statut', DB::raw('count(*) as total'))
-            ->where('deleted_at', NULL)
-            ->where('livreur', Auth::user()->id)
-            ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue', 'En attente de ramassage'])
-            ->groupBy('statut')
-            ->get();
-
-        $livreurSession = Commande::where('deleted_at', NULL)->where('livreur', Auth::user()->id)
-            ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue', 'En attente de ramassage'])
-            ->orderBy('updated_at', 'DESC');
-
-        $total = $livreurSession->get()->count();
-        $commandes = $livreurSession->paginate(50);
-
-        return [$total, $commandes, $statuts];
-    }
-
-    private function getClientData()
-    {
-        $clientSession = Commande::where('deleted_at', NULL)->where('user_id', Auth::user()->id)
-            ->where(function ($q) {
-                $q->whereDate('updated_at', '>=', now()->subMonth())
-                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
-            });
-
-        $total = $clientSession->count();
-
-        $statuts = DB::table('commandes')
-            ->select('statut', DB::raw('count(*) as total'))
-            ->where('user_id', Auth::user()->id)
-            ->where('deleted_at', NULL)
-            ->where(function ($q) {
-                $q->whereDate('updated_at', '>=', now()->subMonth())
-                    ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
-            })
-            ->groupBy('statut')
-            ->get();
-
-        $commandes = $clientSession->orderBy('updated_at', 'DESC')->paginate(50);
-
-        return [$total, $commandes, $statuts];
-    }
-
-    private function populateStatutStat($statuts, &$statutStat)
-    {
-        foreach ($statuts as $statut) {
-            $statutStat[$statut->statut] = $statut->total;
-        }
-    }
-
-    private function populateUsers($commandes, &$users)
-    {
-        foreach ($commandes as $commande) {
-            if (!empty(User::withTrashed()->find($commande->user_id))) {
-                $users[] = User::withTrashed()->find($commande->user_id);
-            }
-        }
     }
 
 
@@ -733,6 +681,7 @@ class CommandeController extends Controller
         $commande->facturer = 0;
         $commande->numero = substr($fournisseur->name, -strlen($fournisseur->name), 2) . "-" . date("md-is") . "-" . $this->unique_code(4);
         $commande->isOpen = $request->isOpen;
+        $commande->is_fragile = ($request->isFragile) ? 1 : 0;
         $commande->isChanged = $request->isChanged;
         $livreurForCmd = User::where('ville', 'like',  '%' . $request->ville . ',%')->whereHas('roles', function ($q) {
             $q->whereIn('name', ['livreur']);
@@ -751,6 +700,9 @@ class CommandeController extends Controller
                     $prixProduit = $produit->prix * $request->qte[$index];
 
                     $commande->montant += $prixProduit;
+                    if($produit->is_fragile){
+                        $commande->is_fragile = $produit->is_fragile;
+                    }
 
                     $stock = Stock::where('produit_id', $IdProduit)->first();
                     //verification du stock
@@ -1013,6 +965,7 @@ class CommandeController extends Controller
             $newCommande->livreurPart = $commande->livreurPart;
             $newCommande->refusePart = $commande->refusePart;
             $newCommande->isOpen = $commande->isOpen;
+            $newCommande->is_fragile = $commande->is_fragile;
             $newCommande->isChanged = $commande->isChanged;
 
 
@@ -1318,6 +1271,7 @@ class CommandeController extends Controller
             $newCommande->livreurPart = $commande->livreurPart;
             $newCommande->refusePart = $commande->refusePart;
             $newCommande->isOpen = $commande->isOpen;
+            $newCommande->is_fragile = $commande->is_fragile;
             $newCommande->isChanged = $commande->isChanged;
 
             $newCommande->statut = $request->statut;

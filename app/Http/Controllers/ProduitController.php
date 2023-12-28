@@ -163,6 +163,7 @@ class ProduitController extends Controller
             $produit->prix = $request->prix;
             $produit->categorie = $request->categorie;
             $produit->description = $request->description;
+            $produit->is_fragile = $request->isFragile;
             $produit->reference = bin2hex(substr($produit->libelle, -strlen($produit->libelle), 3)) . date("mdis");
             //dd($request);
             if ($request->hasfile('photo')) {
@@ -241,6 +242,7 @@ class ProduitController extends Controller
             $produit->prix = $request->prix;
             $produit->categorie = $request->categorie;
             $produit->description = $request->description;
+             $produit->is_fragile =  ($request->isFragile) ? 1 : 0;
             if ($request->hasfile('photo')) {
                 $file = $request->file('photo');
                 $extension = $file->getClientOriginalExtension(); //getting image extension

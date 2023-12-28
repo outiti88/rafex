@@ -130,6 +130,16 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="custom-control custom-control-alternative custom-checkbox" style="margin-bottom: 10px;">
+                            <input class="custom-control-input" id="customCheckisFragile" type="checkbox" name="isFragile"
+                            @if ($produit->is_fragile)
+                            value="1" checked
+                            @endif
+                            >
+                            <label class="custom-control-label" for="customCheckisFragile">
+                              <span >Le produit de votre commande est-il fragile ?</span>
+                            </label>
+                        </div>
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
@@ -152,7 +162,6 @@
         <!-- Column -->
     </div>
 
-    @can("manage-users")
     <div class="row">
       <div class="col-lg-12 col-xlg-3 col-md-5">
           <div class="card">
@@ -297,7 +306,6 @@
       </div>
 
   </div>
-    @endcan
 
 
 
