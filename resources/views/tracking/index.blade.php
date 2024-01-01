@@ -15,13 +15,13 @@
             color: #000;
             overflow-x: hidden;
             height: 100%;
-            background-color: #007db2;
+            background-color: #467a0f;
             background-repeat: no-repeat
         }
 
         .card {
             z-index: 0;
-            background-color: #ECEFF1;
+            background-color: white;
             padding-bottom: 20px;
             margin-top: 90px;
             margin-bottom: 90px;
@@ -54,7 +54,7 @@
         .icon-content i {
             font-size: 2em;
             padding-right: 10px;
-            color: #007db2;
+            color: black;
         }
 
         #progressbar li i {
@@ -63,7 +63,7 @@
             line-height: 45px;
             display: block;
             font-size: 20px;
-            background: #dd885e;
+            background: #6fa733;
             color:white;
             border-radius: 50%;
             margin: auto;
@@ -72,7 +72,7 @@
 
             p{
                 font-size: 0.8em;
-            color: #007db2;
+            color: black;
             }
 
 
@@ -80,7 +80,7 @@
             content: '';
             width: 100%;
             height: 12px;
-            background: #f16821;
+            background: #467a0f;
             position: absolute;
             left: 0;
             top: 16px;
@@ -91,7 +91,7 @@
             content: '';
             width: 100%;
             height: 12px;
-            background: #dd885e;
+            background: #6fa733;
             position: absolute;
             left: 0;
             top: 16px;
@@ -129,7 +129,7 @@
 
         #progressbar li.active i,
         #progressbar li.active i {
-            background: #f16821;
+            background: #467a0f;
             border-color: white;
             border-style: solid;
             color : white;
@@ -159,8 +159,8 @@
             <div class="row d-flex justify-content-between px-3 top">
 
                 <div>
-                    <h6>COMMANDE <span class="text-primary font-weight-bold">{{$commande->numero}}</span></h6>
-                    <h6>Store: <span class="text-primary font-weight-bold">{{$commande->user()->first()->name}}</span></h6>
+                    <h6><b>Commande:</b> <span class="ont-weight-bold">{{$commande->numero}}</span></h6>
+                    <h6><b>Store:</b> <span class="ont-weight-bold">{{$commande->user()->first()->name}}</span></h6>
                 </div>
                 <img src="{{asset('assets/images/logo-light-text.png')}}" style="
                 WIDTH: 20%;
@@ -251,7 +251,7 @@
                     @endif
                 </div>
             </div>
-            <button onclick="goBack()" href="/tracking" type="button" class="btn  btn-block" style="background-color: #f16821; color: white;" >
+            <button onclick="goBack()" href="/tracking" type="button" class="btn  btn-block" style="background-color: black; color: white;" >
                 <i class="fas fa-backward"></i> Retour
             </button>
         </div>
@@ -261,15 +261,15 @@
         align-items: center;
         padding: 1rem;
     ">
-            <h6 class="text-primary font-weight-bold">Pour plus d'informations, Contactez-nous sur :
-                <a style="float: none;color: #f16821;font-weight: bold;padding: 0 20px;  font-size: 0.8em;" href="tel:+212649517070">
-                    <span class="icon-stack"><i class="fas fa-phone-alt"></i></span>06 49 51 70 70
+            <h6 class="font-weight-bold">Pour plus d'informations, Contactez-nous sur :
+                <a style="float: none;color: #467a0f;font-weight: bold;padding: 0 20px;  font-size: 0.8em;" href="tel:+212649517070">
+                    <span class="icon-stack"><i class="fas fa-phone-alt"></i></span>+212 618 345 402
                 </a>
-                <a style="float: none;color: #f16821;font-weight: bold; font-size: 0.8em;" href="tel:+212537793192">
+                <a style="float: none;color: #467a0f;font-weight: bold; font-size: 0.8em;" href="tel:+212537793192">
                     <span class="icon-stack">
                     <i class="fas fa-tty"></i>
                    </span>
-                            05 37 79 31 92 </a>
+                            +212 649 440 905 </a>
             </h6>
         </div>
 

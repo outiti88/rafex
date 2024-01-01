@@ -13,13 +13,13 @@
             color: #000;
             overflow-x: hidden;
             height: 100%;
-            background-color: #007db2;
+            background-color: #467a0f;
             background-repeat: no-repeat
         }
 
         .card {
             z-index: 0;
-            background-color: #ECEFF1;
+            background-color: white;
             padding-bottom: 20px;
             margin-top: 90px;
             margin-bottom: 90px;
@@ -56,7 +56,7 @@
         .icon-content i {
             font-size: 2em;
             padding-right: 10px;
-            color: #007db2;
+            color: black;
         }
 
         #progressbar li i {
@@ -74,7 +74,7 @@
 
     p{
         font-size: 0.8em;
-    color: #007db2;
+    color: black;
     }
 
 
@@ -82,7 +82,7 @@
             content: '';
             width: 100%;
             height: 12px;
-            background: #f16821;
+            background: #467a0f;
             position: absolute;
             left: 0;
             top: 16px;
@@ -131,7 +131,7 @@
 
         #progressbar li.active i,
         #progressbar li.active i {
-            background: #f16821;
+            background: #467a0f;
             border-color: white;
             border-style: solid;
             color : white;
@@ -184,8 +184,8 @@
                       <input type="numero" name="numero" class="form-control-plaintext" id="numero" placeholder="Exemple: COL12598551">
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-success" style="background-color: #f16821;
-                  border-color: #f16821">Rechercher</button>
+                  <button type="submit" class="btn btn-success" style="background-color: #467a0f;
+                  border-color: #467a0f">Rechercher</button>
                 </fieldset>
               </form>
         </div>

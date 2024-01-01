@@ -116,50 +116,14 @@
 						</td>
 					</tr>
 				</table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                    <td class="fluid-img" style="font-size:0pt; line-height:0pt; text-align:center;"><img src="{{$details['image']}}" width="500" alt="" style="border-radius: 50%;width: 100px; position: relative; left:75px" /></td>
+                    </tr>
+                </table>
 				<!-- END Header -->
 
-				<!-- Hero Image -->
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
-					<tr>
-						<td class="m-td" valign="top" style="font-size:0pt; line-height:0pt; text-align:left;"><table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" class="border" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%;"><tr><td bgcolor="#ffffff" height="167" class="border" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%;">&nbsp;</td></tr></table>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#467a0f" class="border" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%;"><tr><td bgcolor="#467a0f" height="250" class="border" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%;">&nbsp;</td></tr></table>
-                    </td>
-						<td align="center" width="650" class="mobile-shell">
-							<table width="650" border="0" cellspacing="0" cellpadding="0" class="mobile-shell">
-								<tr>
-									<td>
-										<table width="100%" border="0" cellspacing="0" cellpadding="0">
-											<tr>
-												<td background="images/t2_bg1.jpg" bgcolor="#f4f4f4" valign="top" height="580" class="bg" style="background-repeat:no-repeat; -webkit-background-size:cover; background-size:cover;">
-													<!--[if gte mso 9]>
-													<v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:650px; height: 580px">
-														<v:fill type="frame" src="images/t2_bg1.jpg" color="#f4f4f4" />
-														<v:textbox inset="0,0,0,0">
-													<![endif]-->
-													<div>
-														<table width="100%" border="0" cellspacing="0" cellpadding="0">
-															<tr>
-                                                            <td class="fluid-img" style="font-size:0pt; line-height:0pt; text-align:center;"><img src="{{$details['image']}}" width="500" alt="" style="border-radius: 50% ; position: relative; left:75px" /></td>
-															</tr>
-														</table>
-													</div>
-													<!--[if gte mso 9]>
-														</v:textbox>
-														</v:rect>
-													<![endif]-->
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-							</table>
-						</td>
-						<td class="m-td" valign="top" style="font-size:0pt; line-height:0pt; text-align:left;"><table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" class="border" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%;"><tr><td bgcolor="#ffffff" height="167" class="border" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%;">&nbsp;</td></tr></table>
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#467a0f" class="border" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%;"><tr><td bgcolor="#467a0f" height="250" class="border" style="font-size:0pt; line-height:0pt; text-align:center; width:100%; min-width:100%;">&nbsp;</td></tr></table>
-                        </td>
-					</tr>
-				</table>
-				<!-- END Hero Image -->
+
 
 				<!-- Container -->
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -174,7 +138,7 @@
 												<td class="p30-15" style="padding: 0px 10px;">
 													<table width="100%" border="0" cellspacing="0" cellpadding="0">
 														<tr>
-															<td class="h1 pb20" style="color:#000000; font-size:35px; line-height:42px; text-align:center; text-transform:uppercase; padding-bottom:20px;">
+															<td class="h1 pb20" style="color:#000000; font-size:25px; line-height:42px; text-align:center; text-transform:uppercase; padding-bottom:20px;">
 																Bienvenue sur notre plateforme <span class="m-hide" style="color: #467a0f"><br /></span>Rafex Tracking
 																<span style="font-size: 0.75em"> <br>
 																	Vous y êtes presque !
@@ -188,8 +152,8 @@
                                                                 Votre Email : <strong>{{$details['email']}}</strong><br>
 																<span style="display: block ; padding-top:7px">
 																	<br>Merci d’avoir rejoint Rafex! <br>
-																Cliquez sur le bouton ci-dessous pour modifier votre mot de passe, <br>
-																et nous vous aiderons à bien démarrer.
+																{{-- Cliquez sur le bouton ci-dessous pour modifier votre mot de passe, <br>
+																et nous vous aiderons à bien démarrer. --}}
 																</span>
                                                             </td>
 														</tr>
