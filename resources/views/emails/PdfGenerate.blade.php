@@ -97,7 +97,7 @@
                               <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                                 <tbody>
                                   <tr>
-                                    <td style="width:600px;"> <img alt="header image" height="auto" src="https://scontent.frba2-1.fna.fbcdn.net/v/t1.0-9/107919381_2858388390956499_2996466724675367793_o.png?_nc_cat=105&_nc_sid=e3f864&_nc_ohc=byo_1s31KvAAX8Z90pp&_nc_ht=scontent.frba2-1.fna&oh=4590affcbfb5b4afd842344ecf774663&oe=5F8B6655" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600"> </td>
+                                    <td style="width:600px;"> <img alt="header image" height="auto" src="https://tracking.rafex.ma/css/inscription/assets/img/bg-signin-2.jpg" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600"> </td>
                                   </tr>
                                 </tbody>
                               </table>

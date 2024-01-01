@@ -48,7 +48,7 @@
     @if (session()->has('register'))
         <div class="alert alert-dismissible alert-success col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>-</strong> l'utilisateur : {{session()->get('register')}} à été bien enregister et mail envoyé </a>.
+        <strong>-</strong> l'utilisateur : {{session()->get('register')}} a été enregisté avec succès, et un e-mail a été envoyé.</a>.
           </div>
         @endif
     <div class="row justify-content-center">

@@ -61,7 +61,7 @@
         @if (session()->has('envoyer'))
         <div class="alert alert-dismissible alert-success col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Succés</strong> La facture à été bien envoyer à  : {{session()->get('envoyer')}}  </a>.
+        <strong>Succés</strong> La facture a été bien envoyée à  : {{session()->get('envoyer')}}  </a>.
           </div>
         @endif
         <div class="col-5">

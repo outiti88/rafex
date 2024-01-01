@@ -1,67 +1,127 @@
-@extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8" style="
-        margin-top: 15%;
-    ">
-            <div class="card">
-                <div class="card-header">{{ __('réinitialiser le mot de passe') }}</div>
+<!DOCTYPE html>
+<html lang="en">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png"  href="{{url('/css/inscription/assets/img/apple-icon.png')}}">
+  <link rel="icon" type="image/png"  href="{{url('/css/inscription/assets/img/favicon.png')}}">
+  <title>
+    Rafex - Se Connecter
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="{{url('/css/inscription/assets/css/nucleo-icons.css')}}" rel="stylesheet" />
+  <link href="{{url('/css/inscription/assets/css/nucleo-svg.css')}}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle"  href="{{url('/css/inscription/assets/css/material-dashboard.css?v=3.0.0s')}}" rel="stylesheet" />
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+</head>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Addresse E-mail') }}</label>
+<body class="bg-gray-200">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+  <main class="main-content  mt-0">
+    <div class="page-header align-items-start min-vh-100" style="background-image: url('{{url('/css/inscription/assets/img/bg-signin-2.jpg')}}');">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-4 col-md-8 col-12 mx-auto">
+            <div class="card z-index-0 fadeIn3 fadeInBottom">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                  <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">{{ __('réinitialiser le mot de passe') }}</h4>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Mot de Passe') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmez le mot de passe') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn" style="background-color: #467a0f ; color:white">
-                                    {{ __('réinitialiser le mot de passe') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
+              </div>
+              <div class="card-body">
+                <form method="POST" action="{{ route('password.update') }}">
+                @csrf
+
+                <input type="hidden" name="token" value="{{ $token }}">
+
+                <div class="input-group input-group-outline my-3">
+                    <label for="email" class="form-label">Adresse E-mail</label>
+                    <input type="email"  name="email" class="form-control  @error('email') is-invalid @enderror" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                </div>
+                @error('email')
+                    <span class="invalid-feedback" style="display: block" role="alert" style="color:red">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                <div class="input-group input-group-outline mb-3">
+                    <label class="form-label">Mot de passe</label>
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                </div>
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                <div class="input-group input-group-outline mb-3">
+                    <label class="form-label">Confirmez le mot de passe</label>
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                </div>
+
+                  <div class="text-center">
+                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">
+                        {{ __('réinitialiser le mot de passe') }}
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+      <footer class="footer position-absolute bottom-2 py-2 w-100">
+        <div class="container">
+
+            <div class="col-12 col-md-6" style="float: left; text-align: left;">
+              <div class="text-center text-sm text-white text-lg-start">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+                made with <i class="fa fa-heart" aria-hidden="true"></i> by
+                <a href="https://idesignsolution.com/" class="font-weight-bold text-white" target="_blank">iDesign Business</a>
+              </div>
+            </div>
+
+          <div class="col-12 col-md-6" style="float: right; text-align: right;">
+            <a href="https://www.Rafex.ma/" target="_blank">
+              <img src="{{url('/css/inscription/assets/img/logo-footer.png')}}" alt="logo-footer.png">
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
-</div>
-@endsection
+  </main>
+  <!--   Core JS Files   -->
+  <script src="{{url('/css/inscription/assets/js/core/popper.min.js')}}"></script>
+  <script src="{{url('/css/inscription/assets/js/core/bootstrap.min.js')}}"></script>
+  <script src="{{url('/css/inscription/assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
+  <script src="{{url('/css/inscription/assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{{url('/css/inscription/assets/js/material-dashboard.min.js?v=3.0.0')}}"></script>
+
+</body>
+
+</html>

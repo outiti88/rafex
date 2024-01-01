@@ -18,7 +18,7 @@ class EmailController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
 
 
     public function sendFacture(Request $request , $facture){

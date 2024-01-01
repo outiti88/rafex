@@ -8,6 +8,7 @@ use App\BonLivraison;
 use App\Commande;
 use App\Produit;
 use App\User;
+use FontLib\Table\Type\name;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -154,7 +155,6 @@ class FactureController extends Controller
     public function gen($id)
     {
         $facture = Facture::findOrFail($id);
-
         $user = DB::table('users')->find($facture->user_id);
         $livraisonNonPaye = 0;
         $prixLivrer = DB::table('commandes')->where('user_id', $user->id)->where('facturer', $facture->id)->where('statut', 'livré')->sum('prix');
@@ -168,7 +168,7 @@ class FactureController extends Controller
 
         $filename = 'Facture_' . $facture->numero;
 
-        if ($user !== Auth::user()->id && Gate::denies('ramassage-commande')) {
+        if ($user->id !== Auth::user()->id && Gate::denies('ramassage-commande')) {
             return redirect()->route('facture.index');
         }
         $commandesPerPages = $this->getCommandesPerPages($commandes);
@@ -214,7 +214,7 @@ class FactureController extends Controller
         $villes = DB::table('villes')->orderBy('name')->get();
 
 
-        if ($user !== Auth::user()->id && Gate::denies('ramassage-commande')) {
+        if ($user->id !== Auth::user()->id && Gate::denies('ramassage-commande')) {
             return redirect()->route('facture.index');
         }
         //dd(Auth::user()->id );
@@ -323,7 +323,7 @@ class FactureController extends Controller
         $user = $facture->user_id;
         $villes = DB::table('villes')->orderBy('name')->get();
 
-        if ($user !== Auth::user()->id && Gate::denies('ramassage-commande')) {
+        if ($user->id !== Auth::user()->id && Gate::denies('ramassage-commande')) {
             return redirect()->route('facture.index');
         }
         $nouveau =  User::whereHas('roles', function ($q) {
