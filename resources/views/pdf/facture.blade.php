@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bon livraison</title>
+    <title>Facture : {{$facture->numero}}</title>
     <style>
         .top_rw {
             background-color: #ffffff;
@@ -113,8 +113,7 @@
             <tbody>
                 <tr class="top_rw" >
                     <td colspan="1" style="width : 50%;">
-                        <img style=" width: 200px;"
-                            src="https://i.ibb.co/xJjmw6B/Capture-d-cran-2023-12-25-032042.png" alt="">
+                        <img style=" width: 200px;" src="assets/images/logo-light-text.png" alt="">
                     </td>
                     <td style="width : 50%;">
                         <b>
@@ -136,18 +135,17 @@
                             <tbody>
                                 <tr>
                                     <td style="margin-right: 20px !important;border-style: solid; padding: 20px; width : 50%;">
-                                        Store&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{App\User::where('id',$bonLivraison->user_id)->first()->name}}<br>
-                                        Téléphone&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{App\User::where('id',$bonLivraison->user_id)->first()->telephone}}<br>
-                                        Ville&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{App\User::where('id',$bonLivraison->user_id)->first()->ville}}<br>
+                                        Store&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{App\User::where('id',$facture->user_id)->first()->name}}<br>
+                                        Téléphone&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{App\User::where('id',$facture->user_id)->first()->telephone}}<br>
+                                        Ville&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{App\User::where('id',$facture->user_id)->first()->ville}}<br>
                                     </td>
                                     <td>
                                     </td>
                                     <td
                                         style="border-style: solid;padding: 20px;margin-left: 20px !important; width : 50%;">
-                                        Bon de Livraison&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{$bonName}}<br>
-                                        Rèf. Ramassage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{App\Ramassage::where('id',$bonLivraison->ramassage_id)->first()->reference}}<br>
-                                        Date de ramassage&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{ \Carbon\Carbon::parse($bonLivraison->created_at)->format('j F, Y')}}<br>
-                                        Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{$bonLivraison->commande}} commandes<br>
+                                        Facture&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{$facture->numero}}<br>
+                                        Date de la facture&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{ \Carbon\Carbon::parse($facture->created_at)->format('j F, Y')}}<br>
+                                        Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{$total}} commandes<br>
                                     </td>
                                 </tr>
                             </tbody>
@@ -160,7 +158,7 @@
                             <tbody>
                                 <tr class="heading">
                                     <td style="width:25%;">
-                                        Numréro
+                                        Numéro de commande
                                     </td>
                                     <td >
                                         Client
@@ -169,10 +167,16 @@
                                         Ville
                                     </td>
                                     <td>
-                                        Date de commande
+                                        Date de la commande
                                     </td>
                                     <td>
                                         Montant
+                                    </td>
+                                    <td>
+                                        Statut
+                                    </td>
+                                    <td>
+                                        Prix de livraison
                                     </td>
                                 </tr>
                                 @foreach ($commandesPerPage as $commande)
@@ -187,7 +191,7 @@
                                         {{$commande->ville}}
                                     </td>
                                     <td>
-                                        {{ \Carbon\Carbon::parse($commande->created_at)->format('j F, Y')}}
+                                        {{ \Carbon\Carbon::parse($commande->created_at)->format('d-m-Y')}}
                                     </td>
                                     <td>
                                         @if ($commande->montant == 0)
@@ -196,6 +200,8 @@
                                         {{$commande->montant}} DH
                                         @endif
                                     </td>
+                                    <td>{{$commande->statut}}</td>
+                                    <td>{{$commande->prix}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -204,8 +210,13 @@
                 </tr>
                 @if ($index == count($commandesPerPages)-1)
                 <tr class="total">
-                    <td colspan="3" align="right"> Montant total des commandes : <b> {{$bonLivraison->montant}} DH</b>
-                    </td>
+                    <td colspan="3" align="right"> TOTAL BRUT : : <b> {{$facture->montant}} DH</b></td>
+                </tr>
+                <tr class="total">
+                    <td colspan="3" align="right"> Frais de livraison : <b> {{$frais}} DH</b></td>
+                </tr>
+                <tr class="total">
+                    <td colspan="3" align="right"> Montant total NET : <b> {{$net}} DH</b></td>
                 </tr>
                 <tr>
                     <td colspan="3">
@@ -219,7 +230,7 @@
 
                                                     <div style="display: inline-block; margin: 0; text-align: center;">
                                                         <div class="logo-text" style="display: inline-block;">
-                                                            <img src="uploads/ramassageQRCODE/{{$filename}}" style="width: 50%;" class="light-logo-small">
+                                                            <img src="assets/images/logo-light-text.png" style="width: 50%;" class="light-logo-small">
                                                         </div>
                                                     </div>
                                                 </div>

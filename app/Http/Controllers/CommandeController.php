@@ -901,7 +901,7 @@ class CommandeController extends Controller
 
     public function ticketsBuilderHelper($commandes, $filesName, $format)
     {
-        $pdf = app('dompdf.wrapper')->loadView('pdf.colis', ['commandes' => $commandes,'filesName' => $filesName, 'size' => $format])->setPaper($format);
+        $pdf = app('dompdf.wrapper')->loadView('pdf.ticket', ['commandes' => $commandes,'filesName' => $filesName, 'size' => $format])->setPaper($format);
         return $pdf->stream('ticket-colis.pdf');
     }
 

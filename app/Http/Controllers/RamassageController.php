@@ -284,21 +284,63 @@ class RamassageController extends Controller
 
     }
 
+    public function getCommandesPerPages($commandes)
+    {
+        $commandesPerPages = [];
+
+        $total = count($commandes) ;
+
+        $m = ($total / 12);
+        $n = (int)$m; // nombre de page
+        $n = ($n != $m) ? $n++ : $n;
+
+        $pageNumber = 0;
+        $numberOfCommandePerPage = 1;
+        foreach ($commandes as  $commande) {
+            if($numberOfCommandePerPage <= 8){
+                $commandesPerPages[$pageNumber][] = $commande;
+                $numberOfCommandePerPage++;
+            }
+            else{
+                $pageNumber++;
+                $commandesPerPages[$pageNumber][] = $commande;
+                $numberOfCommandePerPage = 2;
+            }
+        }
+        return $commandesPerPages;
+    }
+
+
+    public function gen()
+    {
+        $pdf = App::make('dompdf.wrapper');
+        $queryCommandes = Commande::where('deleted_at', NULL)->where('livreur', Auth::user()->id)
+        ->whereIn('commandes.statut', ['en cours','Modifiée','Reporté','Relancée'])
+        ->orderBy('updated_at', 'DESC');
+
+        $commandes = $queryCommandes->get();
+        $montant = $queryCommandes->sum('montant');
+
+        $commandesPerPages = $this->getCommandesPerPages($commandes);
+        $pdf = app('dompdf.wrapper')->loadView('pdf.delivery', ['livreur' => Auth::user(), 'commandesPerPages' => $commandesPerPages , 'total' => count($commandes) , 'montant' => $montant])->setPaper('A4');
+
+        return $pdf->stream('Bon_de_distirbution.pdf');
+    }
+
 
     public function generateBonLivraison($commandesIds, $ramassage){
         $user = Auth::user()->id;
         $commandes = DB::table('commandes')->whereIn('numero',$commandesIds);
         $bonLivraison = new BonLivraison();
-            $bonLivraison->colis = $commandes->sum('colis');
-            $bonLivraison->commande = $commandes->count();
-            $bonLivraison->prix = $commandes->sum('prix');
-            $bonLivraison->montant = $commandes->sum('montant');
-            $bonLivraison->nonRammase = 0;
-            $bonLivraison->ramassage()->associate($ramassage->id);
-            $bonLivraison->user()->associate($user)->save();
+        $bonLivraison->colis = $commandes->sum('colis');
+        $bonLivraison->commande = $commandes->count();
+        $bonLivraison->prix = $commandes->sum('prix');
+        $bonLivraison->montant = $commandes->sum('montant');
+        $bonLivraison->nonRammase = 0;
+        $bonLivraison->ramassage()->associate($ramassage->id);
+        $bonLivraison->user()->associate($user)->save();
 
-            $affected = $commandes->update(array('traiter' => $bonLivraison->id));
-            //dd($affected);
+        $commandes->update(array('traiter' => $bonLivraison->id));
     }
 
 

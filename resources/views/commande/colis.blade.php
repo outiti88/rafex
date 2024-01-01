@@ -143,6 +143,11 @@
             <div class="m-r-5" style="margin-right: 10px;">
                 <a  class="btn btn-rafex text-white"  data-toggle="modal" data-target="#modalSearchForm"><i class="fa fa-search"></i><span class="quick-action">Filtrer</span></a>
             </div>
+            @can('livreur')
+            <div class="m-r-5" style="margin-right: 10px;">
+                <a  class="btn btn-warning text-white"  href="{{route('distirbution.gen')}}"><i class="fa fa-print"></i><span class="quick-action">Bon de distribution</span></a>
+            </div>
+            @endcan
         </div>
         </div>
     </div>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bon livraison</title>
+    <title>Bon de distribution</title>
     <style>
         .top_rw {
             background-color: #ffffff;
@@ -25,7 +25,7 @@
             padding: 10px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, .15);
-            font-size: 14px;
+            font-size: 10px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             color: #555;
@@ -56,7 +56,7 @@
         }
 
         .invoice-box table tr.top table td.title {
-            font-size: 45px;
+            font-size: 25px;
             line-height: 45px;
             color: #333;
         }
@@ -117,7 +117,7 @@
                             src="assets/images/logo-light-text.png" alt="">
                     </td>
                     <td style="width : 50%;">
-                        <b>
+                        <b style="font-size: 20px">
                             RAFEX DELIVERY
                         </b>
                         <br>
@@ -136,18 +136,17 @@
                             <tbody>
                                 <tr>
                                     <td style="margin-right: 20px !important;border-style: solid; padding: 20px; width : 50%;">
-                                        Store&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{App\User::where('id',$bonLivraison->user_id)->first()->name}}<br>
-                                        Téléphone&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{App\User::where('id',$bonLivraison->user_id)->first()->telephone}}<br>
-                                        Ville&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{App\User::where('id',$bonLivraison->user_id)->first()->ville}}<br>
+                                        Livreur&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{$livreur->name}}<br>
+                                        Téléphone&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{$livreur->telephone}}<br>
+                                        Ville(s)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{$livreur->ville}}<br>
                                     </td>
                                     <td>
                                     </td>
                                     <td
                                         style="border-style: solid;padding: 20px;margin-left: 20px !important; width : 50%;">
-                                        Bon de Livraison&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{$bonName}}<br>
-                                        Rèf. Ramassage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{App\Ramassage::where('id',$bonLivraison->ramassage_id)->first()->reference}}<br>
-                                        Date de ramassage&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{ \Carbon\Carbon::parse($bonLivraison->created_at)->format('j F, Y')}}<br>
-                                        Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{$bonLivraison->commande}} commandes<br>
+                                        Date du distibution&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{ date("d/m/Y")}}<br>
+                                        Total des commandes&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{$total}} commandes<br>
+                                        Montant total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;{{$montant}} DH<br>
                                     </td>
                                 </tr>
                             </tbody>
@@ -169,6 +168,9 @@
                                         Ville
                                     </td>
                                     <td>
+                                        Adresse
+                                    </td>
+                                    <td>
                                         Date de la commande
                                     </td>
                                     <td>
@@ -186,6 +188,9 @@
                                     <td>
                                         {{$commande->ville}}
                                     </td>
+                                    <td style="font-size: 8px">
+                                        {{$commande->adresse}}
+                                    </td>
                                     <td>
                                         {{ \Carbon\Carbon::parse($commande->created_at)->format('j F, Y')}}
                                     </td>
@@ -202,46 +207,6 @@
                         </table>
                     </td>
                 </tr>
-                @if ($index == count($commandesPerPages)-1)
-                <tr class="total">
-                    <td colspan="3" align="right"> Montant total des commandes : <b> {{$bonLivraison->montant}} DH</b>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <table cellspacing="0px" cellpadding="2px">
-                            <tbody>
-                                <tr>
-                                    <td width="50%">
-                                        <div class="bottom" style="height: 150px">
-                                            <div class="barcode">
-                                                <div style="display: block; margin: 0; text-align: center; padding-bottom: 20px;">
-
-                                                    <div style="display: inline-block; margin: 0; text-align: center;">
-                                                        <div class="logo-text" style="display: inline-block;">
-                                                            <img src="uploads/ramassageQRCODE/{{$filename}}" style="width: 50%;" class="light-logo-small">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <b> Signature :</b>
-                                        <br>
-                                        <br>
-                                        ...................................
-                                        <br>
-                                        <br>
-                                        <br>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                @endif
             </tbody>
         </table>
     </div>

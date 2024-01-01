@@ -140,6 +140,8 @@ Route::resource('/facture', 'FactureController')->only([
 
 Route::get('/facture/{id}/pdf', 'FactureController@gen')->name('facture.gen')->middleware('can:client-admin');
 
+Route::get('/distirbution/pdf', 'RamassageController@gen')->name('distirbution.gen')->middleware('can:livreur-admin');
+
 Route::get('/BonCommande/pdf', 'BonCommandeController@gen')->name('bonCommande.index')->middleware('can:manage-users');
 
 Route::get('/tickets/pdf', 'CommandeController@ticketsBuilder')->name('ticket.index')->middleware('can:valide');

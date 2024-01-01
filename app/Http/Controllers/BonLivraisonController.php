@@ -156,7 +156,7 @@ class BonLivraisonController extends Controller
         $filename = 'qr_code_' . $ramassage->reference . '.png';
         $commandesPerPages = $this->getCommandesPerPages($bonLivraison);
         $bonName = 'BL_'.bin2hex(substr($user->name, -strlen($user->name), 3)) . $bonLivraison->id ;
-        $pdf = app('dompdf.wrapper')->loadView('pdf.bon', ['bonLivraison' => $bonLivraison, 'commandesPerPages' => $commandesPerPages, 'bonName' => $bonName, 'filename' => $filename])->setPaper('A4');
+        $pdf = app('dompdf.wrapper')->loadView('pdf.ramassage', ['bonLivraison' => $bonLivraison, 'commandesPerPages' => $commandesPerPages, 'bonName' => $bonName, 'filename' => $filename])->setPaper('A4');
 
         return $pdf->stream('Bon_de_livraison_' . $bonName . '.pdf');
     }

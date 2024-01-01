@@ -151,217 +151,58 @@ class FactureController extends Controller
     } //fin fonction ajouter facture
 
 
-
-    public function commandes(Facture $facture, $n, $i)
+    public function gen($id)
     {
-        $user = $facture->user_id;
-        $commandes = DB::table('commandes')->where('user_id', $user)->where('facturer', $facture->id)->get();
-        $content =
-            '
-        <div class="invoice">
-             <table id="customers">
-                 <tr>
-                 <th>Numéro</th>
-                 <th>Destinataire</th>
-                 <th>Ville</th>
-                 <th>Téléphone</th>
-                 <th>Montant</th>
-                 <th>Statut</th>
-                 <th>Prix de livraison</th>
+        $facture = Facture::findOrFail($id);
 
-                 <th>Date de livraison</th>
-                 </tr>
-        ';
-        foreach ($commandes as $index => $commande) {
-
-            if (($index >= $i * 6) && ($index < 6 * ($i + 1))) { //les infromations de la table depe,d de la page actuelle
-                $price = ($commande->statut == 'Livré')? $commande->prix : $commande->refusePart;
-                if ($commande->montant == 0) {
-                    $montant = "Payée Par CB";
-                } else {
-                    $montant = $commande->montant;
-                }
-                $content .= '<tr>' . '
-            <td>' . $commande->numero . '</td>
-            <td>' . $commande->nom . '</td>
-            <td>' . $commande->ville . '</td>
-            <td>' . $commande->telephone . '</td>
-            <td>' . $montant . '</td>
-            <td>' . (($commande->statut == 'Livré') ?  $commande->statut : 'Refusée' ) . '</td>
-            <td>' . $price . '</td>
-            <td>' . $commande->updated_at . '</td>
-            ' . '</tr>';
-            }
-        }
-        return $content . '</table>  </div>';
-    }
-
-    //fonction qui renvoie le contenue du bon de livraison
-
-    public function content(Facture $facture, $n, $i)
-    {
-        $user = $facture->user_id;
-        $user = DB::table('users')->find($user);
+        $user = DB::table('users')->find($facture->user_id);
         $livraisonNonPaye = 0;
         $prixLivrer = DB::table('commandes')->where('user_id', $user->id)->where('facturer', $facture->id)->where('statut', 'livré')->sum('prix');
         $prixRefuser =  DB::table('commandes')->where('user_id', $user->id)->where('facturer', $facture->id)->whereIn('statut', ['Retour en stock','Retour','Refusée'])->sum('refusePart');
+
+        $commandes = DB::table('commandes')->where('user_id', $facture->user_id)->where('facturer', $facture->id)->get();
 
         $livraisonNonPaye += $prixRefuser + $prixLivrer;
 
         $net = $facture->montant - $livraisonNonPaye;
 
-        //les information du fournisseur (en-tete)
-        $info_client = '
-            <div class="info_client">
-                <h1>' . $user->name . '</h1>
-                <h3>ADRESSE : ' . $user->adresse . '</h3>
-                <h3>TELEPHONE : ' . $user->telephone . '</h3>
-                <h3>VILLE : ' . $user->ville . '</h3>
-                <h3>ICE: ' . $user->description . '</h3>
-            </div>
-            <div class="date_num">
-                <h3>' . $facture->numero . '</h3>
-                <h3>' . $facture->created_at . '</h3>
-
-
-            </div>
-        ';
-        // pied du bon d'achat (calcul du total)
-        $total = '
-            <div class="total">
-            <table id="customers">
-
-            <tr class="totalfacture">
-            <th>TOTAL BRUT : </th>
-            <td>' . $facture->montant . '  DH</td>
-            </tr>
-            <tr class="totalfacture">
-            <th>Livraison : </th>
-            <td>' . $livraisonNonPaye . '  DH</td>
-            </tr>
-            <tr class="totalfacture">
-            <th>TOTAL NET : </th>
-            <td>' . $net . '  DH</td>
-            </tr>
-
-            </table>
-            </div>
-            ';
-
-
-        $content = $this->commandes($facture, $n, $i);
-        $content = $info_client . $content;
-        if ($n == ($i + 1)) { //le total seulement dans la derniere page (n est le nbr de page / i et la page actuelle)
-            $content .= $total;
-        }
-        return $content;
-    }
-
-
-    public function gen($id)
-    {
-
-        $facture = Facture::findOrFail($id);
-        $user = $facture->user_id;
+        $filename = 'Facture_' . $facture->numero;
 
         if ($user !== Auth::user()->id && Gate::denies('ramassage-commande')) {
             return redirect()->route('facture.index');
         }
-        $user = DB::table('users')->find($user);
-        //dd($facture->id);
+        $commandesPerPages = $this->getCommandesPerPages($commandes);
+
         $pdf = App::make('dompdf.wrapper');
+        $pdf = app('dompdf.wrapper')->loadView('pdf.facture', ['facture' => $facture, 'total' => count($commandes) , 'frais' => $livraisonNonPaye , 'commandesPerPages' => $commandesPerPages, 'filename' => $filename, 'net'=> $net])->setPaper('A4');
 
-        $style = '
-        <!doctype html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Facture_' . $facture->numero . '</title>
 
-            <style type="text/css">
-            @page {
-                margin: 0px;
-            }
+        return $pdf->stream($filename . 'pdf');
+    }
 
-                body{
-                    margin: 0px;
-                    background-image: url("https://Rafex.ma/images/FactureCavallo.png");
-                    width: 790px;
-                    height: auto;
-                    background-position: center;
-                    background-repeat: repeat;
-                    padding-bottom : 300px;
-                    background-size: 100% 1070px;
-                    background-size: cover;
-                    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                    font-size: 0.75em;
-                }
-                .info_client{
-                    position:relative;
-                    left:45px;
-                    top:190px;
-                }
-                .date_num{
-                    position:relative;
-                    left:640px;
-                    top:155px;
-                }
-                .total{
-                    position:relative;
-                    left:200px;
-                    top:15px;
-                }
-                .invoice {
-                   margin : 8px;
-                    position: relative;
-                    min-height: auto;
 
-                }
-                #customers {
-                    border-collapse: collapse;
-                    width: 100%;
-                    position: relative;
-                    top: 170px;
-                    }
+    public function getCommandesPerPages($commandes)
+    {
+        $commandesPerPages = [];
 
-                    #customers td, #customers th {
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                    }
-
-                    #customers tr:nth-child(even){background-color: #f2f2f2;}
-
-                    #customers th {
-                    padding-top: 12px;
-                    padding-bottom: 12px;
-                    text-align: left;
-                    background-color: #e85f03;
-                    color: white;
-                    }
-
-                </style>
-
-            </head>
-            <body>
-        ';
-        $m = (($facture->livre + $facture->commande) / 6);
+        $m = ( count($commandes) / 12);
         $n = (int)$m; // nombre de page
-        if ($n != $m) {
-            $n++;
+        $n = ($n != $m) ? $n++ : $n;
+
+        $pageNumber = 0;
+        $numberOfCommandePerPage = 1;
+        foreach ($commandes as  $commande) {
+            if($numberOfCommandePerPage <= 8){
+                $commandesPerPages[$pageNumber][] = $commande;
+                $numberOfCommandePerPage++;
+            }
+            else{
+                $pageNumber++;
+                $commandesPerPages[$pageNumber][] = $commande;
+                $numberOfCommandePerPage = 2;
+            }
         }
-        //dd($n);
-        $content = '';
-        for ($i = 0; $i < $n; $i++) {
-            $content .= $this->content($facture, $n, $i);
-        }
-
-        $content = $style . $content . ' </body></html>';
-
-        //dd($this->content($facture));
-        $pdf->loadHTML($content)->setPaper('A4');
-
-
-        return $pdf->stream('Facture_' . $facture->numero . 'pdf');
+        return $commandesPerPages;
     }
 
 
