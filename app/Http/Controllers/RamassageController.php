@@ -149,7 +149,8 @@ class RamassageController extends Controller
     {
         $ramassage = Ramassage::findOrFail($id);
         $this->editStatus($request, $ramassage);
-        $this->show($ramassage);
+        return redirect()->route('ramassage.show',[
+            'ramassage' => $ramassage]);
     }
 
 

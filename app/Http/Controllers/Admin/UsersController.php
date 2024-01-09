@@ -53,8 +53,9 @@ class UsersController extends Controller
         $nouveau =  User::whereHas('roles', function($q){$q->whereIn('name', ['nouveau']);})->where('deleted_at',NULL)->count();
         $villes= DB::table('villes')->orderBy('name')->get();
         $userVilles = explode(",", $user->ville);
-        unset($userVilles[count($userVilles)-1]);
-
+        if(in_array(",", $userVilles)){
+            unset($userVilles[count($userVilles)-1]);
+        }
 
         if(Gate::denies('edit-users')){
             return redirect(route('admin.users.index'));

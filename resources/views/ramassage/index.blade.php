@@ -206,7 +206,7 @@
                                             <div class="form-group row">
                                                 <label for="libelle" class="col-sm-4">Ville :</label>
                                                 <div class="col-sm-8">
-                                                    <select name="statut" class="form-control form-control-line" >
+                                                    <select name="city" class="form-control form-control-line" >
                                                         <option value="" disabled selected>Choisissez la Ville de ramassage</option>
                                                         <option >Rabat</option>
                                                         <option >Casablanca</option>

@@ -26,7 +26,13 @@
 <div class="page-breadcrumb">
     <div class="row align-items-center">
         <div class="col-5">
-            <h4 class="page-title">Gestion des Utilisateurs</h4>
+            <h4 class="page-title">Gestion des Utilisateurs </h4>
+            @foreach ($userVilles as $index => $userville)
+            {{$userville}}
+            @endforeach
+            @foreach ($user->roles()->get()->pluck('name')->toArray() as  $role)
+                {{$role}}
+            @endforeach
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">

@@ -658,11 +658,11 @@ class CommandeController extends Controller
             $commande->prix = $fournisseur->prix;
         }
 
-        //la part du livreur
-        $commande->livreur = DB::table('villes')
-            ->select('livreur')
-            ->where('name', $request->ville)
-            ->get()->first()->livreur;
+        // //la part du livreur
+        // $commande->livreur = DB::table('villes')
+        //     ->select('livreur')
+        //     ->where('name', $request->ville)
+        //     ->get()->first()->livreur;
 
         if ($request->mode == "cd" && Gate::denies('ecom')) {
             $commande->montant = $request->montant;

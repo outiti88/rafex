@@ -86,19 +86,20 @@
       <footer class="footer position-absolute bottom-2 py-2 w-100">
         <div class="container">
 
-            <div class="col-12 col-md-6" style="float: left; text-align: left;">
+            <div class="col-12 col-md-6" style="float: left; text-align: left;top: 75px;
+            position: relative;">
               <div class="text-center text-sm text-white text-lg-start">
                 © <script>
                   document.write(new Date().getFullYear())
-                </script>,
-                made with <i class="fa fa-heart" aria-hidden="true"></i> by
-                <a href="https://idesignsolution.com/" class="font-weight-bold text-white" target="_blank">iDesign Business</a>
+                </script>, RAFEX
+                {{-- made with <i class="fa fa-heart" aria-hidden="true"></i> by
+                <a href="https://idesignsolution.com/" class="font-weight-bold text-white" target="_blank">iDesign Business</a> --}}
               </div>
             </div>
 
           <div class="col-12 col-md-6" style="float: right; text-align: right;">
             <a href="https://www.Rafex.ma/" target="_blank">
-              <img src="{{url('/css/inscription/assets/img/logo-footer.png')}}" alt="logo-footer.png">
+              <img src="{{url('/css/inscription/assets/img/rafex-logo-footer.png')}}" alt="logo-footer.png" style="width: 200px;">
             </a>
           </div>
         </div>

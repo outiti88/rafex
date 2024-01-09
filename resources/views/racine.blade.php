@@ -82,7 +82,8 @@
                 <script>
                     document.write(new Date().getFullYear())
                   </script>
-                All rights reserved | Made with <i class="mdi mdi-heart" aria-hidden="true"></i>  by <a href="https://idesignsolution.com/" target="_blank">iDesign Business</a>
+                All rights reserved
+                {{-- | Made with <i class="mdi mdi-heart" aria-hidden="true"></i>  by <a href="https://idesignsolution.com/" target="_blank">iDesign Business</a> --}}
             </footer>
         </div>
 

@@ -128,11 +128,11 @@ Route::resource('/Relance', 'RelanceController')->only([
     'index', 'edit'
 ])->middleware('can:manage-users');
 
-Route::get('/bonlivraison/{id}/infos', 'BonLivraisonController@infos')->name('bon.infos')->middleware('can:delete-commande');
+Route::get('/bonlivraison/{id}/infos', 'BonLivraisonController@infos')->name('bon.infos')->middleware('can:valide');
 
-Route::get('/bonlivraison/{id}/pdf', 'BonLivraisonController@gen')->name('bon.gen')->middleware('can:delete-commande');
+Route::get('/bonlivraison/{id}/pdf', 'BonLivraisonController@gen')->name('bon.gen')->middleware('can:valide');
 
-Route::get('/bonlivraison/{id}/details', 'BonLivraisonController@search')->name('bon.search')->middleware('can:delete-commande');
+Route::get('/bonlivraison/{id}/details', 'BonLivraisonController@search')->name('bon.search')->middleware('can:valide');
 
 Route::resource('/facture', 'FactureController')->only([
     'index', 'store'
@@ -140,7 +140,7 @@ Route::resource('/facture', 'FactureController')->only([
 
 Route::get('/facture/{id}/pdf', 'FactureController@gen')->name('facture.gen')->middleware('can:client-admin');
 
-Route::get('/distirbution/pdf', 'RamassageController@gen')->name('distirbution.gen')->middleware('can:livreur-admin');
+Route::get('/distribution/pdf', 'RamassageController@gen')->name('distirbution.gen')->middleware('can:livreur-admin');
 
 Route::get('/BonCommande/pdf', 'BonCommandeController@gen')->name('bonCommande.index')->middleware('can:manage-users');
 

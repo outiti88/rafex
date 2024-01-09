@@ -210,11 +210,11 @@ class FactureController extends Controller
     {
         $data = null;
         $facture = Facture::findOrFail($id);
-        $user = $facture->user_id;
+        $userId = $facture->user_id;
         $villes = DB::table('villes')->orderBy('name')->get();
 
 
-        if ($user->id !== Auth::user()->id && Gate::denies('ramassage-commande')) {
+        if ($userId !== Auth::user()->id && Gate::denies('ramassage-commande')) {
             return redirect()->route('facture.index');
         }
         //dd(Auth::user()->id );
@@ -320,10 +320,10 @@ class FactureController extends Controller
     public function infos($id)
     {
         $facture = Facture::findOrFail($id);
-        $user = $facture->user_id;
+        $userId = $facture->user_id;
         $villes = DB::table('villes')->orderBy('name')->get();
 
-        if ($user->id !== Auth::user()->id && Gate::denies('ramassage-commande')) {
+        if ($userId !== Auth::user()->id && Gate::denies('ramassage-commande')) {
             return redirect()->route('facture.index');
         }
         $nouveau =  User::whereHas('roles', function ($q) {
