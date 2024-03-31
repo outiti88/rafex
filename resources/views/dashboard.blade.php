@@ -245,14 +245,14 @@
             <div class="card-statistic-3">
               <div class="card-icon card-icon-large"><i class="fas fa-history"></i></div>
               <div class="card-content">
-                <h4 class="card-title">Colis reportés</h4>
-                <span style="font-weight: bold; font-size: 1.75em;" >{{$tabTotal['reporté']['nbr']}}</span>
+                <h4 class="card-title">Colis Confirmé sous RDVs</h4>
+                <span style="font-weight: bold; font-size: 1.75em;" >{{$tabTotal['Confirmé sous RDV']['nbr']}}</span>
                 <div class="progress mt-1 mb-1" data-height="8">
-                  <div class="progress-bar l-bg-green" role="progressbar" data-width="{{$tabTotal['reporté']['percentage']}}%" aria-valuenow="{{$tabTotal['reporté']['percentage']}}"
+                  <div class="progress-bar l-bg-green" role="progressbar" data-width="{{$tabTotal['Confirmé sous RDV']['percentage']}}%" aria-valuenow="{{$tabTotal['Confirmé sous RDV']['percentage']}}"
                     aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p class="mb-0 text-sm">
-                  <span class="mr-2"><i class="fa fa-arrow-up"></i> {{$tabTotal['reporté']['percentage']}}%</span>
+                  <span class="mr-2"><i class="fa fa-arrow-up"></i> {{$tabTotal['Confirmé sous RDV']['percentage']}}%</span>
                   <span class="text-nowrap">De tous les Colis</span>
                 </p>
               </div>
@@ -401,7 +401,7 @@
 
                                 <td>{{$topCmd->cmd}}</td>
                                 <td>
-                                    <h5 class="m-b-0">{{$topCmdLivr[$index]->cmd}}</h5>
+                                    <h5 class="m-b-0">{{App\Commande::where('statut','Livré')->where('user_id',$users[$index]->id)->count()}}</h5>
                                 </td>
                                 @endcan
                                 @cannot('ramassage-commande')

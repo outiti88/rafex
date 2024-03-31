@@ -20,9 +20,9 @@ class UsersTableSeeder extends Seeder
         $adminRole = Role::where('name','admin')->first();
         $clientRole = Role::where('name','client')->first();
         $livreurRole = Role::where('name','livreur')->first();
-        $personelRole = Role::where('name','personel')->first();
+        $personelRole = Role::where('name','personnel')->first();
 
-    
+
         $client = User::create([
             'name'=>'Client User',
             'email' => 'client@quickoo.ma',
@@ -41,16 +41,16 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('12345678')
         ]);
 
-        $personel = User::create([
-            'name'=>'Personel User',
-            'email' => 'personel@quickoo.ma',
+        $personnel = User::create([
+            'name'=>'personnel User',
+            'email' => 'personnel@quickoo.ma',
             'password' => Hash::make('12345678')
         ]);
 
         $admin->roles()->attach($adminRole);
         $client->roles()->attach($clientRole);
         $livreur->roles()->attach($livreurRole);
-        $personel->roles()->attach($personelRole);
+        $personnel->roles()->attach($personelRole);
 
     }
 }

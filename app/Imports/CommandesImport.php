@@ -27,7 +27,7 @@ class CommandesImport implements ToModel, WithHeadingRow
         $commande->ville = $row['ville'];
         $commande->secteur = $row['ville'];
         $commande->adresse = $row['adresse'];
-        $commande->statut = "envoyée";
+        $commande->statut = "Nouvelle commande";
         $commande->colis = 1;
         $commande->poids = '';
         $commande->nom = $row['nom'];

@@ -12675,7 +12675,7 @@ des napoléons. Alors l'indignation la prit, à voir cette grosse
 main, aux doigts rouges et mous comme des limaces, qui se posait
 sur ces pages où son coeur avait battu.
 
-Ils partirent enfin! Félicité rentra. Elle l'avait envoyée aux
+Ils partirent enfin! Félicité rentra. Elle l'avait Nouvelle commande aux
 aguets pour détourner Bovary; et elles installèrent vivement sous
 les toits le gardien de la saisie, qui jura de s'y tenir.
 

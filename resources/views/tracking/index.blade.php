@@ -209,14 +209,14 @@
                 <div class="row d-flex flex-column icon-content" @if ($state < 2) style="opacity: 0.5" @endif >
                     <div class="row d-flex">
                         <i class="fas fa-truck"></i>
-                       <p class="font-weight-bold">Commande<br>Expédiée -RABAT-</p>
+                       <p class="font-weight-bold">Commande<br>Affectée au livreur -RABAT-</p>
                     </div>
 
                     @if ($state >= 2)
                         @if ($state == 2)
-                            <p class="font-weight-bold">{{\App\Statut::where('commande_id',$commande->id)->where('name','Reçue')->first()->created_at}}</p>
+                            <p class="font-weight-bold">{{\App\Statut::where('commande_id',$commande->id)->where('name','Prêt à livrer')->first()->created_at}}</p>
                         @else
-                            <p class="font-weight-bold">{{\App\Statut::where('commande_id',$commande->id)->where('name','Expédiée')->first()->created_at}}</p>
+                            <p class="font-weight-bold">{{\App\Statut::where('commande_id',$commande->id)->where('name','Affectée au livreur')->first()->created_at}}</p>
                         @endif
                     @endif
                 </div>

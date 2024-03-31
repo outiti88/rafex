@@ -129,9 +129,7 @@
                                   </a>
                               </th>                                @endcan
                                 <th>
-                                  <a class="btn btn-light" href="{{route('bon.search',$bonLivraison->id)}}">
                                     BL_{{bin2hex(substr($users[$index]->name, - strlen($users[$index]->name) , 3)).$bonLivraison->id}}
-                                  </a>
                                 </th>
                                 <th>
                                     <a class="btn btn-light" href="{{route('ramassage.show',$bonLivraison->ramassage_id)}}">

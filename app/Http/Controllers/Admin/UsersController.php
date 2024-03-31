@@ -53,9 +53,7 @@ class UsersController extends Controller
         $nouveau =  User::whereHas('roles', function($q){$q->whereIn('name', ['nouveau']);})->where('deleted_at',NULL)->count();
         $villes= DB::table('villes')->orderBy('name')->get();
         $userVilles = explode(",", $user->ville);
-        if(in_array(",", $userVilles)){
-            unset($userVilles[count($userVilles)-1]);
-        }
+
 
         if(Gate::denies('edit-users')){
             return redirect(route('admin.users.index'));
@@ -67,8 +65,7 @@ class UsersController extends Controller
             'nouveau'=>$nouveau,
             'user'=>$user,
             'roles'=>$roles,
-            'villes'=>$villes,
-            'userVilles' => $userVilles
+            'villes'=>$villes
         ]);
     }
 
@@ -85,34 +82,43 @@ class UsersController extends Controller
         if(Gate::denies('edit-users')){
             return redirect(route('admin.users.index'));
         }
-       //dd($request->roles[0] ==3);
-       $user->roles()->sync($request->roles);
-       $user->prix=$request->prix;
-       $user->image=$request->image;
-       $user->name=$request->name;
-       $user->email=$request->email;
-       if($request->roles[0] ==3){
-        $user->ville= "";
-        foreach ($request->ville as $index => $ville){
-         $user->ville .= $ville .',';
+
+        if ($request->hasfile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename = time() . '.' . $extension ;
+            $file->move('uploads/userImages/',$filename);
+            $user->image = '/uploads/userImages/'.$filename ;
         }
-       }
-       else{
-            $user->ville= "";
-        foreach ($request->ville as $index => $ville){
-            $user->ville .= $ville;
-        }
-       }
 
+        $user->name= (!empty($request->name)) ? $request->name : $user->name;
+        $user->email= (!empty($request->email)) ? $request->email : $user->email;
+        $user->ramassage_ville= (!empty($request->ramassage_ville)) ? $request->ramassage_ville : $user->ramassage_ville;
+        $user->ville= (!empty($request->ville)) ? $request->ville : $user->ville;
+        $user->description= (!empty($request->description)) ? $request->description : $user->description;
+        $user->adresse= (!empty($request->adresse)) ? $request->adresse : $user->adresse;
+        $user->adresse2= (!empty($request->adresse2)) ? $request->adresse2 : $user->adresse2;
+        $user->storeName= (!empty($request->storeName)) ? $request->storeName : $user->storeName;
+        $user->cin= (!empty($request->cin)) ? $request->cin : $user->cin;
+        $user->rib= (!empty($request->rib)) ? $request->rib : $user->rib;
+        $user->save();
 
-       $user->description = $request->description;
-       $user->storeName = $request->storeName;
-       $user->cin = $request->cin;
-       $user->statut = $request->statut;
-       $user->rib = $request->rib;
-       $user->save();
+        return back();
+    }
 
-       return redirect()->route('admin.users.index');
+    function removeEmptyValues($inputString) {
+        // Split the input string by commas
+        $values = explode(',', $inputString);
+
+        // Remove empty elements
+        $filteredValues = array_filter($values, function($value) {
+            return !empty($value);
+        });
+
+        // Join the non-empty elements back into a string
+        $resultString = implode(',', $filteredValues);
+
+        return $resultString;
     }
 
     /**

@@ -33,9 +33,7 @@ class DashboardController extends Controller
         }
         if (Gate::denies('client-admin')) return redirect()->route('commandes.index');
 
-
         $users = [];
-        $topCmdLivr = null;
 
         $todayCmd = 0;
         $lastdayCmd = 0;
@@ -59,8 +57,8 @@ class DashboardController extends Controller
 
         $c_total = DB::table('commandes')->whereIn('statut', ['En cours', 'Modifiée','Relancée'])->where('deleted_at', NULL);
         $l_total = DB::table('commandes')->where('statut', 'livré')->where('deleted_at', NULL);
-        $r_total = DB::table('commandes')->whereIn('statut', ['retour en stock', 'retour', 'Refusée', 'Annulée', 'Injoignable', 'Pas de Réponse'])->where('deleted_at', NULL);
-        $e_total = DB::table('commandes')->where('statut', 'Expédiée')->where('deleted_at', NULL);
+        $r_total = DB::table('commandes')->whereIn('statut', ['retour en stock', 'retour', 'Annulée sur place', 'Annulée', 'Injoignable', 'Pas de Réponse','Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné'])->where('deleted_at', NULL);
+        $e_total = DB::table('commandes')->where('statut', 'Affectée au livreur')->where('deleted_at', NULL);
         $commandeGesture = Commande::where('deleted_at', NULL);
         //fournisseur
         if (Gate::denies('ramassage-commande')) {
@@ -72,16 +70,16 @@ class DashboardController extends Controller
 
             $totalOrdersForPersentage = Commande::where('deleted_at',NULL)->where('user_id', Auth::user()->id)->count();
             $en = Commande::where('deleted_at',NULL)->where('statut','En cours')->where('user_id', Auth::user()->id)->count();
-            $ex = Commande::where('deleted_at',NULL)->where('statut','Reporté')->where('user_id', Auth::user()->id)->count();
+            $ex = Commande::where('deleted_at',NULL)->where('statut','Confirmé sous RDV')->where('user_id', Auth::user()->id)->count();
             $li = Commande::where('deleted_at',NULL)->where('statut','Livré')->where('user_id', Auth::user()->id)->count();
             $re = Commande::where('deleted_at',NULL)
                 ->where(function ($q) {
-                $q->where('statut' , 'refusée')
+                $q->where('statut' , 'Annulée sur place')
                 ->where('user_id', Auth::user()->id)
                 ->where('facturer', '=' , 0);
             })
             ->orWhere(function ($q) {
-                $q->whereIn('statut', ['retour en stock', 'retour', 'Refusée', 'Annulée', 'Injoignable', 'Pas de Réponse'])
+                $q->whereIn('statut', ['retour en stock', 'retour', 'Annulée sur place', 'Annulée', 'Injoignable','Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné', 'Pas de Réponse'])
                 ->where('facturer', '>' , 0)
                 ->where('user_id', Auth::user()->id);
             })
@@ -148,7 +146,7 @@ class DashboardController extends Controller
             $cmdRefuser = DB::table('commandes')->where('deleted_at', NULL)
                 ->where('user_id', Auth::user()->id)
                 ->select(DB::raw('count(numero) as m '))
-                ->whereIn('statut', ['retour en stock', 'retour', 'Refusée', 'Annulée', 'Injoignable', 'Pas de Réponse'])
+                ->whereIn('statut', ['retour en stock', 'retour', 'Annulée sur place', 'Annulée', 'Injoignable','Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné', 'Pas de Réponse'])
                 ->first()->m;
 
             $cmdliv = DB::table('commandes')->where('deleted_at', NULL)
@@ -172,15 +170,15 @@ class DashboardController extends Controller
             ->get();
             $totalOrdersForPersentage = Commande::where('deleted_at',NULL)->count();
             $en = Commande::where('deleted_at',NULL)->where('statut','En cours')->count();
-            $ex = Commande::where('deleted_at',NULL)->where('statut','Reporté')->count();
+            $ex = Commande::where('deleted_at',NULL)->where('statut','Confirmé sous RDV')->count();
             $li = Commande::where('deleted_at',NULL)->where('statut','Livré')->count();
             $re = Commande::where('deleted_at',NULL)
             ->where(function ($q) {
-                $q->where('statut' , 'refusée')
+                $q->where('statut' , 'Annulée sur place')
                     ->where('facturer', '=' , 0);
             })
             ->orWhere(function ($q) {
-                $q->whereIn('statut', ['retour en stock', 'retour', 'Refusée', 'Annulée', 'Injoignable', 'Pas de Réponse'])
+                $q->whereIn('statut', ['retour en stock', 'retour', 'Annulée sur place', 'Annulée', 'Injoignable','Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné', 'Pas de Réponse'])
                 ->where('facturer', '>' , 0)
                 ->where('deleted_at', NULL);
             })
@@ -197,16 +195,16 @@ class DashboardController extends Controller
                 ->select(DB::raw('sum(livreurPart) as m , sum(prix) as p'))
                 ->where('statut', 'Livré');
 
-            //Commandes Refusées
+            //Commandes Annulée sur places
             $commandeRefuser = DB::table('commandes')->where('deleted_at', NULL)
                 ->select(DB::raw('count(numero) as c ,sum(livreurPart) as p'))
 
                 ->where(function ($q) {
-                    $q->where('statut' , 'refusée')
+                    $q->where('statut' , 'Annulée sur place')
                         ->where('facturer', '=' , 0);
                 })
                 ->orWhere(function ($q) {
-                    $q->whereIn('statut', ['retour en stock', 'retour', 'Refusée', 'Annulée', 'Injoignable', 'Pas de Réponse'])
+                    $q->whereIn('statut', ['retour en stock', 'retour', 'Annulée sur place', 'Annulée', 'Injoignable','Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné', 'Pas de Réponse'])
                     ->where('facturer', '>' , 0);
                 })
 
@@ -247,11 +245,11 @@ class DashboardController extends Controller
                 $cmdRefuser = DB::table('commandes')->where('deleted_at', NULL)
                 ->select(DB::raw('count(numero) as m , sum(livreurPart) as p , sum(refusePart) as r'))
                 ->where(function ($q) {
-                    $q->where('statut' , 'refusée')
+                    $q->where('statut' , 'Annulée sur place')
                         ->where('facturer', '=' , 0);
                 })
                 ->orWhere(function ($q) {
-                    $q->whereIn('statut', ['retour en stock', 'retour', 'Refusée', 'Annulée', 'Injoignable', 'Pas de Réponse'])
+                    $q->whereIn('statut', ['retour en stock', 'retour', 'Annulée sur place', 'Annulée', 'Injoignable','Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné', 'Pas de Réponse'])
                     ->where('facturer', '>' , 0)
                     ->where('deleted_at', NULL);
                 })
@@ -269,18 +267,11 @@ class DashboardController extends Controller
                 ->groupBy('user_id')
                 ->orderBy('cmd', 'DESC')
                 ->limit(5)->get();
-
-             $topCmdLivr = DB::table('commandes')
-                ->select(DB::raw('user_id, count(*) as cmd'))
-                ->where('statut', 'livré')
-                ->groupBy('user_id')
-                ->orderBy('cmd', 'DESC')
-                ->limit(5)->get();
-
             foreach ($topCmd as $index => $commande) {
                 if (!empty(User::withTrashed()->find($commande->user_id)))
                     $users[] =  User::withTrashed()->find($commande->user_id);
             }
+
         } //end Admin
 
         //dd($users);
@@ -324,7 +315,7 @@ class DashboardController extends Controller
                     'nbr' => $en,
                     'percentage' => ($totalOrdersForPersentage == 0) ? 0 :  number_format($en*100 /$totalOrdersForPersentage,2,'.','')
                 ),
-                'reporté' => array(
+                'Confirmé sous RDV' => array(
                     'nbr' => $ex,
                     'percentage' => ($totalOrdersForPersentage == 0) ? 0 :  number_format($ex *100 /$totalOrdersForPersentage,2,'.','')
                 ),
@@ -356,20 +347,20 @@ class DashboardController extends Controller
             for ($i = 1; $i <= 12; $i++) {
                 $getCmd = DB::table('commandes')->where('statut', 'livré')->where('deleted_at', NULL)->whereMonth('created_at', ($i))->where('user_id', Auth::user()->id);
                 $chart['livre'][] = $getCmd->sum('montant') - $getCmd->sum('prix');
-                $chart['retour'][] = DB::table('commandes')->whereIn('statut', ['retour en stock', 'retour', 'Refusée', 'Annulée', 'Injoignable', 'Pas de Réponse'])->where('deleted_at', NULL)->whereMonth('created_at', ($i))->where('user_id', Auth::user()->id)->sum('montant');
+                $chart['retour'][] = DB::table('commandes')->whereIn('statut', ['retour en stock', 'retour', 'Annulée sur place', 'Annulée', 'Injoignable','Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné', 'Pas de Réponse'])->where('deleted_at', NULL)->whereMonth('created_at', ($i))->where('user_id', Auth::user()->id)->sum('montant');
 
                 $chart1['livrer'][] = DB::table('commandes')->where('statut', 'livré')->where('deleted_at', NULL)->whereMonth('created_at', ($i))->where('user_id', Auth::user()->id)->count();
-                $chart1['nonLivrer'][] = DB::table('commandes')->whereIn('statut', ['retour en stock', 'retour', 'Refusée', 'Annulée', 'Injoignable', 'Pas de Réponse'])->where('deleted_at', NULL)->whereMonth('created_at', ($i))->where('user_id', Auth::user()->id)->count();
+                $chart1['nonLivrer'][] = DB::table('commandes')->whereIn('statut', ['retour en stock', 'retour', 'Annulée sur place', 'Annulée', 'Injoignable','Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné', 'Pas de Réponse'])->where('deleted_at', NULL)->whereMonth('created_at', ($i))->where('user_id', Auth::user()->id)->count();
 
             }
         } else {
             for ($i = 1; $i <= 12; $i++) {
                 $getCmd = DB::table('commandes')->where('statut', 'livré')->where('deleted_at', NULL)->whereMonth('created_at', ($i));
                 $chart['livre'][] = $getCmd->sum('prix') - $getCmd->sum('livreurPart');
-                $chart['retour'][] = DB::table('commandes')->whereIn('statut', ['retour en stock', 'retour', 'Refusée', 'Annulée', 'Injoignable', 'Pas de Réponse'])->where('deleted_at', NULL)->whereMonth('created_at', ($i))->sum('prix');
+                $chart['retour'][] = DB::table('commandes')->whereIn('statut', ['retour en stock', 'retour', 'Annulée sur place', 'Annulée', 'Injoignable','Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné', 'Pas de Réponse'])->where('deleted_at', NULL)->whereMonth('created_at', ($i))->sum('prix');
 
                 $chart1['livrer'][] = DB::table('commandes')->where('statut', 'livré')->where('deleted_at', NULL)->whereMonth('created_at', ($i))->count();
-                $chart1['nonLivrer'][] = DB::table('commandes')->whereIn('statut', ['retour en stock', 'retour', 'Refusée', 'Annulée', 'Injoignable', 'Pas de Réponse'])->where('deleted_at', NULL)->whereMonth('created_at', ($i))->count();
+                $chart1['nonLivrer'][] = DB::table('commandes')->whereIn('statut', ['retour en stock', 'retour', 'Annulée sur place', 'Annulée', 'Injoignable','Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné', 'Pas de Réponse'])->where('deleted_at', NULL)->whereMonth('created_at', ($i))->count();
 
             }
         }
@@ -397,7 +388,7 @@ class DashboardController extends Controller
             'topCmds' => $topCmd, 'users' => $users,
             'ca' => $ca, 'caFacturer' => $caFacturer, 'caNonfacturer' => $caNonfacturer, 'caPercent' => $caPercent,
             'cmdLivRefuser' => $cmdLivRefuser, 'cmdRefuser' => $cmdRefuser,
-            'todayCmd' => $todayCmd, 'lastdayCmd' => $lastdayCmd ,'topCmdLivr'=>$topCmdLivr,
+            'todayCmd' => $todayCmd, 'lastdayCmd' => $lastdayCmd ,
             'tabTotal' => $tabTotal, 'livrerChart1'=> $livrerChart1, 'nonLivrerChart1' => $nonLivrerChart1, 'chart2' => $chart2
         ]);
     }

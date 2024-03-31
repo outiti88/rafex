@@ -130,11 +130,8 @@
                                     <strong>Produit non-spécifiée</strong>
                                     @endforelse
                                 </td>
-                                <td class="tg-0lax" rowspan="2" style="text-align: center;">Note:</td>
-                            </tr>
-                            <tr class="dotted-top">
-                                <td class="tg-0lax dotted-right" colspan="3">
-                                    Montant:
+                                <td class="tg-0lax" rowspan="2" style="text-align: center;">
+                                    Montant: <br>
                                     <strong>
                                         @if ($commande->montant == 0)
                                         Payé par Carte bancaire
@@ -142,6 +139,11 @@
                                         {{$commande->montant}} DH
                                         @endif
                                     </strong>
+                                </td>
+                            </tr>
+                            <tr class="dotted-top">
+                                <td class="tg-0lax dotted-right" colspan="3">
+                                    Note: <strong>{{$commande->note}}</strong>
                                 </td>
                             </tr>
                             <tr class="dotted-top">

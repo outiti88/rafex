@@ -18,7 +18,7 @@ class CreateReclamationsTable extends Migration
             $table->foreignId('user_id')->constrained(); //Fournisseur
             $table->foreignId('commande_id')->constrained(); //Commande à reclamaer
             $table->text('description');
-            $table->boolean('etat'); //Envoyée ou Traitée
+            $table->boolean('etat'); //Nouvelle commande ou Traitée
             $table->timestamps();
             $table->softDeletes();
         });

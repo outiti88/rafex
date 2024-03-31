@@ -88,9 +88,9 @@
 						<input id="password-confirm" class="form-control" type="password"  name="password_confirmation" required>
                       </div>
                     <div class="form-check form-check-info text-start ps-0">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                       <label class="form-check-label" for="flexCheckDefault">
-                        J'accepte les <a href="javascript:;" class="text-dark font-weight-bolder">Termes & Conditions</a>
+                        J'accepte les <a href="{{ route('terms') }}" class="text-dark font-weight-bolder" target="_blank">Termes & Conditions</a>
                       </label>
                     </div>
                     <div class="text-center">

@@ -93,7 +93,7 @@ class ArchiveController extends Controller
                     $userVilles = array_filter(explode(",", Auth::user()->ville));
 
                     $query->whereIn('commandes.ville', $userVilles)
-                        ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue']);
+                        ->whereNotIn('commandes.statut', ['Nouvelle commande', 'Ramassée', 'Recue']);
                 })->count();
 
             $commandes = DB::table('commandes')
@@ -104,7 +104,7 @@ class ArchiveController extends Controller
                     $userVilles = array_filter(explode(",", Auth::user()->ville));
 
                     $query->whereIn('commandes.ville', $userVilles)
-                        ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue']);
+                        ->whereNotIn('commandes.statut', ['Nouvelle commande', 'Ramassée', 'Recue']);
                 })->orderBy('commandes.updated_at', 'DESC')->paginate(10);
 
             //dd($clients[0]->id);
@@ -186,7 +186,7 @@ class ArchiveController extends Controller
 
             $commandes->where(function ($query)  use ($userVilles) {
                 $query->whereIn('commandes.ville', $userVilles)
-                    ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue']);
+                    ->whereNotIn('commandes.statut', ['Nouvelle commande', 'Ramassée', 'Recue']);
             });
         }
 

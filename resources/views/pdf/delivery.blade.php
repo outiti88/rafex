@@ -164,6 +164,9 @@
                                     <td >
                                         Client
                                     </td>
+                                    <td >
+                                        Téléphone
+                                    </td>
                                     <td>
                                         Ville
                                     </td>
@@ -184,6 +187,9 @@
                                     </td>
                                     <td >
                                         {{$commande->nom}}
+                                    </td>
+                                    <td >
+                                        {{$commande->telephone}}
                                     </td>
                                     <td>
                                         {{$commande->ville}}

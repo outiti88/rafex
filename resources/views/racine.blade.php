@@ -54,6 +54,23 @@
         .fixedHeight{
             height: 50px;
         }
+        .card-input-element {
+        display: none;
+        }
+
+        .card-input {
+            margin: 10px;
+            padding: 0px;
+        }
+
+        .card-input:hover {
+            cursor: pointer;
+        }
+
+        .card-input-element:checked + .card-input {
+            box-shadow: 0 0 1px 1px #2ecc71;
+        }
+
     </style>
     @yield('style')
 
@@ -137,6 +154,18 @@
     <script src="{{ url('/js/custom.js') }}" ></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
+    <script>
+        function handleRoleValidate(){
+            var selectedRole = document.querySelector('input[name="role"]:checked');
+            console.log(selectedRole.value);
+            if (selectedRole) {
+                    var redirectLink = "/user/register/" + selectedRole.value;
+                    window.location.href = redirectLink;
+                } else {
+                    alert('Veuillez sélectionner un rôle.');
+                }
+        }
+    </script>
     @yield('javascript')
 </body>
 

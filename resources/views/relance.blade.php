@@ -206,9 +206,14 @@ Relances
                                                                         <div class="col-sm-12">
                                                                             <select id="etat{{$index}}0" onchange="reporter({{$index}},0)" name="statut" class="form-control form-control-line" value="{{ old('statut',$commande->statut) }}" required>
                                                                                 <option>Relancée</option>
-                                                                                <option>Reporté</option>
+                                                                                <option>Confirmé sous RDV</option>
                                                                                 <option>Injoignable</option>
-                                                                                <option>Refusée</option>
+                                                                                <option>Annulée sur place</option>
+                                                                                <option>Annulée par téléphone</option>
+                                                                                <option>Colis perdu</option>
+                                                                                <option>Colis endommagé</option>
+                                                                                <option>Livré remboursé</option>
+                                                                                <option>Numéro de téléphone erroné</option>
                                                                                 <option>Annulée</option>
 
 
@@ -322,9 +327,14 @@ Relances
                                                                         <div class="col-sm-12">
                                                                             <select id="etat{{$index}}1" onchange="reporter({{$index}},1)" name="statut" class="form-control form-control-line" value="{{ old('statut',$commande->statut) }}" required>
                                                                                 <option>Relancée</option>
-                                                                                <option>Reporté</option>
+                                                                                <option>Confirmé sous RDV</option>
                                                                                 <option>Injoignable</option>
-                                                                                <option>Refusée</option>
+                                                                                <option>Annulée sur place</option>
+                                                                                <option>Annulée par téléphone</option>
+                                                                                <option>Colis perdu</option>
+                                                                                <option>Colis endommagé</option>
+                                                                                <option>Livré remboursé</option>
+                                                                                <option>Numéro de téléphone erroné</option>
                                                                                 <option>Annulée</option>
 
                                                                             </select>
@@ -437,9 +447,14 @@ Relances
                                                                         <div class="col-sm-12">
                                                                             <select id="etat{{$index}}2" onchange="reporter({{$index}},2)" name="statut" class="form-control form-control-line" value="{{ old('statut',$commande->statut) }}" required>
                                                                                 <option>Relancée</option>
-                                                                                <option>Reporté</option>
+                                                                                <option>Confirmé sous RDV</option>
                                                                                 <option>Injoignable</option>
-                                                                                <option>Refusée</option>
+                                                                                <option>Annulée sur place</option>
+                                                                                <option>Annulée par téléphone</option>
+                                                                                <option>Colis perdu</option>
+                                                                                <option>Colis endommagé</option>
+                                                                                <option>Livré remboursé</option>
+                                                                                <option>Numéro de téléphone erroné</option>
                                                                                 <option>Annulée</option>
 
                                                                             </select>
@@ -551,9 +566,14 @@ Relances
                                                                         <div class="col-sm-12">
                                                                             <select id="etat{{$index}}3" onchange="reporter({{$index}},3)" name="statut" class="form-control form-control-line" value="{{ old('statut',$commande->statut) }}" required>
                                                                                 <option>Relancée</option>
-                                                                                <option>Reporté</option>
+                                                                                <option>Confirmé sous RDV</option>
                                                                                 <option>Injoignable</option>
-                                                                                <option>Refusée</option>
+                                                                                <option>Annulée sur place</option>
+                                                                                <option>Annulée par téléphone</option>
+                                                                                <option>Colis perdu</option>
+                                                                                <option>Colis endommagé</option>
+                                                                                <option>Livré remboursé</option>
+                                                                                <option>Numéro de téléphone erroné</option>
                                                                                 <option>Annulée</option>
                                                                             </select>
                                                                         </div>
@@ -620,7 +640,7 @@ Relances
     var xx = document.getElementById("prevu"+index+i);
     var test = document.getElementById("etat"+index+i).value;
     //alert(index+i);
-    if(test=='Reporté'){
+    if(test=='Confirmé sous RDV'){
         xx.style.display = "block";
     }
     else{

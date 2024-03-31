@@ -28,6 +28,7 @@ class Commande extends Model
         'isOpen',
         'is_fragile',
         'isChanged',
+        'note',
     ];
 
     public function user(){
@@ -36,6 +37,10 @@ class Commande extends Model
 
     public function ramassage(){
         return $this->belongsTo('App\Ramassage');
+    }
+
+    public function transfert(){
+        return $this->belongsTo('App\Transfert');
     }
 
     public function relances()

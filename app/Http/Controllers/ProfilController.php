@@ -41,8 +41,7 @@ class ProfilController extends Controller
      */
     public function update(Request $request, User $user)
     {
-       // dd($user);
-      // dd($request);
+
        $user->name=$request->name;
        $user->email=$request->email;
        if ($request->hasfile('image')){
@@ -53,6 +52,10 @@ class ProfilController extends Controller
          $user->image = '/uploads/userImages/'.$filename ;
      }
        $user->telephone=$request->telephone;
+       $user->adresse=$request->adresse;
+       if(Gate::denies('client')){
+            $user->adresse2 = $request->adresse2;
+        }
        $user->adresse=$request->adresse;
        $user->ville=$request->ville;
 

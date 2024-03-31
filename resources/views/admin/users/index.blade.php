@@ -38,7 +38,7 @@
         </div>
         <div class="col-7">
             <div class="text-right upgrade-btn">
-            <a  class="btn btn-danger text-white" href="{{route('register')}}"><i class="fa fa-plus-square"></i> Ajouter</a>
+            <a  class="btn btn-danger text-white" data-toggle="modal" data-target="#addNewUserModal"><i class="fa fa-plus-square"></i> Ajouter</a>
             </div>
         </div>
     </div>
@@ -75,71 +75,63 @@
 
                             <tbody id="myTable">
                                 @foreach ($users as $user)
-                              <tr style="padding: 0; margin:0">
-                                <th  style="padding: 0.5rem; margin:0" scope="row"><a><img src="{{$user->image}}" alt="user" class="rounded-circle
-                                    @if($user->statut)
-                                    vip
-                                @endif
-                                    " width="31"></a></th>
-                                    @can('edit-users')
-                                <td  style="padding: 0.5rem; margin:0; display:flex  ;  width: auto;">
-                                    <a href="{{route('admin.users.edit',$user->id)}}">
-                                       <button style="padding: 0.5rem;" class="btn btn-primary float-lef"><i class="mdi mdi-account-edit"></i></button>
-                                   </a>
-                                <a style="padding: 0.5rem;" class="btn btn-danger text-white m-r-5" data-toggle="modal" data-target="#FormDelete{{$user->id}}"><i class="fas fa-trash-alt"></i></a>
+                                    <tr id="table-row" style="padding: 0; margin:0">
+                                        <th  style="padding: 0.5rem; margin:0" scope="row"><a><img src="{{$user->image}}" alt="user" class="rounded-circle
+                                            @if($user->statut) vip @endif" width="31"></a>
+                                        </th>
+                                        @can('edit-users')
+                                            <td  style="padding: 0.5rem; margin:0; display:flex  ;  width: auto;">
+                                                <a href="{{route('admin.users.edit',$user->id)}}">
+                                                    <button style="padding: 0.5rem;" class="btn btn-primary float-lef"><i class="mdi mdi-account-edit"></i></button>
+                                                </a>
+                                                <a style="padding: 0.5rem;" class="btn btn-danger text-white m-r-5" data-toggle="modal" data-target="#FormDelete{{$user->id}}"><i class="fas fa-trash-alt"></i></a>
 
-                                <div class="modal fade" id="FormDelete{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de vouloir supprimer cet utilisateur ?</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <h5>
-                                                Nom Complet: {{$user->name}}
-                                            </h5>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                                Cliquez sur <b>Ok</b> pour confirmer ou <b>fermer</b> pour annuler la suppression
+                                                <div class="modal fade" id="FormDelete{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de vouloir supprimer cet utilisateur ?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h5>
+                                                                Nom Complet: {{$user->name}}
+                                                            </h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                                Cliquez sur <b>Ok</b> pour confirmer ou <b>fermer</b> pour annuler la suppression
 
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                                </button>
-                                              </div>
-                                          </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 
-                                            <form action="{{route('admin.users.destroy',$user->id)}}" method="POST" class="float-left">
-                                                @csrf
-                                                @method("DELETE")
-                                                <button type="submit" class="btn btn-danger text-white m-r-5">Ok</button>
-                                            </form>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-
-
-                               </td>
-                                @endcan
-                                <td   style="padding: 0.5rem; margin:0">{{$user->name}}</td>
-                                <td  style="padding: 0.5rem; margin:0">{{ implode(', ' , $user->roles()->get()->pluck('name')->toArray() )}}</td>
-                                <td  style="padding: 0.5rem; margin:0">{{$user->created_at}}</td>
-
-                                <td  style="padding: 0.5rem; margin:0">{{$user->email}}</td>
-                                <td  style="padding: 0.5rem; margin:0">{{$user->ville}}</td>
-
-
-                                </tr>
-                              @endforeach
-
+                                                            <form action="{{route('admin.users.destroy',$user->id)}}" method="POST" class="float-left">
+                                                                @csrf
+                                                                @method("DELETE")
+                                                                <button type="submit" class="btn btn-danger text-white m-r-5">Ok</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        @endcan
+                                        <td   style="padding: 0.5rem; margin:0">{{$user->name}}</td>
+                                        <td  style="padding: 0.5rem; margin:0">{{ implode(', ' , $user->roles()->get()->pluck('name')->toArray() )}}</td>
+                                        <td  style="padding: 0.5rem; margin:0">{{$user->created_at}}</td>
+                                        <td  style="padding: 0.5rem; margin:0">{{$user->email}}</td>
+                                        <td  style="padding: 0.5rem; margin:0">{{$user->ville}}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
-                          </table>
+                        </table>
                     </div>
 
                 </div>

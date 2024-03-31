@@ -21,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','description','telephone','adresse','image','ville','statut','rib','prix','storeName','cin'
+        'name', 'email', 'password','description','telephone','adresse','adresse2','image','ville','statut','rib','prix','storeName','cin','ramassage_ville'
     ];
 
     /**
@@ -64,6 +64,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Ramassage');
     }
 
+    public function transferts(){
+        return $this->hasMany('App\Transfert');
+    }
+
     public function produits(){
         return $this->hasMany('App\Produit');
     }
@@ -100,6 +104,11 @@ class User extends Authenticatable
     public function relances()
     {
         return $this->hasMany('App\Relance');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\TicketComment');
     }
 
     public static function boot(){

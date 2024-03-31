@@ -18,6 +18,86 @@
             border-color: #467a0f !important;
             color: #fff !important;
         }
+
+        body {
+  background: whitesmoke;
+  font-family: 'Open Sans', sans-serif;
+}
+    .container-image-profil {
+    max-width: 960px;
+    margin: 30px auto;
+    padding: 20px;
+    }
+    h1 {
+    font-size: 20px;
+    text-align: center;
+    margin: 20px 0 20px;
+    }
+    h1 small {
+    display: block;
+    font-size: 15px;
+    padding-top: 8px;
+    color: gray;
+    }
+    .avatar-upload {
+    position: relative;
+    max-width: 205px;
+    margin: 50px auto;
+    }
+    .avatar-upload .avatar-edit {
+    position: absolute;
+    right: 12px;
+    z-index: 1;
+    top: 10px;
+    }
+    .avatar-upload .avatar-edit input {
+    display: none;
+    }
+    .avatar-upload .avatar-edit input + label {
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #FFFFFF;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.2s ease-in-out;
+    }
+    .avatar-upload .avatar-edit input + label:hover {
+    background: #f1f1f1;
+    border-color: #d6d6d6;
+    }
+    .avatar-upload .avatar-edit input + label:after {
+    color: #757575;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: auto;
+    }
+    .avatar-upload .avatar-preview {
+    width: 192px;
+    height: 192px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+    }
+    .avatar-upload .avatar-preview > div {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    }
+
     </style>
 @endsection
 
@@ -27,9 +107,6 @@
     <div class="row align-items-center">
         <div class="col-5">
             <h4 class="page-title">Gestion des Utilisateurs </h4>
-            @foreach ($userVilles as $index => $userville)
-            {{$userville}}
-            @endforeach
             @foreach ($user->roles()->get()->pluck('name')->toArray() as  $role)
                 {{$role}}
             @endforeach
@@ -52,16 +129,32 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Modifier l'utilisateur: {{ $user->name}}</div>
+
 
                 <div class="card-body">
-                <form method="POST" action="{{route('admin.users.update',$user)}}">
+                <form method="POST" action="{{route('admin.users.update',$user)}}" enctype="multipart/form-data">
                     @csrf
                     @method("PUT")
+                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                        <div class="container-image-profil">
+                            <h1 style="text-align: center">Modifier l'utilisateur: {{ $user->name}} </h1>
+                            <h5 style="text-align: center">Ville : {{ $user->ville}} </h5>
+                            <div class="avatar-upload">
+                                <div class="avatar-edit">
+                                    <input type='file' id="imageUpload" name="image" accept=".png, .jpg, .jpeg" />
+                                    <label for="imageUpload"><i class="fas fa-edit"></i></label>
+                                </div>
+                                <div class="avatar-preview">
+                                    <div id="imagePreview" style="background-image: url('{{$user->image}}');">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group row">
-                        <label for="name" class="col-md-2 col-form-label text-md-right">Nom & Prénom: </label>
+                        <label for="name" class="col-md-3 col-form-label text-md-right">Nom & Prénom: </label>
 
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required  autofocus>
 
                             @error('name')
@@ -71,22 +164,24 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 col-form-label text-md-right">Nom du store</label>
-                        <div class="col-md-10">
-                            <input name="storeName" type="text" value="{{$user->storeName}}" class="form-control form-control-line" required>
+                    @if (in_array("ecom",$user->roles()->get()->pluck('name')->toArray()) || in_array("client",$user->roles()->get()->pluck('name')->toArray()))
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label text-md-right">Nom du store</label>
+                            <div class="col-md-9">
+                                <input name="storeName" type="text" value="{{$user->storeName}}" class="form-control form-control-line" required>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="form-group row">
-                        <label class="col-md-2 col-form-label text-md-right">N° CIN</label>
-                        <div class="col-md-10">
+                        <label class="col-md-3 col-form-label text-md-right">N° CIN</label>
+                        <div class="col-md-9">
                             <input name="cin" type="text" value="{{$user->cin}}" class="form-control form-control-line" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="email" class="col-md-2 col-form-label text-md-right">Email: </label>
+                        <label for="email" class="col-md-3 col-form-label text-md-right">Email: </label>
 
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required>
 
                             @error('email')
@@ -96,69 +191,10 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 col-form-label text-md-right">Url de l'image</label>
-                        <div class="col-md-10">
-                            <input name="image" type="text" value="{{$user->image}}"class="form-control form-control-line">
-                        </div>
-                    </div>
-
-                    @if (in_array("livreur",$user->roles()->get()->pluck('name')->toArray()))
-                    <div id="education_fields">
-
-                    </div>
-
-                    @foreach ($userVilles as $index => $userville)
-                <div class="form-group row removeclass{{$index.$userville}}">
-                        <label class="col-md-2 col-form-label text-md-right">Ville</label>
-                        <div class="col-md-8">
-                            <select name="ville[]" class="form-control form-control-line"  onchange="myFunction()" required>
-                                <option checked value="{{$userville}}"> {{$userville}}</option>
-                                @foreach ($villes as $ville)
-                                <option value="{{$ville->name}}" class="rounded-circle">
-                                    {{$ville->name}}
-                                </option>
-                                @endforeach
-
-                            </select>
-                        </div>
-                        <div class="input-group-btn col-md-1">
-                            <button class="btn btn-success " type="button"  onclick="education_fields();"> <span class="mdi mdi-library-plus" aria-hidden="true"></span> </button>
-                          </div>
-                          <div class="input-group-btn col-md-1">
-                          <button class="btn btn-danger" type="button" onclick="remove_education_fields('{{$index.$userville}}');">
-                                <span class="mdi mdi-close-box" aria-hidden="true"></span>
-                            </button>
-                        </div>
-
-
-                    </div>
-                    @endforeach
-
-                    <div class="form-group row"  style="display: none">
-                        <div  id="test">
-                            <label class="col-md-2 col-form-label text-md-right">Ville</label>
-                        <div class="col-md-8">
-                            <select name="ville[]" class="form-control form-control-line"  onchange="myFunction()">
-                                <option checked value="">Ajouter une ville</option>
-                                @foreach ($villes as $ville)
-                                <option value="{{$ville->name}}" class="rounded-circle">
-                                    {{$ville->name}}
-                                </option>
-                                @endforeach
-
-                            </select>
-                        </div>
-                        </div>
-                        <div class="input-group-btn col-md-1">
-                            <button class="btn btn-success " type="button"> <span class="mdi mdi-library-plus" aria-hidden="true"></span> </button>
-                          </div>
-                        </div>
-                    @else
                     <div class="form-group row" >
-                            <label class="col-md-2 col-form-label text-md-right">Ville</label>
-                        <div class="col-md-10">
-                            <select name="ville[]" class="form-control form-control-line"  onchange="myFunction()">
+                        <label class="col-md-3 col-form-label text-md-right">Ville</label>
+                        <div class="col-md-9">
+                            <select name="ville" class="form-control form-control-line">
                             <option checked value="{{$user->ville}}">{{$user->ville}}</option>
                                 @foreach ($villes as $ville)
                                 <option value="{{$ville->name}}" class="rounded-circle">
@@ -168,89 +204,44 @@
 
                             </select>
                         </div>
-
-                        </div>
-                    @endif
+                    </div>
 
 
                     <div class="form-group row">
-                        <label class="col-md-2 col-form-label text-md-right">Téléphone</label>
-                        <div class="col-md-10">
+                        <label class="col-md-3 col-form-label text-md-right">Téléphone</label>
+                        <div class="col-md-9">
                             <input name="telephone" type="text" value="{{$user->telephone}}"class="form-control form-control-line">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2 col-form-label text-md-right">N° Registre de Commerce</label>
-                        <div class="col-md-10">
+                        <label class="col-md-3 col-form-label text-md-right">N° Registre de Commerce</label>
+                        <div class="col-md-9">
                             <input name="description" type="text" value="{{$user->description}}"class="form-control form-control-line">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2 col-form-label text-md-right">RIB</label>
-                        <div class="col-md-10">
+                        <label class="col-md-3 col-form-label text-md-right">RIB</label>
+                        <div class="col-md-9">
                             <input name="rib" type="text" value="{{$user->rib}}"class="form-control form-control-line">
                         </div>
                     </div>
+                    @if (in_array("client",$user->roles()->get()->pluck('name')->toArray()))
+                        <div class="form-group row">
+                            <label for="adresse" class="col-md-3 col-form-label text-md-right">{{ __('Adresse de ramassage 1') }}</label>
 
-
-
-                    <div class="form-group row">
-                        <label for="roles" class="col-md-12 col-form-label text-center font-bold font-16">Rôles Rafex : </label>
-                        <label for="roles" class="col-md-2 col-form-label text-md-right">Rôle : </label>
-                        <div class="col-md-10 d-flex p-t-10 justify-content-around">
-                            <div class="form-check">
-                                <input type="radio" name="roles[]" value="1" id="admin" @if(implode($user->roles()->get()->pluck('name')->toarray()) == "admin") checked @endif>
-                                <label for="admin">Admin</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" name="roles[]" value="3" id="Livreur" @if(implode($user->roles()->get()->pluck('name')->toarray()) == "livreur") checked @endif >
-                                <label for="Livreur">Livreur</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" name="roles[]" value="4" id="Personnel" @if(implode($user->roles()->get()->pluck('name')->toarray()) == "personnel") checked @endif>
-                                <label for="Personnel">Personnel</label>
+                            <div class="col-md-9">
+                                <textarea name="adresse" id="adresse" cols="100" rows="5" required>{{$user->adresse}}</textarea >
                             </div>
                         </div>
-                        <label for="roles" class="col-md-12 col-form-label text-center font-bold font-16">Utilisateur Client : </label>
-                        <label for="roles" class="col-md-2 col-form-label text-md-right">Service : </label>
-                        <div class="col-md-10 d-flex p-t-10 justify-content-around">
-                            <div class="form-check">
-                                <input type="radio" name="roles[]" value="6" id="nv" @if(implode($user->roles()->get()->pluck('name')->toarray()) == "nouveau") checked @endif>
-                                <label for="nv">Nouveau</label>
+
+                        <div class="form-group row">
+                            <label for="adresse2" class="col-md-3 col-form-label text-md-right">{{ __('Adresse de ramassage 2') }}</label>
+
+                            <div class="col-md-9">
+                                <textarea name="adresse2" id="adresse2" cols="100" rows="5" required>{{$user->adresse2}}</textarea >
                             </div>
-                        <div class="form-check">
-                            <input type="radio" name="roles[]" value="2" id="cl" @if(implode($user->roles()->get()->pluck('name')->toarray()) == "client") checked @endif>
-                            <label for="cl">Collecte, Livraison</label>
                         </div>
-                        <div class="form-check">
-                            <input type="radio" name="roles[]" value="5" id="cls" @if(implode($user->roles()->get()->pluck('name')->toarray()) == "ecom") checked @endif>
-                            <label for="cls">Collecte, Stockage, Livraison</label>
-                        </div>
-
-
-                        </div>
-
-
-                            <label for="type" class="col-md-2 col-form-label text-md-right">Statut : </label>
-                            <div class="col-md-10 d-flex p-t-10 justify-content-around">
-                            <div class="form-check">
-                                <input type="radio" name="statut" value="0" id="Premium" @if( !$user->statut) checked @endif>
-                                <label for="Premium">Premium</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" name="statut" value="1" id="VIP" @if($user->statut) checked @endif>
-                                <label for="VIP">VIP</label>
-                            </div>
-
-                            </div>
-
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-2 col-form-label text-md-right">Prix de livraison</label>
-                        <div class="col-md-10">
-                            <input name="prix" type="number" value="{{$user->prix}}"class="form-control form-control-line">
-                        </div>
-                    </div>
+                    @endif
                     <button type="submit" class="btn btn-primary">Modifier</button>
                 </form>
 
@@ -271,6 +262,23 @@
 
 @section('javascript')
 
+<script>
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+            $('#imagePreview').hide();
+            $('#imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+    $("#imageUpload").change(function() {
+        readURL(this);
+    });
+</script>
+
     @if ($errors->any())
         <script type="text/javascript">
             $(window).on('load',function(){
@@ -278,23 +286,4 @@
             });
         </script>
     @endif
-    <script>
-        var room = 1;
-        function education_fields() {
-
-            room++;
-            var objTo = document.getElementById('education_fields')
-            var divtest = document.createElement("div");
-            divtest.setAttribute("class", "row mb-2 removeclass"+room);
-            var rdiv = 'removeclass'+room;
-
-            divtest.innerHTML  = $("#test").html() + '<div class="input-group-btn col-md-1"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="mdi mdi-close-box" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
-
-            objTo.appendChild(divtest)
-        }
-        function remove_education_fields(rid) {
-            $('.removeclass'+rid).remove();
-        }
-
-    </script>
 @endsection

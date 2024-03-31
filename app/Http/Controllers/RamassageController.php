@@ -44,7 +44,7 @@ class RamassageController extends Controller
         $commandes = [];
         $data = [];
 
-        if (!Gate::denies('ramassage-commande')) {
+        if (!Gate::denies('manage-users')) {
             //session administrateur donc on affiche tous les commandes
             $total = DB::table('ramassages')->count();
             $ramassages = DB::table('ramassages')->orderBy('created_at', 'DESC')->paginate(10);
@@ -52,10 +52,28 @@ class RamassageController extends Controller
                 if (!empty(User::withTrashed()->find($ramassage->user_id)))
                     $users[] =  User::withTrashed()->find($ramassage->user_id);
             }
-        } else {
+        }
+        else if (!Gate::denies('superviseur')) {
+            //session administrateur donc on affiche tous les commandes
+            $total = DB::table('ramassages')->count();
+            $ramassages = DB::table('ramassages')->where('city', Auth::user()->ville)->orderBy('created_at', 'DESC')->paginate(10);
+            foreach ($ramassages as $ramassage) {
+                if (!empty(User::withTrashed()->find($ramassage->user_id)))
+                    $users[] =  User::withTrashed()->find($ramassage->user_id);
+            }
+        }
+        else if(!Gate::denies('client')) {
             $ramassages = DB::table('ramassages')->where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(10);
             $total = DB::table('ramassages')->where('user_id', Auth::user()->id)->count();
-            $commandes = Commande::where('commandes.deleted_at', NULL)->where('user_id', Auth::user()->id)->where('statut','envoyée')->get();
+            $commandes = Commande::where('commandes.deleted_at', NULL)->where('user_id', Auth::user()->id)->where('statut','Nouvelle commande')->get();
+            }
+        else if(!Gate::denies('livreur')) {
+            $ramassages = DB::table('ramassages')->where('livreurId', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(10);
+            $total = DB::table('ramassages')->where('livreurId', Auth::user()->id)->count();
+            foreach ($ramassages as $ramassage) {
+                if (!empty(User::withTrashed()->find($ramassage->user_id)))
+                    $users[] =  User::withTrashed()->find($ramassage->user_id);
+            }
         }
 
         return view('ramassage.index', [
@@ -86,23 +104,24 @@ class RamassageController extends Controller
 
         $ramassage = new Ramassage();
         $commandesArray = explode(',', $request->commandes);
+
+        $commandes = Commande::whereIn('numero',$commandesArray)->get();
+        if($commandes == null || count($commandes) == 0){
+            return back()->with('erreur', 'Veuillez préciser les commandes à ramasser');
+        }
+
         $ramassage->description = $request->description == null ? '' : $request->description;
         $ramassage->phone = $request->phone;
-        $ramassage->statut = 'En attente';
-        $ramassage->city = $request->city;
+        $ramassage->statut = 'En attente de ramassage';
+        $ramassage->statusUpdatedBy = Auth::user()->id;
+        $ramassage->city = Auth::user()->ville;
         $ramassage->adress = $request->adress;
         $ramassage->number = count($commandesArray);
-
-        $livreurForCmd = User::where('ville', 'like',  '%' . $request->city . ',%')->whereHas('roles', function ($q) {
-            $q->whereIn('name', ['livreur']);
-        })->first();
-
-        $ramassage->livreurId = $livreurForCmd == null ? 1 : $livreurForCmd->id;
         $ramassage->prevu_at = $request->prevu_at;
         $ramassage->reference = bin2hex(substr($currentDayName, -strlen($currentDayName), 3)) . date("mdis");
         $ramassage->user()->associate($fournisseur)->save();
 
-        $commandes = Commande::whereIn('numero',$commandesArray)->get();
+
         foreach ($commandes as $commande) {
             $commande->statut = 'En attente de ramassage';
             $commande->ramassage_id	= $ramassage->id;
@@ -125,6 +144,15 @@ class RamassageController extends Controller
 
     }
 
+    public function affecterLivreur(Request $request, $id)
+    {
+        $ramassage = Ramassage::findOrFail($id);
+        $ramassage->livreurId = $request->livreurId;
+        $ramassage->save();
+
+        return back();
+    }
+
     /**
      * Display the specified resource.
      *
@@ -133,6 +161,9 @@ class RamassageController extends Controller
      */
     public function show(Ramassage $ramassage)
     {
+        $livreurs = User::whereHas('roles', function ($q) {
+            $q->whereIn('name', ['livreur']);
+        })->where('ville', Auth::user()->ville)->get();
 
         $nouveau =  User::whereHas('roles', function ($q) {
             $q->whereIn('name', ['nouveau']);
@@ -141,6 +172,7 @@ class RamassageController extends Controller
         return view('ramassage.show', [
             'nouveau' => $nouveau, 'ramassage' => $ramassage,
             'commandes' => $ramassage->commandes()->get(),
+            'livreurs' => $livreurs
         ]);
     }
 
@@ -163,26 +195,39 @@ class RamassageController extends Controller
 
     public function editStatus(Request $request, Ramassage $ramassage){
         $isUpdate = false;
-        if (!Gate::denies('ramassage-commande')) {
-            if ($ramassage->statut == 'En attente') {
+        if (!Gate::denies('admin-superviseur-livreur')) {
+            if ($ramassage->statut == 'En attente de ramassage') {
                 $ramassage->statut = "Ramassé par le livreur";
                 $isUpdate = true;
                 $request->session()->flash('ramassage-validated', $ramassage->reference);
             }
-            else if($ramassage->statut == 'Ramassé par le livreur' && !Gate::denies('manage-users')){
-                $ramassage->statut = "Reçue";
+            else if($ramassage->statut == 'Ramassé par le livreur' && !Gate::denies('admin-superviseur')){
+                $ramassage->statut = "Ramassage Reçu";
                 $isUpdate = true;
                 $request->session()->flash('ramassage-validated', $ramassage->reference);
             }
-            else if($ramassage->statut == 'Reçue' || Gate::denies('manage-users')){
+            else if($ramassage->statut == 'Ramassage Reçu' || Gate::denies('admin-superviseur')){
                 $request->session()->flash('ramassage-already-validated', $ramassage->reference);
             }
 
             if($isUpdate == true){
+                $ramassage->statusUpdatedBy = Auth::user()->id;
                 $ramassage->save();
                 $commandes = Commande::where('ramassage_id', $ramassage->id)->get();
                 foreach ($commandes as $commande) {
-                    $commande->statut = $ramassage->statut;
+                    if($ramassage->statut == 'Ramassé par le livreur'){
+                        $commande->statut = 'Ramassé par le livreur';
+                    }else{
+                        if($commande->ville == $ramassage->city){
+                            $commande->statut = 'Prêt à livrer';
+                        }
+                        else if($ramassage->city == 'Casablanca' && $commande->ville != 'Casablanca'){
+                            $commande->statut = 'Reçue dans le HUB central';
+                        }
+                        else if($ramassage->city != 'Casablanca'){
+                            $commande->statut = 'Reçue dans le HUB régional';
+                        }
+                    }
                     $commande->ramassage_id	= $ramassage->id;
                     $commande->save();
 
@@ -220,7 +265,21 @@ class RamassageController extends Controller
             $ramassages->where('city', $request->city);
         }
 
-        if (!Gate::denies('ramassage-commande')) {
+        else if (!Gate::denies('superviseur')) {
+            if ($request->filled('client')) {
+                $ramassages->where('user_id', $request->client);
+            }
+            $ramassages->where('city', Auth::user()->ville);
+            $total = $ramassages->count();
+
+            $ramassages = $ramassages->paginate(10);
+            foreach ($ramassages as $reception) {
+                if (!empty(User::withTrashed()->find($reception->user_id)))
+                    $users[] =  User::withTrashed()->find($reception->user_id);
+            }
+        }
+
+        else if (!Gate::denies('ramassage-commande')) {
             if ($request->filled('client')) {
                 $ramassages->where('user_id', $request->client);
             }
@@ -233,7 +292,7 @@ class RamassageController extends Controller
             }
         } else {
             $ramassages = $ramassages->where('user_id', Auth::user()->id)->paginate(10);
-            $commandes = Commande::where('commandes.deleted_at', NULL)->where('user_id', Auth::user()->id)->where('statut','envoyée')->get();
+            $commandes = Commande::where('commandes.deleted_at', NULL)->where('user_id', Auth::user()->id)->where('statut','Nouvelle commande')->get();
             $total = DB::table('ramassages')->where('user_id', Auth::user()->id)->count();
         }
 
@@ -316,7 +375,7 @@ class RamassageController extends Controller
     {
         $pdf = App::make('dompdf.wrapper');
         $queryCommandes = Commande::where('deleted_at', NULL)->where('livreur', Auth::user()->id)
-        ->whereIn('commandes.statut', ['en cours','Modifiée','Reporté','Relancée'])
+        ->whereIn('commandes.statut', ['en cours','Modifiée','Confirmé sous RDV','Relancée'])
         ->orderBy('updated_at', 'DESC');
 
         $commandes = $queryCommandes->get();

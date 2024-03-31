@@ -9,7 +9,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Role;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RegisterController extends Controller
 {
@@ -48,7 +50,6 @@ class RegisterController extends Controller
 
     }
 
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -71,14 +72,25 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(array $data, $request)
     {
-
         if(empty($data['image'])) $data['image']="https://tracking.Rafex.ma/assets/images/favicon.png";
+        if ($request->hasfile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename = time() . '.' . $extension ;
+            $file->move('uploads/userImages/',$filename);
+            $data['image'] = '/uploads/userImages/'.$filename ;
+        }
+
             if(empty($data['description'])) $data['description']=" ";
             if(empty($data['adresse'])) $data['adresse']=" ";
+            if(empty($data['adresse2'])) $data['adresse2']=" ";
             if(empty($data['ville'])) $data['ville']="Rabat";
             if(empty($data['rib'])) $data['rib']=" ";
+            if(empty($data['storeName'])) $data['storeName']=" ";
+            if(empty($data['cin'])) $data['cin']=" ";
+            if(empty($data['ramassage_ville'])) $data['ramassage_ville']=" ";
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -86,22 +98,30 @@ class RegisterController extends Controller
             'description'=>$data['description'],
             'telephone'=>$data['telephone'],
             'adresse'=>$data['adresse'],
+            'adresse2'=>$data['adresse2'],
             'ville'=>$data['ville'],
             'image'=>$data['image'],
             'rib'=>$data['rib'],
             'storeName'=>$data['storeName'],
             'cin'=>$data['cin'],
+            'ramassage_ville'=>$data['ville']
 
         ]);
 
+        if (!Gate::denies('edit-users')) {
+            if(empty($data['roles'])){
+                $role = Role::select('id')->where('name','nouveau')->first();
+                $user->roles()->attach($role);
+            }
+            else {
+                $user->roles()->sync($data['roles']);
+            }
+        }
+        else{
+            $role = Role::select('id')->where('name','nouveau')->first();
+            $user->roles()->attach($role);
+        }
 
-        if(empty($data['roles'])){
-        $role = Role::select('id')->where('name','nouveau')->first();
-        $user->roles()->attach($role);
-        }
-        else {
-            $user->roles()->sync($data['roles']);
-        }
         return $user;
     }
 
@@ -109,5 +129,17 @@ class RegisterController extends Controller
         $villes = DB::table('villes')->orderBy('name')->get();
 
         return view('auth.nouveau' , ['villes' => $villes]);
+    }
+
+    protected function new($roleOfUser){
+        $villes = DB::table('villes')->orderBy('name')->get();
+        $nouveau =  0;
+        $allRoles = array('admin','personnel','superviseur','stock','ramassage','livreur');
+        if (in_array($roleOfUser, $allRoles) && !Gate::denies('edit-users')){
+            return view('auth.register' , ['roleOfUser' => $roleOfUser,'villes' => $villes, 'nouveau' => $nouveau]);
+        }
+        else{
+            throw new NotFoundHttpException('Page Not Found');
+        }
     }
 }

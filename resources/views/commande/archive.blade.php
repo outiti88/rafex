@@ -2,7 +2,7 @@
 @extends('racine')
 
 @section('title')
-   Gestion des Colis
+Archive des Commandes
 @endsection
 
 
@@ -150,7 +150,7 @@
         <div class="alert alert-dismissible alert-danger col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Attention !</strong>Commande déjà traitée  {{session()->get('nonExpidie')}} <br>
-                vous pouvez modifier que les statuts des commandes qui ont le statut <b>envoyée</b>
+                vous pouvez modifier que les statuts des commandes qui ont le statut <b>Nouvelle commande</b>
         </div>
         @endif
         @if (session()->has('blgenere'))
@@ -170,7 +170,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Les Commandes Archivées</h4>
+                    <h4 class="card-title">Archive des Commandes</h4>
                     <h6 class="card-subtitle">Nombre total des commandes archivées : <code>{{$total}} Commandes</code> .</h6>
                     <input class="form-control" id="myInput" type="text" placeholder="Rechercher...">
                 </div>
@@ -258,14 +258,14 @@
                                 <a  style="color: white"
                                     class="badge badge-pill
                                     @switch($commande->statut)
-                                    @case("envoyée")
+                                    @case("Nouvelle commande")
                                     badge-warning"
                                     @can('ramassage-commande')
                                     title="Rammaser la commande"
                                      href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
                                     @endcan
                                         @break
-                                    @case("Reporté")
+                                    @case("Confirmé sous RDV")
                                       orangeBadge"
                                     @break
                                     @case("Pas de Réponse")
@@ -296,14 +296,14 @@
                                          href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
                                         @endcan
                                     @break
-                                    @case("Reçue")
+                                    @case("Prêt à livrer")
                                     badge-dark"
                                     @can('ramassage-commande')
                                     title="Envoyer la commande"
                                      href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
                                     @endcan
                                 @break
-                                    @case("Expédiée")
+                                    @case("Affectée au livreur")
                                         badge-primary"
                                         @can('ramassage-commande')
                                         title="Valider la commande"
@@ -329,7 +329,7 @@
                                      <span style="font-size: 1.25em">{{$commande->statut}}</span>
                                 </a>
                                 <br>
-                                @if ($commande->statut == "Reporté" || $commande->statut == "Relancée")
+                                @if ($commande->statut == "Confirmé sous RDV" || $commande->statut == "Relancée")
                                     Pour le: <br>{{$commande->postponed_at}}
                                 @else
                                 ({{\Carbon\Carbon::parse($commande->updated_at)->diffForHumans()}})

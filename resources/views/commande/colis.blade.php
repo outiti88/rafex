@@ -202,7 +202,7 @@
         @if (session()->has('search'))
         <div class="alert alert-dismissible alert-warning col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Aucun résultat trouvé !</strong> Il n'existe aucun numero de commande et aucun statut avec : {{session()->get('search')}}  </a>.
+        <strong>Aucun résultat trouvé !</strong> Il n'existe aucune commande avec le numéro: {{session()->get('search')}}  </a>.
           </div>
         @endif
         @if (session()->has('statut'))
@@ -261,7 +261,7 @@
         <div class="alert alert-dismissible alert-danger col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Attention !</strong>Commande déjà traitée  {{session()->get('nonExpidie')}} <br>
-                vous pouvez modifier que les statuts des commandes qui ont le statut <b>envoyée</b>
+                vous pouvez modifier que les statuts des commandes qui ont le statut <b>Nouvelle commande</b>
         </div>
         @endif
         @if (session()->has('blgenere'))
@@ -284,6 +284,12 @@
         <strong>Succès !</strong> Les commandes ont été bien ajoutées.
           </div>
         @endif
+        @if (session()->has('editBatchRequiredField'))
+            <div class="alert alert-dismissible alert-danger col-12">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{session()->get('editBatchRequiredField')}}
+            </div>
+        @endif
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -298,22 +304,24 @@
                     <div class="row" style="display: flex;align-items: center;align-content: stretch;flex-wrap: wrap;justify-content: space-evenly">
 
                         @cannot('livreur')
-                            <a onmouseover="showStatusQte('envoyee')"  onmouseleave="showStatus('envoyee')"  href="/commandes/filter?statut=envoyée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-warning">
-                                <span id="envoyee">Envoyée</span>
+                            @cannot('superviseur')
+                            <a onmouseover="showStatusQte('envoyee')"  onmouseleave="showStatus('envoyee')"  href="/commandes/filter?statut=Nouvelle commande" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-warning">
+                                <span id="envoyee">Nouvelle commande</span>
                                 <span id="envoyeeQte" style="display:none;" >
-                                    @if (array_key_exists("envoyée",$statutStat))
-                                        {{$statutStat['envoyée']}}
+                                    @if (array_key_exists("Nouvelle commande",$statutStat))
+                                        {{$statutStat['Nouvelle commande']}}
                                     @else
                                         0
                                     @endif
                                     Commandes
                                 </span>
                             </a>
-                            <a onmouseover="showStatusQte('Recue')" onmouseleave="showStatus('Recue')" href="/commandes/filter?statut=Reçue" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-secondary">
-                                <span id="Recue">Reçue</span>
+                            @endcannot
+                            <a onmouseover="showStatusQte('Recue')" onmouseleave="showStatus('Recue')" href="/commandes/filter?statut=Prêt à livrer" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-secondary">
+                                <span id="Recue">Prêt à livrer</span>
                                 <span id="RecueQte" style="display:none;" >
-                                    @if (array_key_exists("Reçue",$statutStat))
-                                        {{$statutStat['Reçue']}}
+                                    @if (array_key_exists("Prêt à livrer",$statutStat))
+                                        {{$statutStat['Prêt à livrer']}}
                                     @else
                                         0
                                     @endif
@@ -339,11 +347,11 @@
 
 
 
-                        <a onmouseover="showStatusQte('Expidiee')" onmouseleave="showStatus('Expidiee')" href="/commandes/filter?statut=Expédiée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-primary">
-                            <span id="Expidiee">Expediée</span>
+                        <a onmouseover="showStatusQte('Expidiee')" onmouseleave="showStatus('Expidiee')" href="/commandes/filter?statut=Affectée au livreur" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-primary">
+                            <span id="Expidiee">Affectée au livreur</span>
                             <span id="ExpidieeQte" style="display:none;" >
-                                @if (array_key_exists("Expédiée",$statutStat))
-                                    {{$statutStat['Expédiée']}}
+                                @if (array_key_exists("Affectée au livreur",$statutStat))
+                                    {{$statutStat['Affectée au livreur']}}
                                 @else
                                     0
                                 @endif
@@ -373,11 +381,11 @@
                             </span>
                         </a>
 
-                        <a onmouseover="showStatusQte('Reporte')" onmouseleave="showStatus('Reporte')" href="/commandes/filter?statut=Reporté" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge orangeBadge">
-                            <span id="Reporte">Reportée</span>
+                        <a onmouseover="showStatusQte('Reporte')" onmouseleave="showStatus('Reporte')" href="/commandes/filter?statut=Confirmé sous RDV" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge orangeBadge">
+                            <span id="Reporte">Confirmé sous RDV</span>
                             <span id="ReporteQte" style="display:none;" >
-                                @if (array_key_exists("Reporté",$statutStat))
-                                    {{$statutStat['Reporté']}}
+                                @if (array_key_exists("Confirmé sous RDV",$statutStat))
+                                    {{$statutStat['Confirmé sous RDV']}}
                                 @else
                                     0
                                 @endif
@@ -446,24 +454,25 @@
                 </div>
                 <div class="collapse show" id="mycard-action">
                   <div class="card-body">
-                        @can('manage-users')
+                        @can('admin-superviseur-personnel')
                             @if (request()->get('statut') != null)
-                                @if (request()->get('statut') == 'envoyée')
-                                    <button style="margin: 15px;"  onclick="recevoir()" class="btn btn-rafex text-white"><i class="fas fa-check-circle"></i> Recevoir</button>
+                                @if (request()->get('statut') == 'Nouvelle commande')
+                                    <button style="margin: 15px;"  onclick="recevoir()" class="btn btn-rafex text-white action" disabled><i class="fas fa-check-circle"></i> Recevoir</button>
                                 @endif
-                                @if (request()->get('statut') == 'Reçue')
-                                    <button style="margin: 15px;" style="margin:15px" onclick="expedier()" class="btn btn-rafex text-white"><i class="fas fa-truck"></i> Expédier</button>
+                                @if (request()->get('statut') == 'Prêt à livrer')
+                                    <button style="margin: 15px;" style="margin:15px" data-toggle="modal" data-target="#modalaffectedToLivreur"  class="btn btn-rafex text-white action" disabled><i class="fas fa-truck"></i> Affecter au livreur</button>
+                                    <button style="margin: 15px;" style="margin:15px" data-toggle="modal" data-target="#modalaffectedToLivreurByScann"  class="btn btn-rafex text-white" ><i class="fas fa-solid fa-qrcode"></i> Affecter au livreur par douchette</button>
                                 @endif
-                                <a style="margin:15px" data-toggle="modal" data-target="#modalQuickStatusChange"  class="btn btn-rafex text-white"><i class="fas fa-edit"></i> Changer le statut</a>
+                                <button style="margin:15px" data-toggle="modal" data-target="#modalQuickStatusChange"  class="btn btn-rafex text-white action" disabled><i class="fas fa-edit"></i> Changer le statut</button>
                             @endif
                         @endcan
                             @if (request()->get('livreur') != null)
                         @can('manage-users')
-                            <button  style="margin:15px" onclick="submitForm1()" class="btn btn-rafex"><i class="mdi mdi-note-text"></i> Bon de Commande</button>
+                            <button  style="margin:15px" onclick="submitForm1()" class="btn btn-rafex action" disabled><i class="mdi mdi-note-text"></i> Bon de Commande</button>
                         @endcan
                             @endif
 
-                        <button style="margin:15px"  onclick="submitForm2()" class="btn btn-rafex text-white"><i class="fas fa-print"></i> Ticket de Commande</button>
+                        <button style="margin:15px"  onclick="submitForm2()" class="btn btn-rafex text-white action" disabled><i class="fas fa-print"></i> Ticket de Commande</button>
                   </div>
                 </div>
               </div>
@@ -483,6 +492,8 @@
 
                         @csrf
                         <input type="hidden" name="livreur" value="{{ request()->get('livreur') }}">
+                        <textarea name="orderNumbersToAffect" id="hiddenValues" style="display: none"></textarea>
+                        <input type="hidden" id="livreurInputFormTosend" name="livreurInputFormTosend" value="{{ request()->get('livreurInputFormTosend') }}">
                         <input type="hidden" name="oldStatut" value="{{ request()->get('statut') }}">
                         <input type="hidden" id="newStatut" name="newStatut" value="">
                     <table id="table"
@@ -592,15 +603,16 @@
                                         <td>
                                             <a  style="color: white; cursor:pointer"
                                                 @switch($commande->statut)
-                                                    @case("envoyée")
+                                                    @case("Nouvelle commande")
                                                     class="badge badge-pill badge-warning"
                                                         @can('ramassage-commande')
                                                             title="Rammaser la commande"
                                                             href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
                                                         @endcan
                                                     @break
-                                                    @case("Reporté") class="badge badge-pill orangeBadge" @break
+                                                    @case("Confirmé sous RDV") class="badge badge-pill orangeBadge" @break
                                                     @case("En attente de ramassage") class="badge badge-pill badge-warning" @break
+                                                    @case("Ramassé par le livreur") class="badge badge-pill cielBadge" @break
                                                     @case("Pas de Réponse") class="badge badge-pill violetBadge" @break
                                                     @case("Modifiée") class="badge badge-pill cielBadge" @break
                                                     @case("Relancée") class="badge badge-pill relanceBadge" @break
@@ -612,14 +624,10 @@
                                                             href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
                                                         @endcan
                                                     @break
-                                                    @case("Reçue")
+                                                    @case("Prêt à livrer")
                                                         class="badge badge-pill badge-dark"
-                                                        @can('ramassage-commande')
-                                                            title="Envoyer la commande"
-                                                            href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
-                                                        @endcan
                                                     @break
-                                                    @case("Expédiée")
+                                                    @case("Affectée au livreur")
                                                         class="badge badge-pill badge-primary"
                                                         @can('ramassage-commande')
                                                             title="Valider la commande"
@@ -629,20 +637,26 @@
                                                     @case("Livré") class="badge badge-pill badge-success" @break
                                                     @default class="badge badge-pill badge-danger"
                                                 @endswitch
-                                                @can('livreur')
-                                                    @if (( $commande->statut === "Pas de Réponse" || $commande->statut === "Livré" || $commande->statut === "Injoignable" || $commande->statut === "En cours" || $commande->statut === "Refusée" || $commande->statut === "Modifiée" || $commande->statut === "Annulée" || $commande->statut === "Relancée" || $commande->statut === "Reporté" ) && $commande->facturer == 0 )
+                                                @can('livreur-superviseur')
+                                                    @if (( $commande->statut === "Pas de Réponse" || $commande->statut === "Livré" || $commande->statut === "Injoignable" || $commande->statut === "En cours"
+                                                    || $commande->statut === "Annulée sur place" || $commande->statut === "Modifiée" || $commande->statut === "Annulée" || $commande->statut === "Relancée"
+                                                    || $commande->statut === "Confirmé sous RDV" || in_array($commande->statut, array('Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné')) )
+                                                        && $commande->facturer == 0 )
                                                         data-toggle="modal" data-target="#modalSubscriptionFormStatut{{$commande->id}}"
                                                     @endif
                                                 @endcan
                                                 @can('manage-users')
-                                                    @if (( $commande->statut === "Pas de Réponse" || $commande->statut === "Livré" || $commande->statut === "Injoignable" || $commande->statut === "En cours" || $commande->statut === "Refusée" || $commande->statut === "Modifiée" || $commande->statut === "Annulée" || $commande->statut === "Relancée" || $commande->statut === "Reporté" ) && $commande->facturer == 0 )
+                                                    @if (( $commande->statut === "Pas de Réponse" || $commande->statut === "Livré" || $commande->statut === "Injoignable" || $commande->statut === "En cours"
+                                                    || $commande->statut === "Annulée sur place" || $commande->statut === "Modifiée" || $commande->statut === "Annulée" || $commande->statut === "Relancée"
+                                                    || $commande->statut === "Confirmé sous RDV" || in_array($commande->statut, array('Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné')) )
+                                                     && $commande->facturer == 0 )
                                                     data-toggle="modal" data-target="#modalSubscriptionFormStatut{{$commande->id}}"
                                                     @endif
                                                 @endcan >
                                                     <span style="font-size: 1.25em">{{$commande->statut}}</span>
                                             </a>
                                             <br>
-                                            @if ($commande->statut == "Reporté")
+                                            @if ($commande->statut == "Confirmé sous RDV")
                                                 Pour le: <br>{{$commande->postponed_at}}
                                             @else
                                             ({{\Carbon\Carbon::parse($commande->updated_at)->diffForHumans()}})
@@ -674,12 +688,17 @@
                                                                                     <option>Livré</option>
                                                                                     <option>Injoignable</option>
                                                                                     <option>Pas de Réponse</option>
-                                                                                    <option>Refusée</option>
+                                                                                    <option>Annulée sur place</option>
+                                                                                    <option>Annulée par téléphone</option>
+                                                                                    <option>Colis perdu</option>
+                                                                                    <option>Colis endommagé</option>
+                                                                                    <option>Livré remboursé</option>
+                                                                                    <option>Numéro de téléphone erroné</option>
                                                                                     @cannot('livreur')
                                                                                     <option>Relancée</option>
                                                                                     <option>Retour</option>
                                                                                     @endcannot
-                                                                                    <option>Reporté</option>
+                                                                                    <option>Confirmé sous RDV</option>
                                                                                     <option>Annulée</option>
                                                                                 </select>
                                                                             </div>
@@ -797,17 +816,22 @@
                             <div class="col-sm-12">
                                 <select id="statutQuick"   class="form-control form-control-line" >
                                     @can('manage-users')
-                                    <option>envoyée</option>
+                                    <option>Nouvelle commande</option>
                                     <option>Ramassée</option>
-                                    <option>Reçue</option>
-                                    <option>Expédiée</option>
+                                    <option>Prêt à livrer</option>
+                                    <option>Affectée au livreur</option>
                                     <option>En cours</option>
                                     <option>Relancée</option>
                                     @endcan
                                     <option>Livré</option>
                                     <option>Injoignable</option>
                                     <option>Pas de Réponse</option>
-                                    <option>Refusée</option>
+                                    <option>Annulée sur place</option>
+                                    <option>Annulée par téléphone</option>
+                                    <option>Colis perdu</option>
+                                    <option>Colis endommagé</option>
+                                    <option>Livré remboursé</option>
+                                    <option>Numéro de téléphone erroné</option>
                                     @cannot('livreur')
                                     <option>Retour</option>
                                     @endcannot
@@ -818,6 +842,116 @@
                         <div class="form-group">
                             <div class="modal-footer d-flex justify-content-center">
                                 <a class="btn btn-rafex" style="color:white" onclick="submitForm3()">Enregistrer</a>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-4">
+    <div class="modal fade" id="modalaffectedToLivreur" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Affecter les commandes au livreur</h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="form-group row">
+                        <label for="livreurInputFormModal" class="col-sm-4">Livreur :</label>
+                        <div class="col-sm-8">
+                            <select name="livreur" id="livreurInputFormModal" class="form-control form-control-line" value="{{ old('livreur') }}">
+                                <option value=""  selected >Choisissez le livreur</option>
+                                @can('admin-personnel')
+                                    @foreach (App\User::whereHas('roles', function ($q) {
+                                        $q->whereIn('name', ['livreur']);
+                                    })->get()  as $livreur)
+                                        <option value="{{$livreur->id}}" class="rounded-circle">
+                                            {{$livreur->name}} => ({{count(App\Commande::where('livreur',$livreur->id)->get())}} Commandes)
+                                        </option>
+                                    @endforeach
+                                @endcan
+                                @can('superviseur')
+                                    @foreach (App\User::where('ville',Auth::user()->ville)->whereHas('roles', function ($q) {
+                                        $q->whereIn('name', ['livreur']);
+                                    })->get()  as $livreur)
+                                        <option value="{{$livreur->id}}" class="rounded-circle">
+                                            {{$livreur->name}} => ({{count(App\Commande::where('livreur',$livreur->id)->get())}} Commandes)
+                                        </option>
+                                    @endforeach
+                                @endcan
+                            </select>
+
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <div class="modal-footer d-flex justify-content-center">
+                                <a class="btn btn-rafex" style="color:white" onclick="expedier()">Enregistrer</a>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-4">
+    <div class="modal fade" id="modalaffectedToLivreurByScann" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Affecter les commandes au livreur</h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="row">
+                        <div id="valuesContainer"></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="commandeNumbers" class="col-sm-4">Commandes :</label>
+                        <div class="col-sm-8">
+                            <input class="form-control form-control-line" type="text" name="commandeNumbers" id="commandeNumbers" placeholder="Scanner le QR code de la commade" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="livreurInputFormModal2" class="col-sm-4">Livreur :</label>
+                        <div class="col-sm-8">
+                            <select name="livreur" id="livreurInputFormModal2" class="form-control form-control-line" value="{{ old('livreur') }}">
+                                <option value=""  selected >Choisissez le livreur</option>
+                                @can('admin-personnel')
+                                    @foreach (App\User::whereHas('roles', function ($q) {
+                                        $q->whereIn('name', ['livreur']);
+                                    })->get()  as $livreur)
+                                        <option value="{{$livreur->id}}" class="rounded-circle">
+                                            {{$livreur->name}} => ({{count(App\Commande::where('livreur',$livreur->id)->get())}} Commandes)
+                                        </option>
+                                    @endforeach
+                                @endcan
+                                @can('superviseur')
+                                    @foreach (App\User::where('ville',Auth::user()->ville)->whereHas('roles', function ($q) {
+                                        $q->whereIn('name', ['livreur']);
+                                    })->get()  as $livreur)
+                                        <option value="{{$livreur->id}}" class="rounded-circle">
+                                            {{$livreur->name}} => ({{count(App\Commande::where('livreur',$livreur->id)->get())}} Commandes)
+                                        </option>
+                                    @endforeach
+                                @endcan
+                            </select>
+
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <div class="modal-footer d-flex justify-content-center">
+                                <a class="btn btn-rafex" style="color:white" onclick="affecterAuLivreur()">Enregistrer</a>
                             </div>
                         </div>
                 </div>
@@ -932,21 +1066,29 @@
                                             <option selected>{{request()->get('statut')}}</option>
                                             @endif
                                             @cannot('livreur')
-                                                <option>envoyée</option>
-                                                <option>Ramassée</option>
-                                                <option>Reçue</option>
+                                                @cannot('superviseur')
+                                                <option>Nouvelle commande</option>
+                                                @endcannot
+                                                <option>En attente de ramassage</option>
+                                                <option>Ramassé par le livreur</option>
+                                                <option>Prêt à livrer</option>
                                             @endcannot
-                                            <option>Expédiée</option>
+                                            <option>Affectée au livreur</option>
                                             <option>en cours</option>
                                             <option>Relancée</option>
                                             <option>Modifiée</option>
                                             <option>Livré</option>
                                             <option>Pas de Réponse</option>
                                             <option>Injoignable</option>
-                                            <option>Refusée</option>
+                                            <option>Annulée sur place</option>
+                                            <option>Annulée par téléphone</option>
+                                            <option>Colis perdu</option>
+                                            <option>Colis endommagé</option>
+                                            <option>Livré remboursé</option>
+                                            <option>Numéro de téléphone erroné</option>
                                             <option>Annulée</option>
                                             <option>Retour</option>
-                                            <option>Reporté</option>
+                                            <option>Confirmé sous RDV</option>
                                         </select>
                                     </div>
                                 </div>
@@ -963,27 +1105,28 @@
                                     </div>
                                   </div>
                                   @cannot('livreur')
+                                     @cannot('superviseur')
+                                     <div class="form-group row">
+                                       <label class="col-sm-4">Ville :</label>
+                                       <div class="col-sm-8">
+                                           <select name="ville" class="form-control form-control-line">
+                                               <option selected value="">Choisissez la ville</option>
 
-                                  <div class="form-group row">
-                                    <label class="col-sm-4">Ville :</label>
-                                    <div class="col-sm-8">
-                                        <select name="ville" class="form-control form-control-line">
-                                            <option selected value="">Choisissez la ville</option>
+                                               @if(request()->get('ville') != null )
+                                               <option selected value="{{request()->get('ville')}}" class="rounded-circle">
+                                                   {{request()->get('ville')}}
+                                               </option>
+                                               @endif
 
-                                            @if(request()->get('ville') != null )
-                                            <option selected value="{{request()->get('ville')}}" class="rounded-circle">
-                                                {{request()->get('ville')}}
-                                            </option>
-                                            @endif
-
-                                            @foreach ($villes as $ville)
-                                            <option value="{{$ville->name}}" class="rounded-circle">
-                                                {{$ville->name}}
-                                            </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+                                               @foreach ($villes as $ville)
+                                               <option value="{{$ville->name}}" class="rounded-circle">
+                                                   {{$ville->name}}
+                                               </option>
+                                               @endforeach
+                                           </select>
+                                       </div>
+                                   </div>
+                                    @endcannot
                                 @endcannot
                                 <div class="form-group row">
                                     <label for="example-date-min" class="col-3 col-form-label">Montant Min</label>
@@ -1144,8 +1287,13 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
+                                    <label class="col-md-12">Note / Commentaire :</label>
+                                    <div class="col-md-12">
+                                        <textarea  name="note" rows="5" class="form-control form-control-line" required>{{ old('note') }}</textarea>
+                                    </div>
+                                </div>
+                               <div class="form-group">
                                     <div class="modal-footer d-flex justify-content-center">
                                         <button class="btn btn-rafex">Ajouter</button>
 
@@ -1254,6 +1402,12 @@
 
                                         <option value="">Tous les secteurs</option>
                                      </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Note / Commentaire :</label>
+                                    <div class="col-md-12">
+                                        <textarea  name="note" rows="5" class="form-control form-control-line" required>{{ old('note') }}</textarea>
                                     </div>
                                 </div>
                                 <div class="custom-control custom-control-alternative custom-checkbox" style="margin-bottom: 10px;">
@@ -1425,7 +1579,12 @@
                                       </select>
                                   </div>
                               </div>
-
+                              <div class="form-group">
+                                <label class="col-md-12">Note / Commentaire :</label>
+                                <div class="col-md-12">
+                                    <textarea  name="note" rows="5" class="form-control form-control-line" required>{{ old('note') }}</textarea>
+                                </div>
+                            </div>
                               <div class="custom-control custom-control-alternative custom-checkbox">
                                 <input class="custom-control-input" id="customCheckRegister" type="checkbox" name="isOpen" value="1">
                                 <label class="custom-control-label" for="customCheckRegister">
@@ -1549,6 +1708,93 @@ function showStatus(id){
     el2.style.display = "none";
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    var textarea = document.getElementById('commandeNumbers');
+    var valuesContainer = document.getElementById('valuesContainer');
+    var hiddenTextarea = document.getElementById('hiddenValues');
+    var addedValues = []; // Tableau pour stocker les valeurs déjà ajoutées
+
+    function processValue(value) {
+        // Vérifier si la valeur existe déjà dans le tableau
+        if (!addedValues.includes(value)) {
+            // Créer un élément de badge HTML avec la valeur
+            var badge = document.createElement('span');
+            badge.classList.add('badge', 'bg-primary');
+            badge.style = 'background-color: #467a0f !important;margin: 5px;color: white;padding: 5px !important;cursor:pointer '
+            badge.textContent = value;
+
+            // Ajouter le badge au conteneur de valeurs
+            valuesContainer.appendChild(badge);
+
+            // Ajouter la valeur au tableau des valeurs ajoutées
+            addedValues.push(value);
+
+            // Ajouter la valeur au textarea caché
+            if (hiddenTextarea.value === '') {
+                hiddenTextarea.value = value;
+            } else {
+                hiddenTextarea.value += ',' + value;
+            }
+        }
+    }
+
+    function clearTextarea() {
+        // Supprimer la valeur du textarea visible
+        textarea.value = '';
+    }
+
+    textarea.addEventListener('paste', function(event) {
+        // Empêcher le comportement par défaut de collage
+        event.preventDefault();
+
+        // Récupérer le texte collé
+        var pastedText = (event.clipboardData || window.clipboardData).getData('text');
+
+        // Traiter le texte collé
+        processValue(pastedText);
+
+        // Nettoyer le textarea visible
+        clearTextarea();
+    });
+
+    textarea.addEventListener('keydown', function(event) {
+        // Si la touche Entrée est pressée
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Empêcher le comportement par défaut
+
+            var enteredText = textarea.value.trim(); // Récupérer le texte entré
+
+            // Si du texte est entré
+            if (enteredText !== '') {
+                // Traiter le texte entré
+                processValue(enteredText);
+
+                // Nettoyer le textarea visible
+                clearTextarea();
+            }
+        }
+    });
+
+    // Ajouter un écouteur d'événement aux badges pour supprimer le badge et la valeur correspondante
+    valuesContainer.addEventListener('click', function(event) {
+        if (event.target.classList.contains('badge')) {
+            var badge = event.target;
+            var badgeText = badge.textContent;
+
+            // Supprimer le badge du conteneur de valeurs
+            valuesContainer.removeChild(badge);
+
+            // Supprimer la valeur correspondante du tableau des valeurs ajoutées
+            addedValues = addedValues.filter(function(value) {
+                return value !== badgeText;
+            });
+
+            // Mettre à jour le textarea caché
+            hiddenTextarea.value = addedValues.join(',');
+        }
+    });
+});
+
 function fournisseurSelected() {
     var x = document.getElementById("mySelect").value;
     var y = document.querySelectorAll(".product");
@@ -1606,8 +1852,20 @@ function recevoir() {
 }
 
 function expedier() {
+    let livreurInputFormTosend = document.getElementById('livreurInputFormTosend');
+    let livreurInputFormModal = document.getElementById('livreurInputFormModal');
+    livreurInputFormTosend.value = livreurInputFormModal.value;
     let form = document.getElementById('commandes-form');
     form.action = "{{route('commande.expedier')}}";
+    form.submit();
+}
+
+function affecterAuLivreur() {
+    let livreurInputFormTosend = document.getElementById('livreurInputFormTosend');
+    let livreurInputFormModal = document.getElementById('livreurInputFormModal2');
+    livreurInputFormTosend.value = livreurInputFormModal.value;
+    let form = document.getElementById('commandes-form');
+    form.action = "{{route('commande.affecterAuLivreur')}}";
     form.submit();
 }
 
@@ -1647,7 +1905,7 @@ function changeStatus(id) {
 
         var test = document.getElementById("etat"+id).value;
         //alert(test);
-        if(test=='Reporté'){
+        if(test=='Confirmé sous RDV'){
             xx.style.display = "block";
         }
         else{
@@ -1683,6 +1941,7 @@ function changeStatus(id) {
             $("input.select-item").each(function (index,item) {
                 item.checked = checked;
             });
+            checkSelected();
         });
 
         //button select invert
@@ -1703,7 +1962,6 @@ function changeStatus(id) {
                 alert("no selected items!!!");
             }else {
                 var values = items.join(',');
-                console.log(values);
                 var html = $("<div></div>");
                 html.html("selected:"+values);
                 html.appendTo("body");
@@ -1716,12 +1974,12 @@ function changeStatus(id) {
             $("input.select-item").each(function (index,item) {
                 item.checked = checked;
             });
+            checkSelected();
         });
 
         //check selected items
         $("input.select-item").click(function () {
             var checked = this.checked;
-            console.log(checked);
             checkSelected();
         });
 
@@ -1730,9 +1988,17 @@ function changeStatus(id) {
             var all = $("input.select-all")[0];
             var total = $("input.select-item").length;
             var len = $("input.select-item:checked:checked").length;
-            console.log("total:"+total);
-            console.log("len:"+len);
             all.checked = len===total;
+            enableActions(len);
+        }
+        function enableActions(len) {
+            // Select all buttons with the class "action"
+            let buttons = document.querySelectorAll('.action');
+
+            // Loop through each button and enable it
+            buttons.forEach(function(button) {
+                button.disabled = (len === 0);
+            });
         }
     });
 </script>

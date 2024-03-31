@@ -135,15 +135,15 @@ class FactureController extends Controller
             } else {
                 $facture = new Facture();
                 $facture->numero = 'FAC_' . date("mdis");
-                $facture->colis = DB::table('commandes')->where('user_id', $user)->whereIn('statut', ['Refusée'])->where('facturer', '0')->sum('colis');
+                $facture->colis = DB::table('commandes')->where('user_id', $user)->whereIn('statut', ['Annulée sur place'])->where('facturer', '0')->sum('colis');
                 $facture->livre = $nbrCmdLivre;
-                $fprixRefuser = DB::table('commandes')->where('user_id', $user)->where('statut', 'Refusée')->where('facturer', '0')->sum('refusePart');
+                $fprixRefuser = DB::table('commandes')->where('user_id', $user)->where('statut', 'Annulée sur place')->where('facturer', '0')->sum('refusePart');
                 $facture->prix = DB::table('commandes')->where('user_id', $user)->where('statut', 'Livré')->where('facturer', '0')->sum('prix') + $fprixRefuser; //prix des commandes livrées
 
                 $facture->montant = DB::table('commandes')->where('user_id', $user)->where('statut', 'Livré')->where('facturer', '0')->sum('montant');
-                $facture->commande = DB::table('commandes')->where('user_id', $user)->whereIn('statut', ['Refusée'])->where('facturer', '0')->count(); //nbr de commanddes non livrée
+                $facture->commande = DB::table('commandes')->where('user_id', $user)->whereIn('statut', ['Annulée sur place'])->where('facturer', '0')->count(); //nbr de commanddes non livrée
                 $facture->user()->associate($user)->save();
-                $affected = DB::table('commandes')->where('user_id', $user)->whereIn('statut', ['Livré', 'Refusée'])->where('facturer', '=', '0')->update(array('facturer' => $facture->id));
+                $affected = DB::table('commandes')->where('user_id', $user)->whereIn('statut', ['Livré', 'Annulée sur place'])->where('facturer', '=', '0')->update(array('facturer' => $facture->id));
 
                 $request->session()->flash('ajoute');
             }
@@ -158,7 +158,7 @@ class FactureController extends Controller
         $user = DB::table('users')->find($facture->user_id);
         $livraisonNonPaye = 0;
         $prixLivrer = DB::table('commandes')->where('user_id', $user->id)->where('facturer', $facture->id)->where('statut', 'livré')->sum('prix');
-        $prixRefuser =  DB::table('commandes')->where('user_id', $user->id)->where('facturer', $facture->id)->whereIn('statut', ['Retour en stock','Retour','Refusée'])->sum('refusePart');
+        $prixRefuser =  DB::table('commandes')->where('user_id', $user->id)->where('facturer', $facture->id)->whereIn('statut', ['Retour en stock','Retour','Annulée sur place'])->sum('refusePart');
 
         $commandes = DB::table('commandes')->where('user_id', $facture->user_id)->where('facturer', $facture->id)->get();
 
@@ -282,7 +282,7 @@ class FactureController extends Controller
                 ->select('statut', DB::raw('count(*) as total'))
                 ->where('deleted_at', NULL)
                 ->where('livreur', Auth::user()->id)
-                ->whereNotIn('commandes.statut', ['envoyée', 'Ramassée', 'Recue'])
+                ->whereNotIn('commandes.statut', ['Nouvelle commande', 'Ramassée', 'Recue'])
                 ->groupBy('statut')
                 ->get();
         }else{

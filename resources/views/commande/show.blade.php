@@ -139,9 +139,9 @@ N: {{$commande->numero}}
         <div class="col-6">
             <div class="row float-right">
                 @can('fournisseur')
-                <a  class="btn btn-warning text-white m-r-5" data-toggle="modal" data-target="#modalReclamation"><i class="fab fa-buffer"></i> <span class="quick-action">Réclamer </span></a>
+                <a  class="btn btn-warning text-white m-r-5" data-toggle="modal" data-target="#modalReclamation"><i class="fab fa-buffer"></i> <span class="quick-action">Ouvrir un ticket </span></a>
 
-                @if($commande->statut === "Pas de Réponse" || $commande->statut === "Annulée" ||  $commande->statut === "Injoignable")
+                @if($commande->statut === "Pas de Réponse" || $commande->statut === "Annulée" ||  $commande->statut === "Injoignable" || in_array($commande->statut, array('Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné')) )
                 <a  class="btn btn-success text-white m-r-5" data-toggle="modal" data-target="#modalRelance"><i class="fas fa-random"></i> <span class="quick-action">Relancer </span></a>
                 @endif
                 <div class="modal fade" id="modalRelance" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -182,7 +182,7 @@ N: {{$commande->numero}}
                 <div class="modal fade" id="modalReclamation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
-                        <form  method="POST" action="{{route('reclamation.store')}}">
+                        <form  method="POST" action="{{route('reclamation.store')}}"  enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="commande" value="{{ $commande->id }}"/>
 
@@ -191,7 +191,7 @@ N: {{$commande->numero}}
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
-                        <h3 style="text-align:center; position: relative;top: -30px;" class="modal-title" id="exampleModalLabel">Soumettre une nouvelle réclamation.</h3>
+                        <h3 style="text-align:center; position: relative;top: -30px;" class="modal-title" id="exampleModalLabel">OUVRIR UN TICKET</h3>
 
                         <div class="modal-body" style="padding-bottom: 0;padding-top:0; text-align:center">
                             <h5>
@@ -204,19 +204,105 @@ N: {{$commande->numero}}
                         </div>
                         <div class="modal-body">
                             <div class="form-group row">
-                                <label for="objet" class="col-sm-12">Objet de la Réclamation</label>
+                                <label for="objet" class="col-sm-12">Objet du ticket</label>
                                 <div class="col-sm-12">
-                                   <input type="text" name="objet" value="{{ old('objet') }}" id="objet" class="form-control" required/>
+                                    <select onchange="updatedForm(event)" name="objet" id="objet" class="form-control form-control-line" value="{{ old('objet') }}" required>
+                                        <option value="Livraison"  selected >Livraison</option>
+                                        <option value="Retour"  >Retour</option>
+                                        <option value="Retour de fond"  >Retour de fond</option>
+                                        <option value="Modification de colis">Modification de colis</option>
+                                        <option value="Réclamation"  >Réclamation</option>
+                                        <option value="Autres"  >Autres</option>
+                                    </select>
+
                                 </div>
                             </div>
+
+                                <div class="update-form" id="updatedForm" style="border-style: solid;margin: 14px; padding: 31px; display:none;">
+                                    <div class="form-group">
+                                        <label class="col-md-12">Nom et Prénom du destinataire :</label>
+                                        <div class="col-md-12">
+                                            <input  value="{{ $commande->nom }}" name="nom" type="text" placeholder="Nom & Prénom" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+
+                                          <fieldset class="form-group">
+                                              <legend class="col-form-label  pt-0">Mode de paiement :</legend>
+                                              <div class="col-sm-12" style="display: flex;">
+                                                <div class="form-check">
+                                                  <input  onclick="myFunctionEdit3(this.value)" class="form-check-input" type="radio" name="mode" id="cd" value="cd" @if ($commande->montant != 0) checked   @endif>
+                                                  <label class="form-check-label" for="cd">
+                                                    à la livraison
+                                                  </label>
+                                                </div>
+                                                <div class="form-check">
+                                                  <input  onclick="myFunctionEdit3(this.value)" class="form-check-input" type="radio" name="mode" id="cp" value="cp" @if ($commande->montant == 0) checked   @endif >
+                                                  <label class="form-check-label" for="cp">
+                                                    carte bancaire
+                                                  </label>
+                                                </div>
+
+                                              </div>
+                                          </fieldset>
+
+                                        <div class="form-group col-md-12" id="montant3" @if ($commande->montant != 0) style="display: block" @else style="display: none" @endif>
+                                            <label for="example-email" class="col-md-12">Montant (DH) :</label>
+                                            <div class="col-md-12">
+                                                <input  value="{{ $commande->montant}}" type="text" class="form-control form-control-line" name="montant" id="example-email">
+                                            </div>
+                                        </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-12">Téléphone :</label>
+                                        <div class="col-md-12">
+                                            <input value="{{$commande->telephone}}"  name="telephone" type="text" placeholder="+212 5393-07566" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Adresse :</label>
+                                        <div class="col-md-12">
+                                            <textarea  name="adresse" rows="5" class="form-control form-control-line">{{ $commande->adresse}}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-12">Note / Commentaire :</label>
+                                        <div class="col-md-12">
+                                            <textarea  name="note" rows="5" class="form-control form-control-line">{{ $commande->note}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="custom-control custom-control-alternative custom-checkbox" style="margin-bottom: 10px;">
+                                        <input class="custom-control-input" id="customCheckisFragile" type="checkbox" name="isFragile" value="1" @if ($commande->is_fragile)  checked @endif>
+                                        <label class="custom-control-label" for="customCheckisFragile">
+                                          <span >Le produit de votre commande est-il fragile ?</span>
+                                        </label>
+                                    </div>
+                                    <div class="custom-control custom-control-alternative custom-checkbox">
+                                        <input class="custom-control-input" id="customCheckRegister" type="checkbox" name="isOpen" value="1" @if ($commande->isOpen)checked @endif>
+                                        <label class="custom-control-label" for="customCheckRegister">
+                                          <span >Acceptez-vous que le colis puisse être ouvert par le client final ?</span>
+                                        </label>
+                                      </div>
+                                </div>
+
                             <div class="form-group row">
-                                <label for="Reclamation" class="col-sm-12">Réclamation :</label>
+                                <label for="Reclamation" class="col-sm-12">Commentaire :</label>
                                 <div class="col-sm-12">
                                    <textarea name="description" rows="8" id="Reclamation" class="form-control" required>
                                     {{ old('description') }}
                                    </textarea>
 
                                 </div>
+                            </div>
+                            <div class="form-group" style="margin-top: 20px;">
+                                <div class="custom-file" style="display: flex; justify-content: center;">
+                                    <input type="file" accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none">
+                                    <label class="alert alert-dismissible alert-success" style="margin: 0;padding: 12px 20px;" for="file" style="cursor: pointer;">Upload Image</label>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: flex; justify-content: center;">
+                                <img id="output" width="200" />
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -231,7 +317,9 @@ N: {{$commande->numero}}
 
 
                     @can('livreur')
-                    @if (( $commande->statut === "Pas de Réponse" || $commande->statut === "Livré" || $commande->statut === "Injoignable" || $commande->statut === "En cours" || $commande->statut === "Refusée" || $commande->statut === "Modifiée" || $commande->statut === "Annulée" || $commande->statut === "Relancée" || $commande->statut === "Reporté" ))
+                    @if (( $commande->statut === "Pas de Réponse" || $commande->statut === "Livré" || $commande->statut === "Injoignable" || $commande->statut === "En cours" || $commande->statut === "Annulée sur place"
+                            || $commande->statut === "Modifiée" || $commande->statut === "Annulée" || $commande->statut === "Relancée" || $commande->statut === "Confirmé sous RDV"
+                            || in_array($commande->statut, array('Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné')) ))
                     <a  class="btn btn-warning text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormStatut"><i class="fas fa-edit"></i><span class="quick-action">Statut </span></a>
                     @endif
                     @endcan
@@ -239,66 +327,65 @@ N: {{$commande->numero}}
                         @if ( $commande->statut !== "Retour en stock")
                         <a  class="btn btn-warning text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormStatut"><i class="fas fa-edit"></i><span class="quick-action">Statut</span></a>
                         @endif
-                        <a  class="btn btn-dark text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormLivreur"><i class="fas fa-user"></i> <span class="quick-action"> Affecter</span></a>
-
-                        <div class="modal fade" id="modalSubscriptionFormLivreur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <form  method="POST" action="{{route('commande.livreur',['id' => $commande->id])}}">
-                                    @csrf
-                                    @method('PATCH')
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Choisissez le livreur au quel vous voulez affecter cette commande ?</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                    <h5>
-                                        Commande numéro: {{$commande->numero}}
-                                    </h5>
-                                    <h5>
-                                        Nom de livreur: {{$livreur->name}}
-                                    </h5>
-                                    <div class="form-group row">
-                                        <label for="livreur" class="col-sm-4">Livreur :</label>
-                                        <div class="col-sm-8">
-                                            <select name="livreur" id="livreur" class="form-control form-control-line" value="{{ old('livreur') }}">
-                                                <option value=""  selected >Choisissez le livreur</option>
-                                                <option selected value="{{$livreur->id}}" class="rounded-circle">
-                                                    {{$livreur->name}} => ({{count(App\Commande::where('livreur',$livreur->id)->get())}} Commandes)
-                                                </option>
-                                                @foreach ($livreurs as $livreur)
-                                                    <option value="{{$livreur->id}}" class="rounded-circle">
-                                                        {{$livreur->name}} => ({{count(App\Commande::where('livreur',$livreur->id)->get())}} Commandes)
-                                                    </option>
-                                                @endforeach
-                                            </select>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-body">
-
-                                  </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-primary text-white m-r-5">Affecter</button>
-                                </div>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
                     @endcan
 
+                    @can('admin-superviseur-personnel')
+                    <a  class="btn btn-dark text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormLivreur"><i class="fas fa-user"></i> <span class="quick-action"> Affecter</span></a>
 
+                    <div class="modal fade" id="modalSubscriptionFormLivreur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <form  method="POST" action="{{route('commande.livreur',['id' => $commande->id])}}">
+                                @csrf
+                                @method('PATCH')
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Choisissez le livreur au quel vous voulez affecter cette commande ?</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <h5>
+                                    Commande numéro: {{$commande->numero}}
+                                </h5>
+                                <h5>
+                                    Nom de livreur: {{$livreur->name}}
+                                </h5>
+                                <div class="form-group row">
+                                    <label for="livreur" class="col-sm-4">Livreur :</label>
+                                    <div class="col-sm-8">
+                                        <select name="livreur" id="livreur" class="form-control form-control-line" value="{{ old('livreur') }}">
+                                            <option value=""  selected >Choisissez le livreur</option>
+                                            <option selected value="{{$livreur->id}}" class="rounded-circle">
+                                                {{$livreur->name}} => ({{count(App\Commande::where('livreur',$livreur->id)->get())}} Commandes)
+                                            </option>
+                                            @foreach ($livreurs as $livreur)
+                                                <option value="{{$livreur->id}}" class="rounded-circle">
+                                                    {{$livreur->name}} => ({{count(App\Commande::where('livreur',$livreur->id)->get())}} Commandes)
+                                                </option>
+                                            @endforeach
+                                        </select>
 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body">
 
+                              </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                <button type="submit" class="btn btn-primary text-white m-r-5">Affecter</button>
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                    </div>
+                    @endcan
 
                     @can('delete-commande')
-                    @if ($commande->statut === "envoyée" || $modify === 1 || $commande->statut === "Refusée" || $commande->statut === "Injoignable" || $commande->statut === "Annulée" || $commande->statut === "Pas de Réponse"  )
+                    @if ($commande->statut === "Nouvelle commande" || $commande->statut === "En attente de ramassage")
                     <a  class="btn btn-primary text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormEdit"><i class="fas fa-edit"></i><span class="quick-action"> Modifier</span></a>
-                        @if ($commande->statut === "envoyée" )
+                        @if ($commande->statut === "Nouvelle commande" )
                         <a class="btn btn-secondary text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormDelete"><i class="fas fa-trash-alt"></i><span class="quick-action"> Supprimer</span></a>
 
                                     <div class="modal fade" id="modalSubscriptionFormDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -351,62 +438,9 @@ N: {{$commande->numero}}
     <div class="container emp-profile">
 
         <div class="row">
-            @if (session()->has('cmdRefuser'))
-            <div class="alert alert-dismissible alert-danger col-12">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                Vous ne pouvez pas changer le statut en  <b>"Retour en stock"</b>
-                <br>
-            <strong> Car: Le statut de la commande numéro {{$commande->numero}} est Refusée et elle n'est pas encore facturée !</strong>
-              </div>
-              @endif
-            @if (session()->has('statut'))
-            <div class="alert alert-dismissible alert-success col-12">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Succés !</strong> La commande a été bien Modifiée </a>.
-              </div>
-            @endif
+            {{-- @include('partiels._sessions') --}}
 
-            @if (session()->has('edit'))
-        <div class="alert alert-dismissible alert-info col-12">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Succés !</strong> Le statut de la commande numéro {{session()->get('edit')}} a été bien edité !
-          </div>
-        @endif
-        @if (session()->has('noedit'))
-        <div class="alert alert-dismissible alert-danger col-12">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Attention !</strong> Vous ne pouvez pas changer le statut de La commande numéro {{session()->get('noedit')}}
-          </div>
-        @endif
-        @if (session()->has('nodelete'))
-        <div class="alert alert-dismissible alert-danger col-12">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Attention !</strong>vous ne pouvez pas supprimer La commande numéro {{session()->get('nodelete')}}
-          </div>
-        @endif
-        @if (session()->has('noupdate'))
-        <div class="alert alert-dismissible alert-danger col-12">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Attention !</strong>vous ne pouvez pas modifier La commande numéro {{session()->get('noupdate')}} <br>
-                vous pouvez modifier que les commandes qui ont le statut <b>Envoyées ou pas livrées</b>
-        </div>
-        @endif
-        @if (session()->has('no-edit-invoiced'))
-        <div class="alert alert-dismissible alert-danger col-12">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Attention !</strong>vous ne pouvez pas modifier le statut de la commande numéro {{session()->get('no-edit-invoiced')}} <br>
-                vous ne pouvez pas modifier les commandes qui ont été <b>facturées</b>
-        </div>
-        @endif
-        @if (session()->has('nonEncours'))
-        <div class="alert alert-dismissible alert-danger col-12">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Attention !</strong>vous ne pouvez pas changer le statut de La commande numéro {{session()->get('nonEncours')}} <br>
-                vous pouvez modifier que les statuts des commandes qui ont le statut <b>En Cours</b>
-        </div>
-        @endif
-
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="profile-head">
                     @can('manage-users')
                         <a style="border: black;
@@ -438,7 +472,6 @@ N: {{$commande->numero}}
                         </div>
                         <div>
                             @if ($commande->isChanged == 1)
-
                             <span class="badge badge-pill  badge-info mt-2" style="color: white">
                                     Commande de Change
                             </span>
@@ -455,74 +488,117 @@ N: {{$commande->numero}}
                     </div>
                             <h5>
                                 Commande numéro: <span style="color: #467a0f">{{$commande->numero}}</span>
-                                <a  style="color: white"
-                                    class="badge badge-pill
-                                    @switch($commande->statut)
-                                    @case("envoyée")
-                                    badge-warning"
-                                    @can('ramassage-commande')
-                                    title="Rammaser la commande"
-                                     href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
-                                    @endcan
+                                @switch($commande->statut)
+                                    @case("En attente de ramassage")
+                                        <a class="badge" style="color: white; background-color: orange;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
                                         @break
-                                        @case("Ramassée")
-                                    badge-secondary"
-                                    @can('ramassage-commande')
-                                    title="Envoyer la commande"
-                                     href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
-                                    @endcan
+                                    @case("Ramassé par le livreur")
+                                        <a class="badge" style="color: white; background-color: blue;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
                                         @break
-                                        @case("Expédiée")
-                                    badge-primary"
-                                    @can('ramassage-commande')
-                                    title="Rammaser la commande"
-                                     href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
-                                    @endcan
+                                    @case("Reçue dans le hub régional")
+                                        <a class="badge" style="color: white; background-color: purple;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Prêt à transférer")
+                                        <a class="badge" style="color: white; background-color: #2472a3;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Envoyée vers le hub central")
+                                        <a class="badge" style="color: white; background-color: green;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Envoyée vers le hub régional")
+                                        <a class="badge" style="color: white; background-color: green;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Reçue dans le hub central")
+                                        <a class="badge" style="color: white; background-color: teal;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Prêt à livrer")
+                                        <a class="badge" style="color: white; background-color: rgb(78, 67, 166);">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Affectée au livreur")
+                                        <a class="badge" style="color: white; background-color: brown;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Nouvelle commande")
+                                        <a class="badge" style="color: white; background-color: #ceab1c;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
                                         @break
                                     @case("En cours")
-                                    @case("Modifiée")
+                                        <a class="badge" style="color: white; background-color: skyblue;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
                                     @case("Relancée")
-                                    @case("Reporté")
-
-
-
-                                    badge-info"
-                                        @if ($commande->traiter > 0)
-                                        title="Voir le bon de livraison"
-                                        href="{{route('bon.gen',$commande->traiter)}}"
-                                        target="_blank"
-                                        @else
-                                        title="Générer le bon de livraison"
-                                        href="{{route('bonlivraison.index')}}"
-                                        @endif
-
+                                        <a class="badge" style="color: white; background-color: darkorange;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
                                         @break
                                     @case("Livré")
-                                    badge-success"
-                                    @if ($commande->facturer > 0)
-                                        title="Voir la facture"
-                                        href="{{route('facture.gen',$commande->facturer)}}"
-                                        target="_blank"
-                                        @else
-                                        title="Générer la facture"
-                                        href="{{route('facture.index')}}"
-                                        @endif
+                                        <a class="badge" style="color: white; background-color: green;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
                                         @break
-                                    @case("Retour en stock")
-                                        badge-danger"
-                                        title="Retour enregistré en stock"
+                                    @case("Injoignable")
+                                        <a class="badge" style="color: white; background-color: red;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Pas de Réponse")
+                                        <a class="badge" style="color: white; background-color: grey;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Annulée sur place")
+                                        <a class="badge" style="color: white; background-color: darkgrey;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Annulée par téléphone")
+                                        <a class="badge" style="color: white; background-color: lightgrey;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Colis perdu")
+                                        <a class="badge" style="color: white; background-color: black;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Colis endommagé")
+                                        <a class="badge" style="color: white; background-color: darkred;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Livré remboursé")
+                                        <a class="badge" style="color: white; background-color: gold;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
+                                        @break
+                                    @case("Numéro de téléphone erroné")
+                                        <a class="badge" style="color: white; background-color: #944444;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
                                         @break
                                     @default
-                                        badge-danger"
-                                        title="Valider dans le stock"
-                                       style="cursor:pointer"
-                                        data-toggle="modal" data-target="#validRetour"
-                                        @break
-
+                                        <a class="badge" style="color: white; background-color: #944444;">
+                                            <span style="font-size: 1.25em">{{$commande->statut}}</span>
+                                        </a>
                                 @endswitch
-                                     >
-                                     <span style="font-size: 1.25em">{{$commande->statut}}</span>
-                                </a>
                             </h5>
                             @can('manage-users')
                                 @if ($client == true)
@@ -549,55 +625,60 @@ N: {{$commande->numero}}
                                 @endif
 
                             @endcan
+                            <div class="col-md-12 row">
+                                <div>
+                                    <button type="button" class="btn btn-info text-white m-r-5" data-toggle="modal" data-target="#ticketPrint"><i class="fas fa-print"></i> Imprimer</button>
+                                </div>
+                                @can('manage-users')
+                                <div>
+                                    <button type="button" style="background-color: #ffab01;" class="btn text-white m-r-5" data-toggle="modal" data-target="#horszone"><i class="fas fa-route"></i> Hors Zone</button>
+                                </div>
+                                @if ($client == true)
+                                    @if ( $commande->statut === "Pas de Réponse" || $commande->statut === "Injoignable" || $commande->statut === "Annulée sur place"
+                                            || $commande->statut === "Retour" || $commande->statut === "Annulée"
+                                            || in_array($commande->statut, array('Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné'))  )
+                                    <div>
+                                        <button type="button"  class="btn btn-danger text-white m-r-5" title="Valider dans le stock"  data-toggle="modal" data-target="#validRetour"><i class="fas fa-clipboard-check"></i> Valider le retour</button>
+                                    </div>
+                                    @endif
 
+                                @endif
+                                @endcan
+                                 @can('client-admin')
+                                <div>
+                                    <a href="{{ route('commande.change',['commande'=> $commande]) }}" class="btn text-white m-r-5" type="button" style="background-color: #dcdc3a;"><i class="fas fa-undo"></i> Colis de Change</a>
+                                </div>
+                                 @endcan
+                            </div>
                             <p class="proile-rating">Date d'ajout : {{date_format($commande->created_at,"Y/m/d")}}<span> {{date_format($commande->created_at,"H:i:s")}}</span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Historique</a>
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Historique des statuts</a>
                         </li>
+
                         @can('gestion-stock')
                         <li class="nav-item">
                             <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Details</a>
                         </li>
                         @endcan
-                        @can('ramassage-commande')
 
+                        @can('ramassage-commande')
                         <li class="nav-item">
                             <a class="nav-link" id="relances-tab" data-toggle="tab" href="#relances" role="tab" aria-controls="relances" aria-selected="false">Relances</a>
                         </li>
-
                         @endcan
 
+                        @cannot('livreur')
+                        <li class="nav-item">
+                            <a class="nav-link" id="Tickets-tab" data-toggle="tab" href="#Tickets" role="tab" aria-controls="Tickets" aria-selected="false">Tickets/Réclamation</a>
+                        </li>
+                        @endcannot
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6 row">
-                <div>
-                    <button type="button" class="btn btn-info text-white m-r-5" data-toggle="modal" data-target="#ticketPrint"><i class="fas fa-print"></i> Imprimer</button>
-                </div>
-                @can('manage-users')
-                <div>
-                    <button type="button" style="background-color: #ffab01;" class="btn text-white m-r-5" data-toggle="modal" data-target="#horszone"><i class="fas fa-route"></i> Hors Zone</button>
-                </div>
-                @if ($client == true)
-                    @if ( $commande->statut === "Pas de Réponse" || $commande->statut === "Injoignable" || $commande->statut === "Refusée" || $commande->statut === "Retour" || $commande->statut === "Annulée" )
-                    <div>
-                        <button type="button"  class="btn btn-danger text-white m-r-5" title="Valider dans le stock"  data-toggle="modal" data-target="#validRetour"><i class="fas fa-clipboard-check"></i> Valider le retour</button>
-                    </div>
-                    @endif
-
-                @endif
-                @endcan
-                 @can('client-admin')
-                <div>
-                    <a href="{{ route('commande.change',['commande'=> $commande]) }}" class="btn text-white m-r-5" type="button" style="background-color: #dcdc3a;"><i class="fas fa-undo"></i> Colis de Change</a>
-                </div>
-                 @endcan
-            </div>
-
         </div>
 
         <div class="modal fade" id="ticketPrint" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -763,6 +844,14 @@ N: {{$commande->numero}}
                                         <p class="proile-rating">il y'a: {{$commande->created_at->diffForHumans()}}</p>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Note / Commentaire:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{$commande->note}}</p>
+                                    </div>
+                                </div>
                                 @if ($commande->ramassage_id)
                                 <div class="row">
                                     <div class="col-md-6">
@@ -790,75 +879,158 @@ N: {{$commande->numero}}
                                 @endif
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label>STATUT</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p>DATE</p>
-                                    </div>
-                                    @can('ramassage-commande')
-                                    <div class="col-md-4">
-                                        <p>PAR</p>
-                                    </div>
-                                    @endcan
-                                </div>
-                                @foreach ($statuts as $index => $statut)
-                                <div class="row">
-                                    <div class="col-md-4">
-                                    <label>
-                                        <a  style="color: white"
-                                            class=
-                                            @switch($statut->name)
-                                                @case("envoyée")
-                                                "badge badge-pill badge-warning"
-                                                @break
-
-                                                @case("Ramassée")
-                                                    "badge badge-pill badge-secondary"
-                                                @break
-
-                                                @case("Expédiée")
-                                                    "badge badge-pill badge-primary"
-                                                @break
-
-                                                @case("En cours")
-                                                @case("Modifiée")
-                                                @case("Relancée")
-                                                @case("Reporté")
-                                                @case("Pas de Réponse")
-                                                    "badge badge-pill badge-info"
-                                                @break
-
-                                                @case("Livré")
-                                                    "badge badge-pill badge-success"
-                                                @break
-
-                                                @default
-                                                    "badge badge-pill badge-danger"
-                                            @endswitch
-                                        >
-                                        <span style="font-size: 1.25em">{{$statut->name}}</span>
-
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>STATUT</label>
+                            </div>
+                            <div class="col-md-4">
+                                <p>DATE</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>PAR</p>
+                            </div>
+                        </div>
+                        @foreach ($statuts as $index => $statut)
+                        <div class="row">
+                            <div class="col-md-4">
+                            <label>
+                                @switch($statut->name)
+                                    @case("En attente de ramassage")
+                                        <a class="badge" style="color: white; background-color: orange;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
                                         </a>
-                                    </label>
-                                    @if ($statut->name == "Reporté" && $statut->postponed_at != null)
-                                             <span class="badge">Pour le : {{\Carbon\Carbon::parse($statut->postponed_at)->format('j , m, Y')}}</span>
-                                        @endif
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p>{{$statut->created_at}}</p>
-                                    </div>
-                                    @can('ramassage-commande')
-                                    <div class="col-md-4">
-                                        <p>{{$par[$index+1]->name}}</p>
-                                    </div>
-                                    @endcan
+                                        @break
+                                    @case("Ramassé par le livreur")
+                                        <a class="badge" style="color: white; background-color: blue;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Reçue dans le hub régional")
+                                        <a class="badge" style="color: white; background-color: purple;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Prêt à transférer")
+                                        <a class="badge" style="color: white; background-color: #2472a3;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Envoyée vers le hub central")
+                                        <a class="badge" style="color: white; background-color: green;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Envoyée vers le hub régional")
+                                        <a class="badge" style="color: white; background-color: green;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Reçue dans le hub central")
+                                        <a class="badge" style="color: white; background-color: teal;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Prêt à livrer")
+                                        <a class="badge" style="color: white; background-color: rgb(78, 67, 166);">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Affectée au livreur")
+                                        <a class="badge" style="color: white; background-color: brown;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Nouvelle commande")
+                                        <a class="badge" style="color: white; background-color: #ceab1c;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("En cours")
+                                        <a class="badge" style="color: white; background-color: skyblue;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Relancée")
+                                        <a class="badge" style="color: white; background-color: darkorange;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Livré")
+                                        <a class="badge" style="color: white; background-color: green;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Injoignable")
+                                        <a class="badge" style="color: white; background-color: red;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Pas de Réponse")
+                                        <a class="badge" style="color: white; background-color: grey;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Annulée sur place")
+                                        <a class="badge" style="color: white; background-color: darkgrey;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Annulée par téléphone")
+                                        <a class="badge" style="color: white; background-color: lightgrey;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Colis perdu")
+                                        <a class="badge" style="color: white; background-color: black;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Colis endommagé")
+                                        <a class="badge" style="color: white; background-color: darkred;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Livré remboursé")
+                                        <a class="badge" style="color: white; background-color: gold;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @case("Numéro de téléphone erroné")
+                                        <a class="badge" style="color: white; background-color: #944444;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                        @break
+                                    @default
+                                    <a class="badge" style="color: white; background-color: #944444;">
+                                        <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                    </a>
+                                @endswitch
+                            </label>
+                            @if ($statut->name == "Confirmé sous RDV" && $statut->postponed_at != null)
+                                <span class="badge">Pour le : {{\Carbon\Carbon::parse($statut->postponed_at)->format('j , m, Y')}}</span>
+                            @endif
+
+                            </div>
+                            <div class="col-md-4">
+                                <p>{{$statut->created_at}}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>{{$par[$index+1]->name}}</p>
+                            </div>
+                        </div>
+                        @endforeach
+                        @can('fournisseur')
+                            @if ($statut->name == "En cours")
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Livreur :  {{$livreur->name}}</label><br/>
+                                    <p>
+                                        {{$livreur->telephone}}
+                                    </p>
                                 </div>
-                                @endforeach
-
-
-
+                            </div>
+                            @endif
+                        @endcan
                         <div class="row">
                             <div class="col-md-12">
                                 <label>Commentaire</label><br/>
@@ -925,6 +1097,9 @@ N: {{$commande->numero}}
                         @endforelse
                     </div>
                     @endcan
+                    <div class="tab-pane fade" id="Tickets" role="tabpanel" aria-labelledby="Tickets-tab">
+                        @include('reclamation._comments', ['from' => 'show'])
+                    </div>
                 </div>
             </div>
         </div>
@@ -933,7 +1108,7 @@ N: {{$commande->numero}}
 </div>
 
 @can('delete-commande')
-@if ($commande->statut === "envoyée" || $modify === 1  || $commande->statut === "Refusée" || $commande->statut === "Injoignable" || $commande->statut === "Annulée" || $commande->statut === "Pas de Réponse" )
+@if ($commande->statut === "Nouvelle commande" || $commande->statut === "En attente de ramassage" )
 <div class="container my-4">
     <div class="modal fade" id="modalSubscriptionFormEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                     aria-hidden="true">
@@ -956,42 +1131,25 @@ N: {{$commande->numero}}
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="example-email" class="col-md-12">Nombre de Colis :</label>
-                                        <div class="col-md-12">
-                                            <input  value="{{ old('colis',$commande->colis) }}" type="number" class="form-control form-control-line" name="colis" id="example-email">
-                                        </div>
-                                    </div>
-
-
-                                      <fieldset class="form-group col-md-6">
-                                        <div class="row">
+                                      <fieldset class="form-group">
                                           <legend class="col-form-label  pt-0">Mode de paiement :</legend>
-                                          <div class="col-sm-12">
+                                          <div class="col-sm-12" style="display: flex;">
                                             <div class="form-check">
-                                              <input  onclick="myFunctionEdit2(this.value)" class="form-check-input" type="radio" name="mode" id="cd" value="cd"
-                                              @if ($commande->montant != 0)
-                                                checked
-                                                @endif
-                                              >
-                                              <label class="form-check-label" for="cd">
+                                              <input  onclick="myFunctionEdit2(this.value)" class="form-check-input" type="radio" name="mode" id="myFunctionEdit2cd" value="cd"
+                                                @if ($commande->montant != 0) checked @endif >
+                                              <label class="form-check-label" for="myFunctionEdit2cd">
                                                 à la livraison
                                               </label>
                                             </div>
                                             <div class="form-check">
-                                              <input  onclick="myFunctionEdit2(this.value)" class="form-check-input" type="radio" name="mode" id="cp" value="cp"
-                                              @if ($commande->montant == 0)
-                                                checked
-                                                @endif
-                                              >
-                                              <label class="form-check-label" for="cp">
+                                              <input  onclick="myFunctionEdit2(this.value)" class="form-check-input" type="radio" name="mode" id="myFunctionEdit2cp" value="cp"
+                                                @if ($commande->montant == 0) checked   @endif >
+                                              <label class="form-check-label" for="myFunctionEdit2cp">
                                                 carte bancaire
                                               </label>
                                             </div>
 
                                           </div>
-                                        </div>
                                       </fieldset>
 
                                       <div class="form-group col-md-12" id="montant2"
@@ -1009,7 +1167,6 @@ N: {{$commande->numero}}
                                         </div>
                                     </div>
 
-                                </div>
 
                                 <div class="form-group">
                                     <label class="col-md-12">Téléphone :</label>
@@ -1023,12 +1180,12 @@ N: {{$commande->numero}}
                                         <textarea  name="adresse" rows="5" class="form-control form-control-line">{{ old('adresse',$commande->adresse) }}</textarea>
                                     </div>
                                 </div>
-                                @if ($commande->statut !== "envoyée")
+                                @if ($commande->statut !== "Nouvelle commande")
                                 @can('manage-users')
                                 <div class="form-group">
                                         <label class="col-sm-12">Ville :</label>
                                         <div class="col-sm-12">
-                                            <select name="ville" class="form-control form-control-line" value="{{ old('ville',$commande->ville) }}" onchange="myFunctionEdit1()" required>
+                                            <select name="ville" class="form-control form-control-line" value="{{ old('ville',$commande->ville) }}" required>
                                             <option value="{{$commande->ville}}" checked>{{$commande->ville}}</option>
                                             @foreach ($villes as $ville)
                                             <option value="{{$ville->name}}" class="rounded-circle">
@@ -1043,7 +1200,7 @@ N: {{$commande->numero}}
                                 <div class="form-group" style="display: none">
                                         <label class="col-sm-12">Ville :</label>
                                         <div class="col-sm-12">
-                                            <select name="ville" class="form-control form-control-line" value="{{ old('ville',$commande->ville) }}" onchange="myFunctionEdit1()" required>
+                                            <select name="ville" class="form-control form-control-line" value="{{ old('ville',$commande->ville) }}" required>
                                             <option value="{{$commande->ville}}" checked selected>{{$commande->ville}}</option>
                                             </select>
                                         </div>
@@ -1053,7 +1210,7 @@ N: {{$commande->numero}}
                                 <div class="form-group">
                                     <label class="col-sm-12">Ville :</label>
                                     <div class="col-sm-12">
-                                        <select name="ville" class="form-control form-control-line" value="{{ old('ville',$commande->ville) }}" onchange="myFunctionEdit1()" required>
+                                        <select name="ville" class="form-control form-control-line" value="{{ old('ville',$commande->ville) }}" required>
                                         <option value="{{$commande->ville}}" checked>{{$commande->ville}}</option>
                                         @foreach ($villes as $ville)
                                         <option value="{{$ville->name}}" class="rounded-circle">
@@ -1065,14 +1222,21 @@ N: {{$commande->numero}}
                                 </div>
                                 @endif
 
-                                <div   class="form-group" id="secteur2" style="display: none">
-                                    <label class="col-sm-12">Secteur :</label>
-                                    <div class="col-sm-12">
-                                        <select  value="{{ old('secteur',$commande->secteur) }}" name="secteur" class="form-control form-control-line">
-                                            <option value="{{$commande->secteur}}" checked>{{$commande->secteur}}</option>
-
-                                        </select>
+                                <div class="form-group">
+                                    <label class="col-md-12">Note / Commentaire :</label>
+                                    <div class="col-md-12">
+                                        <textarea  name="note" rows="5" class="form-control form-control-line">{{ old('note',$commande->note) }}</textarea>
                                     </div>
+                                </div>
+                                <div class="custom-control custom-control-alternative custom-checkbox" style="margin-bottom: 10px;">
+                                    <input class="custom-control-input" id="customCheckisFragile" type="checkbox" name="isFragile" value="1"
+                                        @if ($commande->is_fragile)
+                                        checked
+                                        @endif
+                                    >
+                                    <label class="custom-control-label" for="customCheckisFragile">
+                                      <span >Le produit de votre commande est-il fragile ?</span>
+                                    </label>
                                 </div>
                                 <div class="custom-control custom-control-alternative custom-checkbox">
                                     <input class="custom-control-input" id="customCheckRegister" type="checkbox" name="isOpen" value="1"
@@ -1081,7 +1245,7 @@ N: {{$commande->numero}}
                                     @endif
                                     >
                                     <label class="custom-control-label" for="customCheckRegister">
-                                      <span >J'accepte l'ouverture du colis par le client.</span>
+                                      <span >Acceptez-vous que le colis puisse être ouvert par le client final ?</span>
                                     </label>
                                   </div>
                                 <div class="form-group">
@@ -1133,21 +1297,26 @@ N: {{$commande->numero}}
                                     <div class="col-sm-12">
                                         <select id="etat" onchange="reporter()" name="statut" class="form-control form-control-line" value="{{ old('statut',$commande->statut) }}" required>
                                             @can('manage-users')
-                                                <option>envoyée</option>
+                                                <option>Nouvelle commande</option>
                                                 <option>Ramassée</option>
-                                                <option>Reçue</option>
-                                                <option>Expédiée</option>
+                                                <option>Prêt à livrer</option>
+                                                <option>Affectée au livreur</option>
                                                 <option>En cours</option>
                                                 <option>Relancée</option>
                                             @endcan
                                                 <option>Livré</option>
                                                 <option>Injoignable</option>
                                                 <option>Pas de Réponse</option>
-                                                <option>Refusée</option>
+                                                <option>Annulée sur place</option>
+                                                <option>Annulée par téléphone</option>
+                                                <option>Colis perdu</option>
+                                                <option>Colis endommagé</option>
+                                                <option>Livré remboursé</option>
+                                                <option>Numéro de téléphone erroné</option>
                                             @cannot('livreur')
                                                 <option>Retour</option>
                                             @endcannot
-                                                <option>Reporté</option>
+                                                <option>Confirmé sous RDV</option>
                                                 <option>Annulée</option>
                                         </select>
                                     </div>
@@ -1199,31 +1368,33 @@ N: {{$commande->numero}}
 
     var test = document.getElementById("etat").value;
     //alert(test);
-    if(test=='Reporté'){
+    if(test=='Confirmé sous RDV'){
         xx.style.display = "block";
     }
     else{
         xx.style.display = "none";
     }
     }
+
+    function updatedForm(event){
+        let objectValue = event.target.value;
+        updatedFormId = document.getElementById("updatedForm").style.display =  (objectValue == 'Modification de colis')  ? 'block' : 'none'
+    }
 </script>
 
-<script>
-
-    function myFunctionEdit1() {
-        var x = document.getElementById("secteur2");
-    var test = document.getElementById("ville2").value;
-    if(test=='Tanger'){
-        x.style.display = "block";
-    }
-    else{
-        x.style.display = "none";
-    }
-    }
-</script>
 <script>
     function myFunctionEdit2(mode) {
         var y = document.getElementById("montant2");
+        if(mode == 'cd' && y.value != 0 ){
+            y.style.display = "block";
+        }
+        else{
+            y.style.display = "none";
+        }
+    }
+
+    function myFunctionEdit3(mode) {
+        var y = document.getElementById("montant3");
         if(mode == 'cd' && y.value != 0 ){
             y.style.display = "block";
         }
@@ -1258,5 +1429,40 @@ N: {{$commande->numero}}
             console.log("cp");
         }
     }
+    var loadFile = function(event) {
+	var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+};
+function loadFile2(event, reclamationId) {
+	var image2 = document.getElementById('output'+reclamationId);
+	image2.src = URL.createObjectURL(event.target.files[0]);
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+    function filterTable() {
+        var valueInput = myInput.value.toLowerCase();
+        var valueInputStatut = myInputStatut.value.toLowerCase();
+        var tableRows = document.querySelectorAll("#myTable tr");
+
+        tableRows.forEach(function (row) {
+            var textContent = row.textContent.toLowerCase();
+            var showRow = (valueInput === 'all' || textContent.indexOf(valueInput) > -1) &&
+                          (valueInputStatut === 'all' || textContent.indexOf(valueInputStatut) > -1);
+
+            row.style.display = showRow ? 'table-row' : 'none';
+        });
+    }
+
+    var myInput = document.getElementById("myInput");
+    myInput.addEventListener("change", filterTable);
+
+    var myInputStatut = document.getElementById("myInputStatut");
+    myInputStatut.addEventListener("change", filterTable);
+
+    // Initial filtering when the page loads
+    filterTable();
+});
+
+
 </script>
 @endsection

@@ -40,7 +40,7 @@
         <div class="alert alert-dismissible alert-danger col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Erreur !</strong>Commande déjà traitée  {{session()->get('nonExpidie')}} <br>
-                vous pouvez modifier que les statuts des commandes qui ont le statut <b>envoyée</b>
+                vous pouvez modifier que les statuts des commandes qui ont le statut <b>Nouvelle commande</b>
         </div>
         @endif
         @if (session()->has('blgenere'))

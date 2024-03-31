@@ -39,7 +39,7 @@
                     <form class="app-search position-absolute" method="GET" action="{{ route('commande.search') }}">
                         @csrf
                         <input name="search" type="text" class="form-control"
-                            placeholder="Tapez le numero de commande / bon de livraison / facture ou cherchez par statut de commande">
+                            placeholder="Tapez le numero de commande">
                         <a class="srh-btn"><i style="
                             color: black;"
                                 class="ti-close"></i></a>

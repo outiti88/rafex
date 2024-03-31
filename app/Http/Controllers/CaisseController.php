@@ -54,7 +54,7 @@ class CaisseController extends Controller
 
                 $livreur = DB::table('commandes')->select(DB::raw('sum(livreurPart) as liv'))
                     ->where('commandes.livreur', $livreur->id)
-                    ->whereIn('commandes.statut', ['livré', 'Refusée']);
+                    ->whereIn('commandes.statut', ['livré', 'Annulée sur place']);
 
                 $caisses[] = $commandes->get()[0]->m != null ? $commandes->get()[0]->m : 0;
                 $livraison[] = $livreur->get()[0]->liv != null ? $livreur->get()[0]->liv : 0;
@@ -153,7 +153,7 @@ class CaisseController extends Controller
 
             $livreur = DB::table('commandes')->select(DB::raw('sum(livreurPart) as liv'))
                 ->where('commandes.livreur', $id)
-                ->whereIn('commandes.statut', ['livré', 'Refusée']);
+                ->whereIn('commandes.statut', ['livré', 'Annulée sur place']);
 
 
             $caisse = $commandes->get()[0]->m != null ? $commandes->get()[0]->m : 0; //montant total en poche

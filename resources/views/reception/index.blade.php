@@ -64,7 +64,7 @@
 
 
                                               <div class="from-group row">
-                                                  <label for="envoyer" class="col-sm-3">Envoyée</label>
+                                                  <label for="envoyer" class="col-sm-3">Nouvelle commande</label>
                                                   <div class="col-3">
                                                     <input class="form-control" name="envoyer" type="checkbox" value="1" id="envoyer">
                                                   </div>

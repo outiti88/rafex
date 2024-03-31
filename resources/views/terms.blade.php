@@ -78,6 +78,15 @@
             En utilisant RAFEX, vous déclarez avoir lu, compris et accepté ces termes et conditions. Pour toute question ou préoccupation, veuillez nous contacter à <strong>contact@rafex.ma</strong>. Merci de votre confiance en RAFEX pour vos besoins de livraison.
         </p>
     </div>
-
+    <footer class="footer text-center" style="
+    display: flex;
+    justify-content: center; margin-top : 20px;">
+        Copyright © Rafex
+        <script>
+            document.write(new Date().getFullYear())
+          </script>
+        All rights reserved
+        {{-- | Made with <i class="mdi mdi-heart" aria-hidden="true"></i>  by <a href="https://idesignsolution.com/" target="_blank">iDesign Business</a> --}}
+    </footer>
 </body>
 </html>

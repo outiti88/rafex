@@ -21,7 +21,7 @@
         </div>
         <div class="col-7">
             <div class="text-right upgrade-btn">
-            <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#FormStore"><i class="fa fa-plus-square"></i> Ajouter un paiement</a>
+            {{-- <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#FormStore"><i class="fa fa-plus-square"></i> Ajouter un paiement</a> --}}
             </div>
         </div>
     </div>
@@ -108,6 +108,92 @@
 
 
 
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Caisse livreur</h4>
+                <h6 class="card-subtitle">Nombre total des paiements par jour: <code>{{$total}} Articles</code> .</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered" style="font-size: 0.85em;">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Date de Jour</th>
+                            <th scope="col">Montant à envoyer</th>
+                            <th scope="col">Part de livreur</th>
+                            <th scope="col">à envoyer à rafex</th>
+                            <th scope="col">Envoyer</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr>
+
+
+                        <td>12/02/2024</td>
+                        <td>700 DH</td>
+                        <td>60 DH</td>
+                        <td>640 DH</td>
+                        <td>
+                             <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#FormStore"><i class="fa fa-plus-square"></i> Ajouter un paiement</a>
+                        </td>
+
+
+                    </tr>
+                       <tr>
+
+
+                        <td>11/02/2024</td>
+                        <td>750 DH</td>
+                        <td>60 DH</td>
+                        <td>690 DH</td>
+                        <td>
+                             <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#FormStore"><i class="fa fa-plus-square"></i> Ajouter un paiement</a>
+                        </td>
+
+
+                    </tr>
+                       <tr>
+
+
+                        <td>10/02/2024</td>
+                        <td>700 DH</td>
+                        <td>30 DH</td>
+                        <td>610 DH</td>
+                        <td>
+                             <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#FormStore"><i class="fa fa-plus-square"></i> Ajouter un paiement</a>
+                        </td>
+
+
+                    </tr>
+                       <tr>
+
+
+                        <td>09/02/2024</td>
+                        <td>1700 DH</td>
+                        <td>60 DH</td>
+                        <td>1640 DH</td>
+                        <td>
+                             <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#FormStore"><i class="fa fa-plus-square"></i> Ajouter un paiement</a>
+                        </td>
+
+
+                    </tr>
+
+
+
+                    </tbody>
+
+                </table>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        {{$paiments ->appends($data)-> links()}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-12">
         <div class="card">
             <div class="card-body">

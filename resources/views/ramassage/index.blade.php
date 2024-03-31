@@ -1,7 +1,7 @@
 @extends('racine')
 
 @section('title')
-   Gestion des Ramassage
+   Gestion des Ramassages
 @endsection
 
 @section('style')
@@ -197,22 +197,26 @@
                                                     <select name="statut" class="form-control form-control-line" >
                                                         <option value="" disabled selected>Choisissez le Statut</option>
                                                         <option >En attente</option>
-                                                        <option >Ramassaé par le livreur</option>
-                                                        <option >Reçue</option>
+                                                        <option >Ramassé par le livreur</option>
+                                                        <option >Ramassage Reçu</option>
                                                     </select>
                                                 </div>
                                               </div>
 
-                                            <div class="form-group row">
-                                                <label for="libelle" class="col-sm-4">Ville :</label>
-                                                <div class="col-sm-8">
-                                                    <select name="city" class="form-control form-control-line" >
-                                                        <option value="" disabled selected>Choisissez la Ville de ramassage</option>
-                                                        <option >Rabat</option>
-                                                        <option >Casablanca</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                              @cannot('livreur')
+                                              @cannot('superviseur')
+                                              <div class="form-group row">
+                                                  <label for="libelle" class="col-sm-4">Ville :</label>
+                                                  <div class="col-sm-8">
+                                                      <select name="city" class="form-control form-control-line" >
+                                                          <option value="" disabled selected>Choisissez la Ville de ramassage</option>
+                                                          <option >Rabat</option>
+                                                          <option >Casablanca</option>
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                              @endcannot
+                                              @endcannot
 
                                             <div class="form-group">
                                                 <div class="modal-footer d-flex justify-content-center">
@@ -238,7 +242,13 @@
            @if (session()->has('added'))
         <div class="alert alert-dismissible alert-success col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-         Demande de ramassage envoyé avec la référence : <strong>{{session()->get('added')}} </strong>  </a>.
+         Demande de ramassage envoyé avec la référence : <strong>{{session()->get('added')}} </strong>
+          </div>
+        @endif
+           @if (session()->has('erreur'))
+        <div class="alert alert-dismissible alert-danger col-12">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{session()->get('erreur')}}
           </div>
         @endif
         <div class="collapse show" id="mycard-collapse" style="width : 100%;">
@@ -251,8 +261,8 @@
                     <a  href="/ramassages/filter?statut=Ramassé par le livreur" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-success">
                       <span>Ramassé par le livreur</span>
                     </a>
-                    <a  href="/ramassages/filter?statut=Reçue" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-primary cielBadge">
-                      <span>Reçue</span>
+                    <a  href="/ramassages/filter?statut=Ramassage Reçu" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-primary cielBadge">
+                      <span>Ramassage Reçu</span>
                     </a>
 
               </div>
@@ -304,11 +314,11 @@
                                     <td>{{$ramassage->created_at}}</td>
                                     <td>
                                         <span style="color : white"       @switch($ramassage->statut)
-                                            @case("En attente")
+                                            @case("En attente de ramassage")
                                             class="badge-pill badge badge-secondary"
                                             @break
                                             @case("Ramassé par le livreur") class="badge badge-pill badge-success" @break
-                                            @case("Reçue") class="badge badge-pill badge-primary cielBadge" @break
+                                            @case("Ramassage Reçu") class="badge badge-pill badge-primary cielBadge" @break
                                             @endswitch >
                                             {{$ramassage->statut}}
                                         </span>
@@ -373,33 +383,51 @@
 
                                                 @foreach ($commandes as $commande)
                                                 <option value="{{$commande->numero}}">
-                                                    {{$commande->numero .'     (Client: '. $commande->nom.')'}}
+                                                    {{$commande->numero .'     (Ville: '. $commande->ville.')'}}
                                                 </option>
                                                 @endforeach
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
-                                    <label class="col-sm-12">Ville :</label>
-                                    <div class="col-sm-12">
-                                        <select name="city" class="form-control form-control-line" required>
-                                            <option value="Rabat" >Rabat</option>
-                                            <option value="Casablanca" >Casablanca</option>
-                                        </select>
+                                    <div>
+                                        <label class="col-md-12">Adresse :</label>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Adresse :</label>
-                                    <div class="col-md-12">
-                                        <textarea  name="adress" rows="3" class="form-control form-control-line" required>{{ old('adress') }}</textarea>
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-6 col-sm-6">
+                                          <label>
+                                            <input type="radio" name="adress" value="{{Auth::user()->adresse}}" selected checked class="card-input-element" />
+                                              <div class="card card-default card-input">
+                                                <div class="card-header" style="font-weight: bold">Adresse 1</div>
+                                                <div class="card-body">
+                                                    <p>
+                                                        {{Auth::user()->adresse}}
+                                                    </p>
+                                                </div>
+                                              </div>
+                                          </label>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-sm-6">
+                                            <label>
+                                              <input type="radio" name="adress" value="{{Auth::user()->adresse2}}" class="card-input-element" />
+                                                <div class="card card-default card-input">
+                                                  <div class="card-header" style="font-weight: bold">Adresse 2</div>
+                                                  <div class="card-body">
+                                                      <p>
+                                                        {{Auth::user()->adresse2}}
+                                                      </p>
+                                                  </div>
+                                                </div>
+                                            </label>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Téléphone :</label>
                                     <div class="col-md-12">
-                                        <input type="text"  name="phone" value="{{ old('phone') }}" class="form-control form-control-line" required>
+                                        <input type="text"  name="phone" value="{{ Auth::user()->telephone, old('phone') }}" class="form-control form-control-line" required>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -49,7 +49,7 @@ class RelanceController extends Controller
         ->select('commandes.*','users.image')
         ->whereNotNull('users.statut')
         ->orderBy('commandes.updated_at', 'DESC')->get();
-            
+
 
         $relance1 = DB::table('commandes')->where('commandes.deleted_at',NULL)->where('commandes.relance','1')->where('commandes.statut','not like', "%Livré%")
         ->join('users', 'users.id', '=', 'commandes.user_id')
@@ -84,7 +84,7 @@ class RelanceController extends Controller
     }
 
     public function relancer(Request $request, $id){
-        
+
         if(!Gate::denies('ramassage-commande')) {
             $commande = Commande::findOrFail($id);
 
@@ -96,7 +96,7 @@ class RelanceController extends Controller
 
                 $statut->user()->associate(Auth::user())->save();
                 $commande->statut = $request->statut;
-                if($commande->statut === 'Relancée' || $commande->statut === 'Reporté'){
+                if($commande->statut === 'Relancée' || $commande->statut === 'Confirmé sous RDV'){
                     $commande->relance = 4;
                 }
                 else $commande->relance++;
@@ -110,7 +110,7 @@ class RelanceController extends Controller
             $request->session()->flash('relance', $commande->numero);
 
             }
-        
+
         }
 
         return back();
