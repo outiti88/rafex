@@ -97,6 +97,7 @@ N: {{$commande->numero}}
             font-weight: 600;
         }
         .profile-tab p{
+            font-size: 1em;
             font-weight: 600;
             color: #467a0f;
         }
@@ -670,7 +671,6 @@ N: {{$commande->numero}}
                             <a class="nav-link" id="relances-tab" data-toggle="tab" href="#relances" role="tab" aria-controls="relances" aria-selected="false">Relances</a>
                         </li>
                         @endcan
-
                         @cannot('livreur')
                         <li class="nav-item">
                             <a class="nav-link" id="Tickets-tab" data-toggle="tab" href="#Tickets" role="tab" aria-controls="Tickets" aria-selected="false">Tickets/Réclamation</a>
@@ -880,19 +880,34 @@ N: {{$commande->numero}}
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
+                                <p>Modifié par</p>
+                            </div>
+                            <div class="col-md-3">
                                 <label>STATUT</label>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <p>DATE</p>
                             </div>
-                            <div class="col-md-4">
-                                <p>PAR</p>
+                            <div class="col-md-3">
+                                <p>Commentaire</p>
                             </div>
                         </div>
                         @foreach ($statuts as $index => $statut)
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
+                                <p>
+                                    <a title="{{$par[$index+1]->name}} Tel: {{$par[$index+1]->telephone}}" class="waves-effect" style="color: black"
+                                        @can('edit-users')
+                                            href="{{route('admin.users.edit',$par[$index+1]->id)}}"
+                                        @endcan >
+                                        <img src="{{$par[$index+1]->image}}" alt="user" class="rounded-circle" width="31" style="width: 10%"
+                                        >
+                                        {{$par[$index+1]->name}}
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="col-md-3">
                             <label>
                                 @switch($statut->name)
                                     @case("En attente de ramassage")
@@ -1011,11 +1026,12 @@ N: {{$commande->numero}}
                             @endif
 
                             </div>
-                            <div class="col-md-4">
-                                <p>{{$statut->created_at}}</p>
+                            <div class="col-md-3">
+                                <p style="text-transform: uppercase;">{{ \Carbon\Carbon::parse($statut->created_at)->locale('fr_FR')->isoFormat('dddd DD MMMM YYYY') }} |
+                                    {{ \Carbon\Carbon::parse($statut->created_at)->formatLocalized('%H:%M') }}</p>
                             </div>
-                            <div class="col-md-4">
-                                <p>{{$par[$index+1]->name}}</p>
+                            <div class="col-md-3">
+                                <p>{{$statut->comment}}</p>
                             </div>
                         </div>
                         @endforeach
@@ -1031,16 +1047,6 @@ N: {{$commande->numero}}
                             </div>
                             @endif
                         @endcan
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label>Commentaire</label><br/>
-                                @if ($commande->commentaire)
-                                    <p>{{$commande->commentaire}}</p>
-                                @else
-                                    <p>Sans Commentaire</p>
-                                @endif
-                            </div>
-                        </div>
                     </div>
                     @can('gestion-stock')
                     <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
