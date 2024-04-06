@@ -837,7 +837,6 @@ class CommandeController extends Controller
     public function changeStatut(Request $request, $id)
     {
         //changement de statut du expidé à en cours
-        //dd(!Gate::denies('ramassage-commande'));
         $commande = Commande::findOrFail($id);
         //$factureExist = DB::table('factures')->where('user_id',$commande->user_id )->whereDate('created_at',$commande->created_at)->count();
 
@@ -868,6 +867,13 @@ class CommandeController extends Controller
             $statut = new Statut();
             $statut->commande_id = $commande->id;
             $statut->name = $commande->statut;
+            if ($request->hasfile('fileInput')) {
+                $file = $request->file('fileInput');
+                $extension = $file->getClientOriginalExtension(); //getting image extension
+                $filename = time() . $commande->numero.'-joint.' . $extension;
+                $file->move('uploads/statuts/', $filename);
+                $statut->joint = $filename;
+            }
             $statut->user()->associate(Auth::user())->save();
 
             //notification
@@ -940,11 +946,11 @@ class CommandeController extends Controller
         if (!Gate::denies('manage-users')) {
             foreach ($commandes as $commande) {
                 $commande->statut = $request->newStatut;
-                $commande->commentaire = $request->commentaire;
                 $commande->postponed_at = $request->prevu_at;
 
                 $statut = new Statut();
                 $statut->commande_id = $commande->id;
+                $statut->comment = $request->commentaire;
                 $statut->postponed_at = $commande->postponed_at;
 
                 $statut->name = $commande->statut;
@@ -970,11 +976,11 @@ class CommandeController extends Controller
             else{
                 foreach ($commandes as $commande) {
                     $commande->statut = 'Affectée au livreur';
-                    $commande->commentaire = $request->commentaire;
                     $commande->postponed_at = $request->prevu_at;
                     $commande->livreur = $request->livreurInputFormTosend;
 
                     $statut = new Statut();
+                    $statut->comment = $request->commentaire;
                     $statut->commande_id = $commande->id;
                     $statut->postponed_at = $commande->postponed_at;
                     $statut->name = $commande->statut;
@@ -1003,11 +1009,11 @@ class CommandeController extends Controller
             else{
                 foreach ($commandes as $commande) {
                     $commande->statut = 'Affectée au livreur';
-                    $commande->commentaire = $request->commentaire;
                     $commande->postponed_at = $request->prevu_at;
                     $commande->livreur = $request->livreurInputFormTosend;
 
                     $statut = new Statut();
+                    $statut->comment = $request->commentaire;
                     $statut->commande_id = $commande->id;
                     $statut->postponed_at = $commande->postponed_at;
                     $statut->name = $commande->statut;
@@ -1030,10 +1036,10 @@ class CommandeController extends Controller
         if (!Gate::denies('manage-users')) {
             foreach ($commandes as $commande) {
                 $commande->statut = 'Prêt à livrer';
-                $commande->commentaire = $request->commentaire;
                 $commande->postponed_at = $request->prevu_at;
 
                 $statut = new Statut();
+                $statut->comment = $request->commentaire;
                 $statut->commande_id = $commande->id;
                 $statut->postponed_at = $commande->postponed_at;
                 $statut->name = $commande->statut;
@@ -1115,16 +1121,23 @@ class CommandeController extends Controller
             //Session Administrateur
         if (!Gate::denies('manage-users')) {
             $commande->statut = $request->statut;
-            $commande->commentaire = $request->commentaire;
             $commande->postponed_at = $request->prevu_at;
 
             if ($commande->statut !== 'Livré' && $user->statut === 1) {
                 $commande->relance = 0;
             }
             $statut = new Statut();
+            $statut->comment = $request->commentaire;
             $statut->commande_id = $commande->id;
             $statut->postponed_at = $commande->postponed_at;
             $statut->name = $commande->statut;
+            if ($request->hasfile('fileInput')) {
+                $file = $request->file('fileInput');
+                $extension = $file->getClientOriginalExtension(); //getting image extension
+                $filename = time() . $commande->numero.'-joint.' . $extension;
+                $file->move('uploads/statuts/', $filename);
+                $statut->joint = $filename;
+            }
             $statut->user()->associate(Auth::user())->save();
             $commande->save();
 
@@ -1144,7 +1157,14 @@ class CommandeController extends Controller
             $statut = new Statut();
             $statut->commande_id = $commande->id;
             $statut->name = $commande->statut;
-            $commande->commentaire = $request->commentaire;
+            $statut->comment = $request->commentaire;
+            if ($request->hasfile('fileInput')) {
+                $file = $request->file('fileInput');
+                $extension = $file->getClientOriginalExtension(); //getting image extension
+                $filename = time() . $commande->numero.'-joint.' . $extension;
+                $file->move('uploads/statuts/', $filename);
+                $statut->joint = $filename;
+            }
             $commande->postponed_at = $request->prevu_at;
             $statut->postponed_at = $commande->postponed_at;
 
@@ -1167,7 +1187,6 @@ class CommandeController extends Controller
                 //verification de l'ancien statut
                 if ($commande->statut === 'Annulée' || $commande->statut === 'Retour' || $commande->statut === 'Injoignable' || $commande->statut === 'Pas de Réponse' || $commande->statut === 'En cours' || $commande->statut === 'Modifiée' || $commande->statut === 'Relancée' || $commande->statut === 'Confirmé sous RDV') { //bach traiter commande khass tkoun en cours w bl dyalha kyn
                     $commande->statut = $request->statut;
-                    $commande->commentaire = $request->commentaire;
 
                     $commande->postponed_at = $request->prevu_at;
 
@@ -1175,9 +1194,17 @@ class CommandeController extends Controller
                         $commande->relance = 0;
                     }
                     $statut = new Statut();
-                $statut->postponed_at = $commande->postponed_at;
+                    $statut->comment = $request->commentaire;
+                    $statut->postponed_at = $commande->postponed_at;
                     $statut->commande_id = $commande->id;
                     $statut->name = $commande->statut;
+                    if ($request->hasfile('fileInput')) {
+                        $file = $request->file('fileInput');
+                        $extension = $file->getClientOriginalExtension(); //getting image extension
+                        $filename = time() . $commande->numero.'-joint.' . $extension;
+                        $file->move('uploads/statuts/', $filename);
+                        $statut->joint = $filename;
+                    }
                     $statut->user()->associate(Auth::user())->save();
                     $request->session()->flash('edit', $commande->numero);
 

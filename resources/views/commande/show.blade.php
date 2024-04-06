@@ -97,6 +97,7 @@ N: {{$commande->numero}}
             font-weight: 600;
         }
         .profile-tab p{
+            font-size: 1em;
             font-weight: 600;
             color: #467a0f;
         }
@@ -670,7 +671,6 @@ N: {{$commande->numero}}
                             <a class="nav-link" id="relances-tab" data-toggle="tab" href="#relances" role="tab" aria-controls="relances" aria-selected="false">Relances</a>
                         </li>
                         @endcan
-
                         @cannot('livreur')
                         <li class="nav-item">
                             <a class="nav-link" id="Tickets-tab" data-toggle="tab" href="#Tickets" role="tab" aria-controls="Tickets" aria-selected="false">Tickets/Réclamation</a>
@@ -880,19 +880,37 @@ N: {{$commande->numero}}
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-2">
+                                <p>Modifié par</p>
+                            </div>
+                            <div class="col-md-3">
                                 <label>STATUT</label>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <p>DATE</p>
                             </div>
-                            <div class="col-md-4">
-                                <p>PAR</p>
+                            <div class="col-md-3">
+                                <p>Commentaire</p>
+                            </div>
+                            <div class="col-md-1">
+                                <p>Pièce joint</p>
                             </div>
                         </div>
                         @foreach ($statuts as $index => $statut)
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-2">
+                                <p>
+                                    <a title="{{$par[$index+1]->name}} Tel: {{$par[$index+1]->telephone}}" class="waves-effect" style="color: black"
+                                        @can('edit-users')
+                                            href="{{route('admin.users.edit',$par[$index+1]->id)}}"
+                                        @endcan >
+                                        <img src="{{$par[$index+1]->image}}" alt="user" class="rounded-circle" width="31" style="width: 10%"
+                                        >
+                                        {{$par[$index+1]->name}}
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="col-md-3">
                             <label>
                                 @switch($statut->name)
                                     @case("En attente de ramassage")
@@ -1011,11 +1029,21 @@ N: {{$commande->numero}}
                             @endif
 
                             </div>
-                            <div class="col-md-4">
-                                <p>{{$statut->created_at}}</p>
+                            <div class="col-md-3">
+                                <p style="text-transform: uppercase;">{{ \Carbon\Carbon::parse($statut->created_at)->locale('fr_FR')->isoFormat('dddd DD MMMM YYYY') }} |
+                                    {{ \Carbon\Carbon::parse($statut->created_at)->formatLocalized('%H:%M') }}</p>
                             </div>
-                            <div class="col-md-4">
-                                <p>{{$par[$index+1]->name}}</p>
+                            <div class="col-md-3">
+                                <p>{{$statut->comment}}</p>
+                            </div>
+                            <div class="col-md-1">
+                                <p>
+                                    @if ($statut->joint)
+                                    <img style="cursor: pointer" id="{{$statut->joint}}" src="/uploads/statuts/{{$statut->joint}}"width="50" onclick="showImage(event)" />
+                                    @else
+                                    -
+                                    @endif
+                                </p>
                             </div>
                         </div>
                         @endforeach
@@ -1031,16 +1059,6 @@ N: {{$commande->numero}}
                             </div>
                             @endif
                         @endcan
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label>Commentaire</label><br/>
-                                @if ($commande->commentaire)
-                                    <p>{{$commande->commentaire}}</p>
-                                @else
-                                    <p>Sans Commentaire</p>
-                                @endif
-                            </div>
-                        </div>
                     </div>
                     @can('gestion-stock')
                     <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
@@ -1276,6 +1294,21 @@ N: {{$commande->numero}}
 @endif
 @endcan
 
+<div class="modal fade" id="myModalImage" tabindex="-1" role="dialog" aria-labelledby="myModalImageTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <img class="modal-content" id="modalImg">
+        </div>
+      </div>
+    </div>
+  </div>
+
 <div class="container my-4">
     <div class="modal fade" id="modalSubscriptionFormStatut" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                     aria-hidden="true">
@@ -1288,7 +1321,7 @@ N: {{$commande->numero}}
                           </button>
                         </div>
                         <div class="modal-body mx-3">
-                            <form class="form-horizontal form-material" method="POST" action="{{route('commandeStatut',['id' => $commande->id])}}">
+                            <form class="form-horizontal form-material" method="POST" action="{{route('statut.admin',['id' => $commande->id])}}"  enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
 
@@ -1333,6 +1366,15 @@ N: {{$commande->numero}}
                                         <textarea  name="commentaire" rows="5" class="form-control form-control-line">{{ old('commentaire') }}</textarea>
                                     </div>
                                 </div>
+                                <div class="form-group" style="margin-top: 20px;">
+                                    <label class="col-sm-12">Fichier joint :</label>
+                                    <div class="custom-file col-sm-12" style="display: flex; justify-content: center;">
+                                        <input type="file" id="fileInput" name="fileInput" accept="image/*, .pdf" onchange="previewFile()" style="display: none">
+                                        <label class="alert alert-dismissible alert-success" style="margin: 0;padding: 12px 20px;" for="fileInput" style="cursor: pointer;">Upload Image</label>
+                                    </div>
+                                </div>
+                                <div id="preview"></div>
+
                                 <div class="form-group">
                                     <div class="modal-footer d-flex justify-content-center">
                                         <button class="btn btn-warning">Enregistrer</button>
@@ -1362,6 +1404,42 @@ N: {{$commande->numero}}
 @endsection
 
 @section('javascript')
+
+<script>
+
+    function showImage(event){
+        $('#myModalImage').modal('show');
+        modalImg.src = event.target.src;
+    }
+
+    function previewFile() {
+      var preview = document.getElementById('preview');
+      var file = document.querySelector('input[type=file]').files[0];
+      var reader = new FileReader();
+
+      reader.onloadend = function () {
+        var fileType = file.type.split('/')[0];
+        if (fileType === 'image') {
+          var img = document.createElement('img');
+          img.src = reader.result;
+          img.style.width = '50%';
+          preview.innerHTML = '';
+          preview.appendChild(img);
+        } else if (fileType === 'application' && file.type === 'application/pdf') {
+          preview.innerHTML = 'Aperçu non disponible pour les fichiers PDF.';
+        } else {
+          preview.innerHTML = 'Aperçu non disponible pour ce type de fichier.';
+        }
+      }
+
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+        preview.innerHTML = '';
+      }
+    }
+  </script>
+
 <script>
     var xx = document.getElementById("prevu");
     function reporter() {
