@@ -837,7 +837,6 @@ class CommandeController extends Controller
     public function changeStatut(Request $request, $id)
     {
         //changement de statut du expidé à en cours
-        //dd(!Gate::denies('ramassage-commande'));
         $commande = Commande::findOrFail($id);
         //$factureExist = DB::table('factures')->where('user_id',$commande->user_id )->whereDate('created_at',$commande->created_at)->count();
 
@@ -868,6 +867,13 @@ class CommandeController extends Controller
             $statut = new Statut();
             $statut->commande_id = $commande->id;
             $statut->name = $commande->statut;
+            if ($request->hasfile('fileInput')) {
+                $file = $request->file('fileInput');
+                $extension = $file->getClientOriginalExtension(); //getting image extension
+                $filename = time() . $commande->numero.'-joint.' . $extension;
+                $file->move('uploads/statuts/', $filename);
+                $statut->joint = $filename;
+            }
             $statut->user()->associate(Auth::user())->save();
 
             //notification
@@ -1125,6 +1131,13 @@ class CommandeController extends Controller
             $statut->commande_id = $commande->id;
             $statut->postponed_at = $commande->postponed_at;
             $statut->name = $commande->statut;
+            if ($request->hasfile('fileInput')) {
+                $file = $request->file('fileInput');
+                $extension = $file->getClientOriginalExtension(); //getting image extension
+                $filename = time() . $commande->numero.'-joint.' . $extension;
+                $file->move('uploads/statuts/', $filename);
+                $statut->joint = $filename;
+            }
             $statut->user()->associate(Auth::user())->save();
             $commande->save();
 
@@ -1145,6 +1158,13 @@ class CommandeController extends Controller
             $statut->commande_id = $commande->id;
             $statut->name = $commande->statut;
             $statut->comment = $request->commentaire;
+            if ($request->hasfile('fileInput')) {
+                $file = $request->file('fileInput');
+                $extension = $file->getClientOriginalExtension(); //getting image extension
+                $filename = time() . $commande->numero.'-joint.' . $extension;
+                $file->move('uploads/statuts/', $filename);
+                $statut->joint = $filename;
+            }
             $commande->postponed_at = $request->prevu_at;
             $statut->postponed_at = $commande->postponed_at;
 
@@ -1178,6 +1198,13 @@ class CommandeController extends Controller
                     $statut->postponed_at = $commande->postponed_at;
                     $statut->commande_id = $commande->id;
                     $statut->name = $commande->statut;
+                    if ($request->hasfile('fileInput')) {
+                        $file = $request->file('fileInput');
+                        $extension = $file->getClientOriginalExtension(); //getting image extension
+                        $filename = time() . $commande->numero.'-joint.' . $extension;
+                        $file->move('uploads/statuts/', $filename);
+                        $statut->joint = $filename;
+                    }
                     $statut->user()->associate(Auth::user())->save();
                     $request->session()->flash('edit', $commande->numero);
 
