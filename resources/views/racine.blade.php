@@ -10,6 +10,7 @@
     <meta name="author" content="Outiti Ayoub">
     <meta name="keywords" content="Rafex,Delivery,Tanger,Livraison,Expédition,Collecte">
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('/assets/images/favicon.png')}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- Assurez-vous que cette balise est présente -->
     <title>@yield('title')</title>
 
     <link href="{{ url('/sass/style.min.css') }}" rel="stylesheet">
@@ -106,18 +107,6 @@
 
     </div>
 
-    <script>
-        var xx = document.getElementById("secteur");
-        function myFunction() {
-        var test = document.getElementById("ville").value;
-        if(test=='Tanger'){
-            xx.style.display = "block";
-        }
-        else{
-            xx.style.display = "none";
-        }
-        }
-    </script>
 
     <script>
         var yy = document.getElementById("montant");

@@ -95,6 +95,21 @@ Route::get('/transferts/filter', 'TransfertController@filter')->name('transfert.
 Route::get('/transfert/{id}/pdf', 'TransfertController@gen')->name('transfert.pdf')->middleware('can:admin-superviseur');
 Route::get('/transfert/scanned/{id}', 'TransfertController@scannedTicket')->name('transfert.scannedTicket')->middleware('can:admin-superviseur');
 
+/* ------------------------------------------ TRANSFERT DES RETOURS ---------------------------------------------------------------------*/
+
+Route::resource('/transfert-retour', 'TransfertRetourController')->except(['create', 'edit'])->middleware('can:admin-superviseur')->names([
+    'index' => 'transfert.retour.index',
+    'store' => 'transfert.retour.store',
+    'show' => 'transfert.retour.show',
+    'update' => 'transfert.retour.update',
+    'destroy' => 'transfert.retour.destroy',
+]);
+
+Route::get('/transfert-retour/{id}/validate', 'TransfertRetourController@valide')->name('transfert.retour.validate')->middleware('can:admin-superviseur');
+Route::get('/transfert-retours/filter', 'TransfertRetourController@filter')->name('transfert.retour.filter')->middleware('can:admin-superviseur');;
+Route::get('/transfert-retour/{id}/pdf', 'TransfertRetourController@gen')->name('transfert.retour.pdf')->middleware('can:admin-superviseur');
+Route::get('/transfert-retour/scanned/{id}', 'TransfertRetourController@scannedTicket')->name('transfert.retour.scannedTicket')->middleware('can:admin-superviseur');
+
 /* ------------------------------------------ RECLAMATION ---------------------------------------------------------------------*/
 Route::post('/reclamation', 'ReclamationController@store')->name('reclamation.store')->middleware('can:fournisseur');
 Route::post('/reclamation/comment', 'ReclamationController@addComment')->name('reclamation.addComment')->middleware('can:delete-commande');
@@ -143,3 +158,14 @@ Route::get('/facture/filter', 'FactureController@filter')->name('facture.filter'
 Route::get('/inbox', 'NotificationController@index')->name('inbox.index')->middleware('can:valide');
 Route::get('/{notifications}/show', 'NotificationController@show')->name('inbox.show')->middleware('can:valide');
 Route::get('/{notifications}/delete', 'NotificationController@destroy')->name('inbox.destroy')->middleware('can:valide');
+
+/* ------------------------------------------ RETOUR ---------------------------------------------------------------------*/
+Route::get('/retour', 'RetourController@index')->name('retour.index')->middleware('can:valide');
+Route::get('/retour/commandes/toaffect', 'RetourController@getCommandesToAffect')->name('retour.toaffect')->middleware('can:admin-superviseur-personnel');
+Route::post('/retour/commandes/affect', 'RetourController@affectCommands')->name('retour.toaffect')->middleware('can:admin-superviseur-personnel');
+Route::get('/retour/filter', 'RetourController@filter')->name('retour.filter')->middleware('can:valide');
+
+/* ------------------------------------------ BON RETOUR ---------------------------------------------------------------------*/
+Route::resource('/bonretour', 'BonRetourController')->only([
+    'index', 'show'
+])->middleware('can:admin-superviseur-personnel-livreur');

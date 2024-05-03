@@ -68,6 +68,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Transfert');
     }
 
+    public function transfertRetours(){
+        return $this->hasMany('App\TransfertRetour');
+    }
+
     public function produits(){
         return $this->hasMany('App\Produit');
     }
@@ -89,6 +93,11 @@ class User extends Authenticatable
     public function bonLivraisons()
     {
         return $this->hasMany('App\BonLivraison');
+    }
+
+    public function bonRetours()
+    {
+        return $this->hasMany('App\BonRetour');
     }
 
     public function factures()

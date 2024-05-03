@@ -214,7 +214,7 @@
 
                     @if ($state >= 2)
                         @if ($state == 2)
-                            <p class="font-weight-bold">{{\App\Statut::where('commande_id',$commande->id)->where('name','Prêt à livrer')->first()->created_at}}</p>
+                            <p class="font-weight-bold">{{\App\Statut::where('commande_id',$commande->id)->where('name','Prête à livrer')->first()->created_at}}</p>
                         @else
                             <p class="font-weight-bold">{{\App\Statut::where('commande_id',$commande->id)->where('name','Affectée au livreur')->first()->created_at}}</p>
                         @endif

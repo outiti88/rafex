@@ -101,6 +101,13 @@ class UsersController extends Controller
         $user->storeName= (!empty($request->storeName)) ? $request->storeName : $user->storeName;
         $user->cin= (!empty($request->cin)) ? $request->cin : $user->cin;
         $user->rib= (!empty($request->rib)) ? $request->rib : $user->rib;
+        // dd($request['role'] !== null);
+        if($request['role'] !== null){
+            $role = Role::select('id')->where('name',$request['role'])->first();
+            $user->roles()->sync($role->id);
+        }
+        else{
+        }
         $user->save();
 
         return back();

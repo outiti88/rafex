@@ -305,7 +305,7 @@
 
                         @cannot('livreur')
                             @cannot('superviseur')
-                            <a onmouseover="showStatusQte('envoyee')"  onmouseleave="showStatus('envoyee')"  href="/commandes/filter?statut=Nouvelle commande" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-warning">
+                            <a onmouseover="showStatusQte('envoyee')"  onmouseleave="showStatus('envoyee')"  href="/commandes/filter?statut=Nouvelle commande" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="col-2 badge badge-warning">
                                 <span id="envoyee">Nouvelle commande</span>
                                 <span id="envoyeeQte" style="display:none;" >
                                     @if (array_key_exists("Nouvelle commande",$statutStat))
@@ -317,11 +317,11 @@
                                 </span>
                             </a>
                             @endcannot
-                            <a onmouseover="showStatusQte('Recue')" onmouseleave="showStatus('Recue')" href="/commandes/filter?statut=Prêt à livrer" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-secondary">
-                                <span id="Recue">Prêt à livrer</span>
+                            <a onmouseover="showStatusQte('Recue')" onmouseleave="showStatus('Recue')" href="/commandes/filter?statut=Prête à livrer" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="col-2 badge badge-secondary">
+                                <span id="Recue">Prête à livrer</span>
                                 <span id="RecueQte" style="display:none;" >
-                                    @if (array_key_exists("Prêt à livrer",$statutStat))
-                                        {{$statutStat['Prêt à livrer']}}
+                                    @if (array_key_exists("Prête à livrer",$statutStat))
+                                        {{$statutStat['Prête à livrer']}}
                                     @else
                                         0
                                     @endif
@@ -330,10 +330,7 @@
                             </a>
 
                         @endcannot
-
-
-
-                          <a onmouseover="showStatusQte('Modifiee')" onmouseleave="showStatus('Modifiee')" href="/commandes/filter?statut=Modifiée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-primary cielBadge">
+                          <a onmouseover="showStatusQte('Modifiee')" onmouseleave="showStatus('Modifiee')" href="/commandes/filter?statut=Modifiée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="col-2 badge badge-primary cielBadge">
                             <span id="Modifiee">Modifiée</span>
                             <span id="ModifieeQte" style="display:none;" >
                                 @if (array_key_exists("Modifiée",$statutStat))
@@ -344,10 +341,7 @@
                                 Commandes
                             </span>
                         </a>
-
-
-
-                        <a onmouseover="showStatusQte('Expidiee')" onmouseleave="showStatus('Expidiee')" href="/commandes/filter?statut=Affectée au livreur" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-primary">
+                        <a onmouseover="showStatusQte('Expidiee')" onmouseleave="showStatus('Expidiee')" href="/commandes/filter?statut=Affectée au livreur" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="col-2 badge badge-primary">
                             <span id="Expidiee">Affectée au livreur</span>
                             <span id="ExpidieeQte" style="display:none;" >
                                 @if (array_key_exists("Affectée au livreur",$statutStat))
@@ -358,7 +352,7 @@
                                 Commandes
                             </span>
                         </a>
-                        <a onmouseover="showStatusQte('en')" onmouseleave="showStatus('en')" href="/commandes/filter?statut=en cours" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-info">
+                        <a onmouseover="showStatusQte('en')" onmouseleave="showStatus('en')" href="/commandes/filter?statut=en cours" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="col-2 badge badge-info">
                             <span id="en">En cours</span>
                             <span id="enQte" style="display:none;" >
                                 @if (array_key_exists("En cours",$statutStat))
@@ -369,7 +363,7 @@
                                 Commandes
                             </span>
                         </a>
-                        <a onmouseover="showStatusQte('Relancee')" onmouseleave="showStatus('Relancee')" href="/commandes/filter?statut=Relancée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge relanceBadge">
+                        <a onmouseover="showStatusQte('Relancee')" onmouseleave="showStatus('Relancee')" href="/commandes/filter?statut=Relancée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="col-2 badge relanceBadge">
                             <span id="Relancee">Relancée</span>
                             <span id="RelanceeQte" style="display:none;" >
                                 @if (array_key_exists("Relancée",$statutStat))
@@ -381,7 +375,7 @@
                             </span>
                         </a>
 
-                        <a onmouseover="showStatusQte('Reporte')" onmouseleave="showStatus('Reporte')" href="/commandes/filter?statut=Confirmé sous RDV" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge orangeBadge">
+                        <a onmouseover="showStatusQte('Reporte')" onmouseleave="showStatus('Reporte')" href="/commandes/filter?statut=Confirmé sous RDV" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="col-2 badge orangeBadge">
                             <span id="Reporte">Confirmé sous RDV</span>
                             <span id="ReporteQte" style="display:none;" >
                                 @if (array_key_exists("Confirmé sous RDV",$statutStat))
@@ -392,7 +386,7 @@
                                 Commandes
                             </span>
                         </a>
-                            <a onmouseover="showStatusQte('Livre')" onmouseleave="showStatus('Livre')" href="/commandes/filter?statut=Livré" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-success">
+                            <a onmouseover="showStatusQte('Livre')" onmouseleave="showStatus('Livre')" href="/commandes/filter?statut=Livré" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="col-2 badge badge-success">
                             <span id="Livre">Livré</span>
                             <span id="LivreQte" style="display:none;" >
                                 @if (array_key_exists("Livré",$statutStat))
@@ -404,7 +398,7 @@
                             </span>
                         </a>
 
-                        <a onmouseover="showStatusQte('Annulee')" onmouseleave="showStatus('Annulee')" href="/commandes/filter?statut=Annulée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-danger">
+                        <a onmouseover="showStatusQte('Annulee')" onmouseleave="showStatus('Annulee')" href="/commandes/filter?statut=Annulée" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="col-2 badge badge-danger">
                             <span id="Annulee">Annulée</span>
                             <span id="AnnuleeQte" style="display:none;" >
                                 @if (array_key_exists("Annulée",$statutStat))
@@ -416,7 +410,7 @@
                             </span>
                         </a>
 
-                        <a onmouseover="showStatusQte('Refusee')" onmouseleave="showStatus('Refusee')" href="/commandes/filter?statut=Injoignable" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-danger">
+                        <a onmouseover="showStatusQte('Refusee')" onmouseleave="showStatus('Refusee')" href="/commandes/filter?statut=Injoignable" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="col-2 badge badge-danger">
                             <span id="Refusee">Injoignable</span>
                             <span id="RefuseeQte" style="display:none;" >
                                 @if (array_key_exists("Injoignable",$statutStat))
@@ -427,7 +421,7 @@
                                 Commandes
                             </span>
                         </a>
-                        <a onmouseover="showStatusQte('Pas')" onmouseleave="showStatus('Pas')" href="/commandes/filter?statut=Pas de Réponse" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-danger">
+                        <a onmouseover="showStatusQte('Pas')" onmouseleave="showStatus('Pas')" href="/commandes/filter?statut=Pas de Réponse" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="col-2 badge badge-danger">
                             <span id="Pas">Pas de réponse</span>
                             <span id="PasQte" style="display:none;" >
                                 @if (array_key_exists("Pas de Réponse",$statutStat))
@@ -459,7 +453,7 @@
                                 @if (request()->get('statut') == 'Nouvelle commande')
                                     <button style="margin: 15px;"  onclick="recevoir()" class="btn btn-rafex text-white action" disabled><i class="fas fa-check-circle"></i> Recevoir</button>
                                 @endif
-                                @if (request()->get('statut') == 'Prêt à livrer')
+                                @if (request()->get('statut') == 'Prête à livrer')
                                     <button style="margin: 15px;" style="margin:15px" data-toggle="modal" data-target="#modalaffectedToLivreur"  class="btn btn-rafex text-white action" disabled><i class="fas fa-truck"></i> Affecter au livreur</button>
                                     <button style="margin: 15px;" style="margin:15px" data-toggle="modal" data-target="#modalaffectedToLivreurByScann"  class="btn btn-rafex text-white" ><i class="fas fa-solid fa-qrcode"></i> Affecter au livreur par douchette</button>
                                 @endif
@@ -624,7 +618,7 @@
                                                             href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
                                                         @endcan
                                                     @break
-                                                    @case("Prêt à livrer")
+                                                    @case("Prête à livrer")
                                                         class="badge badge-pill badge-dark"
                                                     @break
                                                     @case("Affectée au livreur")
@@ -780,11 +774,6 @@
 
 
                             </tbody>
-
-
-
-
-
                     </table>
                 </form>
                     <div class="row">
@@ -818,7 +807,7 @@
                                     @can('manage-users')
                                     <option>Nouvelle commande</option>
                                     <option>Ramassée</option>
-                                    <option>Prêt à livrer</option>
+                                    <option>Prête à livrer</option>
                                     <option>Affectée au livreur</option>
                                     <option>En cours</option>
                                     <option>Relancée</option>
@@ -1071,7 +1060,7 @@
                                                 @endcannot
                                                 <option>En attente de ramassage</option>
                                                 <option>Ramassé par le livreur</option>
-                                                <option>Prêt à livrer</option>
+                                                <option>Prête à livrer</option>
                                             @endcannot
                                             <option>Affectée au livreur</option>
                                             <option>en cours</option>
@@ -1290,7 +1279,7 @@
                                 <div class="form-group">
                                     <label class="col-md-12">Note / Commentaire :</label>
                                     <div class="col-md-12">
-                                        <textarea  name="note" rows="5" class="form-control form-control-line" required>{{ old('note') }}</textarea>
+                                        <textarea  name="note" rows="5" class="form-control form-control-line">{{ old('note') }}</textarea>
                                     </div>
                                 </div>
                                <div class="form-group">
@@ -1407,7 +1396,7 @@
                                 <div class="form-group">
                                     <label class="col-md-12">Note / Commentaire :</label>
                                     <div class="col-md-12">
-                                        <textarea  name="note" rows="5" class="form-control form-control-line" required>{{ old('note') }}</textarea>
+                                        <textarea  name="note" rows="5" class="form-control form-control-line">{{ old('note') }}</textarea>
                                     </div>
                                 </div>
                                 <div class="custom-control custom-control-alternative custom-checkbox" style="margin-bottom: 10px;">
@@ -1582,7 +1571,7 @@
                               <div class="form-group">
                                 <label class="col-md-12">Note / Commentaire :</label>
                                 <div class="col-md-12">
-                                    <textarea  name="note" rows="5" class="form-control form-control-line" required>{{ old('note') }}</textarea>
+                                    <textarea  name="note" rows="5" class="form-control form-control-line">{{ old('note') }}</textarea>
                                 </div>
                             </div>
                               <div class="custom-control custom-control-alternative custom-checkbox">

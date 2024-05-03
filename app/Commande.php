@@ -43,6 +43,10 @@ class Commande extends Model
         return $this->belongsTo('App\Transfert');
     }
 
+    public function transfertRetour(){
+        return $this->belongsTo('App\TransfertRetour');
+    }
+
     public function relances()
     {
         return $this->hasMany('App\Relance');
@@ -51,6 +55,11 @@ class Commande extends Model
     public function statuts()
     {
         return $this->hasMany('App\Statut');
+    }
+
+    public function retours()
+    {
+        return $this->hasMany('App\Retour');
     }
 
     public function produits(){

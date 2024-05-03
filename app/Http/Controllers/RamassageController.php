@@ -219,7 +219,7 @@ class RamassageController extends Controller
                         $commande->statut = 'Ramassé par le livreur';
                     }else{
                         if($commande->ville == $ramassage->city){
-                            $commande->statut = 'Prêt à livrer';
+                            $commande->statut = 'Prête à livrer';
                         }
                         else if($ramassage->city == 'Casablanca' && $commande->ville != 'Casablanca'){
                             $commande->statut = 'Reçue dans le HUB central';

@@ -180,12 +180,8 @@ class ArchiveController extends Controller
         }
 
         if ($request->filled('livreur')) {
-            $livreur =  User::find($request->livreur);
-            $userVilles = array_filter(explode(",",  $livreur->ville));
-
-
-            $commandes->where(function ($query)  use ($userVilles) {
-                $query->whereIn('commandes.ville', $userVilles)
+            $commandes->where(function ($query)  use ($request) {
+                $query->whereIn('commandes.ville', $request->livreur)
                     ->whereNotIn('commandes.statut', ['Nouvelle commande', 'Ramassée', 'Recue']);
             });
         }

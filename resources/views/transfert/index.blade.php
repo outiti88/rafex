@@ -230,7 +230,7 @@
                     </table>
                     <div class="row">
                         <div class="col-12 d-flex justify-content-center">
-                            {{-- {{$transferts ->appends($data)-> links()}} --}}
+                            {{$transferts ->appends($data)-> links()}}
                         </div>
                     </div>
                 </div>
@@ -439,10 +439,7 @@
             var selectedToCity = toCitySelect.value;
 
             // Vérifier les conditions
-            if (selectedFromCity && selectedToCity && ((selectedFromCity !== "Casablanca" && selectedToCity !== "Casablanca") || (selectedToCity != "Casablanca" && selectedFromCity === selectedToCity))) {
-                // Afficher une alerte d'erreur
-                alert("Erreur : Les villes sélectionnées ne sont pas valides.");
-            } else if (selectedFromCity && selectedFromCity != 'Casablanca') {
+            if (selectedFromCity && selectedFromCity != 'Casablanca') {
                 // Si la ville d'expédition est Casablanca, désactiver la sélection de la ville de destination
                 toCitySelect.disabled = true;
                 console.log("## ~ checkAndUpdateCities line : 440 ~ toCitySelect:", toCitySelect)
@@ -456,6 +453,10 @@
                 option.value = "Casablanca";
                 option.text = "Casablanca";
                 toCitySelect.add(option);
+            }
+            else if (selectedFromCity && selectedToCity && ((selectedFromCity !== "Casablanca" && selectedToCity !== "Casablanca") || (selectedToCity != "Casablanca" && selectedFromCity === selectedToCity))) {
+                // Afficher une alerte d'erreur
+                alert("Erreur : Les villes sélectionnées ne sont pas valides.");
             } else{
                 // Si la ville d'expédition n'est pas Casablanca, activer la sélection de la ville de destination
                 toCitySelect.disabled = !selectedFromCity;

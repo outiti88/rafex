@@ -29,8 +29,8 @@
 <div class="container-fluid">
         <div class="alert alert-dismissible alert-warning col-12">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Si l'utilisateur est un client c'est recommander de laisser le mot de passe par defaut : Cavallo2020 </a>.
-          </div>
+            <strong>Si l'utilisateur est un client c'est recommander de laisser le mot de passe par defaut : Cavallo2020 </strong>.
+        </div>
     <div class="row justify-content-center">
 
         <div class="col-md-10">
@@ -51,27 +51,27 @@
                             @switch($roleOfUser)
                                 @case('admin')
                                     <input type="hidden" name="roles[]" value="1" id="admin" checked>
-                                    @include('auth.partiels._admin')
+                                    @include('auth.partiels._admin', ['isUpdate' => false])
                                     @break
                                 @case('personnel')
                                     <input type="hidden" name="roles[]" value="4" id="personnel" checked>
-                                    @include('auth.partiels._personnel')
+                                    @include('auth.partiels._personnel', ['isUpdate' => false])
                                     @break
                                 @case('stock')
                                     <input type="hidden" name="roles[]" value="5" id="stock" checked>
-                                    @include('auth.partiels._stock')
+                                    @include('auth.partiels._stock', ['isUpdate' => false])
                                     @break
                                 @case('ramassage')
                                     <input type="hidden" name="roles[]" value="2" id="ramassage" checked>
-                                    @include('auth.partiels._ramassage')
+                                    @include('auth.partiels._ramassage', ['isUpdate' => false])
                                     @break
                                 @case('livreur')
                                     <input type="hidden" name="roles[]" value="3" id="livreur" checked >
-                                    @include('auth.partiels._livreur')
+                                    @include('auth.partiels._livreur', ['isUpdate' => false])
                                     @break
                                 @case('superviseur')
                                     <input type="hidden" name="roles[]" value="7" id="superviseur" checked >
-                                    @include('auth.partiels._superviseur')
+                                    @include('auth.partiels._superviseur', ['isUpdate' => false])
                                     @break
                             @endswitch
                         </div>

@@ -196,7 +196,7 @@
                                                 <div class="col-sm-8">
                                                     <select name="statut" class="form-control form-control-line" >
                                                         <option value="" disabled selected>Choisissez le Statut</option>
-                                                        <option >En attente</option>
+                                                        <option >En attente de ramassage</option>
                                                         <option >Ramassé par le livreur</option>
                                                         <option >Ramassage Reçu</option>
                                                     </select>
@@ -255,8 +255,8 @@
             <div class="card-body">
               <div class="row" style="display: flex;align-items: center;align-content: stretch;flex-wrap: wrap;justify-content: space-evenly">
 
-                    <a  href="/ramassages/filter?statut=En attente" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-secondary">
-                      <span>En attente</span>
+                    <a  href="/ramassages/filter?statut=En attente de ramassage" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-secondary">
+                      <span>En attente de ramassage</span>
                     </a>
                     <a  href="/ramassages/filter?statut=Ramassé par le livreur" style="display:block ; margin: 0.5rem; font-size: 0.8em;padding: 1rem !important;color: white; cursor:pointer;margin-top:0.5rem" class="badge badge-success">
                       <span>Ramassé par le livreur</span>

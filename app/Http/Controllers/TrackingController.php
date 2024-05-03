@@ -12,7 +12,7 @@ class TrackingController extends Controller
     public function index(Request $request){
 
         $encours = array("En cours", "Modifiée", "Confirmé sous RDV");
-        $expedier = array("Affectée au livreur", "Prêt à livrer");
+        $expedier = array("Affectée au livreur", "Prête à livrer");
         $nonlivrer = array("Annulée", "Annulée sur place", "Retour","Injoignable",'Annulée sur place','Annulée par téléphone','Colis perdu','Colis endommagé','Livré remboursé','Numéro de téléphone erroné',"Pas de Réponse");
 
 

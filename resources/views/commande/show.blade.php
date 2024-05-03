@@ -436,11 +436,16 @@ N: {{$commande->numero}}
     </div>
 </div>
 <div class="container-fluid">
+    @include('partiels._sessions')
+
     <div class="container emp-profile">
-
+        @if ($commande->isRetour)
+            <div class="alert alert-dismissible alert-danger col-12">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>La commande a été enregistrée dans le processus de retour. Vous pouvez suivre son statut de retour.</strong>.
+            </div>
+        @endif
         <div class="row">
-            {{-- @include('partiels._sessions') --}}
-
             <div class="col-md-12">
                 <div class="profile-head">
                     @can('manage-users')
@@ -456,6 +461,18 @@ N: {{$commande->numero}}
                             <h5 style="display: inline"> Fournisseur: {{$commande->user()->first()->name}}</h5>
                         </a>
                     @endcan
+                    <br>
+                        <a style="border: black;
+                        border-style: solid;
+                        border-radius: 10px;
+                        margin-bottom: 10px;
+                        padding: 5px;" title="{{$livreur->name}} Tel: {{$livreur->telephone}}" class=" text-muted waves-effect @if($livreur->statut) vip @endif "
+                            @can('edit-users')
+                                href="{{route('admin.users.edit',$livreur->id)}}"
+                            @endcan >
+                            <img src="{{$livreur->image}}" alt="user" class="rounded-circle" width="31" style="border-color: white; border-style: solid; box-shadow: none;">
+                            <h5 style="display: inline"> Livreur: {{$livreur->name}}</h5>
+                        </a>
                     <div style="display: flex;
                     align-items: center;
                     justify-content: space-between;
@@ -525,7 +542,7 @@ N: {{$commande->numero}}
                                             <span style="font-size: 1.25em">{{$commande->statut}}</span>
                                         </a>
                                         @break
-                                    @case("Prêt à livrer")
+                                    @case("Prête à livrer")
                                         <a class="badge" style="color: white; background-color: rgb(78, 67, 166);">
                                             <span style="font-size: 1.25em">{{$commande->statut}}</span>
                                         </a>
@@ -591,12 +608,12 @@ N: {{$commande->numero}}
                                         </a>
                                         @break
                                     @case("Numéro de téléphone erroné")
-                                        <a class="badge" style="color: white; background-color: #944444;">
+                                        <a class="badge" style="color: white; background-color: #dcdc3a;">
                                             <span style="font-size: 1.25em">{{$commande->statut}}</span>
                                         </a>
                                         @break
                                     @default
-                                        <a class="badge" style="color: white; background-color: #944444;">
+                                        <a class="badge" style="color: white; background-color: #dcdc3a;">
                                             <span style="font-size: 1.25em">{{$commande->statut}}</span>
                                         </a>
                                 @endswitch
@@ -657,9 +674,8 @@ N: {{$commande->numero}}
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Informations</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Historique des statuts</a>
+                            <a class="nav-link" id="status-tab" data-toggle="tab" href="#status" role="tab" aria-controls="status" aria-selected="false">Historique des statuts</a>
                         </li>
-
                         @can('gestion-stock')
                         <li class="nav-item">
                             <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Details</a>
@@ -878,174 +894,66 @@ N: {{$commande->numero}}
                                 </div>
                                 @endif
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade" id="status" role="tabpanel" aria-labelledby="status-tab">
                         <div class="row">
                             <div class="col-md-2">
-                                <p>Modifié par</p>
+                                <label>Modifié par</label>
                             </div>
                             <div class="col-md-3">
-                                <label>STATUT</label>
+                                <label>Statut</label>
                             </div>
                             <div class="col-md-3">
-                                <p>DATE</p>
+                                <label>Date</label>
                             </div>
                             <div class="col-md-3">
-                                <p>Commentaire</p>
+                                <label>Commentaire</label>
                             </div>
                             <div class="col-md-1">
-                                <p>Pièce joint</p>
+                                <label>Pièce joint</label>
                             </div>
                         </div>
                         @foreach ($statuts as $index => $statut)
-                        <div class="row">
-                            <div class="col-md-2">
-                                <p>
-                                    <a title="{{$par[$index+1]->name}} Tel: {{$par[$index+1]->telephone}}" class="waves-effect" style="color: black"
-                                        @can('edit-users')
-                                            href="{{route('admin.users.edit',$par[$index+1]->id)}}"
-                                        @endcan >
-                                        <img src="{{$par[$index+1]->image}}" alt="user" class="rounded-circle" width="31" style="width: 10%"
-                                        >
-                                        {{$par[$index+1]->name}}
-                                    </a>
-                                </p>
-                            </div>
-                            <div class="col-md-3">
-                            <label>
-                                @switch($statut->name)
-                                    @case("En attente de ramassage")
-                                        <a class="badge" style="color: white; background-color: orange;">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <p>
+                                        <a title="{{$par[$index+1]->name}} Tel: {{$par[$index+1]->telephone}}" class="waves-effect" style="color: black"
+                                            @can('edit-users')
+                                                href="{{route('admin.users.edit',$par[$index+1]->id)}}"
+                                            @endcan >
+                                            <img src="{{$par[$index+1]->image}}" alt="user" class="rounded-circle" width="31" style="width: 20%"
+                                            >
+                                            {{$par[$index+1]->name}}
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>
+                                        <a class="badge badge-info" style="color: white;">
                                             <span style="font-size: 1.25em">{{$statut->name}}</span>
                                         </a>
-                                        @break
-                                    @case("Ramassé par le livreur")
-                                        <a class="badge" style="color: white; background-color: blue;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Reçue dans le hub régional")
-                                        <a class="badge" style="color: white; background-color: purple;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Prêt à transférer")
-                                        <a class="badge" style="color: white; background-color: #2472a3;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Envoyée vers le hub central")
-                                        <a class="badge" style="color: white; background-color: green;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Envoyée vers le hub régional")
-                                        <a class="badge" style="color: white; background-color: green;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Reçue dans le hub central")
-                                        <a class="badge" style="color: white; background-color: teal;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Prêt à livrer")
-                                        <a class="badge" style="color: white; background-color: rgb(78, 67, 166);">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Affectée au livreur")
-                                        <a class="badge" style="color: white; background-color: brown;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Nouvelle commande")
-                                        <a class="badge" style="color: white; background-color: #ceab1c;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("En cours")
-                                        <a class="badge" style="color: white; background-color: skyblue;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Relancée")
-                                        <a class="badge" style="color: white; background-color: darkorange;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Livré")
-                                        <a class="badge" style="color: white; background-color: green;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Injoignable")
-                                        <a class="badge" style="color: white; background-color: red;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Pas de Réponse")
-                                        <a class="badge" style="color: white; background-color: grey;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Annulée sur place")
-                                        <a class="badge" style="color: white; background-color: darkgrey;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Annulée par téléphone")
-                                        <a class="badge" style="color: white; background-color: lightgrey;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Colis perdu")
-                                        <a class="badge" style="color: white; background-color: black;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Colis endommagé")
-                                        <a class="badge" style="color: white; background-color: darkred;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Livré remboursé")
-                                        <a class="badge" style="color: white; background-color: gold;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @case("Numéro de téléphone erroné")
-                                        <a class="badge" style="color: white; background-color: #944444;">
-                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                        </a>
-                                        @break
-                                    @default
-                                    <a class="badge" style="color: white; background-color: #944444;">
-                                        <span style="font-size: 1.25em">{{$statut->name}}</span>
-                                    </a>
-                                @endswitch
-                            </label>
-                            @if ($statut->name == "Confirmé sous RDV" && $statut->postponed_at != null)
-                                <span class="badge">Pour le : {{\Carbon\Carbon::parse($statut->postponed_at)->format('j , m, Y')}}</span>
-                            @endif
-
-                            </div>
-                            <div class="col-md-3">
-                                <p style="text-transform: uppercase;">{{ \Carbon\Carbon::parse($statut->created_at)->locale('fr_FR')->isoFormat('dddd DD MMMM YYYY') }} |
-                                    {{ \Carbon\Carbon::parse($statut->created_at)->formatLocalized('%H:%M') }}</p>
-                            </div>
-                            <div class="col-md-3">
-                                <p>{{$statut->comment}}</p>
-                            </div>
-                            <div class="col-md-1">
-                                <p>
-                                    @if ($statut->joint)
-                                    <img style="cursor: pointer" id="{{$statut->joint}}" src="/uploads/statuts/{{$statut->joint}}"width="50" onclick="showImage(event)" />
-                                    @else
-                                    -
+                                    </label>
+                                    @if ($statut->name == "Confirmé sous RDV" && $statut->postponed_at != null)
+                                        <span class="badge">Pour le : {{\Carbon\Carbon::parse($statut->postponed_at)->format('j , m, Y')}}</span>
                                     @endif
-                                </p>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <p style="text-transform: uppercase;">{{ \Carbon\Carbon::parse($statut->created_at)->locale('fr_FR')->isoFormat('dddd DD MMMM YYYY') }} |
+                                        {{ \Carbon\Carbon::parse($statut->created_at)->formatLocalized('%H:%M') }}</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p>{{$statut->comment}}</p>
+                                </div>
+                                <div class="col-md-1">
+                                    <p>
+                                        @if ($statut->joint)
+                                        <img style="cursor: pointer" id="{{$statut->joint}}" src="/uploads/statuts/{{$statut->joint}}"width="50" onclick="showImage(event)" />
+                                        @else
+                                        -
+                                        @endif
+                                    </p>
+                                </div>
                             </div>
-                        </div>
                         @endforeach
                         @can('fournisseur')
                             @if ($statut->name == "En cours")
@@ -1059,6 +967,67 @@ N: {{$commande->numero}}
                             </div>
                             @endif
                         @endcan
+                        @if ($commande->isRetour)
+                            <div class="row">
+                                <div class="progress" style="width: 100%;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="col-12" style="text-align: center">
+                                    <h2>Statuts du retour</h2>
+                                </div>
+                                <div class="progress" style="width: 100%;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Modifié par</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Statut</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Date</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Commentaire</label>
+                                </div>
+                            </div>
+                            @foreach (App\Statut::where('commande_id', $retour->id)->get() as $index => $statut)
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p>
+                                            <a title="{{$statut->user()->first()->name}} Tel: {{$statut->user()->first()->telephone}}" class="waves-effect" style="color: black"
+                                                @can('edit-users')
+                                                    href="{{route('admin.users.edit',$statut->user()->first()->id)}}"
+                                                @endcan >
+                                                <img src="{{$statut->user()->first()->image}}" alt="user" class="rounded-circle" width="31" style="width: 20%"
+                                                >
+                                                {{$statut->user()->first()->name}}
+                                            </a>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3">
+                                    <label>
+                                        <a class="badge" style="color: white; background-color : #fc544b ;">
+                                            <span style="font-size: 1.25em">{{$statut->name}}</span>
+                                        </a>
+                                    </label>
+                                    @if ($statut->name == "Confirmé sous RDV" && $statut->postponed_at != null)
+                                        <span class="badge">Pour le : {{\Carbon\Carbon::parse($statut->postponed_at)->format('j , m, Y')}}</span>
+                                    @endif
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p style="text-transform: uppercase;">{{ \Carbon\Carbon::parse($statut->created_at)->locale('fr_FR')->isoFormat('dddd DD MMMM YYYY') }} |
+                                            {{ \Carbon\Carbon::parse($statut->created_at)->formatLocalized('%H:%M') }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p>{{$statut->comment}}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                     @can('gestion-stock')
                     <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
@@ -1332,7 +1301,7 @@ N: {{$commande->numero}}
                                             @can('manage-users')
                                                 <option>Nouvelle commande</option>
                                                 <option>Ramassée</option>
-                                                <option>Prêt à livrer</option>
+                                                <option>Prête à livrer</option>
                                                 <option>Affectée au livreur</option>
                                                 <option>En cours</option>
                                                 <option>Relancée</option>

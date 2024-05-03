@@ -60,21 +60,6 @@
                 </nav>
             </div>
         </div>
-        {{-- <div class="col-7">
-            <div class="text-right upgrade-btn">
-                @can('ramassage-commande')
-                <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#modalBonLivraison"><i class="fa fa-plus-square">
-                    </i> Générer le bon de livraison
-                </a>
-
-                </select>
-                @endcan
-                @cannot('ramassage-commande')
-
-                    <button data-toggle="modal" data-target="#genererBon"type="submit" class="btn btn-danger text-white m-r-5"><i class="fa fa-plus-square"></i> Générer le bon de livraison</button>
-                @endcan
-            </div>
-        </div> --}}
     </div>
 </div>
 
@@ -132,9 +117,13 @@
                                     BL_{{bin2hex(substr($users[$index]->name, - strlen($users[$index]->name) , 3)).$bonLivraison->id}}
                                 </th>
                                 <th>
+                                    @if (App\Ramassage::where('id',$bonLivraison->ramassage_id)->first() )
                                     <a class="btn btn-light" href="{{route('ramassage.show',$bonLivraison->ramassage_id)}}">
                                         {{App\Ramassage::where('id',$bonLivraison->ramassage_id)->first()->reference}}
                                       </a>
+                                    @else
+                                    --
+                                    @endif
                                 </th>
                                 <td>{{$bonLivraison->commande}}</td>
                                 <td>{{$bonLivraison->colis}}</td>
@@ -163,96 +152,6 @@
     </div>
 
 </div>
-
-
-
-<div class="container my-4">
-    <div class="modal fade" id="modalBonLivraison" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header text-center">
-                          <h4 class="modal-title w-100 font-weight-bold">Choisissez le fournisseur</h4>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body mx-3">
-                            <form class="form-horizontal form-material" method="POST" action="{{route('bonlivraison.store')}}">
-                                @csrf
-
-
-                                <div class="form-group">
-                                    <label for="client" class="col-sm-12">Fournisseur :</label>
-                                    <div class="col-sm-12">
-                                        <select name="client" id="client" class="form-control form-control-line" value="{{ old('client') }}" required>
-                                            <option value="" disabled selected>Choisissez le fournisseur</option>
-                                            @foreach ($clients as $client)
-                                        <option value="{{$client->id}}" class="rounded-circle">
-                                            {{$client->name}}
-                                        </option>
-                                            @endforeach
-
-                                        </select>
-
-                                    </div>
-
-                                 <!--  <label for="ville" class="col-sm-12">Ville :</label>
-                                  <div class="col-sm-12">
-                                      <select value="{{ old('ville') }}" name="ville" class="form-control form-control-line" id="ville" required>
-                                          <option checked>Choisissez la ville</option>
-                                          <option value="Agadir"> Agadir</option>
-                                          <option value="Al Hoceima"> Al Hoceima</option>
-                                          <option value="Béni Mellal"> Béni Mellal</option>
-                                          <option value="Casablanca">Casablanca</option>
-                                          <option value="El Jadida"> El Jadida</option>
-                                          <option value="Errachidia"> Errachidia</option>
-                                          <option value="Fès"> Fès</option>
-                                          <option value="Khénifra"> Khénifra</option>
-                                          <option value="Khouribga"> Khouribga</option>
-                                          <option value="Kénitra">Kénitra</option>
-                                          <option value="Larache"> Larache</option>
-                                          <option value="Marrakech">Marrakech</option>
-                                          <option value="Meknès"> Meknès</option>
-                                          <option value="Nador"> Nador</option>
-                                          <option value="Ouarzazate"> Ouarzazate</option>
-                                          <option value="Oujda"> Oujda</option>
-                                          <option value="Rabat"> Rabat</option>
-                                          <option value="Safi"> Safi</option>
-                                          <option value="Settat"> Settat</option>
-                                          <option value="Salé"> Salé</option>
-                                          <option value="Tanger"> Tanger</option>
-                                          <option value="Taza"> Taza</option>
-                                          <option value="Tétouan"> Tétouan</option>
-                                      </select>
-                                  </div> -->
-                                </div>
-                                <div class="form-group">
-                                    <div class="modal-footer d-flex justify-content-center">
-                                        <button class="btn btn-warning">Générer</button>
-
-                                    </div>
-                                </div>
-                            </form>
-                            @if ($errors->any())
-                            <div class="alert alert-dismissible alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>
-                                        <strong>{{$error}}</strong>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                              </div>
-                              @endif
-                        </div>
-
-                      </div>
-                    </div>
-    </div>
-</div>
-
 
 
 <!-- Modal -->
