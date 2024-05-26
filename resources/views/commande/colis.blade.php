@@ -582,7 +582,7 @@
                                             {{substr($commande->ville, 0, -12)}} <br>
                                             <span style="color: white" class="badge badge-pill badge-danger" style="font-size: 1.25em">(Hors Zone)</span>
                                         @else
-                                            {{$commande->ville}}
+                                            {{$commande->ville}} / {{$commande->secteur}}
                                         @endif
                                         </td>
                                         @if ($commande->montant > 0)
@@ -1251,11 +1251,11 @@
                                 <div class="form-group">
                                     <label class="col-sm-12">Ville :</label>
                                     <div class="col-sm-12">
-                                        <select name="ville" class="form-control form-control-line"  onchange="myFunction()" required>
+                                        <select name="ville" class="form-control form-control-line"   required>
                                             <option checked>Choisissez la ville</option>
                                             @foreach ($villes as $ville)
                                             <option value="{{$ville->name}}" class="rounded-circle">
-                                                {{$ville->name}} ({{$ville->prix}}DH)
+                                                {{$ville->name}}
                                             </option>
                                             @endforeach
 
@@ -1345,16 +1345,23 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    {{-- <label class="col-sm-12">Ville :</label> --}}
                                     <div class="col-sm-12">
-                                       <select name="ville" class="form-control form-control-line"  onchange="myFunction()" required>
+                                        <select id="villeSelect" name="ville" class="form-control form-control-line" required data-user-ville="{{ Auth::user()->ville }}">
                                             <option checked>Choisissez la ville</option>
                                             @foreach ($villes as $ville)
-                                            <option value="{{$ville->name}}" class="rounded-circle">
-                                                {{$ville->name}} ({{$ville->prix}}DH)
+                                            <option value="{{$ville->id}}" class="rounded-circle">
+                                                {{$ville->name}}
                                             </option>
                                             @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
+                                <div style="display: none" class="form-group" id="secteur">
+                                    <label class="col-sm-12">Secteur :</label>
+                                    <div class="col-sm-12">
+                                        <select id="secteurSelect" value="{{ old('secteur') }}" name="secteur" class="form-control form-control-line">
+                                            <option value="">Tous les secteurs</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1384,15 +1391,7 @@
                                         <input placeholder="Montant : "  value="{{ old('montant') }}" type="text" class="form-control form-control-line" name="montant" id="example-email">
                                     </div>
                                 </div>
-                                <div style="display: none"  class="form-group" id="secteur">
-                                    <label class="col-sm-12">Secteur :</label>
-                                    <div class="col-sm-12">
-                                      <select  value="{{ old('secteur') }}" name="secteur" class="form-control form-control-line">
 
-                                        <option value="">Tous les secteurs</option>
-                                     </select>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Note / Commentaire :</label>
                                     <div class="col-md-12">
@@ -1540,16 +1539,23 @@
                                   </div>
                               </div>
                               <div class="form-group">
-                                <label class="col-sm-12">Ville:</label>
                                 <div class="col-sm-12">
-                                    <select value="{{ old('ville') }}" name="ville" class="form-control form-control-line" onchange="myFunction()" required>
+                                    <select id="villeSelect" name="ville" class="form-control form-control-line" required data-user-ville="{{ Auth::user()->ville }}">
                                         <option checked>Choisissez la ville</option>
                                         @foreach ($villes as $ville)
-                                          <option value="{{$ville->name}}" class="rounded-circle">
-                                              {{$ville->name}} ({{$ville->prix}}DH)
-                                          </option>
-                                          @endforeach
+                                        <option value="{{$ville->id}}" class="rounded-circle">
+                                            {{$ville->name}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
 
+                            <div style="display: none" class="form-group" id="secteur">
+                                <label class="col-sm-12">Secteur :</label>
+                                <div class="col-sm-12">
+                                    <select id="secteurSelect" value="{{ old('secteur') }}" name="secteur" class="form-control form-control-line">
+                                        <option value="">Tous les secteurs</option>
                                     </select>
                                 </div>
                             </div>
@@ -1643,11 +1649,65 @@
             });
           });
         });
-        </script>
+    </script>
 
 <script>
 
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function () {
+    const villeSelect = document.getElementById('villeSelect');
+    const secteurDiv = document.getElementById('secteur');
+    const secteurSelect = document.getElementById('secteurSelect');
+    const userVille = villeSelect.getAttribute('data-user-ville');
+
+    villeSelect.addEventListener('change', function () {
+        const villeId = this.value;
+        const selectedVilleName = this.options[this.selectedIndex].text.split(' (')[0];  // Assuming the text is in format "CityName (PriceDH)"
+
+        if (villeId) {
+            if (selectedVilleName === userVille) {
+                fetch(`/secteurs/${villeId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Clear the secteur select options
+                        secteurSelect.innerHTML = '<option value="">Tous les secteurs</option>';
+
+                        if (data.length > 0) {
+                            // Populate the secteur select with new options
+                            data.forEach(secteur => {
+                                const option = document.createElement('option');
+                                option.value = secteur.id;
+                                option.textContent = secteur.name;
+                                secteurSelect.appendChild(option);
+                            });
+
+                            // Show the secteur div
+                            secteurDiv.style.display = 'block';
+                        } else {
+                            // Hide the secteur div if no secteurs found
+                            secteurDiv.style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching secteurs:', error);
+                        // Hide the secteur div in case of error
+                        secteurDiv.style.display = 'none';
+                    });
+            } else {
+                // Hide the secteur div if the selected city is not the user's city
+                secteurDiv.style.display = 'none';
+            }
+        } else {
+            // Hide the secteur div if no ville is selected
+            secteurDiv.style.display = 'none';
+        }
+    });
+});
+
+
+
+
+
+    $(document).ready(function() {
 
     $('#table').DataTable( {
         "paging":   false,
@@ -1991,5 +2051,4 @@ function changeStatus(id) {
         }
     });
 </script>
-
 @endsection

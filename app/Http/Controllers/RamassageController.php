@@ -243,7 +243,6 @@ class RamassageController extends Controller
 
     public function filter(Request $request)
     {
-
         $data = $request->all();
         $clients = User::whereHas('roles', function ($q) {
             $q->whereIn('name', ['client']);
@@ -278,7 +277,14 @@ class RamassageController extends Controller
                     $users[] =  User::withTrashed()->find($reception->user_id);
             }
         }
-
+        else if(!Gate::denies('livreur')) {
+            $total = $ramassages->where('livreurId', Auth::user()->id)->count();
+            $ramassages = $ramassages->where('livreurId', Auth::user()->id)->paginate(10);
+            foreach ($ramassages as $ramassage) {
+                if (!empty(User::withTrashed()->find($ramassage->user_id)))
+                    $users[] =  User::withTrashed()->find($ramassage->user_id);
+            }
+        }
         else if (!Gate::denies('ramassage-commande')) {
             if ($request->filled('client')) {
                 $ramassages->where('user_id', $request->client);
@@ -290,7 +296,8 @@ class RamassageController extends Controller
                 if (!empty(User::withTrashed()->find($reception->user_id)))
                     $users[] =  User::withTrashed()->find($reception->user_id);
             }
-        } else {
+        }
+         else {
             $ramassages = $ramassages->where('user_id', Auth::user()->id)->paginate(10);
             $commandes = Commande::where('commandes.deleted_at', NULL)->where('user_id', Auth::user()->id)->where('statut','Nouvelle commande')->get();
             $total = DB::table('ramassages')->where('user_id', Auth::user()->id)->count();

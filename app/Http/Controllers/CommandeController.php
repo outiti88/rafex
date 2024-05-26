@@ -26,8 +26,10 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\CommandesImport;
 use App\Reclamation;
 use App\Retour;
+use App\Secteur;
 use App\TicketComment;
 use App\UpdatedCommande;
+use App\Ville;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 
@@ -487,14 +489,26 @@ class CommandeController extends Controller
 
         $commande = new Commande();
         $statut = new Statut();
-
+        $ville = Ville::findOrFail($request->ville);
+        $commande->secteur = $ville->name;
+        $commande->livreurPart = $ville->livreur;
+        $commande->refusePart = $ville->refuse;
         //prix de livraison de la commande
         if ($fournisseur->prix === 0) {
-            $commande->prix = DB::table('villes')
-                ->select('prix')
-                ->where('name', $request->ville)
-                ->get()->first()->prix;
-        } else {
+            if($fournisseur->ville == $ville->name){
+                if($request->secteur != null){
+                    $secteur = Secteur::findOrFail($request->secteur);
+                    $commande->prix = $secteur->prix;
+                    $commande->secteur = $secteur->name;
+                    $commande->livreurPart = $secteur->livreur;
+                    $commande->refusePart = $secteur->refuse;
+                }else{
+                    $commande->prix = $ville->prix_interne;
+                }
+            }else{
+                $commande->prix = $ville->prix;
+            }
+        }else {
             $commande->prix = $fournisseur->prix;
         }
 
@@ -511,8 +525,7 @@ class CommandeController extends Controller
         }
         $commande->telephone = $request->telephone;
         $commande->note = ($request->note != null) ?  $request->note : 'Aucune note';
-        $commande->ville = $request->ville;
-        $commande->secteur = ($request->secteur) ? $request->secteur : $request->ville;
+        $commande->ville = $ville->name;
         $commande->adresse = $request->adresse;
         $commande->statut = "Nouvelle commande";
         $commande->colis = 1;
@@ -524,15 +537,15 @@ class CommandeController extends Controller
         $commande->isOpen = ($request->isOpen) ? 1 : 0;
         $commande->is_fragile = ($request->isFragile) ? 1 : 0;
         $commande->isChanged = $request->isChanged;
-        $livreurForCmd = User::where('ville', $request->ville )->whereHas('roles', function ($q) {
+        $livreurForCmd = User::where('ville', $ville->name )->whereHas('roles', function ($q) {
             $q->whereIn('name', ['superviseur']);
         })->first();
 
         $commande->livreur = $livreurForCmd == null ? 1 : $livreurForCmd->id;
 
-        $ville = DB::table('villes')->where('name', $commande->ville)->first();
-        $commande->livreurPart = $ville == null ? 15 : $ville->livreur;
-        $commande->refusePart = $ville == null ? 10 : $ville->refuse;
+        // $ville = DB::table('villes')->where('name', $commande->ville)->first();
+        // $commande->livreurPart = $ville == null ? 15 : $ville->livreur;
+        // $commande->refusePart = $ville == null ? 10 : $ville->refuse;
 
         if (!Gate::denies('ecom')) {
             if (isset($request->produit)) {
@@ -1062,7 +1075,7 @@ class CommandeController extends Controller
         $commande = Commande::findOrFail($id);
         $user = User::find($commande->user_id);
 
-        if($request->statut === $commande->statut){
+        if($request->statut === $commande->statut || $request->statut  === 'Nouvelle commande'){
             return back();
         }
 

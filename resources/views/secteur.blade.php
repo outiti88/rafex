@@ -1,8 +1,7 @@
-
 @extends('racine')
 
 @section('title')
-   Gestion des Villes
+   Gestion des Secteurs
 @endsection
 
 
@@ -26,12 +25,13 @@
 <div class="page-breadcrumb">
     <div class="row align-items-center">
         <div class="col-5">
-            <h4 class="page-title">Gestion des Villes</h4>
+            <h4 class="page-title">Gestion des Secteur de la ville : {{$ville->name}}</h4>
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Rafex</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Villes</li>
+                        <li class="breadcrumb-item"><a href="/ville">{{$ville->name}}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Secteur</li>
                     </ol>
                 </nav>
             </div>
@@ -43,28 +43,29 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="FormStore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header text-center">
-            <h4 class="modal-title w-100 font-weight-bold">Ajouter une nouvelle ville</h4>
+            <h4 class="modal-title w-100 font-weight-bold">Ajouter un nouveau secteur</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body mx-3">
-              <form class="form-horizontal form-material" method="POST" action="{{route('ville.store')}}">
+              <form class="form-horizontal form-material" method="POST" action="{{route('ville.createSecteur')}}">
                   @csrf
-
+                    <input type="hidden" name="ville_id" value="{{$ville->id}}">
                   <div id="education_fields">
 
                   </div>
                     <div class="row" id="test">
 
                         <div class="form-group col-md-12">
-                          <label for="produit" class="col-sm-12">Nom de la ville :</label>
+                          <label for="produit" class="col-sm-12">Nom du secteur :</label>
                           <div class="col-md-12">
-                            <input  value="{{ old('name') }}" name="name" type="text" placeholder="Nom de la ville" class="form-control form-control-line" required>
+                            <input  value="{{ old('name') }}" name="name" type="text" placeholder="Nom du secteur" class="form-control form-control-line" required>
 
                             </div>
                           </div>
@@ -74,15 +75,9 @@
                     </div>
 
                   <div class="form-group">
-                      <label class="col-md-12">Prix interne:</label>
+                      <label class="col-md-12">Prix:</label>
                       <div class="col-md-12">
-                          <input  value="{{ old('prix_interne') }}" name="prix_interne" type="number" placeholder="Prix de livraison interne" class="form-control form-control-line" required>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                      <label class="col-md-12">Prix externe:</label>
-                      <div class="col-md-12">
-                          <input  value="{{ old('prix') }}" name="prix" type="number" placeholder="Prix de livraison externe" class="form-control form-control-line" required>
+                          <input  value="{{ old('prix') }}" name="prix" type="number" placeholder="Prix de livraison" class="form-control form-control-line" required>
                       </div>
                   </div>
 
@@ -114,12 +109,13 @@
         </div>
       </div>
 </div>
+
 <div class="container-fluid">
 
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Total des villes: {{ $total }} Villes</div>
+                <div class="card-header">Total des secteurs: {{ $total }} secteurs</div>
                 <input class="form-control" id="myInput" type="text" placeholder="Rechercher...">
 
 
@@ -128,9 +124,8 @@
                         <table class="table" >
                             <thead>
                               <tr>
-                                <th scope="col">Ville</th>
-                                <th scope="col">Prix interne</th>
-                                <th scope="col">Prix externe</th>
+                                <th scope="col">Secteur</th>
+                                <th scope="col">Prix</th>
                                 <th scope="col">Part de Livreur</th>
                                 <th scope="col">Prix du refusé</th>
 
@@ -142,32 +137,31 @@
                             </thead>
 
                             <tbody id="myTable">
-                                @foreach ($villes as $ville)
+                                @foreach ($secteurs as $secteur)
                               <tr>
 
-                                <td>{{$ville->name}}</td>
-                                <td>{{$ville->prix_interne}}</td>
-                                <td>{{$ville->prix}}</td>
-                                <td>{{$ville->livreur}}</td>
-                                <td>{{$ville->refuse}}</td>
+                                <td>{{$secteur->name}}</td>
+                                <td>{{$secteur->prix}}</td>
+                                <td>{{$secteur->livreur}}</td>
+                                <td>{{$secteur->refuse}}</td>
 
                                 @can('edit-users')
                                 <td>
-                                    <a style="color: white" class="btn btn-primary float-lef"  data-toggle="modal" data-target="#FormEdit{{$ville->id}}">
+                                    <a style="color: white" class="btn btn-primary float-lef"  data-toggle="modal" data-target="#FormEdit{{$secteur->id}}">
                                        <i class="mdi mdi-account-edit"></i>
                                    </a>
 
-                                   <div class="modal fade" id="FormEdit{{$ville->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                   <div class="modal fade" id="FormEdit{{$secteur->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                           <div class="modal-header text-center">
-                                            <h4 class="modal-title w-100 font-weight-bold">Modifier la ville {{$ville->name}}</h4>
+                                            <h4 class="modal-title w-100 font-weight-bold">Modifier le secteur {{$secteur->name}}</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                             </button>
                                           </div>
                                           <div class="modal-body mx-3">
-                                              <form class="form-horizontal form-material" method="POST" action="{{route('ville.updateVille',$ville->id)}}">
+                                              <form class="form-horizontal form-material" method="POST" action="{{route('ville.updateSecteur',$secteur->id)}}">
                                                   @csrf
                                                   @method("PUT")
 
@@ -177,9 +171,9 @@
                                                     <div class="row" id="test">
 
                                                         <div class="form-group col-md-12">
-                                                          <label for="produit" class="col-sm-12">Nom de la ville :</label>
+                                                          <label for="produit" class="col-sm-12">Nom du secteur :</label>
                                                           <div class="col-md-12">
-                                                            <input  value="{{$ville->name}}" name="name" type="text" placeholder="Nom de la ville" class="form-control form-control-line" required>
+                                                            <input  value="{{$secteur->name}}" name="name" type="text" placeholder="Nom du secteur" class="form-control form-control-line" required>
 
                                                             </div>
                                                           </div>
@@ -187,31 +181,24 @@
 
 
                                                     </div>
-
                                                   <div class="form-group">
-                                                      <label class="col-md-12">Prix interne:</label>
+                                                      <label class="col-md-12">Prix:</label>
                                                       <div class="col-md-12">
-                                                          <input  value="{{$ville->prix_interne	}}" name="prix_interne" type="number" placeholder="Prix de livraison interne" class="form-control form-control-line" required>
-                                                      </div>
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label class="col-md-12">Prix externe:</label>
-                                                      <div class="col-md-12">
-                                                          <input  value="{{$ville->prix}}" name="prix" type="number" placeholder="Prix de livraison externe" class="form-control form-control-line" required>
+                                                          <input  value="{{$secteur->prix}}" name="prix" type="number" placeholder="Prix de livraison" class="form-control form-control-line" required>
                                                       </div>
                                                   </div>
 
                                                     <div class="form-group">
                                                         <label class="col-md-12">La part du livreur :</label>
                                                         <div class="col-md-12">
-                                                            <input  value="{{$ville->livreur}}" name="livreur" type="number" placeholder="Part du livreur" class="form-control form-control-line" required>
+                                                            <input  value="{{$secteur->livreur}}" name="livreur" type="number" placeholder="Part du livreur" class="form-control form-control-line" required>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label class="col-md-12">Prix du refusé :</label>
                                                         <div class="col-md-12">
-                                                            <input  value="{{$ville->refuse}}" name="refuse" type="number" placeholder="Prix du refusé" class="form-control form-control-line" required>
+                                                            <input  value="{{$secteur->refuse}}" name="refuse" type="number" placeholder="Prix du refusé" class="form-control form-control-line" required>
                                                         </div>
                                                     </div>
 
@@ -235,21 +222,20 @@
 
 
 
-                                <a class="btn btn-danger text-white m-r-5" data-toggle="modal" data-target="#FormDelete{{$ville->id}}"><i class="fas fa-trash-alt"></i></a>
-                                <a class="btn btn-info text-white m-r-5" href="{{route('ville.getSecteur',$ville->id)}}"><i class="fas fa-eye"></i></a>
+                                <a class="btn btn-danger text-white m-r-5" data-toggle="modal" data-target="#FormDelete{{$secteur->id}}"><i class="fas fa-trash-alt"></i></a>
 
-                                <div class="modal fade" id="FormDelete{{$ville->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="FormDelete{{$secteur->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalLabel">etes-vous sur de vouloir supprimer cette ville ?</h5>
+                                          <h5 class="modal-title" id="exampleModalLabel">êtes-vous sur de vouloir supprimer ce secteur ?</h5>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                           </button>
                                         </div>
                                         <div class="modal-body">
                                             <h5>
-                                                ville: {{$ville->name}}
+                                                secteur: {{$secteur->name}}
                                             </h5>
                                         </div>
                                         <div class="modal-body">
@@ -264,7 +250,7 @@
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 
-                                            <form action="{{route('ville.destroy',$ville->id)}}" method="POST" class="float-left">
+                                            <form action="{{route('ville.destroySecteur',$secteur->id)}}" method="POST" class="float-left">
                                                 @csrf
                                                 @method("DELETE")
                                                 <button type="submit" class="btn btn-danger text-white m-r-5">Ok</button>
@@ -291,28 +277,4 @@
     </div>
 
 </div>
-
-
-
-
-@endsection
-
-@section('javascript')
-    @if ($errors->any())
-        <script type="text/javascript">
-            $(window).on('load',function(){
-                $('#modalSubscriptionForm').modal('show');
-            });
-        </script>
-    @endif
-    <script>
-      $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
-          var value = $(this).val().toLowerCase();
-          $("#myTable tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-          });
-        });
-      });
-      </script>
 @endsection

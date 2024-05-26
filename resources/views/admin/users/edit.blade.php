@@ -253,6 +253,13 @@
                                     <input name="storeName" type="text" value="{{$user->storeName}}" class="form-control form-control-line" required>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="prix" class="col-md-3 col-form-label text-md-right">{{ __('Prix de livraison fixé') }}</label>
+                                <div class="col-md-9">
+                                    <input id="prix" type="number" class="form-control" name="prix" value="{{$user->prix}}">
+                                </div>
+
+                            </div>
                         @endif
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-md-right">N° CIN</label>

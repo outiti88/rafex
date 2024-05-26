@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Secteur;
 use App\User;
 use App\Ville;
 use Illuminate\Http\Request;
@@ -37,6 +38,22 @@ class VilleController extends Controller
 
     }
 
+    public function getSecteur($id)
+    {
+        $ville = Ville::findOrFail($id);
+        $secteurs= DB::table('secteurs')->where('ville_id',$id)->orderBy('name')->get();
+        $total= DB::table('secteurs')->where('ville_id',$id)->orderBy('name')->count();
+        $nouveau =  User::whereHas('roles', function($q){$q->whereIn('name', ['nouveau']);})->where('deleted_at',NULL)->count();
+
+
+        return view('secteur', ['nouveau'=>$nouveau,
+                                'secteurs'=>$secteurs,
+                                'ville'=>$ville,
+                                'total'=>$total
+                                    ]);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -58,10 +75,29 @@ class VilleController extends Controller
         $ville = new Ville() ;
         $ville->name = $request->name;
         $ville->prix = $request->prix;
+        $ville->prix_interne = $request->prix_interne;
         $ville->livreur = $request->livreur;
         $ville->refuse = $request->refuse;
         $ville->save();
         return back();
+    }
+
+    public function createSecteur(Request $request)
+    {
+        $secteur = new Secteur() ;
+        $secteur->name = $request->name;
+        $secteur->prix = $request->prix;
+        $secteur->ville_id = $request->ville_id;
+        $secteur->livreur = $request->livreur;
+        $secteur->refuse = $request->refuse;
+        $secteur->save();
+        return back();
+    }
+
+    public function getSecteurs($villeId)
+    {
+        $secteurs = Secteur::where('ville_id', $villeId)->get();
+        return response()->json($secteurs);
     }
 
     /**
@@ -102,9 +138,20 @@ class VilleController extends Controller
         $ville = Ville::findOrFail($id);
         $ville->name = $request->name;
         $ville->prix = $request->prix;
+        $ville->prix_interne = $request->prix_interne;
         $ville->livreur = $request->livreur;
         $ville->refuse = $request->refuse;
         $ville->save();
+        return back();
+    }
+
+    public function updateSecteur(Request $request,$id){
+        $secteur = Secteur::findOrFail($id);
+        $secteur->name = $request->name;
+        $secteur->prix = $request->prix;
+        $secteur->livreur = $request->livreur;
+        $secteur->refuse = $request->refuse;
+        $secteur->save();
         return back();
     }
 
@@ -121,7 +168,14 @@ class VilleController extends Controller
         \App\Ville::destroy($ville->id);
 
         return back();
+    }
 
+    public function destroySecteur($id)
+    {
+        $secteur = Secteur::findOrFail($id);
 
+        \App\Secteur::destroy($secteur->id);
+
+        return back();
     }
 }

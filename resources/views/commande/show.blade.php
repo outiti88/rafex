@@ -1299,7 +1299,6 @@ N: {{$commande->numero}}
                                     <div class="col-sm-12">
                                         <select id="etat" onchange="reporter()" name="statut" class="form-control form-control-line" value="{{ old('statut',$commande->statut) }}" required>
                                             @can('manage-users')
-                                                <option>Nouvelle commande</option>
                                                 <option>Ramassée</option>
                                                 <option>Prête à livrer</option>
                                                 <option>Affectée au livreur</option>
@@ -1450,18 +1449,7 @@ N: {{$commande->numero}}
         }
     }
 </script>
-<script>
-    function myFunction() {
-        var xx = document.getElementById("secteur");
-    var test = document.getElementById("ville").value;
-    if(test=='Tanger'){
-        xx.style.display = "block";
-    }
-    else{
-        xx.style.display = "none";
-    }
-    }
-</script>
+
 
 <script>
     function myFunction2(mode) {

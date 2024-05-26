@@ -67,7 +67,7 @@
             <label for="ville" class="col-md-4 col-form-label text-md-right">{{ __('Ville') }}</label>
 
             <div class="col-md-8">
-                <select  value="{{ old('ville') }}"  name="ville" class="form-control form-control-line" id="ville" onchange="myFunction()" required>
+                <select  value="{{ old('ville') }}"  name="ville" class="form-control form-control-line" id="ville"  required>
                             <option selected="" disabled="">Choisissez la ville</option>
                             @foreach ($villes as $ville)
                             <option value="{{$ville->name}}" class="rounded-circle">
@@ -121,4 +121,12 @@
     <div class="col-md-10">
         <textarea name="adresse" id="adresse" cols="100" rows="5"></textarea >
     </div>
+</div>
+
+<div class="form-group row">
+    <label for="prix" class="col-md-2 col-form-label text-md-right">{{ __('Prix de livraison fixé') }}</label>
+    <div class="col-md-10">
+        <input id="prix" type="number" class="form-control" name="prix" value="{{ old('prix') }}">
+    </div>
+
 </div>

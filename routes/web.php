@@ -73,6 +73,12 @@ Route::get('/archive/filter', 'ArchiveController@filter')->name('archive.filter'
 Route::put('/ville/{id}', 'VilleController@updateVille')->name('ville.updateVille')->middleware('can:edit-users');
 Route::resource('/ville', 'VilleController')->middleware('can:edit-users');
 
+Route::get('/secteur/{id}', 'VilleController@getSecteur')->name('ville.getSecteur')->middleware('can:edit-users');
+Route::put('/secteur/{id}', 'VilleController@updateSecteur')->name('ville.updateSecteur')->middleware('can:edit-users');
+Route::delete('/secteur/{id}', 'VilleController@destroySecteur')->name('ville.destroySecteur')->middleware('can:edit-users');
+Route::post('/secteur', 'VilleController@createSecteur')->name('ville.createSecteur')->middleware('can:edit-users');
+Route::get('/secteurs/{ville}', 'VilleController@getSecteurs')->name('ville.getSecteurs');
+
 /* ------------------------------------------ PRODUIT ---------------------------------------------------------------------*/
 Route::get('/stock/filter', 'ProduitController@filter')->name('stock.filter')->middleware('can:gestion-stock');
 Route::resource('/produit', 'ProduitController')->except([
