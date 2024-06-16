@@ -83,6 +83,7 @@ class RegisterController extends Controller
             $data['image'] = '/uploads/userImages/'.$filename ;
         }
 
+            if(empty($data['prix'])) $data['prix']=0;
             if(empty($data['description'])) $data['description']=" ";
             if(empty($data['adresse'])) $data['adresse']=" ";
             if(empty($data['adresse2'])) $data['adresse2']=" ";
@@ -102,6 +103,7 @@ class RegisterController extends Controller
             'ville'=>$data['ville'],
             'image'=>$data['image'],
             'rib'=>$data['rib'],
+            'prix'=>$data['prix'],
             'storeName'=>$data['storeName'],
             'cin'=>$data['cin'],
             'ramassage_ville'=>$data['ville']

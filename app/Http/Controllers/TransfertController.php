@@ -187,7 +187,7 @@ class TransfertController extends Controller
                     }
                     if($transfert->statut == "Reçue"){
                         if($transfert->to_city == $commande->ville){
-                            $commande->statut = 'Prêt à livrer';
+                            $commande->statut = 'Prête à livrer';
                         }
                         else{
                             $commande->statut = 'Reçue dans le HUB central';

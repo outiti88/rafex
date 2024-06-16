@@ -130,3 +130,11 @@
         <textarea name="adresse2" id="adresse2" cols="100" rows="5" required>{{old('adresse2')}}</textarea >
     </div>
 </div>
+
+<div class="form-group row">
+    <label for="prix" class="col-md-2 col-form-label text-md-right">{{ __('Prix de livraison fixé') }}</label>
+    <div class="col-md-10">
+        <input id="prix" type="number" class="form-control" name="prix" value="{{ old('prix') }}">
+    </div>
+
+</div>

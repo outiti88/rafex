@@ -78,7 +78,6 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-
         if(Gate::denies('edit-users')){
             return redirect(route('admin.users.index'));
         }
@@ -91,6 +90,7 @@ class UsersController extends Controller
             $user->image = '/uploads/userImages/'.$filename ;
         }
 
+        $user->prix= (!empty($request->prix)) ? $request->prix : 0;
         $user->name= (!empty($request->name)) ? $request->name : $user->name;
         $user->email= (!empty($request->email)) ? $request->email : $user->email;
         $user->ramassage_ville= (!empty($request->ramassage_ville)) ? $request->ramassage_ville : $user->ramassage_ville;
@@ -101,6 +101,13 @@ class UsersController extends Controller
         $user->storeName= (!empty($request->storeName)) ? $request->storeName : $user->storeName;
         $user->cin= (!empty($request->cin)) ? $request->cin : $user->cin;
         $user->rib= (!empty($request->rib)) ? $request->rib : $user->rib;
+        // dd($request['role'] !== null);
+        if($request['role'] !== null){
+            $role = Role::select('id')->where('name',$request['role'])->first();
+            $user->roles()->sync($role->id);
+        }
+        else{
+        }
         $user->save();
 
         return back();

@@ -25,8 +25,11 @@ use App\Exports\CommandesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\CommandesImport;
 use App\Reclamation;
+use App\Retour;
+use App\Secteur;
 use App\TicketComment;
 use App\UpdatedCommande;
+use App\Ville;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 
@@ -81,6 +84,7 @@ class CommandeController extends Controller
      */
     public function index()
     {
+
         //dd(auth()->user()->unreadNotifications );
         // dd(Auth::user()->id );
         \Carbon\Carbon::setLocale('fr');
@@ -122,13 +126,13 @@ class CommandeController extends Controller
                 }
             }
             //session administrateur donc on affiche tous les commandes
-            $total = Commande::where('deleted_at', NULL)
+            $total = Commande::where('deleted_at', NULL)->where('isRetour', 0)
                 ->where(function ($q) {
                     $q->whereDate('updated_at', '>=', now()->subMonth())
                         ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
                 })
                 ->count();
-            $commandes = Commande::where('deleted_at', NULL)
+            $commandes = Commande::where('deleted_at', NULL)->where('isRetour', 0)
                 ->where(function ($q) {
                     $q->whereDate('updated_at', '>=', now()->subMonth())
                         ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
@@ -136,7 +140,7 @@ class CommandeController extends Controller
                 ->orderBy('updated_at', 'DESC')->paginate(50);
                 $statuts = DB::table('commandes')
                 ->select('statut', DB::raw('count(*) as total'))
-                ->where('deleted_at', NULL)
+                ->where('deleted_at', NULL)->where('isRetour', 0)
                 ->where(function ($q) {
                    $q->whereDate('updated_at', '>=', now()->subMonth())
                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
@@ -149,13 +153,13 @@ class CommandeController extends Controller
             //session superviseur
             $statuts = DB::table('commandes')
                 ->select('statut', DB::raw('count(*) as total'))
-                ->where('deleted_at', NULL)
+                ->where('deleted_at', NULL)->where('isRetour', 0)
                 ->where('ville', Auth::user()->ville)
                 ->whereNotIn('commandes.statut', ['Nouvelle commande'])
                 ->groupBy('statut')
                 ->get();
 
-            $superviseurSession = Commande::where('deleted_at', NULL)->where('ville', Auth::user()->ville)
+            $superviseurSession = Commande::where('deleted_at', NULL)->where('ville', Auth::user()->ville)->where('isRetour', 0)
                 ->whereNotIn('commandes.statut', ['Nouvelle commande'])
                 ->orderBy('updated_at', 'DESC');
             $total = $superviseurSession->get()->count();
@@ -165,20 +169,20 @@ class CommandeController extends Controller
             //session livreur
             $statuts = DB::table('commandes')
                 ->select('statut', DB::raw('count(*) as total'))
-                ->where('deleted_at', NULL)
+                ->where('deleted_at', NULL)->where('isRetour', 0)
                 ->where('livreur', Auth::user()->id)
                 ->whereNotIn('commandes.statut', ['Nouvelle commande', 'Ramassée', 'Recue','En attente de ramassage'])
                 ->groupBy('statut')
                 ->get();
 
-            $livreurSession = Commande::where('deleted_at', NULL)->where('livreur', Auth::user()->id)
+            $livreurSession = Commande::where('deleted_at', NULL)->where('livreur', Auth::user()->id)->where('isRetour', 0)
                 ->whereNotIn('commandes.statut', ['Nouvelle commande', 'Ramassée', 'Recue','En attente de ramassage'])
                 ->orderBy('updated_at', 'DESC');
             $total = $livreurSession->get()->count();
             $commandes = $livreurSession->paginate(50);
             //dd($clients[0]->id);
         } else {
-            $clientSession = Commande::where('deleted_at', NULL)->where('user_id', Auth::user()->id)
+            $clientSession = Commande::where('deleted_at', NULL)->where('user_id', Auth::user()->id)->where('isRetour', 0)
             ->where(function ($q) {
                 $q->whereDate('updated_at', '>=', now()->subMonth())
                     ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
@@ -188,7 +192,7 @@ class CommandeController extends Controller
             $statuts = DB::table('commandes')
                 ->select('statut', DB::raw('count(*) as total'))
                 ->where('user_id', Auth::user()->id)
-                ->where('deleted_at', NULL)
+                ->where('deleted_at', NULL)->where('isRetour', 0)
                 ->where(function ($q) {
                    $q->whereDate('updated_at', '>=', now()->subMonth())
                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
@@ -248,7 +252,7 @@ class CommandeController extends Controller
         $statuts = [];
         $statutStat = [];
 
-        $commandes = Commande::where('commandes.deleted_at', NULL);
+        $commandes = Commande::where('commandes.deleted_at', NULL)->where('isRetour', 0);
         $clients = User::whereHas('roles', function ($q) {
             $q->whereIn('name', ['client', 'ecom']);
         })->orderBy('name')->get();
@@ -306,7 +310,7 @@ class CommandeController extends Controller
         }
         if ($request->filled('statut')) {
             if (!Gate::denies('livreur')) {
-                $Ramassage = array("Nouvelle commande", "Ramassée", "Prêt à livrer",'En attente de ramassage');
+                $Ramassage = array("Nouvelle commande", "Ramassée", "Prête à livrer",'En attente de ramassage');
                 if (in_array($request->statut, $Ramassage)) {
                     return back();
                 } else {
@@ -385,7 +389,7 @@ class CommandeController extends Controller
         if(!Gate::denies('manage-users')){
             $statuts = DB::table('commandes')
                 ->select('statut', DB::raw('count(*) as total'))
-                ->where('deleted_at', NULL)
+                ->where('deleted_at', NULL)->where('isRetour', 0)
                 ->where(function ($q) {
                    $q->whereDate('updated_at', '>=', now()->subMonth())
                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
@@ -397,7 +401,7 @@ class CommandeController extends Controller
             //session superviseur
             $statuts = DB::table('commandes')
                 ->select('statut', DB::raw('count(*) as total'))
-                ->where('deleted_at', NULL)
+                ->where('deleted_at', NULL)->where('isRetour', 0)
                 ->where('ville', Auth::user()->ville)
                 ->whereNotIn('commandes.statut', ['Nouvelle commande'])
                 ->groupBy('statut')
@@ -406,7 +410,7 @@ class CommandeController extends Controller
         else if(!Gate::denies('livreur')){
             $statuts = DB::table('commandes')
                 ->select('statut', DB::raw('count(*) as total'))
-                ->where('deleted_at', NULL)
+                ->where('deleted_at', NULL)->where('isRetour', 0)
                 ->where('livreur', Auth::user()->id)
                 ->whereNotIn('commandes.statut', ['Nouvelle commande', 'Ramassée', 'Recue','En attente de ramassage'])
                 ->groupBy('statut')
@@ -415,7 +419,7 @@ class CommandeController extends Controller
             $statuts = DB::table('commandes')
                 ->select('statut', DB::raw('count(*) as total'))
                 ->where('user_id', Auth::user()->id)
-                ->where('deleted_at', NULL)
+                ->where('deleted_at', NULL)->where('isRetour', 0)
                 ->where(function ($q) {
                    $q->whereDate('updated_at', '>=', now()->subMonth())
                        ->orWhereNotIn('commandes.statut', ['livré', 'Retour en stock', 'Retour']);
@@ -485,14 +489,26 @@ class CommandeController extends Controller
 
         $commande = new Commande();
         $statut = new Statut();
-
+        $ville = Ville::findOrFail($request->ville);
+        $commande->secteur = $ville->name;
+        $commande->livreurPart = $ville->livreur;
+        $commande->refusePart = $ville->refuse;
         //prix de livraison de la commande
         if ($fournisseur->prix === 0) {
-            $commande->prix = DB::table('villes')
-                ->select('prix')
-                ->where('name', $request->ville)
-                ->get()->first()->prix;
-        } else {
+            if($fournisseur->ville == $ville->name){
+                if($request->secteur != null){
+                    $secteur = Secteur::findOrFail($request->secteur);
+                    $commande->prix = $secteur->prix;
+                    $commande->secteur = $secteur->name;
+                    $commande->livreurPart = $secteur->livreur;
+                    $commande->refusePart = $secteur->refuse;
+                }else{
+                    $commande->prix = $ville->prix_interne;
+                }
+            }else{
+                $commande->prix = $ville->prix;
+            }
+        }else {
             $commande->prix = $fournisseur->prix;
         }
 
@@ -509,8 +525,7 @@ class CommandeController extends Controller
         }
         $commande->telephone = $request->telephone;
         $commande->note = ($request->note != null) ?  $request->note : 'Aucune note';
-        $commande->ville = $request->ville;
-        $commande->secteur = ($request->secteur) ? $request->secteur : $request->ville;
+        $commande->ville = $ville->name;
         $commande->adresse = $request->adresse;
         $commande->statut = "Nouvelle commande";
         $commande->colis = 1;
@@ -522,15 +537,15 @@ class CommandeController extends Controller
         $commande->isOpen = ($request->isOpen) ? 1 : 0;
         $commande->is_fragile = ($request->isFragile) ? 1 : 0;
         $commande->isChanged = $request->isChanged;
-        $livreurForCmd = User::where('ville', $request->ville )->whereHas('roles', function ($q) {
+        $livreurForCmd = User::where('ville', $ville->name )->whereHas('roles', function ($q) {
             $q->whereIn('name', ['superviseur']);
         })->first();
 
         $commande->livreur = $livreurForCmd == null ? 1 : $livreurForCmd->id;
 
-        $ville = DB::table('villes')->where('name', $commande->ville)->first();
-        $commande->livreurPart = $ville == null ? 15 : $ville->livreur;
-        $commande->refusePart = $ville == null ? 10 : $ville->refuse;
+        // $ville = DB::table('villes')->where('name', $commande->ville)->first();
+        // $commande->livreurPart = $ville == null ? 15 : $ville->livreur;
+        // $commande->refusePart = $ville == null ? 10 : $ville->refuse;
 
         if (!Gate::denies('ecom')) {
             if (isset($request->produit)) {
@@ -635,7 +650,8 @@ class CommandeController extends Controller
      */
     public function show(Commande $commande)
     {
-        $Ramassage = array("Nouvelle commande", "Ramassée", "Prêt à livrer",'En attente de ramassage');
+        $retour = Retour::where('commande_id', $commande->id)->first();
+        $Ramassage = array("Nouvelle commande", "Ramassée", "Prête à livrer",'En attente de ramassage');
         if (!Gate::denies('superviseur') && ($commande->ville != Auth::user()->ville || $commande->statut == 'Nouvelle commande')) {
             return abort(403, 'Unauthorized.');
         }
@@ -710,7 +726,8 @@ class CommandeController extends Controller
                 'commentTickets' => $commentTickets,
                 'oldCommandes' => $oldCommandes,
                 'commandes' => $commandes,
-                'fournisseurs' => $fournisseurs
+                'fournisseurs' => $fournisseurs,
+                'retour' => $retour
             ]);
         }
         //dd($users);
@@ -727,7 +744,8 @@ class CommandeController extends Controller
             'commentTickets' => $commentTickets,
             'oldCommandes' => $oldCommandes,
             'commandes' => $commandes,
-            'fournisseurs' => $fournisseurs
+            'fournisseurs' => $fournisseurs,
+            'retour' => $retour
 
         ]);
     }
@@ -794,9 +812,11 @@ class CommandeController extends Controller
         }
 
         $etat = array("Nouvelle commande","En attente de ramassage");
-        if ( Gate::denies('delete-commande') || !in_array($commande->statut, $etat)) {
-            $request->session()->flash('noupdate', $commande->numero);
-            return back();
+        if(Gate::denies('admin')){
+            if ( Gate::denies('delete-commande') || !in_array($commande->statut, $etat)) {
+                    $request->session()->flash('noupdate', $commande->numero);
+                    return back();
+                }
         }
         else {
             $commande->nom = $request->nom;
@@ -847,10 +867,10 @@ class CommandeController extends Controller
         //pour traiter la commande à ramassée , faut verifier deux conditons:
         // commande est Nouvelle commande + traiter = 0
 
-        if (($commande->statut === "Nouvelle commande" || $commande->statut === "Prêt à livrer" || $commande->statut === "Ramassée" || $commande->statut === "Affectée au livreur")) {
+        if (($commande->statut === "Nouvelle commande" || $commande->statut === "Prête à livrer" || $commande->statut === "Ramassée" || $commande->statut === "Affectée au livreur")) {
             $user_ville = User::findOrFail($commande->user_id);
             if ($commande->statut === "Nouvelle commande"){
-                $commande->statut = "Prêt à livrer";
+                $commande->statut = "Prête à livrer";
             }
              elseif ($commande->statut === "Affectée au livreur") {
                 $commande->statut = "En cours";
@@ -858,7 +878,7 @@ class CommandeController extends Controller
                 if ($user_ville->ville == $commande->ville || $commande->ville == "Rabat") {
                     $commande->statut = "En cours";
                 } else {
-                    $commande->statut = "Prêt à livrer";
+                    $commande->statut = "Prête à livrer";
                 }
             }
 
@@ -968,7 +988,7 @@ class CommandeController extends Controller
         $commandes = Commande::whereIn('numero',$orderNumbersArray)->get();
         if (!Gate::denies('admin-superviseur-personnel')) {
             if(count($commandes) === 0){
-                $request->session()->flash('editBatchRequiredField', 'Aucune commande trouvée avec le statut Prêt à livrer !');
+                $request->session()->flash('editBatchRequiredField', 'Aucune commande trouvée avec le statut Prête à livrer !');
             }
             else if($request->livreurInputFormTosend == null){
                 $request->session()->flash('editBatchRequiredField', 'Vous devrez mettre un livreur !');
@@ -1001,7 +1021,7 @@ class CommandeController extends Controller
 
         if (!Gate::denies('admin-superviseur-personnel')) {
             if(count($commandes) === 0){
-                $request->session()->flash('editBatchRequiredField', 'Aucune commande trouvée avec le statut Prêt à livrer');
+                $request->session()->flash('editBatchRequiredField', 'Aucune commande trouvée avec le statut Prête à livrer');
             }
             else if($request->livreurInputFormTosend == null){
                 $request->session()->flash('editBatchRequiredField', 'Vous devrez mettre un livreur');
@@ -1035,7 +1055,7 @@ class CommandeController extends Controller
 
         if (!Gate::denies('manage-users')) {
             foreach ($commandes as $commande) {
-                $commande->statut = 'Prêt à livrer';
+                $commande->statut = 'Prête à livrer';
                 $commande->postponed_at = $request->prevu_at;
 
                 $statut = new Statut();
@@ -1057,7 +1077,7 @@ class CommandeController extends Controller
         $commande = Commande::findOrFail($id);
         $user = User::find($commande->user_id);
 
-        if($request->statut === $commande->statut){
+        if($request->statut === $commande->statut || $request->statut  === 'Nouvelle commande'){
             return back();
         }
 

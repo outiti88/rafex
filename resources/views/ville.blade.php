@@ -74,9 +74,15 @@
                     </div>
 
                   <div class="form-group">
-                      <label class="col-md-12">Prix :</label>
+                      <label class="col-md-12">Prix interne:</label>
                       <div class="col-md-12">
-                          <input  value="{{ old('prix') }}" name="prix" type="number" placeholder="Prix de livraison" class="form-control form-control-line" required>
+                          <input  value="{{ old('prix_interne') }}" name="prix_interne" type="number" placeholder="Prix de livraison interne" class="form-control form-control-line" required>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="col-md-12">Prix externe:</label>
+                      <div class="col-md-12">
+                          <input  value="{{ old('prix') }}" name="prix" type="number" placeholder="Prix de livraison externe" class="form-control form-control-line" required>
                       </div>
                   </div>
 
@@ -107,7 +113,7 @@
 
         </div>
       </div>
-  </div>
+</div>
 <div class="container-fluid">
 
     <div class="row justify-content-center">
@@ -123,7 +129,8 @@
                             <thead>
                               <tr>
                                 <th scope="col">Ville</th>
-                                <th scope="col">Prix</th>
+                                <th scope="col">Prix interne</th>
+                                <th scope="col">Prix externe</th>
                                 <th scope="col">Part de Livreur</th>
                                 <th scope="col">Prix du refusé</th>
 
@@ -139,6 +146,7 @@
                               <tr>
 
                                 <td>{{$ville->name}}</td>
+                                <td>{{$ville->prix_interne}}</td>
                                 <td>{{$ville->prix}}</td>
                                 <td>{{$ville->livreur}}</td>
                                 <td>{{$ville->refuse}}</td>
@@ -181,9 +189,15 @@
                                                     </div>
 
                                                   <div class="form-group">
-                                                      <label class="col-md-12">Prix :</label>
+                                                      <label class="col-md-12">Prix interne:</label>
                                                       <div class="col-md-12">
-                                                          <input  value="{{$ville->prix}}" name="prix" type="number" placeholder="Prix de livraison" class="form-control form-control-line" required>
+                                                          <input  value="{{$ville->prix_interne	}}" name="prix_interne" type="number" placeholder="Prix de livraison interne" class="form-control form-control-line" required>
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label class="col-md-12">Prix externe:</label>
+                                                      <div class="col-md-12">
+                                                          <input  value="{{$ville->prix}}" name="prix" type="number" placeholder="Prix de livraison externe" class="form-control form-control-line" required>
                                                       </div>
                                                   </div>
 
@@ -222,6 +236,7 @@
 
 
                                 <a class="btn btn-danger text-white m-r-5" data-toggle="modal" data-target="#FormDelete{{$ville->id}}"><i class="fas fa-trash-alt"></i></a>
+                                <a class="btn btn-info text-white m-r-5" href="{{route('ville.getSecteur',$ville->id)}}"><i class="fas fa-eye"></i></a>
 
                                 <div class="modal fade" id="FormDelete{{$ville->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">

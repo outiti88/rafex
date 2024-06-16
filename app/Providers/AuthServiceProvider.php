@@ -110,12 +110,19 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin-superviseur-personnel', function($user){
             return $user->hasAnyRoles(['superviseur','admin','personnel']);
         });
+        Gate::define('admin-superviseur-personnel-livreur', function($user){
+            return $user->hasAnyRoles(['superviseur','admin','personnel','livreur']);
+        });
 
         Gate::define('client-admin-personnel-superviseur', function($user){
             return $user->hasAnyRoles(['admin','client','personnel','superviseur']);
         });
         Gate::define('client-admin-personnel-superviseur,livreur', function($user){
             return $user->hasAnyRoles(['admin','client','personnel','superviseur','livreur']);
+        });
+
+        Gate::define('ecom-client', function($user){
+            return $user->hasAnyRoles(['ecom','client']);
         });
 
         //

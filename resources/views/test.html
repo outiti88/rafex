@@ -1,0 +1,122 @@
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commandModal">
+  Ouvrir la modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="commandModal" tabindex="-1" aria-labelledby="commandModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-lg modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commandModalLabel">Gestion des commandes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6">
+              <h5>Scanner le QR code</h5>
+              <label for="qrInput">Scanner le QR code :</label>
+              <input type="text" id="qrInput" class="form-control mb-3" placeholder="Entrer le numéro de commande">
+              <h5>Liste des commandes</h5>
+              <ul id="commandList" class="list-group">
+                <!-- La liste des commandes va être générée ici -->
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h5>Commandes sélectionnées</h5>
+              <ul id="selectedCommands" class="list-group">
+                <!-- Les commandes sélectionnées vont être affichées ici -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Liste des commandes
+  const commands = [
+    { id: 1, numero: "CMD001", ville: "Paris", vendeur: "Jean" },
+    { id: 2, numero: "CMD002", ville: "Lyon", vendeur: "Marie" },
+    { id: 3, numero: "CMD003", ville: "Marseille", vendeur: "Pierre" }
+  ];
+
+  // Fonction pour afficher les commandes dans la liste
+  function displayCommands() {
+    const commandList = document.getElementById('commandList');
+    commandList.innerHTML = '';
+    commands.forEach(command => {
+      const li = document.createElement('li');
+      li.classList.add('list-group-item');
+      li.textContent = `${command.numero} - ${command.ville} - ${command.vendeur}`;
+      // Ajout d'un événement de clic pour sélectionner la commande
+      li.addEventListener('click', () => selectCommand(command, li));
+      commandList.appendChild(li);
+    });
+  }
+
+  // Fonction pour sélectionner une commande
+  function selectCommand(command, liElement) {
+    const qrInput = document.getElementById('qrInput');
+    qrInput.value = command.numero;
+    addSelectedCommand(command);
+    // Supprimer la commande de la liste des commandes
+    commands.splice(commands.findIndex(c => c.id === command.id), 1);
+    displayCommands();
+  }
+
+  // Fonction pour ajouter une commande sélectionnée
+  function addSelectedCommand(command) {
+    const selectedCommands = document.getElementById('selectedCommands');
+    const li = document.createElement('li');
+    li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+    li.textContent = `${command.numero} - ${command.ville} - ${command.vendeur}`;
+    // Ajout du bouton de désélection
+    const removeButton = document.createElement('button');
+    removeButton.textContent = '-';
+    removeButton.classList.add('btn', 'btn-danger', 'btn-sm');
+    removeButton.addEventListener('click', () => deselectCommand(command, li));
+    li.appendChild(removeButton);
+    selectedCommands.appendChild(li);
+  }
+
+  // Fonction pour désélectionner une commande
+  function deselectCommand(command, liElement) {
+    const commandList = document.getElementById('commandList');
+    const selectedCommands = document.getElementById('selectedCommands');
+    // Supprimer la commande de la liste des commandes sélectionnées
+    selectedCommands.removeChild(liElement);
+    // Réajouter la commande à la liste des commandes
+    commands.push(command);
+    // Réafficher les commandes dans la liste
+    displayCommands();
+  }
+
+  // Affichage initial des commandes
+  displayCommands();
+
+  // Fonction pour gérer l'événement de soumission du formulaire (pour la saisie manuelle)
+  document.getElementById('qrInput').addEventListener('change', (event) => {
+    const commandNumber = event.target.value;
+    const selectedCommand = commands.find(c => c.numero === commandNumber);
+    if (selectedCommand) {
+      selectCommand(selectedCommand, null); // null pour indiquer que l'élément de la liste n'est pas encore créé
+    } else {
+      alert('La commande n\'existe pas');
+    }
+    event.target.value = ''; // Effacer la valeur après l'utilisation
+  });
+</script>
+
+</body>
+</html>

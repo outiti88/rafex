@@ -296,7 +296,7 @@ Archive des Commandes
                                          href="{{ route('commandeStatut',['id'=> $commande->id]) }}"
                                         @endcan
                                     @break
-                                    @case("Prêt à livrer")
+                                    @case("Prête à livrer")
                                     badge-dark"
                                     @can('ramassage-commande')
                                     title="Envoyer la commande"

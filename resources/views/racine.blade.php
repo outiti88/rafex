@@ -10,6 +10,7 @@
     <meta name="author" content="Outiti Ayoub">
     <meta name="keywords" content="Rafex,Delivery,Tanger,Livraison,Expédition,Collecte">
     <link rel="icon" type="image/png" sizes="16x16" href="{{url('/assets/images/favicon.png')}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- Assurez-vous que cette balise est présente -->
     <title>@yield('title')</title>
 
     <link href="{{ url('/sass/style.min.css') }}" rel="stylesheet">
@@ -29,6 +30,7 @@
 
     <link href="{{ url('/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+
     <style>
 
 
@@ -106,18 +108,6 @@
 
     </div>
 
-    <script>
-        var xx = document.getElementById("secteur");
-        function myFunction() {
-        var test = document.getElementById("ville").value;
-        if(test=='Tanger'){
-            xx.style.display = "block";
-        }
-        else{
-            xx.style.display = "none";
-        }
-        }
-    </script>
 
     <script>
         var yy = document.getElementById("montant");
@@ -136,26 +126,26 @@
 
 
 
-    <script src="{{ url('/assets/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ url('/otika/assets/js/app.min.js') }}"></script>
-    <script src="{{ url('/otika/assets/js/scripts.js') }}"></script>
+<script src="{{ url('/assets/libs/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ url('/otika/assets/js/app.min.js') }}"></script>
+<script src="{{ url('/otika/assets/js/scripts.js') }}"></script>
 
-    <script src="{{ url('/otika/assets/bundles/datatables/datatables.min.js') }}"></script>
-    <script src="{{ url('/otika/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ url('/otika/assets/bundles/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ url('/otika/assets/js/page/datatables.js') }}"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="{{ url('/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
-    <script src="{{ url('/js/app-style-switcher.js') }}" ></script>
-    <!--Wave Effects -->
-    <!--Menu sidebar -->
-    <script src="{{ url('/js/sidebarmenu.js') }}" ></script>
-    <!--Custom JavaScript -->
-    <script src="{{ url('/js/custom.js') }}" ></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+<script src="{{ url('/otika/assets/bundles/datatables/datatables.min.js') }}"></script>
+<script src="{{ url('/otika/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url('/otika/assets/bundles/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ url('/otika/assets/js/page/datatables.js') }}"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="{{ url('/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
+<script src="{{ url('/js/app-style-switcher.js') }}" ></script>
+<!--Wave Effects -->
+<!--Menu sidebar -->
+<script src="{{ url('/js/sidebarmenu.js') }}" ></script>
+<!--Custom JavaScript -->
+<script src="{{ url('/js/custom.js') }}" ></script>
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
 
-    <script>
-        function handleRoleValidate(){
+<script>
+    function handleRoleValidate(){
             var selectedRole = document.querySelector('input[name="role"]:checked');
             console.log(selectedRole.value);
             if (selectedRole) {

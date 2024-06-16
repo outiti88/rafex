@@ -19,4 +19,8 @@ class Statut extends Model
     public function commande(){
         return $this->belongsTo('App\Commandes');
     }
+
+    public function retour(){
+        return $this->belongsTo('App\Retour');
+    }
 }

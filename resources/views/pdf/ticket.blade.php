@@ -118,7 +118,7 @@
                                 <td class="tg-0lax" rowspan="2" style="text-align: center;">Téléphone: <br><br> <strong>{{$commande->telephone}}</strong></td>
                             </tr>
                             <tr class="dotted-top">
-                                <td class="tg-0lax dotted-right" colspan="3">Adresse: <strong>{{$commande->adresse}}</strong></td>
+                                <td class="tg-0lax dotted-right" colspan="3">Adresse:  {{$commande->adresse}} <strong>{{$commande->ville}} / {{$commande->secteur}}</strong></td>
                             </tr>
                             <tr class="dotted-top">
                                 <td class="tg-0lax dotted-right" colspan="3">

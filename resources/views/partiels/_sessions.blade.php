@@ -26,14 +26,14 @@
 </div>
 @endif
 @if (session()->has('statut'))
-<div class="alert alert-dismissible alert-success col-12">
+<div class="alert alert-dismissible alert-info col-12">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>Succés !</strong> La commande a été bien Modifiée </a>.
 </div>
 @endif
 
 @if (session()->has('edit'))
-<div class="alert alert-dismissible alert-info col-12">
+<div class="alert alert-dismissible alert-success col-12">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>Succés !</strong> Le statut de la commande numéro {{session()->get('edit')}} a été bien edité !
 </div>
