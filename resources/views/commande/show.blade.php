@@ -384,7 +384,7 @@ N: {{$commande->numero}}
                     @endcan
 
                     @can('delete-commande')
-                    @if ($commande->statut === "Nouvelle commande" || $commande->statut === "En attente de ramassage")
+                    @if ($commande->statut === "Nouvelle commande" || $commande->statut === "En attente de ramassage" ||  Auth::user()->roles()->get()->pluck('name')->toArray()[0] == 'admin')
                     <a  class="btn btn-primary text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormEdit"><i class="fas fa-edit"></i><span class="quick-action"> Modifier</span></a>
                         @if ($commande->statut === "Nouvelle commande" )
                         <a class="btn btn-secondary text-white m-r-5" data-toggle="modal" data-target="#modalSubscriptionFormDelete"><i class="fas fa-trash-alt"></i><span class="quick-action"> Supprimer</span></a>
@@ -1095,7 +1095,7 @@ N: {{$commande->numero}}
 </div>
 
 @can('delete-commande')
-@if ($commande->statut === "Nouvelle commande" || $commande->statut === "En attente de ramassage" )
+@if ($commande->statut === "Nouvelle commande" || $commande->statut === "En attente de ramassage" ||  Auth::user()->roles()->get()->pluck('name')->toArray()[0] == 'admin')
 <div class="container my-4">
     <div class="modal fade" id="modalSubscriptionFormEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                     aria-hidden="true">

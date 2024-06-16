@@ -812,9 +812,11 @@ class CommandeController extends Controller
         }
 
         $etat = array("Nouvelle commande","En attente de ramassage");
-        if ( Gate::denies('delete-commande') || !in_array($commande->statut, $etat)) {
-            $request->session()->flash('noupdate', $commande->numero);
-            return back();
+        if(Gate::denies('admin')){
+            if ( Gate::denies('delete-commande') || !in_array($commande->statut, $etat)) {
+                    $request->session()->flash('noupdate', $commande->numero);
+                    return back();
+                }
         }
         else {
             $commande->nom = $request->nom;
