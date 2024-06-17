@@ -52,8 +52,9 @@ class ProfilController extends Controller
          $user->image = '/uploads/userImages/'.$filename ;
      }
        $user->telephone=$request->telephone;
+
        $user->adresse=$request->adresse;
-       if(Gate::denies('client')){
+       if(!Gate::denies('client')){
             $user->adresse2 = $request->adresse2;
         }
        $user->adresse=$request->adresse;

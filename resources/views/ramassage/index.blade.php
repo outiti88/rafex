@@ -136,6 +136,12 @@
 
 @section('content')
 <div class="page-breadcrumb">
+    @if (empty(trim(Auth::user()->adresse)) && empty(trim(Auth::user()->adresse2)))
+    <div class="alert alert-dismissible alert-danger col-12">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Adresses de ramassage non disponible.</strong> Veuillez mettre à jour votre profil. <a href="/profil#adresseDeRamassage" class="btn btn-danger">Mettre à jour mon profil</a>
+      </div>
+    @endif
     <div class="row align-items-center">
         <div class="col-5">
             <h4 class="page-title">Gestion des demandes de ramassages</h4>
@@ -154,9 +160,11 @@
                 <a  class="btn btn-warning text-white"  data-toggle="modal" data-target="#modalStockSearch"><i class="fa fa-search"></i></a>
             </div>
             @can('client')
-            <div class="m-r-5">
-                <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#modalAddRamassage"><i class="fa fa-plus-square"></i> Ajouter</a>
-            </div>
+                @if (!empty(trim(Auth::user()->adresse)) || !empty(trim(Auth::user()->adresse2)))
+                <div class="m-r-5">
+                    <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#modalAddRamassage"><i class="fa fa-plus-square"></i> Ajouter</a>
+                </div>
+                @endif
             @endcan
             <div class="container my-4">
                 <div class="modal fade" id="modalStockSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"

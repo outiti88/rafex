@@ -112,7 +112,7 @@
                             </div>
                         </div>
                         @can('client')
-                            <div class="form-group">
+                            <div class="form-group" id="adresseDeRamassage">
                                 <label class="col-md-12">Adresse de ramassage 1</label>
                                 <div class="col-md-12">
                                 <textarea name="adresse" rows="5" class="form-control form-control-line">{{$user->adresse}}</textarea>
