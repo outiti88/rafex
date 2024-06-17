@@ -54,7 +54,7 @@ class UpdateCommandStatus extends Command
 
         $commandes = Commande::where('deleted_at',NULL)->where('isRetour', 0)
             ->Where(function ($q) {
-                $q->whereIn('statut', ['Annulée', 'Refusée', 'Destination invalide', 'Pas de réponse', 'Annulée par téléphone', 'Colis endommagé', 'Annulée sur place', 'Colis endommagé', 'Numéro de téléphone erroné']);
+                $q->whereIn('statut', ['Annulée', 'Refusée','Injoignable', 'Destination invalide', 'Pas de réponse', 'Annulée par téléphone', 'Colis endommagé', 'Annulée sur place', 'Colis endommagé', 'Numéro de téléphone erroné']);
                 // ->where('created_at', '<=', Carbon::now()->subDays(2));
             })->get();
 

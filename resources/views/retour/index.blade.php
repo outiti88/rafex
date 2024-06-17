@@ -96,14 +96,14 @@ Gestion des retours
         </div>
         <div class="col-7">
         <div class="row float-right d-flex ">
-            @cannot('livreur')
+            @can('admin-superviseur')
                 <div class="m-r-5" style="margin-right: 10px;">
                     <a  class="btn btn-warning text-white"  data-toggle="modal" data-target="#modalSearchForm"><i class="fa fa-search"></i></a>
                 </div>
                 <div class="m-r-5" style="margin-right: 10px;">
                     @include('retour._orderAffectation')
                 </div>
-            @endcannot
+            @endcan
         </div>
         </div>
     </div>
@@ -325,10 +325,14 @@ Gestion des retours
                         </td>
                             @can('edit-users')
                                 <th>
+                                    @if ($commande->livreur != null)
                                     <a class=" text-muted waves-effect waves-dark pro-pic" href="{{route('admin.users.edit', $commande->livreur) }}"
                                         >
-                                        <img src="{{App\User::where('id','168')->first()->image}}" alt="user" class="rounded-circle" width="31"> <br> {{App\User::where('id','168')->first()->name}}
+                                        <img src="{{App\User::where('id',$commande->livreur)->first()->image}}" alt="user" class="rounded-circle" width="31"> <br> {{App\User::where('id',$commande->livreur)->first()->name}}
                                     </a>
+                                    @else
+                                    Pas encore affecté
+                                    @endif
                                 </th>
                             @endcan
                             <td>{{$commande->created_at}} <br> ({{\Carbon\Carbon::parse($commande->created_at)->diffForHumans()}})</td>

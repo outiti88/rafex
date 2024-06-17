@@ -39,7 +39,7 @@
               <div class="col-md-6">
                 <h2>Scanner le QR code</h2>
                 <input type="text" id="qrInput" class="form-control mb-3" placeholder="Entrer le numéro de commande">
-                <h5>Liste des commandes prêtes à livrer</h5>
+                <h5>Liste des commandes prêtes à retourner</h5>
                 <ul id="commandList" class="list-group" style="max-height: 300px; overflow-y: auto;">
                   <!-- La liste des commandes va être générée ici -->
                 </ul>
