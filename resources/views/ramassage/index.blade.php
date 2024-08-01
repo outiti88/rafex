@@ -160,7 +160,7 @@
                 <a  class="btn btn-warning text-white"  data-toggle="modal" data-target="#modalStockSearch"><i class="fa fa-search"></i></a>
             </div>
             @can('client')
-                @if (!empty(trim(Auth::user()->adresse)) || !empty(trim(Auth::user()->adresse2)))
+                @if ( (!empty(trim(Auth::user()->adresse)) || !empty(trim(Auth::user()->adresse2))) && !App\Ramassage::where('statut', 'En attente de ramassage')->where('user_id', Auth::user()->id)->exists())
                 <div class="m-r-5">
                     <a  class="btn btn-danger text-white"  data-toggle="modal" data-target="#modalAddRamassage"><i class="fa fa-plus-square"></i> Ajouter</a>
                 </div>

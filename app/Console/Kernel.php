@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         //php artisan schedule:run
-        $schedule->command('command:status-update')->dailyAt('00:58'); // Exécutez la commande quotidiennement
+        $schedule->command('command:status-update')->dailyAt('01:00'); // Exécutez la commande quotidiennement
         // $schedule->command('inspire')->hourly();
     }
 

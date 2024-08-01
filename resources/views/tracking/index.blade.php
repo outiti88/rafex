@@ -262,14 +262,14 @@
         padding: 1rem;
     ">
             <h6 class="font-weight-bold">Pour plus d'informations, Contactez-nous sur :
-                <a style="float: none;color: #467a0f;font-weight: bold;padding: 0 20px;  font-size: 0.8em;" href="tel:+212649517070">
-                    <span class="icon-stack"><i class="fas fa-phone-alt"></i></span>+212 618 345 402
+                <a style="float: none;color: #467a0f;font-weight: bold;padding: 0 20px;  font-size: 0.8em;" href="tel:+212618340731">
+                    <span class="icon-stack"><i class="fas fa-phone-alt"></i></span>+212 618-340731
                 </a>
-                <a style="float: none;color: #467a0f;font-weight: bold; font-size: 0.8em;" href="tel:+212537793192">
+                <a style="float: none;color: #467a0f;font-weight: bold; font-size: 0.8em;" href="tel:+212618340731">
                     <span class="icon-stack">
                     <i class="fas fa-tty"></i>
                    </span>
-                            +212 649 440 905 </a>
+                   +212 618-340731 </a>
             </h6>
         </div>
 

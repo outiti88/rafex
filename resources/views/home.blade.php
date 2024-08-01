@@ -44,7 +44,7 @@
                 <h3 class="text-uppercase error-subtitle">{{Auth::user()->name}}</h3>
                 <p class="text-muted m-t-30 m-b-30">Bienvenue sur notre plateforme Rafex Tracking</p>
                 <p class="text-muted m-t-30 m-b-30">Votre Compte sera activé après 24H</p>
-                <p class="text-muted m-t-30 m-b-30">Pour plus d'informations <br> contactez-nous sur : <a href="tel:+212649517070">+212 649-517070</a> </p>
+                <p class="text-muted m-t-30 m-b-30">Pour plus d'informations <br> contactez-nous sur : <a href="tel:+212618340731">+212 618-340731</a> </p>
 
                 <a class="btn btn-danger btn-rounded waves-effect waves-light m-b-40"  href="{{ route('logout') }}"
                         onclick="event.preventDefault();
