@@ -89,14 +89,14 @@
                 © <script>
                   document.write(new Date().getFullYear())
                 </script>,
-                made with <i class="fa fa-heart" aria-hidden="true"></i> by
-                <a href="https://idesignsolution.com/" class="font-weight-bold text-white" target="_blank">iDesign Business</a>
+                {{-- made with <i class="fa fa-heart" aria-hidden="true"></i> by
+                <a href="https://idesignsolution.com/" class="font-weight-bold text-white" target="_blank">iDesign Business</a> --}}
               </div>
             </div>
 
           <div class="col-12 col-md-6" style="float: right; text-align: right;">
             <a href="https://www.Rafex.ma/" target="_blank">
-              <img src="{{url('/css/inscription/assets/img/logo-footer.png')}}" alt="logo-footer.png">
+              <img src="{{url('/css/inscription/assets/img/rafex-logo-footer.png')}}" alt="logo-footer.png">
             </a>
           </div>
         </div>

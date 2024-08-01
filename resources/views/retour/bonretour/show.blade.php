@@ -10,20 +10,20 @@ Bon de retour | {{$bonretour->reference}}
 <div class="page-breadcrumb">
     <div class="row align-items-center">
         <div class="col-12">
-        <h4 class="page-title">Gestion des transferts {{$bonretour->reference}}</h4>
+        <h4 class="page-title">Gestion des transfert des retours {{$bonretour->reference}}</h4>
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/">Rafex</a></li>
-                        <li class="breadcrumb-item" aria-current="page"><a href="/transfert">Bon de retour</a></li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="/transfert-retour">Bon de retour</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{$bonretour->reference}}</li>
 
                     </ol>
                 </nav>
             </div>
             <div class="row float-right" id="navbar-example3">
-                {{-- <a target="_blank" class="btn btn-info text-white m-r-5" href="{{route('transfert.pdf',$bonretour->id)}}" > --}}
-                <a target="_blank" class="btn btn-info text-white m-r-5" href="" >
+                <a target="_blank" class="btn btn-info text-white m-r-5" href="{{route('transfert.retour.pdf',$bonretour->id)}}" >
+                {{-- <a target="_blank" class="btn btn-info text-white m-r-5" href="" > --}}
                     <i class="fas fa-print"></i></a>
             </div>
         </div>
@@ -56,7 +56,7 @@ Bon de retour | {{$bonretour->reference}}
                             <div class="table-responsive" style="border-top: solid;padding-top: 10px;">
                                 <div class="row" style="text-align: left;border-bottom: solid;margin-bottom: 20px;">
                                     <div class="col-6">
-                                        <h5><span style="font-weight: 900">Date de la demande de transfert :</span> {{$bonretour->created_at}}</h5>
+                                        <h5><span style="font-weight: 900">Date de la demande de transfert des retours :</span> {{$bonretour->created_at}}</h5>
                                         <h5><span style="font-weight: 900">Expéditeur :</span> {{$bonretour->city}}</h5>
                                     </div>
                                     <div class="col-6">
@@ -65,7 +65,7 @@ Bon de retour | {{$bonretour->reference}}
                                     </div>
 
                                 </div>
-                              <h4>Les commandes liées à cette demande de transfert</h4>
+                              <h4>Les commandes liées à cette demande de transfert des retours</h4>
                               <table class="table table-striped" id="table-1">
                                 <thead>
                                   <tr>

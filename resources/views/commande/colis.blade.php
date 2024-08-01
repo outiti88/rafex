@@ -1664,7 +1664,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectedVilleName = this.options[this.selectedIndex].text.split(' (')[0];  // Assuming the text is in format "CityName (PriceDH)"
 
         if (villeId) {
-            if (selectedVilleName === userVille) {
+            // if (selectedVilleName === userVille) {
                 fetch(`/secteurs/${villeId}`)
                     .then(response => response.json())
                     .then(data => {
@@ -1692,10 +1692,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Hide the secteur div in case of error
                         secteurDiv.style.display = 'none';
                     });
-            } else {
-                // Hide the secteur div if the selected city is not the user's city
-                secteurDiv.style.display = 'none';
-            }
+            // } else {
+            //     // Hide the secteur div if the selected city is not the user's city
+            //     secteurDiv.style.display = 'none';
+            // }
         } else {
             // Hide the secteur div if no ville is selected
             secteurDiv.style.display = 'none';

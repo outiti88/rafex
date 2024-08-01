@@ -274,6 +274,7 @@ class RetourController extends Controller
 
         foreach ($commandes as $commande) {
             $commande->isRetour = 1;
+            $commande->livreur = null;
             $commande->save();
 
             $retour = new Retour();

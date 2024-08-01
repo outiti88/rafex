@@ -44,6 +44,7 @@ class RamassageController extends Controller
         $commandes = [];
         $data = [];
 
+
         if (!Gate::denies('manage-users')) {
             //session administrateur donc on affiche tous les commandes
             $total = DB::table('ramassages')->count();
@@ -169,10 +170,12 @@ class RamassageController extends Controller
             $q->whereIn('name', ['nouveau']);
         })->where('deleted_at', NULL)->count();
 
+        $commandesToAdd =  Commande::where('commandes.deleted_at', NULL)->where('user_id', Auth::user()->id)->where('statut','Nouvelle commande')->get();;
+
         return view('ramassage.show', [
             'nouveau' => $nouveau, 'ramassage' => $ramassage,
             'commandes' => $ramassage->commandes()->get(),
-            'livreurs' => $livreurs
+            'livreurs' => $livreurs, 'commandesToAdd' => $commandesToAdd
         ]);
     }
 
@@ -418,8 +421,42 @@ class RamassageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Ramassage $ramassage)
     {
+        $commandesIds = explode(',', $request->commandes);
+
+        $commandes = Commande::whereIn('numero',$commandesIds)->get();
+        if($commandes == null || count($commandes) == 0){
+            return back()->with('erreur', 'Veuillez préciser les commandes à ajouter');
+        }
+
+        $ramassage->number += count($commandesIds);
+        $ramassage->save();
+
+
+        foreach ($commandes as $commande) {
+            $commande->statut = 'En attente de ramassage';
+            $commande->ramassage_id	= $ramassage->id;
+            $commande->save();
+
+            $statut = new Statut();
+            $statut->commande_id = $commande->id;
+            $statut->name = $commande->statut;
+            $statut->user()->associate(Auth::user())->save();
+            $commande->save();
+        }
+
+        $commandes = DB::table('commandes')->whereIn('numero',$commandesIds);
+        $bonLivraison = BonLivraison::where('ramassage_id', $ramassage->id)->first();
+        $bonLivraison->colis = $commandes->sum('colis');
+        $bonLivraison->commande += $commandes->count();
+        $bonLivraison->prix += $commandes->sum('prix');
+        $bonLivraison->montant += $commandes->sum('montant');
+        $bonLivraison->save();
+
+        $commandes->update(array('traiter' => $bonLivraison->id));
+
+        return back()->with('CmdAddedSuccess', 'Les commandes ont bien été ajoutée');
     }
 
 }

@@ -42,21 +42,30 @@ class UpdateCommandStatus extends Command
      */
     public function handle()
     {
-        // $commandes = Commande::where('deleted_at',NULL)->where('isRetour', 0)
-        //     ->where(function ($q) {
-        //         $q->where('statut', 'Injoignable')
-        //         ->where('created_at', '<=', Carbon::now()->subDays(7));
-        //     })
-        //     ->orWhere(function ($q) {
-        //         $q->whereIn('statut', ['Annulée', 'Refusée', 'Destination invalide', 'Pas de réponse', 'Annulée par téléphone', 'Colis endommagé', 'Annulée sur place', 'Colis endommagé', 'Numéro de téléphone erroné'])
+
+        // $commandes = Commande::where('deleted_at', NULL)
+        // ->where('isRetour', 0)
+        // ->whereHas('statuts', function ($query) {
+        //     $query->where('name', 'Injoignable')
         //         ->where('created_at', '<=', Carbon::now()->subDays(2));
-        //     })->get();
+        // })
+        // ->get();
 
         $commandes = Commande::where('deleted_at',NULL)->where('isRetour', 0)
-            ->Where(function ($q) {
-                $q->whereIn('statut', ['Annulée', 'Refusée', 'Destination invalide', 'Pas de réponse', 'Annulée par téléphone', 'Colis endommagé', 'Annulée sur place', 'Colis endommagé', 'Numéro de téléphone erroné']);
-                // ->where('created_at', '<=', Carbon::now()->subDays(2));
+            ->where(function ($q) {
+                $q->where('statut', 'Injoignable')
+                ->where('updated_at', '<=', Carbon::now()->subDays(7));
+            })
+            ->orWhere(function ($q) {
+                $q->whereIn('statut', ['Annulée', 'Refusée', 'Destination invalide', 'Pas de réponse', 'Annulée par téléphone', 'Colis endommagé', 'Annulée sur place', 'Colis endommagé', 'Numéro de téléphone erroné'])
+                ->where('updated_at', '<=', Carbon::now()->subDays(2));
             })->get();
+
+        // $commandes = Commande::where('deleted_at',NULL)->where('isRetour', 0)
+        //     ->Where(function ($q) {
+        //         $q->whereIn('statut', ['Annulée', 'Refusée','Injoignable', 'Destination invalide', 'Pas de réponse', 'Annulée par téléphone', 'Colis endommagé', 'Annulée sur place', 'Colis endommagé', 'Numéro de téléphone erroné']);
+        //         // ->where('created_at', '<=', Carbon::now()->subDays(2));
+        //     })->get();
 
         // Instanciation du contrôleur RetourController
         $retourController = new RetourController();

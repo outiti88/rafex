@@ -94,9 +94,13 @@
                 @can('admin-superviseur')
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('transfert.index')}}" aria-expanded="false"><i class="mdi mdi-swap-horizontal"></i><span class="hide-menu">Demande de transfert</span></a></li>
                 @endcan
-                {{-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('retour.index')}}" aria-expanded="false"><i class="mdi mdi-twitter-retweet"></i><span class="hide-menu">Gestion des retours</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('retour.index')}}" aria-expanded="false"><i class="mdi mdi-twitter-retweet"></i><span class="hide-menu">Gestion des retours</span></a></li>
+                @can('admin-superviseur')
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('transfert.retour.index')}}" aria-expanded="false"><i class="mdi mdi-truck-delivery"></i><span class="hide-menu">Transfert des retours</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('bonretour.index')}}" aria-expanded="false"><i class="mdi mdi-flip-to-back"></i><span class="hide-menu">Bon de retour</span></a></li> --}}
+                @endcan
+                {{-- @cannot('client')
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('bonretour.index')}}" aria-expanded="false"><i class="mdi mdi-flip-to-back"></i><span class="hide-menu">Bon de retour</span></a></li>
+                @endcannot --}}
 
                 @cannot('livreur-superviseur')
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{route('bonlivraison.index')}}" aria-expanded="false"><i class="mdi mdi-note-text"></i><span class="hide-menu">Bon de livraison</span></a></li>

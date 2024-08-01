@@ -267,6 +267,7 @@ class TransfertRetourController extends Controller
 
     public function gen($id)
     {
+
         $pdf = App::make('dompdf.wrapper');
 
         $queryCommandes = Commande::where('deleted_at', NULL)->where('transfert_retour_id',$id)->orderBy('updated_at', 'DESC');
@@ -277,7 +278,6 @@ class TransfertRetourController extends Controller
 
         $commandesPerPages = $this->getCommandesPerPages($commandes);
         $pdf = app('dompdf.wrapper')->loadView('pdf.transfert', ['transfert' => $transfert, 'commandesPerPages' => $commandesPerPages , 'total' => count($commandes)])->setPaper('A4');
-
         return $pdf->stream('bon_de_transfert.pdf');
     }
 
